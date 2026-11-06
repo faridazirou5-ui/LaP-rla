@@ -11,7 +11,6 @@
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
-  <!-- مكتبة Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <!-- فيسبوك بيكسل -->
@@ -72,11 +71,13 @@
 </head>
 <body class="selection:bg-laperla-gold selection:text-white">
 
-  <!-- إعدادات المتجر الأساسية -->
+  <!-- إعدادات المتجر وبيانات بوت تيليجرام الخاص بك -->
   <script>
     const CONFIG = {
       MANAGER_PHONE: "213778215570",
       ADMIN_PIN: "Farid1994#",
+      TELEGRAM_BOT_TOKEN: "9009060298:AAEulcwm3lNKSia0QSsxvlI9bHH1cg0b3qI",
+      TELEGRAM_CHAT_ID: "6872953627",
       SUPABASE_URL: "https://duwazuxedzussasjphqe.supabase.co",
       SUPABASE_KEY: "sb_publishable_OXs_iWjYnTZW6mSI7LeN8Q_jQQ7r5aC"
     };
@@ -183,9 +184,7 @@
 
     <!-- كتالوج المنتجات -->
     <section id="collection" class="max-w-7xl mx-auto px-6 py-8">
-      <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- تملأ بالمنتجات ديناميكياً -->
-      </div>
+      <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
     </section>
 
     <!-- قسم آراء الزبائن -->
@@ -368,7 +367,6 @@
 
     <div class="relative bg-white border-2 border-laperla-gold rounded-3xl max-w-md w-full p-8 text-center shadow-2xl z-10 my-auto">
       
-      <!-- أيقونة التاج الملكي -->
       <div class="w-20 h-20 bg-laperla-silk border-2 border-laperla-gold rounded-full flex items-center justify-center mx-auto mb-5 shadow-inner">
         <i data-lucide="crown" class="w-10 h-10 text-laperla-goldDark"></i>
       </div>
@@ -438,7 +436,6 @@
         </div>
       </div>
 
-      <!-- تبويبات لوحة التحكم -->
       <div class="flex gap-4 border-b border-neutral-200 pb-3">
         <button onclick="switchAdminTab('orders')" id="btn-tab-orders" class="px-5 py-2.5 rounded-xl gold-btn text-xs font-black">
           📦 إدارة الطلبيات الواردة
@@ -448,7 +445,6 @@
         </button>
       </div>
 
-      <!-- قسم إدارة المنتجات -->
       <div id="admin-products-tab" class="hidden space-y-6">
         <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
           <h4 class="text-base text-neutral-800 font-black mb-4">إضافة قطعة جديدة للتشكيلة الفاخرة</h4>
@@ -498,7 +494,6 @@
         </div>
       </div>
 
-      <!-- قسم إدارة الطلبات -->
       <div id="admin-orders-tab" class="space-y-6">
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
           <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
@@ -510,10 +505,10 @@
             <h3 id="stat-total-revenue" class="text-3xl font-black text-laperla-brown">0 دج</h3>
           </div>
           <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
-            <span class="text-neutral-500 text-xs block mb-1">واتساب استقبال الإشعارات</span>
-            <h3 class="text-sm font-mono text-neutral-800 mt-2 flex items-center gap-2">
-              <i data-lucide="phone-call" class="w-4 h-4 text-emerald-600"></i>
-              <span>+213 778 21 55 70</span>
+            <span class="text-neutral-500 text-xs block mb-1">نظام الإشعارات المباشر</span>
+            <h3 class="text-sm font-bold text-emerald-600 mt-2 flex items-center gap-2">
+              <i data-lucide="check-circle" class="w-4 h-4"></i>
+              <span>بوت تيليجرام نشط ومربوط</span>
             </h3>
           </div>
         </div>
@@ -572,9 +567,8 @@
     </div>
   </footer>
 
-  <!-- ================= سكريبت العمليات وقاعدة البيانات ================= -->
+  <!-- ================= سكريبت العمليات وبوت تيليجرام ================= -->
   <script>
-    // جدول أسعار الشحن المعتمد من بومرداس
     const shippingRatesByWilaya = {
       "01": { home: 1300, desk: 900 }, "02": { home: 750, desk: 450 }, "03": { home: 900, desk: 550 }, "04": { home: 800, desk: 450 },
       "05": { home: 800, desk: 450 }, "06": { home: 750, desk: 450 }, "07": { home: 950, desk: 550 }, "08": { home: 1100, desk: 700 },
@@ -610,6 +604,20 @@
       { code: "57", name: "المغير" }, { code: "58", name: "المنيعة" }
     ];
 
+    // البلديات الرسمية الكاملة للولايات الـ 10 الجديدة
+    const NEW_WILAYAS_COMMUNES = {
+      "49": ["تيميمون", "أولاد سعيد", "أنزاغمير", "أوقروت", "دلدول", "المطارفة", "شروين", "طالمين", "أولاد عيسى", "تينركوك"],
+      "50": ["برج باجي مختار", "تيمياوين"],
+      "51": ["أولاد جلال", "سيدي خالد", "الدوسن", "الشعيبة", "البسباس", "رأس الميعاد"],
+      "52": ["بني عباس", "أقلي", "الواتة", "كرزاز", "أولاد خضير", "تبلبلة", "تامترت", "بني يخلف", "تيمودي", "قصابي"],
+      "53": ["عين صالح", "إن غار", "فقارة الزاوية"],
+      "54": ["عين قزام", "تين زواتين"],
+      "55": ["توقرت", "النزلة", "تبسبست", "الزاوية العابدية", "تماسين", "بلدة عمر", "المقارين", "سيدي سليمان", "الطيبات", "بن ناصر", "المنقر", "الحجيرة", "العالية", "البرمة"],
+      "56": ["جانت", "برج الحواس"],
+      "57": ["المغير", "أم الطيور", "سطيل", "سيدي خليل", "جامعة", "سيدي عمران", "تندلة", "مرارة"],
+      "58": ["المنيعة", "حاسي القارة", "حاسي الفحل"]
+    };
+
     let liveProducts = [];
     let currentProduct = null;
     let selectedColorIndex = 0;
@@ -626,7 +634,6 @@
 
     async function loadLiveProducts() {
       let saved = JSON.parse(localStorage.getItem('laperla_custom_products') || '[]');
-      
       if (saved.length === 0) {
         saved = [
           {
@@ -744,23 +751,33 @@
 
       if (!wilayaCode) return;
 
-      const codeNum = parseInt(wilayaCode);
-      const filtered = allCommunesData.filter(c => parseInt(c.wilaya_id) === codeNum);
-
-      if (filtered.length > 0) {
-        filtered.forEach(c => {
+      if (NEW_WILAYAS_COMMUNES[wilayaCode]) {
+        NEW_WILAYAS_COMMUNES[wilayaCode].forEach(c => {
           const opt = document.createElement('option');
-          opt.value = c.ar_name || c.name;
-          opt.textContent = c.ar_name || c.name;
+          opt.value = c;
+          opt.textContent = c;
           communeSelect.appendChild(opt);
         });
       } else {
-        const selectedW = wilayasList.find(w => w.code === wilayaCode);
-        const opt = document.createElement('option');
-        opt.value = `${selectedW.name} (البلدية المركزية)`;
-        opt.textContent = `${selectedW.name} (البلدية المركزية)`;
-        communeSelect.appendChild(opt);
+        const codeNum = parseInt(wilayaCode);
+        const filtered = allCommunesData.filter(c => parseInt(c.wilaya_id) === codeNum);
+
+        if (filtered.length > 0) {
+          filtered.forEach(c => {
+            const opt = document.createElement('option');
+            opt.value = c.ar_name || c.name;
+            opt.textContent = c.ar_name || c.name;
+            communeSelect.appendChild(opt);
+          });
+        } else {
+          const selectedW = wilayasList.find(w => w.code === wilayaCode);
+          const opt = document.createElement('option');
+          opt.value = `${selectedW.name} (البلدية المركزية)`;
+          opt.textContent = `${selectedW.name} (البلدية المركزية)`;
+          communeSelect.appendChild(opt);
+        }
       }
+
       calculateShippingCost();
     }
 
@@ -837,7 +854,7 @@
       document.getElementById('price-total-summary').textContent = `${total.toLocaleString('ar-DZ')} دج`;
     }
 
-    // إتمام الطلب وعرض شاشة الشكر الملكية
+    // إتمام الطلب وإرسال إشعار فوري إلى تيليجرام سراً في الخلفية
     async function handleCustomerOrder(e) {
       e.preventDefault();
 
@@ -867,10 +884,11 @@
 
       const totalAmount = parseInt(currentProduct.price) + shippingCost;
       const orderId = 'LP-' + Math.floor(100000 + Math.random() * 900000);
+      const orderDate = new Date().toLocaleString('ar-DZ');
 
       const orderData = {
         id: orderId,
-        date: new Date().toLocaleString('ar-DZ'),
+        date: orderDate,
         product: currentProduct.title,
         color: color,
         size: size,
@@ -900,7 +918,30 @@
         }]);
       } catch (err) {}
 
-      // 3. إغلاق نافذة الشراء وإظهار نافذة الشكر والتقدير الملكية
+      // 3. إرسال الإشعار الفوري سراً إلى حساب تيليجرام الخاص بك عبر البوت
+      const telegramMessage = 
+        `👑 *طلب جديد فاخر - دار la Pérla* 👑\n\n` +
+        `🔖 *رقم الطلبية:* \`${orderId}\`\n` +
+        `👗 *القطعة:* ${currentProduct.title}\n` +
+        `🎨 *اللون:* ${color}\n` +
+        `📏 *المقاس:* ${size}\n` +
+        `💰 *المبلغ الإجمالي:* *${totalAmount.toLocaleString('ar-DZ')} دج*\n` +
+        `----------------------------------------\n` +
+        `👤 *بيانات الزبونة:*\n` +
+        `• الاسم: ${name}\n` +
+        `• الهاتف: \`${cleanPhone}\`\n` +
+        `• الولاية: ${wilayaName}\n` +
+        `• البلدية: ${commune}\n` +
+        `• خيار التوصيل: ${shippingType}\n` +
+        `----------------------------------------\n` +
+        `🕒 التاريخ: ${orderDate}`;
+
+      const telegramUrl = `https://api.telegram.org/bot${CONFIG.TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${CONFIG.TELEGRAM_CHAT_ID}&text=${encodeURIComponent(telegramMessage)}&parse_mode=Markdown`;
+
+      // إرسال الرسالة سحابياً دون فتح أي تطبيق عند الزبونة
+      fetch(telegramUrl, { method: 'GET', mode: 'no-cors' }).catch(err => console.log('TG Sent'));
+
+      // 4. إغلاق نافذة الشراء وإظهار نافذة الشكر والتقدير الملكية الفاخرة للزبونة
       closeProductModal();
       document.getElementById('order-form').reset();
 
@@ -911,31 +952,6 @@
       thankModal.classList.remove('hidden');
       thankModal.classList.add('flex');
       lucide.createIcons();
-
-      // تجهيز رسالة الواتساب للإدارة
-      const waMessage = encodeURIComponent(
-        `👑 *طلب جديد فاخر - دار la Pérla* 👑\n` +
-        `----------------------------------------\n` +
-        `🔖 *رقم الطلبية:* ${orderId}\n` +
-        `👗 *القطعة:* ${currentProduct.title}\n` +
-        `🎨 *اللون:* ${color}\n` +
-        `📏 *المقاس:* ${size}\n` +
-        `💰 *المبلغ الإجمالي:* ${totalAmount.toLocaleString('ar-DZ')} دج\n` +
-        `----------------------------------------\n` +
-        `👤 *بيانات الزبونة:*\n` +
-        `• الاسم: ${name}\n` +
-        `• الهاتف: ${cleanPhone}\n` +
-        `• الولاية: ${wilayaName}\n` +
-        `• البلدية: ${commune}\n` +
-        `• خيار الشحن: ${shippingType}\n` +
-        `----------------------------------------\n` +
-        `🕒 التاريخ: ${new Date().toLocaleString()}`
-      );
-
-      // فتح محادثة الواتساب
-      setTimeout(() => {
-        window.open(`https://api.whatsapp.com/send?phone=${CONFIG.MANAGER_PHONE}&text=${waMessage}`, '_blank');
-      }, 1000);
     }
 
     function closeThankYouModal() {
