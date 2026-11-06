@@ -11,7 +11,7 @@
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
-  <!-- مكتبة Supabase للربط الحي مع قاعدة بياناتك -->
+  <!-- مكتبة Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <!-- فيسبوك بيكسل -->
@@ -146,7 +146,7 @@
   <!-- الواجهة الرئيسية للمتجر -->
   <main id="storefront-view">
     
-    <!-- 2. صورة البانر الفاخرة البديلة (ألوان البوتيك الهادئة المستوحاة من صورتك) -->
+    <!-- صورة البانر الفاخرة -->
     <section class="relative w-full overflow-hidden bg-laperla-silk border-b-2 border-laperla-border">
       <div class="max-w-7xl mx-auto">
         <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=85&w=1600" 
@@ -184,7 +184,7 @@
     <!-- كتالوج المنتجات -->
     <section id="collection" class="max-w-7xl mx-auto px-6 py-8">
       <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- تملأ بالمنتجات ديناميكياً من Supabase -->
+        <!-- تملأ بالمنتجات ديناميكياً -->
       </div>
     </section>
 
@@ -234,7 +234,7 @@
     </section>
   </main>
 
-  <!-- ================= نافذة اقتناء القطعة ومودال الشراء ================= -->
+  <!-- ================= نافذة طلب الاقتناء ================= -->
   <div id="product-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 overflow-y-auto">
     <div class="fixed inset-0 bg-black/60 backdrop-blur-sm" onclick="closeProductModal()"></div>
 
@@ -270,7 +270,7 @@
         </div>
       </div>
 
-      <!-- استمارة الطلب (3. تم تصحيح التحقق وزر التأكيد بالكامل) -->
+      <!-- استمارة الطلب -->
       <div class="w-full md:w-1/2 p-6 bg-white flex flex-col justify-between">
         <div>
           <div class="border-b border-neutral-200 pb-2 mb-4">
@@ -362,6 +362,45 @@
     </div>
   </div>
 
+  <!-- نافذة الشكر والتقدير الملكية الفاخرة (Thank You Modal) -->
+  <div id="thank-you-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="fixed inset-0 bg-black/75 backdrop-blur-md"></div>
+
+    <div class="relative bg-white border-2 border-laperla-gold rounded-3xl max-w-md w-full p-8 text-center shadow-2xl z-10 my-auto">
+      
+      <!-- أيقونة التاج الملكي -->
+      <div class="w-20 h-20 bg-laperla-silk border-2 border-laperla-gold rounded-full flex items-center justify-center mx-auto mb-5 shadow-inner">
+        <i data-lucide="crown" class="w-10 h-10 text-laperla-goldDark"></i>
+      </div>
+
+      <span class="text-xs uppercase tracking-widest text-laperla-goldDark font-black block mb-1">Confirmation Royale</span>
+      <h3 class="text-2xl font-serif font-black text-laperla-brown mb-2">شكراً لثقتكِ بدار la Pérla</h3>
+      
+      <div class="bg-laperla-silk/70 border border-laperla-border rounded-2xl p-4 my-4 space-y-2 text-xs font-bold text-neutral-700">
+        <p class="text-sm font-black text-neutral-900">
+          سيدتي الفاضلة <span id="thank-cust-name" class="text-laperla-brown"></span>،
+        </p>
+        <p class="leading-relaxed">
+          يسعد كامل طاقم دار <strong class="text-laperla-brown">la Pérla</strong> إعلامكِ بأنه تم تسجيل حجزكِ بنجاح تحت رقم الطلب:
+        </p>
+        <div class="inline-block bg-white border border-laperla-gold px-4 py-1.5 rounded-full font-mono text-sm font-black text-laperla-darkText">
+          <span id="thank-order-id"></span>
+        </div>
+        <p class="text-emerald-700 pt-1 text-[11px] font-extrabold flex items-center justify-center gap-1">
+          <i data-lucide="phone-call" class="w-3.5 h-3.5"></i> سيتصل بكِ فريقنا هاتفياً خلال وقت وجيز لتأكيد الطلبية وموعد التسليم.
+        </p>
+      </div>
+
+      <p class="text-[11px] text-neutral-500 font-bold mb-6">
+        تذكير: الدفع نقداً عند استلام ومعاينة الفستان مع مندوب التوصيل.
+      </p>
+
+      <button onclick="closeThankYouModal()" class="gold-btn w-full py-3.5 rounded-2xl text-xs font-black uppercase tracking-wider shadow-lg flex items-center justify-center gap-2">
+        <i data-lucide="sparkles" class="w-4 h-4"></i> متابعة تصفح التشكيلة الملكية
+      </button>
+    </div>
+  </div>
+
   <!-- نافذة تسجيل دخول المدير -->
   <div id="admin-login-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-white border-2 border-laperla-gold rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl">
@@ -380,7 +419,7 @@
     </div>
   </div>
 
-  <!-- ================= 1. لوحة تحكم المدير المتكاملة مع إدارة المنتجات والصور ================= -->
+  <!-- لوحة تحكم المدير المتكاملة مع إدارة المنتجات -->
   <div id="admin-dashboard-view" class="hidden min-h-screen bg-[#F7F2EC] p-6 lg:p-12 font-bold">
     <div class="max-w-7xl mx-auto space-y-8">
       
@@ -399,7 +438,7 @@
         </div>
       </div>
 
-      <!-- تبويبات لوحة التحكم (الطلبات / المنتجات) -->
+      <!-- تبويبات لوحة التحكم -->
       <div class="flex gap-4 border-b border-neutral-200 pb-3">
         <button onclick="switchAdminTab('orders')" id="btn-tab-orders" class="px-5 py-2.5 rounded-xl gold-btn text-xs font-black">
           📦 إدارة الطلبيات الواردة
@@ -409,7 +448,7 @@
         </button>
       </div>
 
-      <!-- قسم إدارة المنتجات (إضافة وحذف وتعديل الصور) -->
+      <!-- قسم إدارة المنتجات -->
       <div id="admin-products-tab" class="hidden space-y-6">
         <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
           <h4 class="text-base text-neutral-800 font-black mb-4">إضافة قطعة جديدة للتشكيلة الفاخرة</h4>
@@ -453,12 +492,9 @@
           </form>
         </div>
 
-        <!-- قائمة المنتجات الحالية في المتجر مع زر الحذف والتعديل -->
         <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
           <h4 class="text-base text-neutral-800 font-black mb-4">القطع المعروضة حالياً في المتجر</h4>
-          <div id="admin-products-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            <!-- تملأ بالمنتجات مع خيار الحذف -->
-          </div>
+          <div id="admin-products-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
         </div>
       </div>
 
@@ -484,7 +520,7 @@
 
         <div class="bg-white border border-neutral-200 rounded-2xl overflow-hidden shadow-sm">
           <div class="p-5 border-b border-neutral-200 flex justify-between items-center">
-            <h4 class="text-base text-neutral-800 font-black">سجل الطلبيات المسجلة (Supabase + Local)</h4>
+            <h4 class="text-base text-neutral-800 font-black">سجل الطلبيات المسجلة</h4>
             <button onclick="clearAllOrders()" class="text-xs text-rose-600 hover:underline font-extrabold">مسح السجل</button>
           </div>
           <div class="overflow-x-auto">
@@ -540,62 +576,20 @@
   <script>
     // جدول أسعار الشحن المعتمد من بومرداس
     const shippingRatesByWilaya = {
-      "01": { home: 1300, desk: 900 },
-      "02": { home: 750, desk: 450 },
-      "03": { home: 900, desk: 550 },
-      "04": { home: 800, desk: 450 },
-      "05": { home: 800, desk: 450 },
-      "06": { home: 750, desk: 450 },
-      "07": { home: 950, desk: 550 },
-      "08": { home: 1100, desk: 700 },
-      "09": { home: 600, desk: 400 },
-      "10": { home: 650, desk: 450 },
-      "11": { home: 1600, desk: 1100 },
-      "12": { home: 850, desk: 500 },
-      "13": { home: 800, desk: 500 },
-      "14": { home: 850, desk: 450 },
-      "15": { home: 700, desk: 450 },
-      "16": { home: 600, desk: 400 },
-      "17": { home: 900, desk: 550 },
-      "18": { home: 750, desk: 450 },
-      "19": { home: 750, desk: 450 },
-      "20": { home: 850, desk: 500 },
-      "21": { home: 800, desk: 450 },
-      "22": { home: 800, desk: 450 },
-      "23": { home: 800, desk: 450 },
-      "24": { home: 850, desk: 450 },
-      "25": { home: 750, desk: 450 },
-      "26": { home: 700, desk: 450 },
-      "27": { home: 800, desk: 450 },
-      "28": { home: 800, desk: 450 },
-      "29": { home: 800, desk: 500 },
-      "30": { home: 950, desk: 600 },
-      "31": { home: 750, desk: 450 },
-      "32": { home: 1100, desk: 700 },
-      "33": { home: 1500, desk: 1100 },
-      "34": { home: 750, desk: 450 },
-      "35": { home: 450, desk: 300 },
-      "36": { home: 850, desk: 450 },
-      "37": { home: 1500, desk: 950 },
-      "38": { home: 800, desk: 500 },
-      "39": { home: 950, desk: 600 },
-      "40": { home: 850, desk: 500 },
-      "41": { home: 850, desk: 500 },
-      "42": { home: 600, desk: 450 },
-      "43": { home: 850, desk: 450 },
-      "44": { home: 800, desk: 450 },
-      "45": { home: 1100, desk: 600 },
-      "46": { home: 850, desk: 450 },
-      "47": { home: 950, desk: 550 },
-      "48": { home: 800, desk: 450 },
-      "49": { home: 1400, desk: 750 },
-      "51": { home: 950, desk: 550 },
-      "52": { home: 1300, desk: 800 },
-      "53": { home: 1500, desk: 1100 },
-      "55": { home: 950, desk: 600 },
-      "56": { home: 2200, desk: 1550 },
-      "57": { home: 950, desk: 700 },
-      "58": { home: 1000, desk: 700 }
+      "01": { home: 1300, desk: 900 }, "02": { home: 750, desk: 450 }, "03": { home: 900, desk: 550 }, "04": { home: 800, desk: 450 },
+      "05": { home: 800, desk: 450 }, "06": { home: 750, desk: 450 }, "07": { home: 950, desk: 550 }, "08": { home: 1100, desk: 700 },
+      "09": { home: 600, desk: 400 }, "10": { home: 650, desk: 450 }, "11": { home: 1600, desk: 1100 }, "12": { home: 850, desk: 500 },
+      "13": { home: 800, desk: 500 }, "14": { home: 850, desk: 450 }, "15": { home: 700, desk: 450 }, "16": { home: 600, desk: 400 },
+      "17": { home: 900, desk: 550 }, "18": { home: 750, desk: 450 }, "19": { home: 750, desk: 450 }, "20": { home: 850, desk: 500 },
+      "21": { home: 800, desk: 450 }, "22": { home: 800, desk: 450 }, "23": { home: 800, desk: 450 }, "24": { home: 850, desk: 450 },
+      "25": { home: 750, desk: 450 }, "26": { home: 700, desk: 450 }, "27": { home: 800, desk: 450 }, "28": { home: 800, desk: 450 },
+      "29": { home: 800, desk: 500 }, "30": { home: 950, desk: 600 }, "31": { home: 750, desk: 450 }, "32": { home: 1100, desk: 700 },
+      "33": { home: 1500, desk: 1100 }, "34": { home: 750, desk: 450 }, "35": { home: 450, desk: 300 }, "36": { home: 850, desk: 450 },
+      "37": { home: 1500, desk: 950 }, "38": { home: 800, desk: 500 }, "39": { home: 950, desk: 600 }, "40": { home: 850, desk: 500 },
+      "41": { home: 850, desk: 500 }, "42": { home: 600, desk: 450 }, "43": { home: 850, desk: 450 }, "44": { home: 800, desk: 450 },
+      "45": { home: 1100, desk: 600 }, "46": { home: 850, desk: 450 }, "47": { home: 950, desk: 550 }, "48": { home: 800, desk: 450 },
+      "49": { home: 1400, desk: 750 }, "51": { home: 950, desk: 550 }, "52": { home: 1300, desk: 800 }, "53": { home: 1500, desk: 1100 },
+      "55": { home: 950, desk: 600 }, "56": { home: 2200, desk: 1550 }, "57": { home: 950, desk: 700 }, "58": { home: 1000, desk: 700 }
     };
 
     const wilayasList = [
@@ -630,11 +624,9 @@
       lucide.createIcons();
     });
 
-    // جلب المنتجات الحية من Supabase والتخزين المحلي
     async function loadLiveProducts() {
       let saved = JSON.parse(localStorage.getItem('laperla_custom_products') || '[]');
       
-      // إذا كانت أول مرة، يتم استخدام منتجات أولية فاخرة
       if (saved.length === 0) {
         saved = [
           {
@@ -675,7 +667,6 @@
       renderAdminProductsList();
     }
 
-    // تصفية وعرض المنتجات
     function filterCategory(cat) {
       document.querySelectorAll('.cat-pill').forEach(btn => {
         btn.className = "cat-pill bg-white border-2 border-laperla-border text-neutral-800 px-6 py-2.5 rounded-2xl transition";
@@ -846,7 +837,7 @@
       document.getElementById('price-total-summary').textContent = `${total.toLocaleString('ar-DZ')} دج`;
     }
 
-    // 3. تأكيد الطلب وحفظه بدون أي عائق
+    // إتمام الطلب وعرض شاشة الشكر الملكية
     async function handleCustomerOrder(e) {
       e.preventDefault();
 
@@ -892,10 +883,10 @@
         status: 'قيد الانتظار'
       };
 
-      // حفظ محلياً
+      // 1. الحفظ الداخلي للوحة الإدارة
       saveOrder(orderData);
 
-      // حفظ سحابياً في Supabase
+      // 2. الحفظ السحابي في Supabase
       try {
         await db.from('orders').insert([{
           order_number: orderId,
@@ -909,7 +900,19 @@
         }]);
       } catch (err) {}
 
-      // إرسال واتساب للمدير
+      // 3. إغلاق نافذة الشراء وإظهار نافذة الشكر والتقدير الملكية
+      closeProductModal();
+      document.getElementById('order-form').reset();
+
+      document.getElementById('thank-cust-name').textContent = name;
+      document.getElementById('thank-order-id').textContent = orderId;
+      
+      const thankModal = document.getElementById('thank-you-modal');
+      thankModal.classList.remove('hidden');
+      thankModal.classList.add('flex');
+      lucide.createIcons();
+
+      // تجهيز رسالة الواتساب للإدارة
       const waMessage = encodeURIComponent(
         `👑 *طلب جديد فاخر - دار la Pérla* 👑\n` +
         `----------------------------------------\n` +
@@ -929,13 +932,16 @@
         `🕒 التاريخ: ${new Date().toLocaleString()}`
       );
 
-      alert(`سيدتي الفاضلة ${name}، تم تسجيل حجزكِ بنجاح تحت رقم (${orderId}).\nسيتواصل معكِ مستشارنا الخاص لتأكيد موعد التسليم.`);
-      
-      closeProductModal();
-      document.getElementById('order-form').reset();
-      
-      // فتح الواتساب تلقائياً
-      window.location.href = `https://api.whatsapp.com/send?phone=${CONFIG.MANAGER_PHONE}&text=${waMessage}`;
+      // فتح محادثة الواتساب
+      setTimeout(() => {
+        window.open(`https://api.whatsapp.com/send?phone=${CONFIG.MANAGER_PHONE}&text=${waMessage}`, '_blank');
+      }, 1000);
+    }
+
+    function closeThankYouModal() {
+      const thankModal = document.getElementById('thank-you-modal');
+      thankModal.classList.add('hidden');
+      thankModal.classList.remove('flex');
     }
 
     function saveOrder(order) {
@@ -1038,7 +1044,6 @@
       }
     }
 
-    // 1. نظام إضافة وتعديل وحذف المنتجات والصور من لوحة التحكم
     function switchAdminTab(tab) {
       if (tab === 'orders') {
         document.getElementById('admin-orders-tab').classList.remove('hidden');
@@ -1081,7 +1086,6 @@
       liveProducts.unshift(newProduct);
       localStorage.setItem('laperla_custom_products', JSON.stringify(liveProducts));
       
-      // حفظ سحابياً في Supabase أيضاً
       try {
         db.from('products').insert([{
           name: title,
@@ -1123,7 +1127,6 @@
       }
     }
 
-    // إدارة المدير
     function openAdminModal() {
       document.getElementById('admin-login-modal').classList.remove('hidden');
       document.getElementById('secret-pin').focus();
