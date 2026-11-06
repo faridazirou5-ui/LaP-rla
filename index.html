@@ -1,390 +1,596 @@
-<!-- نموذج الطلب الفاخر La PÉRLA -->
-<div id="laperla-order-container" style="max-width: 620px; margin: 30px auto; background: #0c0c0e; border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 24px; padding: 25px; color: #fff; font-family: 'Cairo', sans-serif; direction: rtl; box-shadow: 0 10px 50px rgba(0,0,0,0.9);">
-  
-  <div style="text-align: center; margin-bottom: 25px;">
-    <h2 style="color: #d4af37; font-size: 24px; font-weight: 800; margin: 0;">استمارة تأكيد الطلب 🛍️</h2>
-    <p style="color: #a1a1aa; font-size: 13px; margin-top: 5px;">الدفع عند الاستلام مع المعاينة قبل الدفع</p>
-  </div>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La PÉRLA | L'élégance au féminin</title>
+    <link rel="icon" type="image/png" href="file_0000000076d88210a183a9bcb172509b.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Playfair+Display:ital,wght@1,600&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Cairo', sans-serif; background-color: #070707; }
+        .font-brand { font-family: 'Cinzel', serif; letter-spacing: 0.15em; }
+        .font-cursive { font-family: 'Playfair Display', serif; font-style: italic; }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #F9E7B9 0%, #D4AF37 50%, #AA771C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-btn {
+            background: linear-gradient(135deg, #dfba73 0%, #c59d4c 50%, #9e782f 100%);
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.25);
+            transition: all 0.3s ease;
+        }
+        .gold-btn:hover {
+            background: linear-gradient(135deg, #ebd193 0%, #d4af37 50%, #b38837 100%);
+            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.45);
+            transform: translateY(-1px);
+        }
+        .chip-active {
+            border-color: #D4AF37 !important;
+            background-color: rgba(212, 175, 55, 0.15) !important;
+            color: #F9E7B9 !important;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="text-zinc-100 selection:bg-amber-600 selection:text-white">
 
-  <form id="laperlaOrderForm">
-    
-    <!-- 1. الاسم واللقب -->
-    <div style="margin-bottom: 15px;">
-      <label style="display: block; font-size: 13px; color: #f4e8c1; margin-bottom: 6px; font-weight: 600;">الاسم واللقب *</label>
-      <input type="text" id="custName" required placeholder="مثال: سارة بوعلام" style="width: 100%; padding: 12px; background: #18181b; border: 1px solid #3f3f46; border-radius: 12px; color: #fff; font-size: 14px; outline: none; box-sizing: border-box;">
+    <div class="bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 text-amber-200/90 text-xs py-2 text-center tracking-widest font-semibold border-b border-amber-500/20">
+        ✨ خدمة التوصيل متوفرة لـ 58 ولاية (للمنزل أو المكتب) • الدفع عند الاستلام
     </div>
 
-    <!-- 2. رقم الهاتف مع التعرف التلقائي على المتعامل -->
-    <div style="margin-bottom: 15px;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-        <label style="font-size: 13px; color: #f4e8c1; font-weight: 600;">رقم الهاتف (10 أرقام) *</label>
-        <span id="operatorBadge" style="font-size: 11px; padding: 2px 8px; border-radius: 6px; display: none; font-weight: bold;"></span>
-      </div>
-      <input type="tel" id="custPhone" maxlength="10" required placeholder="05 / 06 / 07XXXXXXXX" style="width: 100%; padding: 12px; background: #18181b; border: 1px solid #3f3f46; border-radius: 12px; color: #fff; font-size: 15px; outline: none; box-sizing: border-box; text-align: left; direction: ltr; font-weight: bold; letter-spacing: 1px;">
-      <small id="phoneError" style="color: #ef4444; font-size: 11px; display: none; margin-top: 4px;">⚠️ يجب إدخال 10 أرقام تبدأ بـ 05 (أوريدو) أو 06 (موبيليس) أو 07 (جيزي)</small>
+    <!-- هيدر المتجر -->
+    <header class="bg-black/90 backdrop-blur-md border-b border-amber-500/20 sticky top-0 z-40">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-3">
+                <img src="file_0000000076d88210a183a9bcb172509b.png" alt="La PÉRLA Logo" class="h-14 w-auto object-contain drop-shadow-[0_0_15px_rgba(212,175,55,0.35)]">
+            </a>
+            <div class="flex items-center gap-3 text-xs font-bold">
+                <a href="#collection" class="border border-amber-500/40 text-amber-300 hover:text-amber-200 px-4 py-2 rounded-full hover:bg-amber-500/10 transition flex items-center gap-1.5 shadow-sm">
+                    <i class="fa-solid fa-gem text-xs"></i> التشكيلة الحصرية
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative py-16 px-6 text-center border-b border-amber-500/20 overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-zinc-900 via-black to-black">
+        <div class="max-w-3xl mx-auto relative z-10">
+            <div class="mb-6 flex justify-center">
+                <img src="file_0000000076d88210a183a9bcb172509b.png" alt="La PÉRLA Haute Couture" class="w-36 sm:w-44 h-auto object-contain drop-shadow-[0_0_25px_rgba(212,175,55,0.4)]">
+            </div>
+
+            <div class="inline-flex items-center gap-2 border border-amber-500/30 bg-black/60 px-4 py-1.5 rounded-full mb-5 shadow-[0_0_15px_rgba(212,175,55,0.15)]">
+                <span class="w-1.5 h-1.5 bg-amber-400 rounded-full animate-ping"></span>
+                <span class="text-amber-300 text-xs tracking-widest font-semibold uppercase">Haute Collection 2026</span>
+            </div>
+            
+            <h1 class="text-3xl sm:text-5xl font-black text-white leading-tight">
+                فخامة صُممت خصيصاً <br>
+                <span class="gold-gradient-text">لأناقتكِ الاستثنائية</span>
+            </h1>
+            
+            <p class="text-zinc-400 mt-4 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+                اكتشفي تشكيلة La PÉRLA الحصرية المختارة بعناية للمرأة الراقية، مع ضمان أعلى معايير الجودة والتميز.
+            </p>
+
+            <div class="mt-8 flex justify-center gap-4">
+                <a href="#collection" class="gold-btn text-black font-extrabold px-8 py-3.5 rounded-full text-sm flex items-center gap-2">
+                    <span>اكتشفي التشكيلة الحصرية</span>
+                    <i class="fa-solid fa-arrow-down text-xs"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <main id="collection" class="max-w-6xl mx-auto px-6 py-16">
+        <div class="text-center mb-12">
+            <span class="font-cursive text-amber-400/80 text-lg block mb-1">Nos Créations</span>
+            <h2 class="text-3xl font-black gold-gradient-text font-brand">EXCLUSIVE PIECES</h2>
+            <div class="w-20 h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent mx-auto mt-3"></div>
+        </div>
+
+        <div id="store-products" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="col-span-full text-center py-16 text-zinc-500">
+                <i class="fa-solid fa-spinner fa-spin text-2xl text-amber-400 mb-3"></i>
+                <p class="text-sm">جاري تحميل إبداعات La PÉRLA...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- نافذة طلب الاقتناء (المطورة) -->
+    <div id="order-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-zinc-950 border border-amber-500/40 rounded-3xl max-w-md w-full p-6 shadow-[0_0_40px_rgba(212,175,55,0.2)] max-h-[94vh] overflow-y-auto">
+            
+            <div class="flex justify-between items-center border-b border-amber-500/20 pb-3 mb-4">
+                <div class="flex items-center gap-2">
+                    <img src="file_0000000076d88210a183a9bcb172509b.png" class="w-8 h-8 object-contain">
+                    <div>
+                        <h3 class="font-black text-sm gold-gradient-text font-brand">تأكيد طلب الاقتناء</h3>
+                        <p id="modal-product-name" class="text-xs text-zinc-300 font-semibold mt-0.5"></p>
+                    </div>
+                </div>
+                <button onclick="closeOrderModal()" class="text-zinc-400 hover:text-amber-400 text-2xl">✕</button>
+            </div>
+
+            <form onsubmit="submitCustomerOrder(event)" class="space-y-3.5">
+                <input type="hidden" id="order-product-id">
+                
+                <!-- المقاسات -->
+                <div id="size-container" class="hidden">
+                    <label class="block text-xs font-bold text-amber-200/90 mb-1.5">اختاري المقاس المطلوب *</label>
+                    <div id="size-chips" class="flex flex-wrap gap-2"></div>
+                </div>
+
+                <!-- الألوان -->
+                <div id="color-container" class="hidden">
+                    <label class="block text-xs font-bold text-amber-200/90 mb-1.5">اختاري اللون المفضل *</label>
+                    <div id="color-chips" class="flex flex-wrap gap-2"></div>
+                </div>
+
+                <!-- الكمية من 1 إلى 10 -->
+                <div>
+                    <label class="block text-xs font-bold text-amber-200/90 mb-1">الكمية المطلوبة (من 1 إلى 10) *</label>
+                    <select id="cust-qty" onchange="updateTotalBill()" class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-sm outline-none font-bold">
+                        <option value="1">1 قطعة</option>
+                        <option value="2">2 قطع</option>
+                        <option value="3">3 قطع</option>
+                        <option value="4">4 قطع</option>
+                        <option value="5">5 قطع</option>
+                        <option value="6">6 قطع</option>
+                        <option value="7">7 قطع</option>
+                        <option value="8">8 قطع</option>
+                        <option value="9">9 قطع</option>
+                        <option value="10">10 قطع</option>
+                    </select>
+                </div>
+
+                <!-- الاسم واللقب -->
+                <div>
+                    <label class="block text-xs font-bold text-amber-200/90 mb-1">الاسم واللقب *</label>
+                    <input type="text" id="cust-name" required placeholder="مثال: سارة بهلول" class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-sm outline-none">
+                </div>
+
+                <!-- رقم الهاتف مع تمييز الشبكة -->
+                <div>
+                    <div class="flex justify-between items-center mb-1">
+                        <label class="block text-xs font-bold text-amber-200/90">رقم الهاتف للتأكيد (10 أرقام) *</label>
+                        <span id="operator-badge" class="text-[10px] px-2 py-0.5 rounded font-bold hidden"></span>
+                    </div>
+                    <input 
+                        type="tel" 
+                        id="cust-phone" 
+                        required 
+                        maxlength="10" 
+                        placeholder="05 / 06 / 07 ..." 
+                        class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-sm outline-none text-left tracking-wider font-bold" 
+                        dir="ltr">
+                    <span class="text-[10px] text-zinc-400 mt-1 block">يجب أن يتكون من 10 أرقام ويبدأ بـ 05 (أوريدو)، 06 (موبيليس)، 07 (جيزي).</span>
+                </div>
+
+                <!-- الولاية (58 ولاية) -->
+                <div>
+                    <label class="block text-xs font-bold text-amber-200/90 mb-1">الولاية (58 ولاية) *</label>
+                    <select id="cust-wilaya" required onchange="handleWilayaChange()" class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-sm outline-none">
+                        <option value="">-- اضغطي لاختيار الولاية --</option>
+                    </select>
+                </div>
+
+                <!-- البلدية (الـ 1541 بلدية) -->
+                <div>
+                    <label class="block text-xs font-bold text-amber-200/90 mb-1">البلدية (اختاري بضغطة زر) *</label>
+                    <select id="cust-commune" required class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-sm outline-none">
+                        <option value="">(الرجاء اختيار الولاية أولاً)</option>
+                    </select>
+                </div>
+
+                <!-- نوع التوصيل -->
+                <div>
+                    <label class="block text-xs font-bold text-amber-200/90 mb-1.5">نوع التوصيل المطلوب *</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <label class="cursor-pointer border border-zinc-700 has-[:checked]:border-amber-400 has-[:checked]:bg-amber-500/10 p-2.5 rounded-xl flex items-center gap-2 transition">
+                            <input type="radio" name="delivery_type" value="home" checked onchange="updateTotalBill()" class="accent-amber-400">
+                            <div>
+                                <p class="text-xs font-bold text-white">🏠 إلى باب المنزل</p>
+                                <span class="text-[10px] text-zinc-400">توصيل شخصي</span>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer border border-zinc-700 has-[:checked]:border-amber-400 has-[:checked]:bg-amber-500/10 p-2.5 rounded-xl flex items-center gap-2 transition">
+                            <input type="radio" name="delivery_type" value="desk" onchange="updateTotalBill()" class="accent-amber-400">
+                            <div>
+                                <p class="text-xs font-bold text-white">🏢 استلام من المكتب</p>
+                                <span class="text-[10px] text-emerald-400 font-semibold">أقل تكلفة (Stop Desk)</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- ملخص الفاتورة والحساب الآلي -->
+                <div class="bg-zinc-900/90 border border-amber-500/30 rounded-2xl p-3 space-y-1.5">
+                    <div class="flex justify-between text-xs text-zinc-300">
+                        <span>سعر القطع:</span>
+                        <span id="bill-product-price" class="font-bold text-white">0 دج</span>
+                    </div>
+                    <div class="flex justify-between text-xs text-zinc-300">
+                        <span>تكلفة التوصيل:</span>
+                        <span id="bill-shipping-price" class="font-bold text-amber-300">0 دج</span>
+                    </div>
+                    <div class="border-t border-zinc-800 pt-1.5 flex justify-between items-baseline">
+                        <span class="text-xs font-black text-amber-200">المجموع الإجمالي:</span>
+                        <span id="bill-total-price" class="font-black gold-gradient-text text-xl font-brand">0 دج</span>
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" id="submit-btn" class="w-full gold-btn text-black py-3.5 rounded-xl font-black text-sm tracking-wide">
+                        تأكيد الطلب الفوري عبر واتساب ⚡
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 
-    <!-- 3. المقاس واللون -->
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 15px;">
-      <div>
-        <label style="display: block; font-size: 13px; color: #f4e8c1; margin-bottom: 6px; font-weight: 600;">المقاس (Taille)</label>
-        <select id="prodSize" style="width: 100%; padding: 11px; background: #18181b; border: 1px solid #3f3f46; border-radius: 12px; color: #fff; font-size: 13px; outline: none; box-sizing: border-box;">
-          <option value="Standard">Standard (قياسي)</option>
-          <option value="S">S (36 - 38)</option>
-          <option value="M">M (38 - 40)</option>
-          <option value="L">L (40 - 42)</option>
-          <option value="XL">XL (42 - 44)</option>
-          <option value="XXL">XXL (44 - 46)</option>
-        </select>
-      </div>
-
-      <div>
-        <label style="display: block; font-size: 13px; color: #f4e8c1; margin-bottom: 6px; font-weight: 600;">اللون المفضل</label>
-        <select id="prodColor" style="width: 100%; padding: 11px; background: #18181b; border: 1px solid #3f3f46; border-radius: 12px; color: #fff; font-size: 13px; outline: none; box-sizing: border-box;">
-          <option value="أسود ملكي">أسود ملكي 🖤</option>
-          <option value="عنابي فاخر">عنابي فاخر (Bordeaux) 🍷</option>
-          <option value="أزرق ليل">أزرق ليل (Bleu Nuit) 🌌</option>
-          <option value="بيج ذهبي">بيج ذهبي (Nude) ✨</option>
-          <option value="أخضر زمردي">أخضر زمردي 💚</option>
-        </select>
-      </div>
+    <!-- نافذة نجاح الحجز -->
+    <div id="success-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-zinc-950 border border-amber-500/40 rounded-3xl max-w-sm w-full p-8 text-center shadow-[0_0_50px_rgba(212,175,55,0.3)]">
+            <div class="w-16 h-16 rounded-full border border-amber-400 text-amber-300 flex items-center justify-center text-3xl mx-auto mb-4 bg-amber-500/10">✓</div>
+            <h3 class="text-xl font-black gold-gradient-text font-brand">RÉSERVATION CONFIRMÉE</h3>
+            <p class="text-zinc-300 text-xs mt-3 leading-relaxed">
+                شكراً لطلبكِ من بوتيك <strong>La PÉRLA</strong>. تم تسجيل حجزكِ بنجاح، وسيتصل بكِ فريقنا لتنسيق التوصيل.
+            </p>
+            <button onclick="closeSuccessModal()" class="mt-6 w-full gold-btn text-black font-extrabold py-3 rounded-xl text-xs">متابعة التصفح</button>
+        </div>
     </div>
 
-    <!-- 4. الكمية (من 1 إلى 10) -->
-    <div style="margin-bottom: 15px;">
-      <label style="display: block; font-size: 13px; color: #f4e8c1; margin-bottom: 6px; font-weight: 600;">الكمية المطلوبة</label>
-      <select id="prodQuantity" onchange="updateTotalSummary()" style="width: 100%; padding: 11px; background: #18181b; border: 1px solid #3f3f46; border-radius: 12px; color: #fff; font-size: 14px; font-weight: bold; outline: none; box-sizing: border-box;">
-        <option value="1">1 قطعة</option>
-        <option value="2">2 قطع</option>
-        <option value="3">3 قطع</option>
-        <option value="4">4 قطع</option>
-        <option value="5">5 قطع</option>
-        <option value="6">6 قطع</option>
-        <option value="7">7 قطع</option>
-        <option value="8">8 قطع</option>
-        <option value="9">9 قطع</option>
-        <option value="10">10 قطع</option>
-      </select>
-    </div>
+    <footer class="border-t border-amber-500/20 py-10 text-center text-zinc-500 text-xs bg-black">
+        <div class="max-w-6xl mx-auto px-6">
+            <img src="file_0000000076d88210a183a9bcb172509b.png" alt="La PÉRLA" class="w-24 mx-auto mb-3 object-contain opacity-80">
+            <p>© 2026 جميع الحقوق محفوظة لبوتيك La PÉRLA الجزائري.</p>
+        </div>
+    </footer>
 
-    <!-- 5. الولايات والبلديات (الـ 58 ولاية والـ 1541 بلدية) -->
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 15px;">
-      <div>
-        <label style="display: block; font-size: 13px; color: #f4e8c1; margin-bottom: 6px; font-weight: 600;">الولاية (58 ولاية) *</label>
-        <select id="custWilaya" onchange="onWilayaChange()" required style="width: 100%; padding: 11px; background: #18181b; border: 1px solid #3f3f46; border-radius: 12px; color: #fff; font-size: 13px; outline: none; box-sizing: border-box;">
-          <option value="">اختر الولاية...</option>
-        </select>
-      </div>
+    <script>
+        // رقم الواتساب الخاص بك
+        const MY_WHATSAPP_NUMBER = "213778215570";
 
-      <div>
-        <label style="display: block; font-size: 13px; color: #f4e8c1; margin-bottom: 6px; font-weight: 600;">
-          البلدية * <span id="communeLoading" style="font-size: 10px; color: #eab308; display: none;">(جاري التحميل...)</span>
-        </label>
-        <select id="custCommune" required style="width: 100%; padding: 11px; background: #18181b; border: 1px solid #3f3f46; border-radius: 12px; color: #fff; font-size: 13px; outline: none; box-sizing: border-box;">
-          <option value="">اختر الولاية أولاً</option>
-        </select>
-      </div>
-    </div>
+        const SUPABASE_URL = "https://duwazuxedzussasjphqe.supabase.co";
+        const SUPABASE_KEY = "sb_publishable_OXs_iWjYnTZW6mSI7LeN8Q_jQQ7r5aC";
+        const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    <!-- 6. خيار التوصيل: للمنزل أو للمكتب -->
-    <div style="margin-bottom: 20px;">
-      <label style="display: block; font-size: 13px; color: #f4e8c1; margin-bottom: 8px; font-weight: 600;">طريقة الاستلام والتوصيل *</label>
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-        <label style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; background: #18181b; border: 1px solid #d4af37; border-radius: 12px; cursor: pointer; font-size: 13px; font-weight: bold;">
-          <input type="radio" name="deliveryType" value="home" checked onchange="updateTotalSummary()">
-          <span>🏠 توصيل للمنزل</span>
-        </label>
-        <label style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; background: #18181b; border: 1px solid #3f3f46; border-radius: 12px; cursor: pointer; font-size: 13px; font-weight: bold;">
-          <input type="radio" name="deliveryType" value="desk" onchange="updateTotalSummary()">
-          <span>🏢 استلام من المكتب</span>
-        </label>
-      </div>
-    </div>
+        const WILAYAS_LIST = [
+            {code: 1, name: "أدرار"}, {code: 2, name: "الشلف"}, {code: 3, name: "الأغواط"}, {code: 4, name: "أم البواقي"},
+            {code: 5, name: "باتنة"}, {code: 6, name: "بجاية"}, {code: 7, name: "بسكرة"}, {code: 8, name: "بشار"},
+            {code: 9, name: "البليدة"}, {code: 10, name: "البويرة"}, {code: 11, name: "تمنراست"}, {code: 12, name: "تبسة"},
+            {code: 13, name: "تلمسان"}, {code: 14, name: "تيارت"}, {code: 15, name: "تيزي وزو"}, {code: 16, name: "الجزائر"},
+            {code: 17, name: "الجلفة"}, {code: 18, name: "جيجل"}, {code: 19, name: "سطيف"}, {code: 20, name: "سعيدة"},
+            {code: 21, name: "سكيكدة"}, {code: 22, name: "سيدي بلعباس"}, {code: 23, name: "عنابة"}, {code: 24, name: "قالمة"},
+            {code: 25, name: "قسنطينة"}, {code: 26, name: "المدية"}, {code: 27, name: "مستغانم"}, {code: 28, name: "المسيلة"},
+            {code: 29, name: "معسكر"}, {code: 30, name: "ورقلة"}, {code: 31, name: "وهران"}, {code: 32, name: "البيض"},
+            {code: 33, name: "إليزي"}, {code: 34, name: "برج بوعريريج"}, {code: 35, name: "بومرداس"}, {code: 36, name: "الطارف"},
+            {code: 37, name: "تندوف"}, {code: 38, name: "تيسمسيلت"}, {code: 39, name: "الوادي"}, {code: 40, name: "خنشلة"},
+            {code: 41, name: "سوق أهراس"}, {code: 42, name: "تيبازة"}, {code: 43, name: "ميلة"}, {code: 44, name: "عين الدفلى"},
+            {code: 45, name: "النعامة"}, {code: 46, name: "عين تموشنت"}, {code: 47, name: "غرداية"}, {code: 48, name: "غليزان"},
+            {code: 49, name: "تيميمون"}, {code: 50, name: "برج باجي مختار"}, {code: 51, name: "أولاد جلال"}, {code: 52, name: "بني عباس"},
+            {code: 53, name: "عين صالح"}, {code: 54, name: "عين قزام"}, {code: 55, name: "توقرت"}, {code: 56, name: "جانت"},
+            {code: 57, name: "المغير"}, {code: 58, name: "المنيعة"}
+        ];
 
-    <!-- 7. بطاقة الحساب المالي الشامل -->
-    <div style="background: rgba(212, 175, 55, 0.08); border: 1px dashed #d4af37; border-radius: 16px; padding: 16px; margin-bottom: 20px; font-size: 14px;">
-      <div style="display: flex; justify-content: space-between; margin-bottom: 8px; color: #d4d4d8;">
-        <span>سعر المنتجات:</span>
-        <span id="displayBasePrice">8,500 دج</span>
-      </div>
-      <div style="display: flex; justify-content: space-between; margin-bottom: 8px; color: #d4d4d8;">
-        <span>تكلفة الشحن:</span>
-        <span id="displayShippingPrice">اختر الولاية</span>
-      </div>
-      <hr style="border: none; border-top: 1px solid rgba(212, 175, 55, 0.25); margin: 10px 0;">
-      <div style="display: flex; justify-content: space-between; font-size: 18px; font-weight: 900; color: #facc15;">
-        <span>المجموع الإجمالي:</span>
-        <span id="displayTotalPrice">8,500 دج</span>
-      </div>
-    </div>
+        const NEW_WILAYAS_COMMUNES = {
+            49: ["تيميمون", "أولاد سعيد", "أنزاغمير", "أوقروت", "دلدول", "المطارفة", "شروين", "طالمين", "أولاد عيسى", "تينركوك"],
+            50: ["برج باجي مختار", "تيمياوين"],
+            51: ["أولاد جلال", "سيدي خالد", "الدوسن", "الشعيبة", "البسباس", "رأس الميعاد"],
+            52: ["بني عباس", "أقلي", "الواتة", "كرزاز", "أولاد خضير", "تبلبلة", "تامترت", "بني يخلف", "تيمودي", "قصابي"],
+            53: ["عين صالح", "إن غار", "فقارة الزاوية"],
+            54: ["عين قزام", "تين زواتين"],
+            55: ["توقرت", "النزلة", "تبسبست", "الزاوية العابدية", "تماسين", "بلدة عمر", "المقارين", "سيدي سليمان", "الطيبات", "بن ناصر", "المنقر", "الحجيرة", "العالية", "البرمة"],
+            56: ["جانت", "برج الحواس"],
+            57: ["المغير", "أم الطيور", "سطيل", "سيدي خليل", "جامعة", "سيدي عمران", "تندلة", "مرارة"],
+            58: ["المنيعة", "حاسي القارة", "حاسي الفحل"]
+        };
 
-    <!-- 8. زر التأكيد -->
-    <button type="submit" id="submitOrderBtn" style="width: 100%; padding: 16px; background: linear-gradient(135deg, #dfba73 0%, #c59d4c 50%, #9e782f 100%); border: none; border-radius: 14px; color: #000; font-size: 16px; font-weight: 900; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 20px rgba(212, 175, 55, 0.35);">
-      تأكيد الطلب الفوري عبر واتساب ⚡
-    </button>
+        let allCommunesData = [];
+        let currentProduct = null;
+        let currentShippingPrice = 0;
+        let selectedSize = '';
+        let selectedColor = '';
 
-  </form>
-</div>
+        function initWilayas() {
+            const select = document.getElementById('cust-wilaya');
+            select.innerHTML = '<option value="">-- اضغطي لاختيار الولاية (58 ولاية) --</option>' + 
+                WILAYAS_LIST.map(w => `<option value="${w.code}" data-name="${w.name}">${w.code} - ولاية ${w.name}</option>`).join('');
+        }
 
-<script>
-// ==============================================================
-// 1. الإعدادات
-// ==============================================================
-const MY_WHATSAPP_NUMBER = "213778215570"; // رقم هاتفك
-const PRODUCT_BASE_PRICE = 8500;            // سعر القطعة الواحدة بالدينار الجزائري
-const PRODUCT_NAME = "قطعة فاخرة La PÉRLA";
+        async function fetchAllCommunes() {
+            try {
+                const res = await fetch('https://cdn.jsdelivr.net/gh/AbderrahmeneDZ/Wilaya-Of-Algeria@master/Commune_Of_Algeria.json');
+                allCommunesData = await res.json();
+            } catch (e) {}
+        }
 
-// ==============================================================
-// 2. قائمة الـ 58 ولاية مع أسعار التوصيل (مكتب / منزل)
-// ==============================================================
-const algeriaWilayas = [
-  { code: 1, name: "01 - أدرار", desk: 900, home: 1400 },
-  { code: 2, name: "02 - الشلف", desk: 400, home: 600 },
-  { code: 3, name: "03 - الأغواط", desk: 550, home: 800 },
-  { code: 4, name: "04 - أم البواقي", desk: 450, home: 700 },
-  { code: 5, name: "05 - باتنة", desk: 400, home: 650 },
-  { code: 6, name: "06 - بجاية", desk: 400, home: 650 },
-  { code: 7, name: "07 - بسكرة", desk: 500, home: 750 },
-  { code: 8, name: "08 - بشار", desk: 700, home: 1000 },
-  { code: 9, name: "09 - البليدة", desk: 350, home: 500 },
-  { code: 10, name: "10 - البويرة", desk: 400, home: 600 },
-  { code: 11, name: "11 - تمنراست", desk: 1000, home: 1600 },
-  { code: 12, name: "12 - تبسة", desk: 450, home: 700 },
-  { code: 13, name: "13 - تلمسان", desk: 400, home: 650 },
-  { code: 14, name: "14 - تيارت", desk: 450, home: 700 },
-  { code: 15, name: "15 - تيزي وزو", desk: 400, home: 600 },
-  { code: 16, name: "16 - الجزائر العاصمة", desk: 300, home: 450 },
-  { code: 17, name: "17 - الجلفة", desk: 500, home: 750 },
-  { code: 18, name: "18 - جيجل", desk: 400, home: 650 },
-  { code: 19, name: "19 - سطيف", desk: 400, home: 650 },
-  { code: 20, name: "20 - سعيدة", desk: 450, home: 700 },
-  { code: 21, name: "21 - سكيكدة", desk: 400, home: 650 },
-  { code: 22, name: "22 - سيدي بلعباس", desk: 400, home: 650 },
-  { code: 23, name: "23 - عنابة", desk: 400, home: 650 },
-  { code: 24, name: "24 - قالمة", desk: 450, home: 700 },
-  { code: 25, name: "25 - قسنطينة", desk: 400, home: 650 },
-  { code: 26, name: "26 - المدية", desk: 400, home: 600 },
-  { code: 27, name: "27 - مستغانم", desk: 400, home: 650 },
-  { code: 28, name: "28 - المسيلة", desk: 450, home: 700 },
-  { code: 29, name: "29 - معسكر", desk: 400, home: 650 },
-  { code: 30, name: "30 - ورقلة", desk: 600, home: 900 },
-  { code: 31, name: "31 - وهران", desk: 350, home: 500 },
-  { code: 32, name: "32 - البيض", desk: 550, home: 800 },
-  { code: 33, name: "33 - إليزي", desk: 1000, home: 1500 },
-  { code: 34, name: "34 - برج بوعريريج", desk: 400, home: 650 },
-  { code: 35, name: "35 - بومرداس", desk: 350, home: 500 },
-  { code: 36, name: "36 - الطارف", desk: 450, home: 700 },
-  { code: 37, name: "37 - تندوف", desk: 1000, home: 1500 },
-  { code: 38, name: "38 - تسمسيلت", desk: 450, home: 700 },
-  { code: 39, name: "39 - الوادي", desk: 600, home: 900 },
-  { code: 40, name: "40 - خنشلة", desk: 450, home: 700 },
-  { code: 41, name: "41 - سوق أهراس", desk: 450, home: 700 },
-  { code: 42, name: "42 - تيبازة", desk: 350, home: 500 },
-  { code: 43, name: "43 - ميلة", desk: 400, home: 650 },
-  { code: 44, name: "44 - عين الدفلى", desk: 400, home: 600 },
-  { code: 45, name: "45 - النعامة", desk: 600, home: 900 },
-  { code: 46, name: "46 - عين تموشنت", desk: 400, home: 650 },
-  { code: 47, name: "47 - غرداية", desk: 550, home: 850 },
-  { code: 48, name: "48 - غليزان", desk: 400, home: 650 },
-  { code: 49, name: "49 - تيميمون", desk: 900, home: 1400 },
-  { code: 50, name: "50 - برج باجي مختار", desk: 1100, home: 1600 },
-  { code: 51, name: "51 - أولاد جلال", desk: 550, home: 800 },
-  { code: 52, name: "52 - بني عباس", desk: 850, home: 1200 },
-  { code: 53, name: "53 - عين صالح", desk: 950, home: 1450 },
-  { code: 54, name: "54 - عين قزام", desk: 1100, home: 1600 },
-  { code: 55, name: "55 - تقرت", desk: 600, home: 900 },
-  { code: 56, name: "56 - جانت", desk: 1000, home: 1500 },
-  { code: 57, name: "57 - المغير", desk: 600, home: 850 },
-  { code: 58, name: "58 - المنيعة", desk: 700, home: 1000 }
-];
+        function calculateShippingCost(wilayaCode, isDesk) {
+            if (!wilayaCode) return 0;
+            const code = parseInt(wilayaCode);
+            let homeRate = 700;
 
-// ملء قائمة الولايات في الصفحة
-const wilayaSelect = document.getElementById("custWilaya");
-algeriaWilayas.forEach(w => {
-  const opt = document.createElement("option");
-  opt.value = w.code;
-  opt.textContent = w.name;
-  wilayaSelect.appendChild(opt);
-});
+            if (code === 16) homeRate = 450;
+            else if ([9, 35, 42].includes(code)) homeRate = 500;
+            else if ([1, 11, 33, 37, 50, 53, 54, 56].includes(code)) homeRate = 1200;
+            else if ([7, 8, 17, 30, 32, 39, 45, 47, 48, 49, 51, 52, 55, 57, 58].includes(code)) homeRate = 900;
 
-// ==============================================================
-// 3. الجلب التلقائي لكل الـ 1541 بلدية من قاعدة البيانات السحابية
-// ==============================================================
-let allCommunesData = [];
-const loadingIndicator = document.getElementById("communeLoading");
-loadingIndicator.style.display = "inline";
+            return isDesk ? Math.max(300, homeRate - 250) : homeRate;
+        }
 
-// جلب البلديات في الخلفية بدون تأخير المتصفح
-fetch("https://cdn.jsdelivr.net/npm/geoalgeria/data/ecommerce/communes.json")
-  .then(res => res.json())
-  .then(data => {
-    allCommunesData = data;
-    loadingIndicator.style.display = "none";
-  })
-  .catch(err => {
-    console.warn("جاري استخدام الرابط البديل للبلديات...");
-    // رابط احتياطي إن دعت الحاجة
-    fetch("https://raw.githubusercontent.com/ilies-space/algeria-cities-json/main/algeria-cities.json")
-      .then(r => r.json())
-      .then(d => { allCommunesData = d; loadingIndicator.style.display = "none"; })
-      .catch(() => { loadingIndicator.style.display = "none"; });
-  });
+        function handleWilayaChange() {
+            const wilayaSelect = document.getElementById('cust-wilaya');
+            const communeSelect = document.getElementById('cust-commune');
+            const code = parseInt(wilayaSelect.value);
 
-// عند اختيار ولاية -> تحديث بلدياتها فوراً
-function onWilayaChange() {
-  const wilayaCode = parseInt(wilayaSelect.value);
-  const communeSelect = document.getElementById("custCommune");
-  communeSelect.innerHTML = '<option value="">اختر البلدية...</option>';
+            if (!code) {
+                communeSelect.innerHTML = '<option value="">(الرجاء اختيار الولاية أولاً)</option>';
+                updateTotalBill();
+                return;
+            }
 
-  if (!wilayaCode) {
-    updateTotalSummary();
-    return;
-  }
+            if (NEW_WILAYAS_COMMUNES[code]) {
+                communeSelect.innerHTML = '<option value="">-- اختاري بلديتك بضغطة زر --</option>' + 
+                    NEW_WILAYAS_COMMUNES[code].map(c => `<option value="${c}">${c}</option>`).join('');
+            } else {
+                const filtered = allCommunesData.filter(c => parseInt(c.wilaya_id) === code);
+                if (filtered.length > 0) {
+                    communeSelect.innerHTML = '<option value="">-- اختاري بلديتك بضغطة زر --</option>' + 
+                        filtered.map(c => `<option value="${c}">${c.ar_name || c.name}</option>`).join('');
+                } else {
+                    const selectedWilayaName = wilayaSelect.options[wilayaSelect.selectedIndex].getAttribute('data-name');
+                    communeSelect.innerHTML = `<option value="${selectedWilayaName} مركز">${selectedWilayaName} (البلدية المركزية)</option>`;
+                }
+            }
+            updateTotalBill();
+        }
 
-  // فلترة البلديات التابعة للولاية المختارة
-  const filtered = allCommunesData.filter(c => {
-    const cWilaya = parseInt(c.wilaya_code || c.wilaya_id || (c.code ? c.code.substring(0, 2) : 0));
-    return cWilaya === wilayaCode;
-  });
+        // حساب المجموع الإجمالي بالكمية والشحن
+        function updateTotalBill() {
+            if (!currentProduct) return;
+            const wilayaCode = document.getElementById('cust-wilaya').value;
+            const isDesk = document.querySelector('input[name="delivery_type"]:checked').value === 'desk';
+            const qty = parseInt(document.getElementById('cust-qty').value) || 1;
+            
+            const shipping = calculateShippingCost(wilayaCode, isDesk);
+            currentShippingPrice = shipping;
+            const itemsTotal = parseInt(currentProduct.price) * qty;
+            const total = itemsTotal + (wilayaCode ? shipping : 0);
 
-  if (filtered.length > 0) {
-    filtered.forEach(item => {
-      const opt = document.createElement("option");
-      const name = item.commune_ar || item.name_ar || item.commune_name || item.commune;
-      opt.value = name;
-      opt.textContent = name;
-      communeSelect.appendChild(opt);
-    });
-  } else {
-    // حل بديل سريع في حال كان الإنترنت بطيئاً جداً
-    const opt = document.createElement("option");
-    opt.value = "البلدية المركزية";
-    opt.textContent = "البلدية المركزية (أو سيتم التأكيد هاتفياً)";
-    communeSelect.appendChild(opt);
-  }
+            document.getElementById('bill-product-price').innerText = `${itemsTotal.toLocaleString()} دج (${qty} قطع)`;
+            document.getElementById('bill-shipping-price').innerText = wilayaCode ? `${shipping.toLocaleString()} دج` : 'يحدد بعد اختيار الولاية';
+            document.getElementById('bill-total-price').innerText = `${total.toLocaleString()} دج`;
+        }
 
-  updateTotalSummary();
-}
+        // التحقق الذكي من رقم الهاتف الجزائري وإظهار شبكة المتعامل
+        const phoneInput = document.getElementById('cust-phone');
+        const badge = document.getElementById('operator-badge');
+        phoneInput.addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
+            const val = this.value;
+            if (val.startsWith("07")) {
+                badge.style.display = "inline";
+                badge.innerText = "جيزي Djezzy";
+                badge.className = "text-[10px] px-2 py-0.5 rounded font-bold bg-rose-600 text-white";
+            } else if (val.startsWith("06")) {
+                badge.style.display = "inline";
+                badge.innerText = "موبيليس Mobilis";
+                badge.className = "text-[10px] px-2 py-0.5 rounded font-bold bg-emerald-600 text-white";
+            } else if (val.startsWith("05")) {
+                badge.style.display = "inline";
+                badge.innerText = "أوريدو Ooredoo";
+                badge.className = "text-[10px] px-2 py-0.5 rounded font-bold bg-red-600 text-white";
+            } else {
+                badge.style.display = "none";
+            }
+        });
 
-// ==============================================================
-// 4. الحساب المالي الآلي الشامل
-// ==============================================================
-function updateTotalSummary() {
-  const qty = parseInt(document.getElementById("prodQuantity").value) || 1;
-  const wilayaCode = parseInt(wilayaSelect.value);
-  const deliveryType = document.querySelector('input[name="deliveryType"]:checked').value;
-  
-  let shippingCost = 0;
-  const selectedWilaya = algeriaWilayas.find(w => w.code === wilayaCode);
-  
-  if (selectedWilaya) {
-    shippingCost = (deliveryType === "desk") ? selectedWilaya.desk : selectedWilaya.home;
-  }
+        async function loadStoreProducts() {
+            const container = document.getElementById('store-products');
+            try {
+                const { data, error } = await db.from('products').select('*').order('created_at', { ascending: false });
+                if (error) throw error;
 
-  const itemsTotal = PRODUCT_BASE_PRICE * qty;
-  const grandTotal = itemsTotal + shippingCost;
+                if (!data || data.length === 0) {
+                    container.innerHTML = `
+                        <div class="col-span-full text-center py-16 bg-zinc-950 rounded-3xl border border-amber-500/20 p-8">
+                            <img src="file_0000000076d88210a183a9bcb172509b.png" class="w-20 mx-auto mb-4 opacity-50">
+                            <h4 class="font-black gold-gradient-text text-xl font-brand">COLLECTION EN COURS</h4>
+                            <p class="text-xs text-zinc-400 mt-2">التشكيلة الجديدة قادمة قريباً.</p>
+                        </div>
+                    `;
+                    return;
+                }
 
-  document.getElementById("displayBasePrice").innerText = `${itemsTotal.toLocaleString()} دج (${qty} قطع)`;
-  document.getElementById("displayShippingPrice").innerText = selectedWilaya ? `${shippingCost.toLocaleString()} دج` : "اختر الولاية";
-  document.getElementById("displayTotalPrice").innerText = `${grandTotal.toLocaleString()} دج`;
-}
+                container.innerHTML = data.map(p => `
+                    <div class="bg-zinc-950 rounded-3xl border border-amber-500/20 overflow-hidden shadow-lg hover:border-amber-400/60 transition duration-300 flex flex-col justify-between group">
+                        <div class="relative overflow-hidden">
+                            <img src="${p.image_url || 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=700'}" class="w-full h-72 object-cover group-hover:scale-105 transition duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-white text-lg tracking-wide">${p.name}</h3>
+                            <p class="text-xs text-zinc-400 mt-2 line-clamp-2 leading-relaxed">${p.description || ''}</p>
+                            
+                            ${p.sizes ? `
+                                <div class="mt-3 flex items-center gap-1.5 flex-wrap">
+                                    <span class="text-[10px] text-zinc-500">المقاسات:</span>
+                                    ${p.sizes.split(',').map(s => `<span class="text-[10px] border border-zinc-700 px-2 py-0.5 rounded text-zinc-300">${s.trim()}</span>`).join('')}
+                                </div>
+                            ` : ''}
 
-// ==============================================================
-// 5. التحقق الذكي من رقم الهاتف الجزائري (جيزي - موبيليس - أوريدو)
-// ==============================================================
-const phoneInput = document.getElementById("custPhone");
-const badge = document.getElementById("operatorBadge");
+                            <div class="mt-5 flex items-baseline justify-between border-t border-zinc-800/80 pt-4">
+                                <span class="gold-gradient-text font-black text-2xl font-brand">${p.price} دج</span>
+                                <span class="text-[10px] text-amber-400 border border-amber-500/30 px-2.5 py-1 rounded-full font-bold">قطعة حصرية</span>
+                            </div>
+                            <button onclick='openOrderModal(${JSON.stringify(p)})' class="mt-5 w-full gold-btn text-black font-black py-3 rounded-2xl text-xs tracking-wider flex items-center justify-center gap-2">
+                                <span>طلب اقتناء القطعة</span>
+                                <i class="fa-solid fa-gem text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
 
-phoneInput.addEventListener("input", function() {
-  // منع الحروف والرموز والتقيد بـ 10 أرقام
-  this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
-  
-  const val = this.value;
-  if (val.startsWith("07")) {
-    badge.style.display = "inline";
-    badge.innerText = "جيزي Djezzy";
-    badge.style.background = "#e11d48";
-    badge.style.color = "#fff";
-  } else if (val.startsWith("06")) {
-    badge.style.display = "inline";
-    badge.innerText = "موبيليس Mobilis";
-    badge.style.background = "#16a34a";
-    badge.style.color = "#fff";
-  } else if (val.startsWith("05")) {
-    badge.style.display = "inline";
-    badge.innerText = "أوريدو Ooredoo";
-    badge.style.background = "#dc2626";
-    badge.style.color = "#fff";
-  } else {
-    badge.style.display = "none";
-  }
-});
+            } catch (err) {
+                container.innerHTML = `<p class="col-span-full text-center text-red-400">حدث خطأ في تحميل التشكيلة.</p>`;
+            }
+        }
 
-function isValidDzPhone(num) {
-  return /^(05|06|07)[0-9]{8}$/.test(num);
-}
+        function openOrderModal(product) {
+            currentProduct = product;
+            selectedSize = '';
+            selectedColor = '';
+            document.getElementById('cust-qty').value = '1';
+            document.getElementById('modal-product-name').innerText = product.name;
+            document.getElementById('order-product-id').value = product.id;
+            updateTotalBill();
 
-// ==============================================================
-// 6. إرسال الطلب وحفظه في لوحة التحكم وتوجيهه للواتساب
-// ==============================================================
-document.getElementById("laperlaOrderForm").addEventListener("submit", function(e) {
-  e.preventDefault();
+            const sizeCont = document.getElementById('size-container');
+            const sizeChips = document.getElementById('size-chips');
+            if (product.sizes && product.sizes.trim()) {
+                const sizesArr = product.sizes.split(',').map(s => s.trim());
+                selectedSize = sizesArr[0];
+                sizeChips.innerHTML = sizesArr.map((s, idx) => `
+                    <button type="button" onclick="selectSizeChip(this, '${s}')" class="px-3.5 py-1.5 border border-zinc-700 rounded-xl text-xs transition ${idx === 0 ? 'chip-active' : 'text-zinc-300'}">
+                        ${s}
+                    </button>
+                `).join('');
+                sizeCont.classList.remove('hidden');
+            } else {
+                sizeCont.classList.add('hidden');
+            }
 
-  const phone = phoneInput.value.trim();
-  const phoneErr = document.getElementById("phoneError");
+            const colorCont = document.getElementById('color-container');
+            const colorChips = document.getElementById('color-chips');
+            if (product.colors && product.colors.trim()) {
+                const colorsArr = product.colors.split(',').map(c => c.trim());
+                selectedColor = colorsArr[0];
+                colorChips.innerHTML = colorsArr.map((c, idx) => `
+                    <button type="button" onclick="selectColorChip(this, '${c}')" class="px-3.5 py-1.5 border border-zinc-700 rounded-xl text-xs transition ${idx === 0 ? 'chip-active' : 'text-zinc-300'}">
+                        ${c}
+                    </button>
+                `).join('');
+                colorCont.classList.remove('hidden');
+            } else {
+                colorCont.classList.add('hidden');
+            }
 
-  if (!isValidDzPhone(phone)) {
-    phoneErr.style.display = "block";
-    phoneInput.focus();
-    return;
-  }
-  phoneErr.style.display = "none";
+            document.getElementById('order-modal').classList.remove('hidden');
+        }
 
-  const name = document.getElementById("custName").value.trim();
-  const size = document.getElementById("prodSize").value;
-  const color = document.getElementById("prodColor").value;
-  const qty = document.getElementById("prodQuantity").value;
-  const wilayaCode = parseInt(wilayaSelect.value);
-  const commune = document.getElementById("custCommune").value;
-  const isDesk = document.querySelector('input[name="deliveryType"]:checked').value === "desk";
-  const deliveryType = isDesk ? "استلام من المكتب (Stop Desk)" : "توصيل للمنزل";
-  
-  const selectedWilaya = algeriaWilayas.find(w => w.code === wilayaCode);
-  const wilayaName = selectedWilaya ? selectedWilaya.name : "غير محدد";
-  const shippingCost = selectedWilaya ? (isDesk ? selectedWilaya.desk : selectedWilaya.home) : 0;
-  const grandTotal = (PRODUCT_BASE_PRICE * parseInt(qty)) + shippingCost;
-  const orderDate = new Date().toLocaleDateString("ar-DZ") + " " + new Date().toLocaleTimeString("ar-DZ");
+        function selectSizeChip(btn, size) {
+            selectedSize = size;
+            document.querySelectorAll('#size-chips button').forEach(b => b.className = 'px-3.5 py-1.5 border border-zinc-700 rounded-xl text-xs transition text-zinc-300');
+            btn.className = 'px-3.5 py-1.5 border rounded-xl text-xs transition chip-active';
+        }
 
-  // 1. الحفظ الداخلي الدقيق للوحة التحكم dashboard.html
-  const newOrder = {
-    "الاسم": name,
-    "الهاتف": phone,
-    "الولاية/العنوان": `${wilayaName} - بلدية: ${commune} (${deliveryType})`,
-    "المنتج": `${PRODUCT_NAME} [اللون: ${color} | المقاس: ${size} | الكمية: ${qty}]`,
-    "السعر": `${grandTotal.toLocaleString()}`,
-    "التاريخ": orderDate,
-    "الحالة": "قيد الانتظار"
-  };
+        function selectColorChip(btn, color) {
+            selectedColor = color;
+            document.querySelectorAll('#color-chips button').forEach(b => b.className = 'px-3.5 py-1.5 border border-zinc-700 rounded-xl text-xs transition text-zinc-300');
+            btn.className = 'px-3.5 py-1.5 border rounded-xl text-xs transition chip-active';
+        }
 
-  let orders = JSON.parse(localStorage.getItem("laperla_orders")) || [];
-  orders.unshift(newOrder);
-  localStorage.setItem("laperla_orders", JSON.stringify(orders));
+        function closeOrderModal() { document.getElementById('order-modal').classList.add('hidden'); }
+        function closeSuccessModal() { document.getElementById('success-modal').classList.add('hidden'); }
 
-  // 2. تجهيز رسالة WhatsApp الواضحة والمنظمة
-  const whatsappMsg = 
-    `✨ *طلب جديد من متجر La PÉRLA* ✨%0A%0A` +
-    `👤 *اسم الزبونة:* ${name}%0A` +
-    `📞 *رقم الهاتف:* ${phone}%0A` +
-    `👗 *المنتج:* ${PRODUCT_NAME}%0A` +
-    `🎨 *اللون:* ${color}%0A` +
-    `📏 *المقاس:* ${size}%0A` +
-    `🔢 *الكمية:* ${qty} قطع%0A` +
-    `📍 *الولاية والبلدية:* ${wilayaName} - ${commune}%0A` +
-    `🚚 *طريقة الاستلام:* ${deliveryType} (${shippingCost} دج)%0A` +
-    `💰 *المجموع الإجمالي الواجب دفعه:* *${grandTotal.toLocaleString()} دج*%0A` +
-    `🕒 *توقيت الطلب:* ${orderDate}`;
+        async function submitCustomerOrder(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            const phone = document.getElementById('cust-phone').value.trim();
 
-  // 3. فتح تطبيق واتساب مباشرة موجهاً لرقمك
-  window.location.href = `https://wa.me/${MY_WHATSAPP_NUMBER}?text=${whatsappMsg}`;
-});
-</script>
+            const algerianPhoneRegex = /^(05|06|07)[0-9]{8}$/;
+            if (!algerianPhoneRegex.test(phone)) {
+                alert('⚠️ رقم الهاتف غير مقبول!\nيرجى إدخال رقم هاتف جزائري صحيح يتكون من 10 أرقام ويبدأ بـ:\n05 (أوريدو) أو 06 (موبيليس) أو 07 (جيزي)');
+                document.getElementById('cust-phone').focus();
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerText = "جاري تأكيد حجزك الملكي...";
+
+            const customer_name = document.getElementById('cust-name').value.trim();
+            const qty = parseInt(document.getElementById('cust-qty').value) || 1;
+            const wilayaSelect = document.getElementById('cust-wilaya');
+            const wilaya_code = parseInt(wilayaSelect.value);
+            const wilaya_name = wilayaSelect.options[wilayaSelect.selectedIndex].getAttribute('data-name');
+            const commune = document.getElementById('cust-commune').value;
+            const deliveryType = document.querySelector('input[name="delivery_type"]:checked').value === 'home' ? 'توصيل للمنزل' : 'استلام من المكتب (Stop Desk)';
+            const total = (parseInt(currentProduct.price) * qty) + currentShippingPrice;
+            const order_number = 'LP-' + Math.floor(1000 + Math.random() * 9000);
+            const orderDate = new Date().toLocaleDateString("ar-DZ") + " " + new Date().toLocaleTimeString("ar-DZ");
+
+            let specs = [];
+            if (selectedSize) specs.push(`مقاس: ${selectedSize}`);
+            if (selectedColor) specs.push(`لون: ${selectedColor}`);
+            const specsText = specs.length > 0 ? ` [${specs.join(' | ')}]` : '';
+
+            // ==========================================
+            // 1. التخزين الداخلي للوحة التحكم dashboard.html
+            // ==========================================
+            const internalOrder = {
+                "الاسم": customer_name,
+                "الهاتف": phone,
+                "الولاية/العنوان": `${wilaya_name} - ${commune} (${deliveryType})`,
+                "المنتج": `${currentProduct.name}${specsText} (الكمية: ${qty})`,
+                "السعر": `${total}`,
+                "التاريخ": orderDate,
+                "الحالة": "قيد الانتظار"
+            };
+
+            let localOrders = JSON.parse(localStorage.getItem("laperla_orders")) || [];
+            localOrders.unshift(internalOrder);
+            localStorage.setItem("laperla_orders", JSON.stringify(localOrders));
+
+            // محاولة التسجيل في Supabase في الخلفية إن وجدت
+            try {
+                await db.from('orders').insert([{
+                    order_number: order_number,
+                    customer_name: `${customer_name}${specsText} - (${deliveryType}) (الكمية: ${qty})`,
+                    phone: phone,
+                    wilaya_code: wilaya_code,
+                    wilaya_name: wilaya_name,
+                    commune: commune,
+                    address: `${deliveryType} - بلدية ${commune}`
+                }]);
+            } catch (err) {
+                console.log("Supabase note:", err);
+            }
+
+            // ==========================================
+            // 2. إعداد رسالة WhatsApp التلقائية
+            // ==========================================
+            const whatsappMsg = 
+                `✨ *طلب جديد من بوتيك La PÉRLA* ✨%0A%0A` +
+                `🆔 *رقم الطلب:* ${order_number}%0A` +
+                `👤 *اسم الزبونة:* ${customer_name}%0A` +
+                `📞 *رقم الهاتف:* ${phone}%0A` +
+                `👗 *القطعة:* ${currentProduct.name}%0A` +
+                (selectedSize ? `📏 *المقاس:* ${selectedSize}%0A` : '') +
+                (selectedColor ? `🎨 *اللون:* ${selectedColor}%0A` : '') +
+                `🔢 *الكمية:* ${qty} قطع%0A` +
+                `📍 *الولاية والبلدية:* ${wilaya_name} - ${commune}%0A` +
+                `🚚 *نوع التوصيل:* ${deliveryType} (${currentShippingPrice} دج)%0A` +
+                `💰 *المجموع الإجمالي الواجب دفعه:* *${total.toLocaleString()} دج*%0A` +
+                `🕒 *تاريخ الطلب:* ${orderDate}`;
+
+            closeOrderModal();
+            document.getElementById('success-modal').classList.remove('hidden');
+            e.target.reset();
+            document.getElementById('cust-commune').innerHTML = '<option value="">(الرجاء اختيار الولاية أولاً)</option>';
+            btn.disabled = false;
+            btn.innerText = "تأكيد الطلب الفوري عبر واتساب ⚡";
+
+            // فتح تطبيق الواتساب فوراً
+            window.location.href = `https://wa.me/${MY_WHATSAPP_NUMBER}?text=${whatsappMsg}`;
+        }
+
+        initWilayas();
+        fetchAllCommunes();
+        loadStoreProducts();
+    </script>
+</body>
+</html>
