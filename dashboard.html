@@ -69,7 +69,7 @@
         <div class="bg-zinc-950/90 border-b border-amber-500/20 px-4">
             <div class="max-w-7xl mx-auto flex space-x-6 space-x-reverse text-sm font-semibold">
                 <button onclick="switchTab('orders')" id="tab-orders" class="py-4 border-b-2 border-amber-400 text-amber-300 flex items-center gap-2">
-                    <i class="fa-solid fa-bag-shopping"></i> الطلبات الواردة
+                    <i class="fa-solid fa-bag-shopping"></i> الطلبات الواردة (Google Sheets)
                 </button>
                 <button onclick="switchTab('products')" id="tab-products" class="py-4 border-b-2 border-transparent text-zinc-400 hover:text-zinc-200 flex items-center gap-2">
                     <i class="fa-solid fa-shirt"></i> المنتجات
@@ -84,7 +84,7 @@
             <!-- كروت الإحصائيات -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                 <div class="bg-zinc-950 p-5 rounded-2xl border border-amber-500/20 shadow-lg">
-                    <p class="text-xs text-zinc-400 font-bold">إجمالي الطلبات</p>
+                    <p class="text-xs text-zinc-400 font-bold">إجمالي الطلبات في الشيت</p>
                     <h3 id="stat-orders" class="text-3xl font-black mt-2 gold-gradient-text font-brand">0</h3>
                 </div>
                 <div class="bg-zinc-950 p-5 rounded-2xl border border-amber-500/20 shadow-lg">
@@ -96,22 +96,22 @@
                     <h3 class="text-lg font-black mt-3 gold-gradient-text">دينار جزائري (DZD)</h3>
                 </div>
                 <div class="bg-zinc-950 p-5 rounded-2xl border border-amber-500/20 shadow-lg">
-                    <p class="text-xs text-zinc-400 font-bold">حالة النظام</p>
+                    <p class="text-xs text-zinc-400 font-bold">حالة الربط</p>
                     <h3 class="text-sm font-bold mt-3 text-emerald-400 flex items-center gap-1.5">
-                        <i class="fa-solid fa-circle-check"></i> جاهز للإدارة والتعديل
+                        <i class="fa-solid fa-circle-check"></i> متصل بـ Google Sheets
                     </h3>
                 </div>
             </div>
 
-            <!-- قسم الطلبات المطور بالإجراءات والحالات -->
+            <!-- قسم الطلبات المربوط مع غوغل شيت -->
             <section id="section-orders">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-5">
                     <div>
-                        <h2 class="text-xl font-black gold-gradient-text font-brand">GESTION DES COMMANDES</h2>
-                        <p class="text-xs text-zinc-400 mt-0.5">يمكنك تغيير حالة الطلبية فوراً، الاتصال بالزبونة، أو حذف الطلب</p>
+                        <h2 class="text-xl font-black gold-gradient-text font-brand">COMMANDES GOOGLE SHEETS</h2>
+                        <p class="text-xs text-zinc-400 mt-0.5">يتم جلب هذه الطلبات مباشرة وبشكل حي من جدول Google Sheets الخاص بك</p>
                     </div>
                     <button onclick="fetchOrders()" class="text-xs bg-zinc-900 border border-zinc-700 hover:border-amber-400 text-zinc-200 px-4 py-2 rounded-xl flex items-center gap-1.5">
-                        <i class="fa-solid fa-arrows-rotate"></i> تحديث القائمة
+                        <i class="fa-solid fa-arrows-rotate"></i> تحديث الطلبات 🔄
                     </button>
                 </div>
 
@@ -119,16 +119,16 @@
                     <table class="w-full text-right text-sm">
                         <thead class="bg-zinc-900/60 text-zinc-400 text-xs border-b border-zinc-800">
                             <tr>
-                                <th class="p-4">رقم الطلب</th>
-                                <th class="p-4">الزبونة وتفاصيل القطعة</th>
+                                <th class="p-4">#</th>
+                                <th class="p-4">الزبونة وتاريخ الطلب</th>
                                 <th class="p-4">التواصل (هاتف / واتساب)</th>
-                                <th class="p-4">الولاية والبلدية</th>
-                                <th class="p-4">حالة الطلبية (تعديل فوري)</th>
-                                <th class="p-4">حذف</th>
+                                <th class="p-4">الولاية / العنوان</th>
+                                <th class="p-4">المنتج والسعر</th>
+                                <th class="p-4">الحالة</th>
                             </tr>
                         </thead>
                         <tbody id="orders-list">
-                            <tr><td colspan="6" class="p-8 text-center text-zinc-500">جاري تحميل الطلبات...</td></tr>
+                            <tr><td colspan="6" class="p-8 text-center text-zinc-500">جاري جلب الطلبات من Google Sheets...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -219,6 +219,7 @@
 
     <script>
         const ADMIN_PIN = "Farid1994#";
+        const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxQXGR9fDcP08IUBwtH3IIEuLqfGQWvgqH2xeNm80QehEd_TDMbmsSL3bKMh7a2J5DFZQ/exec";
 
         function checkAuth() {
             if (localStorage.getItem('laperla_admin_auth') === 'true') {
@@ -259,97 +260,67 @@
             document.getElementById(`tab-${tab}`).className = 'py-4 border-b-2 border-amber-400 text-amber-300 flex items-center gap-2';
         }
 
-        // جلب الطلبات مع نظام تغيير الحالة وأزرار الإجراءات
+        // دالة جلب الطلبات مباشرة من Google Sheets
         async function fetchOrders() {
             const list = document.getElementById('orders-list');
+            list.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-zinc-500">جاري جلب الطلبات من Google Sheets...</td></tr>`;
+
             try {
-                const { data, error } = await db.from('orders').select('*').order('created_at', { ascending: false });
-                if (error) throw error;
+                const response = await fetch(GOOGLE_SHEET_URL);
+                const data = await response.json();
                 document.getElementById('stat-orders').innerText = data ? data.length : 0;
                 
                 if (!data || data.length === 0) {
-                    list.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-zinc-500">لا توجد طلبات واردة بعد.</td></tr>`;
+                    list.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-zinc-500">لا توجد طلبات في جدول Google Sheets بعد.</td></tr>`;
                     return;
                 }
 
-                list.innerHTML = data.map(o => {
-                    const currentStatus = o.status || 'جديدة';
-                    const cleanPhone = (o.phone || '').replace(/[^0-9]/g, '');
-                    // تحويل رقم الهاتف الجزائري لصيغة دولية للواتساب
+                list.innerHTML = data.map((o, idx) => {
+                    const customerName = o["اسم العميل"] || o["الاسم"] || o["name"] || "بدون اسم";
+                    const rawPhone = String(o["رقم الهاتف"] || o["الهاتف"] || o["phone"] || "");
+                    const cleanPhone = rawPhone.replace(/[^0-9]/g, '');
                     const waPhone = cleanPhone.startsWith('0') ? '213' + cleanPhone.substring(1) : cleanPhone;
+                    const address = o["الولاية/العنوان"] || o["الولاية"] || o["العنوان"] || o["address"] || "-";
+                    const product = o["المنتج"] || o["product"] || "-";
+                    const price = o["السعر"] || o["price"] || "";
+                    const date = o["التاريخ"] || o["date"] || "-";
+                    const status = o["الحالة"] || o["status"] || "قيد الانتظار";
 
                     return `
                     <tr class="border-b border-zinc-900 hover:bg-zinc-900/40 transition">
-                        <td class="p-4 font-bold text-amber-400 font-brand">#${o.order_number || o.id}</td>
+                        <td class="p-4 font-bold text-amber-400 font-brand">#${idx + 1}</td>
                         <td class="p-4 font-semibold text-white">
-                            <span class="text-amber-200 block">${o.customer_name || 'بدون اسم'}</span>
-                            <span class="text-[10px] text-zinc-500">${new Date(o.created_at).toLocaleDateString('ar-DZ')}</span>
+                            <span class="text-amber-200 block">${customerName}</span>
+                            <span class="text-[10px] text-zinc-500">${date}</span>
                         </td>
                         <td class="p-4">
                             <div class="flex items-center gap-2">
-                                <a href="tel:${cleanPhone}" title="اتصال هاتفي" class="bg-zinc-900 border border-zinc-700 hover:border-emerald-400 text-emerald-400 px-2.5 py-1.5 rounded-lg text-xs flex items-center gap-1 transition">
-                                    <i class="fa-solid fa-phone"></i> ${cleanPhone}
+                                <a href="tel:${cleanPhone}" title="اتصال" class="bg-zinc-900 border border-zinc-700 hover:border-emerald-400 text-emerald-400 px-2.5 py-1.5 rounded-lg text-xs flex items-center gap-1 transition">
+                                    <i class="fa-solid fa-phone"></i> ${cleanPhone || 'لا يوجد'}
                                 </a>
-                                <a href="https://wa.me/${waPhone}" target="_blank" title="محادثة واتساب" class="bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-900 px-2 py-1.5 rounded-lg text-xs transition">
+                                ${cleanPhone ? `
+                                <a href="https://wa.me/${waPhone}" target="_blank" title="واتساب" class="bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-900 px-2 py-1.5 rounded-lg text-xs transition">
                                     <i class="fa-brands fa-whatsapp text-sm"></i>
-                                </a>
+                                </a>` : ''}
                             </div>
                         </td>
                         <td class="p-4 text-xs text-zinc-300">
-                            <p class="font-bold text-white">${o.wilaya_name || ''}</p>
-                            <p class="text-zinc-500">${o.commune || ''}</p>
+                            <p class="font-bold text-white">${address}</p>
+                        </td>
+                        <td class="p-4 text-xs">
+                            <p class="text-amber-300 font-bold">${product}</p>
+                            ${price ? `<p class="gold-gradient-text font-bold">${price} دج</p>` : ''}
                         </td>
                         <td class="p-4">
-                            <!-- قائمة تغيير حالة الطلبية فوراً -->
-                            <select onchange="updateOrderStatus('${o.id}', this.value)" class="bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-xs text-amber-300 p-2 rounded-xl outline-none font-bold">
-                                <option value="جديدة" ${currentStatus === 'جديدة' ? 'selected' : ''}>🟡 جديدة</option>
-                                <option value="مؤكدة" ${currentStatus === 'مؤكدة' ? 'selected' : ''}>📞 مؤكدة</option>
-                                <option value="تم الإرسال" ${currentStatus === 'تم الإرسال' ? 'selected' : ''}>🚚 تم الإرسال</option>
-                                <option value="في مكتب التوصيل" ${currentStatus === 'في مكتب التوصيل' ? 'selected' : ''}>🏢 في مكتب التوصيل</option>
-                                <option value="تم الاستلام بنجاح" ${currentStatus === 'تم الاستلام بنجاح' ? 'selected' : ''}>✅ تم الاستلام بنجاح</option>
-                                <option value="ملغية" ${currentStatus === 'ملغية' ? 'selected' : ''}>❌ ملغية</option>
-                            </select>
-                        </td>
-                        <td class="p-4 text-center">
-                            <!-- زر حذف الطلبية -->
-                            <button onclick="deleteOrder('${o.id}')" title="حذف الطلبية" class="text-zinc-600 hover:text-red-400 p-2 rounded-lg hover:bg-red-500/10 transition">
-                                <i class="fa-solid fa-trash-can text-sm"></i>
-                            </button>
+                            <span class="bg-zinc-900 border border-amber-500/30 text-amber-300 text-xs px-3 py-1.5 rounded-xl font-bold">
+                                🟡 ${status}
+                            </span>
                         </td>
                     </tr>
                 `}).join('');
             } catch (err) {
-                list.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-zinc-500">حدث خطأ في تحميل الطلبات.</td></tr>`;
-            }
-        }
-
-        // دالة تغيير حالة الطلبية في Supabase
-        async function updateOrderStatus(orderId, newStatus) {
-            try {
-                const { error } = await db.from('orders').update({ status: newStatus }).eq('id', orderId);
-                if (error) throw error;
-                // إشعار بسيط سريع
-                const note = document.createElement('div');
-                note.className = 'fixed bottom-5 left-5 bg-emerald-950 border border-emerald-400 text-emerald-300 px-4 py-2.5 rounded-xl text-xs z-50 shadow-xl';
-                note.innerText = `✓ تم تحديث حالة الطلبية إلى: ${newStatus}`;
-                document.body.appendChild(note);
-                setTimeout(() => note.remove(), 2500);
-            } catch (err) {
-                alert('فشل تحديث الحالة: ' + err.message);
-                fetchOrders();
-            }
-        }
-
-        // دالة حذف الطلبية من Supabase
-        async function deleteOrder(orderId) {
-            if (confirm('هل أنت متأكد من حذف هذه الطلبية نهائياً من قاعدة البيانات؟')) {
-                try {
-                    const { error } = await db.from('orders').delete().eq('id', orderId);
-                    if (error) throw error;
-                    fetchOrders();
-                } catch (err) {
-                    alert('فشل حذف الطلبية: ' + err.message);
-                }
+                console.error(err);
+                list.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-zinc-500">حدث خطأ أثناء الاتصال بـ Google Sheets. تأكد من اتصال الإنترنت.</td></tr>`;
             }
         }
 
