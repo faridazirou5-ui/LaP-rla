@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>la Pérla | L'élégance au féminin</title>
   
+  <!-- إعدادات تطبيق الهاتف PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#FAF6F0">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(err => console.log('SW setup'));
+      });
+    }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Cairo:wght@600;700;800;900&display=swap" rel="stylesheet">
@@ -279,7 +290,7 @@
 
           <form id="order-form" onsubmit="handleCustomerOrder(event)" class="space-y-3 text-xs font-bold">
             
-            <!-- مصيدة البوتات الخفية: البوت فقط يملؤها والإنسان لا يراها -->
+            <!-- مصيدة البوتات الخفية -->
             <input type="text" id="bot-trap-field" name="website_url_check" style="display:none !important; position:absolute; left:-9999px;" tabindex="-1" autocomplete="off">
 
             <div class="grid grid-cols-2 gap-3">
