@@ -232,6 +232,7 @@
     </footer>
 
     <script>
+        const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxQXGR9fDcP08IUBwtH3IIEuLqfGQWvgqH2xeNm80QehEd_TDMbmsSL3bKMh7a2J5DFZQ/exec";
         const SUPABASE_URL = "https://duwazuxedzussasjphqe.supabase.co";
         const SUPABASE_KEY = "sb_publishable_OXs_iWjYnTZW6mSI7LeN8Q_jQQ7r5aC";
         const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -453,6 +454,7 @@
         function closeOrderModal() { document.getElementById('order-modal').classList.add('hidden'); }
         function closeSuccessModal() { document.getElementById('success-modal').classList.add('hidden'); }
 
+        // دالة تأكيد الطلب وإرساله إلى Google Sheets
         async function submitCustomerOrder(e) {
             e.preventDefault();
             const btn = document.getElementById('submit-btn');
@@ -482,25 +484,48 @@
             if (selectedColor) specs.push(`لون: ${selectedColor}`);
             const specsText = specs.length > 0 ? ` [${specs.join(' | ')}]` : '';
 
+            // 1. تجهيز بيانات الطلب لـ Google Sheets
+            const orderPayload = {
+                name: `${customer_name}${specsText}`,
+                phone: phone,
+                address: `ولاية ${wilaya_name} - بلدية ${commune} (${deliveryType})`,
+                product: currentProduct ? currentProduct.name : 'قطعة حصرية',
+                price: `${total} دج`,
+                status: 'جديدة'
+            };
+
             try {
-                const { error } = await db.from('orders').insert([{
-                    order_number: order_number,
-                    customer_name: `${customer_name}${specsText} - (${deliveryType})`,
-                    phone: phone,
-                    wilaya_code: wilaya_code,
-                    wilaya_name: wilaya_name,
-                    commune: commune,
-                    address: `${deliveryType} - بلدية ${commune}`
-                }]);
+                // إرسال مباشر إلى جدول Google Sheets
+                await fetch(GOOGLE_SHEET_URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "text/plain;charset=utf-8",
+                    },
+                    body: JSON.stringify(orderPayload)
+                });
 
-                if (error) throw error;
+                // محاولة الحفظ في Supabase أيضاً كنسخة احتياطية
+                try {
+                    await db.from('orders').insert([{
+                        order_number: order_number,
+                        customer_name: `${customer_name}${specsText} - (${deliveryType})`,
+                        phone: phone,
+                        wilaya_code: wilaya_code,
+                        wilaya_name: wilaya_name,
+                        commune: commune,
+                        address: `${deliveryType} - بلدية ${commune}`
+                    }]);
+                } catch(e) {}
 
+                // إظهار نافذة تأكيد الطلب بنجاح
                 closeOrderModal();
                 document.getElementById('success-modal').classList.remove('hidden');
                 e.target.reset();
                 document.getElementById('cust-commune').innerHTML = '<option value="">(الرجاء اختيار الولاية أولاً)</option>';
+
             } catch (err) {
-                alert('تنبيه: ' + err.message);
+                console.error("Order error:", err);
+                alert('حدث خطأ أثناء إرسال الطلب، يرجى إعادة المحاولة.');
             } finally {
                 btn.disabled = false;
                 btn.innerText = "تأكيد حجز الطلب الآن (الدفع عند الاستلام) 🛍️";
