@@ -243,18 +243,16 @@
             } catch (e) {}
         }
 
-        // حساب تكلفة التوصيل الجزائرية المعتمدة
         function calculateShippingCost(wilayaCode, isDesk) {
             if (!wilayaCode) return 0;
             const code = parseInt(wilayaCode);
-            let homeRate = 700; // الافتراضي للشمال
+            let homeRate = 700;
 
-            if (code === 16) homeRate = 450; // الجزائر العاصمة
-            else if ([9, 35, 42].includes(code)) homeRate = 500; // البليدة، بومرداس، تيبازة
-            else if ([1, 11, 33, 37, 50, 53, 54, 56].includes(code)) homeRate = 1200; // الصحراء الكبرى
-            else if ([7, 8, 17, 30, 32, 39, 45, 47, 49, 51, 52, 55, 57, 58].includes(code)) homeRate = 900; // الهضاب والجنوب
+            if (code === 16) homeRate = 450;
+            else if ([9, 35, 42].includes(code)) homeRate = 500;
+            else if ([1, 11, 33, 37, 50, 53, 54, 56].includes(code)) homeRate = 1200;
+            else if ([7, 8, 17, 30, 32, 39, 45, 47, 49, 51, 52, 55, 57, 58].includes(code)) homeRate = 900;
 
-            // سعر المكتب أرخص دائماً بـ 250 دج
             return isDesk ? Math.max(300, homeRate - 250) : homeRate;
         }
 
@@ -363,16 +361,19 @@
             const deliveryType = document.querySelector('input[name="delivery_type"]:checked').value === 'home' ? 'توصيل للمنزل' : 'استلام من المكتب';
             const total = parseInt(currentProduct.price) + currentShippingPrice;
             const order_number = 'LP-' + Math.floor(1000 + Math.random() * 9000);
+            
+            // إرسال العنوان كاملاً ومضموناً لكي لا يكون فارغاً أبداً
+            const addressDetail = `${deliveryType} - بلدية ${commune}`;
 
             try {
-                // إرسال الحقول مع عمود commune الصريح بدون أي نقص
                 const { error } = await db.from('orders').insert([{
                     order_number: order_number,
                     customer_name: `${customer_name} (${deliveryType} - الإجمالي: ${total} دج)`,
                     phone: phone,
                     wilaya_code: wilaya_code,
                     wilaya_name: wilaya_name,
-                    commune: commune
+                    commune: commune,
+                    address: addressDetail
                 }]);
 
                 if (error) throw error;
