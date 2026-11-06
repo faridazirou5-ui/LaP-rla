@@ -100,7 +100,7 @@
         </div>
     </main>
 
-    <!-- نافذة طلب الاقتناء مع محدد رقم الهاتف الصارم -->
+    <!-- نافذة طلب الاقتناء الشاملة للـ 58 ولاية ببلدياتها التامة -->
     <div id="order-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-zinc-950 border border-amber-500/40 rounded-3xl max-w-md w-full p-6 shadow-[0_0_40px_rgba(212,175,55,0.2)] max-h-[94vh] overflow-y-auto">
             
@@ -135,7 +135,7 @@
                     <input type="text" id="cust-name" required placeholder="مثال: سارة بهلول" class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-sm outline-none">
                 </div>
 
-                <!-- خانة رقم الهاتف مع الفحص المباشر -->
+                <!-- خانة رقم الهاتف مع الفحص المباشر (10 أرقام وتبدأ بـ 05/06/07) -->
                 <div>
                     <label class="block text-xs font-bold text-amber-200/90 mb-1">رقم الهاتف للتأكيد (10 أرقام) *</label>
                     <input 
@@ -147,18 +147,20 @@
                         placeholder="05 / 06 / 07 ..." 
                         class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-sm outline-none text-left tracking-wider" 
                         dir="ltr">
-                    <span class="text-[10px] text-zinc-400 mt-1 block">يجب أن يبدأ بـ 05 أو 06 أو 07 ويتكون من 10 أرقام (موبيليس، جيزي، أوريدو).</span>
+                    <span class="text-[10px] text-zinc-400 mt-1 block">يجب أن يتكون من 10 أرقام ويبدأ بـ 05 أو 06 أو 07.</span>
                 </div>
 
+                <!-- اختيار الولاية -->
                 <div>
-                    <label class="block text-xs font-bold text-amber-200/90 mb-1">الولاية *</label>
+                    <label class="block text-xs font-bold text-amber-200/90 mb-1">الولاية (58 ولاية) *</label>
                     <select id="cust-wilaya" required onchange="handleWilayaChange()" class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-sm outline-none">
-                        <option value="">-- اضغطي لاختيار الولاية (58 ولاية) --</option>
+                        <option value="">-- اضغطي لاختيار الولاية --</option>
                     </select>
                 </div>
 
+                <!-- اختيار البلدية التلقائي -->
                 <div>
-                    <label class="block text-xs font-bold text-amber-200/90 mb-1">البلدية (اختر بضغطة زر) *</label>
+                    <label class="block text-xs font-bold text-amber-200/90 mb-1">البلدية (اختاري بضغطة زر) *</label>
                     <select id="cust-commune" required class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-sm outline-none">
                         <option value="">(الرجاء اختيار الولاية أولاً)</option>
                     </select>
@@ -210,7 +212,6 @@
         </div>
     </div>
 
-    <!-- نافذة النجاح الملكية -->
     <div id="success-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-zinc-950 border border-amber-500/40 rounded-3xl max-w-sm w-full p-8 text-center shadow-[0_0_50px_rgba(212,175,55,0.3)]">
             <div class="w-16 h-16 rounded-full border border-amber-400 text-amber-300 flex items-center justify-center text-3xl mx-auto mb-4 bg-amber-500/10">✓</div>
@@ -248,9 +249,23 @@
             {code: 41, name: "سوق أهراس"}, {code: 42, name: "تيبازة"}, {code: 43, name: "ميلة"}, {code: 44, name: "عين الدفلى"},
             {code: 45, name: "النعامة"}, {code: 46, name: "عين تموشنت"}, {code: 47, name: "غرداية"}, {code: 48, name: "غليزان"},
             {code: 49, name: "تيميمون"}, {code: 50, name: "برج باجي مختار"}, {code: 51, name: "أولاد جلال"}, {code: 52, name: "بني عباس"},
-            {code: 53, name: "عين صالح"}, {code: 54, name: "عين قزام"}, {code: 55, name: "تقرت"}, {code: 56, name: "جانت"},
+            {code: 53, name: "عين صالح"}, {code: 54, name: "عين قزام"}, {code: 55, name: "توقرت"}, {code: 56, name: "جانت"},
             {code: 57, name: "المغير"}, {code: 58, name: "المنيعة"}
         ];
+
+        // بلديات الولايات الجديدة (49 إلى 58) بدقة تامة ومحدثة
+        const NEW_WILAYAS_COMMUNES = {
+            49: ["تيميمون", "أولاد سعيد", "أنزاغمير", "أوقروت", "دلدول", "المطارفة", "شروين", "طالمين", "أولاد عيسى", "تينركوك"],
+            50: ["برج باجي مختار", "تيمياوين"],
+            51: ["أولاد جلال", "سيدي خالد", "الدوسن", "الشعيبة", "البسباس", "رأس الميعاد"],
+            52: ["بني عباس", "أقلي", "الواتة", "كرزاز", "أولاد خضير", "تبلبلة", "تامترت", "بني يخلف", "تيمودي", "قصابي"],
+            53: ["عين صالح", "إن غار", "فقارة الزاوية"],
+            54: ["عين قزام", "تين زواتين"],
+            55: ["توقرت", "النزلة", "تبسبست", "الزاوية العابدية", "تماسين", "بلدة عمر", "المقارين", "سيدي سليمان", "الطيبات", "بن ناصر", "المنقر", "الحجيرة", "العالية", "البرمة"],
+            56: ["جانت", "برج الحواس"],
+            57: ["المغير", "أم الطيور", "سطيل", "سيدي خليل", "جامعة", "سيدي عمران", "تندلة", "مرارة"],
+            58: ["المنيعة", "حاسي القارة", "حاسي الفحل"]
+        };
 
         let allCommunesData = [];
         let currentProduct = null;
@@ -279,7 +294,7 @@
             if (code === 16) homeRate = 450;
             else if ([9, 35, 42].includes(code)) homeRate = 500;
             else if ([1, 11, 33, 37, 50, 53, 54, 56].includes(code)) homeRate = 1200;
-            else if ([7, 8, 17, 30, 32, 39, 45, 47, 49, 51, 52, 55, 57, 58].includes(code)) homeRate = 900;
+            else if ([7, 8, 17, 30, 32, 39, 45, 47, 48, 49, 51, 52, 55, 57, 58].includes(code)) homeRate = 900;
 
             return isDesk ? Math.max(300, homeRate - 250) : homeRate;
         }
@@ -287,7 +302,7 @@
         function handleWilayaChange() {
             const wilayaSelect = document.getElementById('cust-wilaya');
             const communeSelect = document.getElementById('cust-commune');
-            const code = wilayaSelect.value;
+            const code = parseInt(wilayaSelect.value);
 
             if (!code) {
                 communeSelect.innerHTML = '<option value="">(الرجاء اختيار الولاية أولاً)</option>';
@@ -295,13 +310,20 @@
                 return;
             }
 
-            const filtered = allCommunesData.filter(c => parseInt(c.wilaya_id) === parseInt(code));
-            if (filtered.length > 0) {
+            // 1. فحص الولايات الجديدة من 49 إلى 58
+            if (NEW_WILAYAS_COMMUNES[code]) {
                 communeSelect.innerHTML = '<option value="">-- اختاري بلديتك بضغطة زر --</option>' + 
-                    filtered.map(c => `<option value="${c.ar_name || c.name}">${c.ar_name || c.name}</option>`).join('');
+                    NEW_WILAYAS_COMMUNES[code].map(c => `<option value="${c}">${c}</option>`).join('');
             } else {
-                const selectedWilayaName = wilayaSelect.options[wilayaSelect.selectedIndex].getAttribute('data-name');
-                communeSelect.innerHTML = `<option value="${selectedWilayaName} مركز">${selectedWilayaName} (البلدية المركزية)</option>`;
+                // 2. فحص الولايات من 1 إلى 48
+                const filtered = allCommunesData.filter(c => parseInt(c.wilaya_id) === code);
+                if (filtered.length > 0) {
+                    communeSelect.innerHTML = '<option value="">-- اختاري بلديتك بضغطة زر --</option>' + 
+                        filtered.map(c => `<option value="${c.ar_name || c.name}">${c.ar_name || c.name}</option>`).join('');
+                } else {
+                    const selectedWilayaName = wilayaSelect.options[wilayaSelect.selectedIndex].getAttribute('data-name');
+                    communeSelect.innerHTML = `<option value="${selectedWilayaName} مركز">${selectedWilayaName} (البلدية المركزية)</option>`;
+                }
             }
             updateTotalBill();
         }
@@ -430,10 +452,8 @@
         async function submitCustomerOrder(e) {
             e.preventDefault();
             const btn = document.getElementById('submit-btn');
-
             const phone = document.getElementById('cust-phone').value.trim();
 
-            // فاحص رقم الهاتف الجزائري الصارم (يبدأ بـ 05 أو 06 أو 07 ويتكون من 10 أرقام تماماً)
             const algerianPhoneRegex = /^(05|06|07)[0-9]{8}$/;
             if (!algerianPhoneRegex.test(phone)) {
                 alert('⚠️ رقم الهاتف غير مقبول!\nيرجى إدخال رقم هاتف جزائري صحيح يتكون من 10 أرقام تماماً ويبدأ بـ:\n05 (أوريدو) أو 06 (موبيليس) أو 07 (جيزي)');
