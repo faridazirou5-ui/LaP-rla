@@ -71,7 +71,7 @@
 </head>
 <body class="selection:bg-laperla-gold selection:text-white">
 
-  <!-- إعدادات المتجر وبيانات بوت تيليجرام الخاص بك -->
+  <!-- إعدادات المتجر الأساسية وبوت تيليجرام -->
   <script>
     const CONFIG = {
       MANAGER_PHONE: "213778215570",
@@ -269,7 +269,7 @@
         </div>
       </div>
 
-      <!-- استمارة الطلب -->
+      <!-- استمارة الطلب مزودة بمصيدة البوتات الخفية (Honeypot) -->
       <div class="w-full md:w-1/2 p-6 bg-white flex flex-col justify-between">
         <div>
           <div class="border-b border-neutral-200 pb-2 mb-4">
@@ -279,6 +279,9 @@
 
           <form id="order-form" onsubmit="handleCustomerOrder(event)" class="space-y-3 text-xs font-bold">
             
+            <!-- مصيدة البوتات الخفية: البوت فقط يملؤها والإنسان لا يراها -->
+            <input type="text" id="bot-trap-field" name="website_url_check" style="display:none !important; position:absolute; left:-9999px;" tabindex="-1" autocomplete="off">
+
             <div class="grid grid-cols-2 gap-3">
               <div>
                 <label class="block text-neutral-800 mb-1">اللون المحدد *</label>
@@ -567,7 +570,7 @@
     </div>
   </footer>
 
-  <!-- ================= سكريبت العمليات وبوت تيليجرام ================= -->
+  <!-- ================= سكريبت العمليات وبوت تيليجرام وحماية البوتات ================= -->
   <script>
     const shippingRatesByWilaya = {
       "01": { home: 1300, desk: 900 }, "02": { home: 750, desk: 450 }, "03": { home: 900, desk: 550 }, "04": { home: 800, desk: 450 },
@@ -604,7 +607,6 @@
       { code: "57", name: "المغير" }, { code: "58", name: "المنيعة" }
     ];
 
-    // البلديات الرسمية الكاملة للولايات الـ 10 الجديدة
     const NEW_WILAYAS_COMMUNES = {
       "49": ["تيميمون", "أولاد سعيد", "أنزاغمير", "أوقروت", "دلدول", "المطارفة", "شروين", "طالمين", "أولاد عيسى", "تينركوك"],
       "50": ["برج باجي مختار", "تيمياوين"],
@@ -854,18 +856,45 @@
       document.getElementById('price-total-summary').textContent = `${total.toLocaleString('ar-DZ')} دج`;
     }
 
-    // إتمام الطلب وإرسال إشعار فوري إلى تيليجرام سراً في الخلفية
+    // إتمام الطلب المحمي ضد البوتات والسبام
     async function handleCustomerOrder(e) {
       e.preventDefault();
+
+      // 1. فحص مصيدة البوتات الخفية (Honeypot)
+      const botTrap = document.getElementById('bot-trap-field')?.value;
+      if (botTrap) {
+        console.warn("Spam Bot Detected & Blocked!");
+        return false;
+      }
+
+      // 2. فحص نظام منع التكرار والسبام (90 ثانية كحد أدنى بين الطلبات)
+      const lastOrderTime = localStorage.getItem('laperla_last_submit_time');
+      const now = Date.now();
+      if (lastOrderTime && (now - parseInt(lastOrderTime)) < 90000) {
+        alert("⚠️ لقد قمت بإرسال طلب مؤخراً، يرجى الانتظار دقيقة حتى يتواصل معك فريقنا.");
+        return;
+      }
 
       const phone = document.getElementById('order-phone').value.trim();
       const cleanPhone = phone.replace(/[^0-9]/g, '');
 
-      if (cleanPhone.length !== 10 || (!cleanPhone.startsWith('05') && !cleanPhone.startsWith('06') && !cleanPhone.startsWith('07'))) {
-        alert("⚠️ يرجى إدخال رقم هاتف جزائري صحيح يتكون من 10 أرقام ويبدأ بـ 05، 06، أو 07.");
+      // 3. فحص صارم جداً للرقم الجزائري (10 أرقام حصراً تبدأ بـ 05، 06، 07)
+      const dzRegex = /^(05|06|07)[0-9]{8}$/;
+      if (!dzRegex.test(cleanPhone)) {
+        alert("⚠️ رقم الهاتف غير صحيح!\nيجب أن يتكون رقم الهاتف الجزائري من 10 أرقام تماماً ويبدأ بـ (05، 06، أو 07).");
         document.getElementById('order-phone').focus();
         return;
       }
+
+      // 4. حظر الأرقام الوهمية الشائعة
+      if (/^0[567](\d)\1{7}$/.test(cleanPhone)) {
+        alert("⚠️ يرجى إدخال رقم هاتف حقيقي للتواصل.");
+        return;
+      }
+
+      const submitBtn = document.getElementById('submit-order-btn');
+      submitBtn.disabled = true;
+      submitBtn.innerText = "جاري التحقق وتثبيت الحجز...";
 
       const name = document.getElementById('order-name').value.trim();
       const wilayaSelect = document.getElementById('order-wilaya');
@@ -900,6 +929,8 @@
         total: totalAmount,
         status: 'قيد الانتظار'
       };
+
+      localStorage.setItem('laperla_last_submit_time', Date.now());
 
       // 1. الحفظ الداخلي للوحة الإدارة
       saveOrder(orderData);
@@ -938,12 +969,13 @@
 
       const telegramUrl = `https://api.telegram.org/bot${CONFIG.TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${CONFIG.TELEGRAM_CHAT_ID}&text=${encodeURIComponent(telegramMessage)}&parse_mode=Markdown`;
 
-      // إرسال الرسالة سحابياً دون فتح أي تطبيق عند الزبونة
-      fetch(telegramUrl, { method: 'GET', mode: 'no-cors' }).catch(err => console.log('TG Sent'));
+      fetch(telegramUrl, { method: 'GET', mode: 'no-cors' }).catch(e => console.log(e));
 
       // 4. إغلاق نافذة الشراء وإظهار نافذة الشكر والتقدير الملكية الفاخرة للزبونة
       closeProductModal();
       document.getElementById('order-form').reset();
+      submitBtn.disabled = false;
+      submitBtn.innerText = "تأكيد حجز الطلبية الآن (الدفع عند الاستلام)";
 
       document.getElementById('thank-cust-name').textContent = name;
       document.getElementById('thank-order-id').textContent = orderId;
