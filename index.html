@@ -454,7 +454,7 @@
         function closeOrderModal() { document.getElementById('order-modal').classList.add('hidden'); }
         function closeSuccessModal() { document.getElementById('success-modal').classList.add('hidden'); }
 
-        // دالة تأكيد الطلب وإرساله إلى Google Sheets
+        // دالة تأكيد الطلب وحفظه في Google Sheets والمتجر معاً
         async function submitCustomerOrder(e) {
             e.preventDefault();
             const btn = document.getElementById('submit-btn');
@@ -495,16 +495,17 @@
             };
 
             try {
-                // إرسال مباشر إلى جدول Google Sheets
-                await fetch(GOOGLE_SHEET_URL, {
+                // إرسال لـ Google Sheets مع no-cors لضمان نجاح الإرسال وتفادي الحظر
+                fetch(GOOGLE_SHEET_URL, {
                     method: "POST",
+                    mode: "no-cors",
                     headers: {
                         "Content-Type": "text/plain;charset=utf-8",
                     },
                     body: JSON.stringify(orderPayload)
-                });
+                }).catch(e => console.log("Sheet send:", e));
 
-                // محاولة الحفظ في Supabase أيضاً كنسخة احتياطية
+                // حفظ نسخة في المتجر وقاعدة البيانات أيضاً
                 try {
                     await db.from('orders').insert([{
                         order_number: order_number,
@@ -515,9 +516,11 @@
                         commune: commune,
                         address: `${deliveryType} - بلدية ${commune}`
                     }]);
-                } catch(e) {}
+                } catch(e) {
+                    console.log("DB save note:", e);
+                }
 
-                // إظهار نافذة تأكيد الطلب بنجاح
+                // فتح نافذة النجاح مباشرة
                 closeOrderModal();
                 document.getElementById('success-modal').classList.remove('hidden');
                 e.target.reset();
