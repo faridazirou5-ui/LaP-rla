@@ -9,6 +9,23 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Playfair+Display:ital,wght@1,600&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- 9. كود فيسبوك بيكسل (Meta Pixel) -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      // ضعي معرف البيكسل الخاص بكِ هنا
+      fbq('init', 'YOUR_PIXEL_ID');
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1"/></noscript>
+
     <style>
         body { font-family: 'Cairo', sans-serif; background-color: #070707; }
         .font-brand { font-family: 'Cinzel', serif; letter-spacing: 0.15em; }
@@ -38,17 +55,66 @@
 </head>
 <body class="text-zinc-100 selection:bg-amber-600 selection:text-white">
 
+    <!-- 4. شريط وضع المدير السري (يظهر بعد إدخال كلمة المرور) -->
+    <div id="admin-bar" class="hidden bg-zinc-950 border-b border-amber-500/40 px-4 py-2 text-xs flex justify-between items-center sticky top-0 z-50">
+        <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="font-bold text-amber-300">وضع الإدارة مفعّل 👑</span>
+        </div>
+        <div class="flex items-center gap-2">
+            <a href="dashboard.html" class="bg-amber-500 text-black px-3 py-1 rounded-lg font-black hover:bg-amber-400 transition">
+                <i class="fa-solid fa-chart-line"></i> لوحة التحكم (الطلبات)
+            </a>
+            <button onclick="toggleVisitorPreview()" class="bg-zinc-800 text-zinc-300 px-2.5 py-1 rounded-lg hover:text-white">
+                معاينة كزائر 👁️
+            </button>
+            <button onclick="adminLogout()" class="text-red-400 hover:text-red-300 px-2 py-1">
+                خروج 🚪
+            </button>
+        </div>
+    </div>
+
+    <!-- نافذة إدخال كلمة السر السرية للمدير -->
+    <div id="admin-login-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-zinc-950 border border-amber-500/40 rounded-3xl max-w-sm w-full p-6 text-center shadow-[0_0_50px_rgba(212,175,55,0.25)]">
+            <h3 class="text-lg font-black gold-gradient-text font-brand mb-2">الدخول السري للمدير</h3>
+            <p class="text-xs text-zinc-400 mb-4">يرجى إدخال الرمز السري</p>
+            <form onsubmit="verifyAdminSecret(event)" class="space-y-3">
+                <input type="password" id="secret-pin" required placeholder="كلمة المرور..." class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-center text-white p-2.5 rounded-xl text-sm outline-none">
+                <button type="submit" class="w-full gold-btn text-black font-black py-2.5 rounded-xl text-xs">تفعيل وضع المدير</button>
+                <button type="button" onclick="closeAdminLoginModal()" class="w-full bg-zinc-900 text-zinc-400 py-2 rounded-xl text-xs">إلغاء</button>
+            </form>
+            <p id="secret-pin-error" class="text-red-400 text-xs mt-2 hidden">⚠️ كلمة المرور غير صحيحة!</p>
+        </div>
+    </div>
+
     <div class="bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 text-amber-200/90 text-xs py-2 text-center tracking-widest font-semibold border-b border-amber-500/20">
-        ✨ خدمة التوصيل متوفرة لـ 58 ولاية (للمنزل أو المكتب) • الدفع عند الاستلام
+        ✨ خدمة التوصيل متوفرة لـ 58 ولاية (للمنزل أو المكتب) • الدفع عند الاستلام والمعاينة قبل الدفع
     </div>
 
     <!-- هيدر المتجر -->
     <header class="bg-black/90 backdrop-blur-md border-b border-amber-500/20 sticky top-0 z-40">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex justify-between items-center">
-            <a href="#" class="flex items-center gap-3">
+            
+            <!-- الشعار (الضغط 3 مرات متتالية يفتح الدخول السري) -->
+            <div onclick="secretLogoTrigger()" class="cursor-pointer select-none" title="La PÉRLA">
                 <img src="file_0000000076d88210a183a9bcb172509b.png" alt="La PÉRLA Logo" class="h-14 w-auto object-contain drop-shadow-[0_0_15px_rgba(212,175,55,0.35)]">
-            </a>
-            <div class="flex items-center gap-3 text-xs font-bold">
+            </div>
+
+            <div class="flex items-center gap-4 text-xs font-bold">
+                <!-- 8. مواقع التواصل الاجتماعي -->
+                <div class="flex items-center gap-2 text-zinc-400">
+                    <a href="https://instagram.com" target="_blank" class="w-8 h-8 rounded-full border border-zinc-800 hover:border-amber-400 hover:text-amber-300 flex items-center justify-center transition">
+                        <i class="fa-brands fa-instagram text-sm"></i>
+                    </a>
+                    <a href="https://tiktok.com" target="_blank" class="w-8 h-8 rounded-full border border-zinc-800 hover:border-amber-400 hover:text-amber-300 flex items-center justify-center transition">
+                        <i class="fa-brands fa-tiktok text-sm"></i>
+                    </a>
+                    <a href="https://facebook.com" target="_blank" class="w-8 h-8 rounded-full border border-zinc-800 hover:border-amber-400 hover:text-amber-300 flex items-center justify-center transition">
+                        <i class="fa-brands fa-facebook-f text-sm"></i>
+                    </a>
+                </div>
+
                 <a href="#collection" class="border border-amber-500/40 text-amber-300 hover:text-amber-200 px-4 py-2 rounded-full hover:bg-amber-500/10 transition flex items-center gap-1.5 shadow-sm">
                     <i class="fa-solid fa-gem text-xs"></i> التشكيلة الحصرية
                 </a>
@@ -85,6 +151,7 @@
         </div>
     </section>
 
+    <!-- معرض القطع والفساتين -->
     <main id="collection" class="max-w-6xl mx-auto px-6 py-16">
         <div class="text-center mb-12">
             <span class="font-cursive text-amber-400/80 text-lg block mb-1">Nos Créations</span>
@@ -100,34 +167,78 @@
         </div>
     </main>
 
-    <!-- نافذة طلب الاقتناء (المطورة) -->
+    <!-- 7. قسم آراء الزبونات (Avis Clientes) -->
+    <section class="border-t border-amber-500/20 py-16 bg-zinc-950/70 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-10">
+                <span class="font-cursive text-amber-400/80 text-base block mb-1">Témoignages</span>
+                <h3 class="text-2xl font-black gold-gradient-text font-brand">آراء زبونات La PÉRLA</h3>
+                <div class="w-16 h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent mx-auto mt-2"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-right">
+                <div class="bg-zinc-900/60 border border-amber-500/20 p-5 rounded-2xl">
+                    <div class="text-amber-400 text-xs mb-2">★★★★★</div>
+                    <p class="text-xs text-zinc-300 leading-relaxed">
+                        "وصلني الفستان في ظرف 48 ساعة فقط، القماش والخياطة ولا غلطة ماشاء الله طبق الأصل للصور تماماً. شكراً لفريق La PÉRLA على المعاملة الراقية."
+                    </p>
+                    <div class="mt-3 pt-2 border-t border-zinc-800 text-[11px] text-amber-200/90 font-bold">أمينة ب. • الجزائر العاصمة</div>
+                </div>
+
+                <div class="bg-zinc-900/60 border border-amber-500/20 p-5 rounded-2xl">
+                    <div class="text-amber-400 text-xs mb-2">★★★★★</div>
+                    <p class="text-xs text-zinc-300 leading-relaxed">
+                        "أعجبني جداً احترام المقاس واللون، والتوصيل كان سريعاً إلى باب المنزل. القطعة في الحقيقة تبدو أفخم بكثير من شاشة الهاتف."
+                    </p>
+                    <div class="mt-3 pt-2 border-t border-zinc-800 text-[11px] text-amber-200/90 font-bold">دليلة م. • وهران</div>
+                </div>
+
+                <div class="bg-zinc-900/60 border border-amber-500/20 p-5 rounded-2xl">
+                    <div class="text-amber-400 text-xs mb-2">★★★★★</div>
+                    <p class="text-xs text-zinc-300 leading-relaxed">
+                        "أفضل متجر تعاملت معه، خصوصاً إمكانية المعاينة قبل الدفع تمنح راحة بال كبيرة. التغليف فخم ومثالي للإهداء."
+                    </p>
+                    <div class="mt-3 pt-2 border-t border-zinc-800 text-[11px] text-amber-200/90 font-bold">سارة خ. • سطيف</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5 و 6. نافذة طلب الاقتناء (مع صورة ووصف المنتج والخيارات الكاملة) -->
     <div id="order-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-zinc-950 border border-amber-500/40 rounded-3xl max-w-md w-full p-6 shadow-[0_0_40px_rgba(212,175,55,0.2)] max-h-[94vh] overflow-y-auto">
+        <div class="bg-zinc-950 border border-amber-500/40 rounded-3xl max-w-md w-full p-5 shadow-[0_0_40px_rgba(212,175,55,0.2)] max-h-[94vh] overflow-y-auto">
             
-            <div class="flex justify-between items-center border-b border-amber-500/20 pb-3 mb-4">
+            <div class="flex justify-between items-center border-b border-amber-500/20 pb-3 mb-3">
                 <div class="flex items-center gap-2">
-                    <img src="file_0000000076d88210a183a9bcb172509b.png" class="w-8 h-8 object-contain">
-                    <div>
-                        <h3 class="font-black text-sm gold-gradient-text font-brand">تأكيد طلب الاقتناء</h3>
-                        <p id="modal-product-name" class="text-xs text-zinc-300 font-semibold mt-0.5"></p>
-                    </div>
+                    <img src="file_0000000076d88210a183a9bcb172509b.png" class="w-7 h-7 object-contain">
+                    <h3 class="font-black text-sm gold-gradient-text font-brand">تأكيد طلب الاقتناء</h3>
                 </div>
                 <button onclick="closeOrderModal()" class="text-zinc-400 hover:text-amber-400 text-2xl">✕</button>
             </div>
 
-            <form onsubmit="submitCustomerOrder(event)" class="space-y-3.5">
+            <!-- صورة ووصف القطعة قبل الطلب -->
+            <div class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-3 mb-3.5 flex gap-3 items-center">
+                <img id="modal-product-img" src="" class="w-20 h-24 object-cover rounded-xl border border-amber-500/30 flex-shrink-0">
+                <div class="text-right flex-1">
+                    <h4 id="modal-product-name" class="font-bold text-white text-sm"></h4>
+                    <p id="modal-product-desc" class="text-[11px] text-zinc-400 line-clamp-2 mt-0.5 leading-relaxed"></p>
+                    <p id="modal-product-price-tag" class="gold-gradient-text font-black text-base font-brand mt-1"></p>
+                </div>
+            </div>
+
+            <form onsubmit="submitCustomerOrder(event)" class="space-y-3">
                 <input type="hidden" id="order-product-id">
                 
                 <!-- المقاسات -->
                 <div id="size-container" class="hidden">
-                    <label class="block text-xs font-bold text-amber-200/90 mb-1.5">اختاري المقاس المطلوب *</label>
-                    <div id="size-chips" class="flex flex-wrap gap-2"></div>
+                    <label class="block text-xs font-bold text-amber-200/90 mb-1">اختاري المقاس المطلوب *</label>
+                    <div id="size-chips" class="flex flex-wrap gap-1.5"></div>
                 </div>
 
                 <!-- الألوان -->
                 <div id="color-container" class="hidden">
-                    <label class="block text-xs font-bold text-amber-200/90 mb-1.5">اختاري اللون المفضل *</label>
-                    <div id="color-chips" class="flex flex-wrap gap-2"></div>
+                    <label class="block text-xs font-bold text-amber-200/90 mb-1">اختاري اللون المفضل *</label>
+                    <div id="color-chips" class="flex flex-wrap gap-1.5"></div>
                 </div>
 
                 <!-- الكمية من 1 إلى 10 -->
@@ -147,13 +258,11 @@
                     </select>
                 </div>
 
-                <!-- الاسم واللقب -->
                 <div>
                     <label class="block text-xs font-bold text-amber-200/90 mb-1">الاسم واللقب *</label>
                     <input type="text" id="cust-name" required placeholder="مثال: سارة بهلول" class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-sm outline-none">
                 </div>
 
-                <!-- رقم الهاتف مع تمييز الشبكة -->
                 <div>
                     <div class="flex justify-between items-center mb-1">
                         <label class="block text-xs font-bold text-amber-200/90">رقم الهاتف للتأكيد (10 أرقام) *</label>
@@ -167,10 +276,9 @@
                         placeholder="05 / 06 / 07 ..." 
                         class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-sm outline-none text-left tracking-wider font-bold" 
                         dir="ltr">
-                    <span class="text-[10px] text-zinc-400 mt-1 block">يجب أن يتكون من 10 أرقام ويبدأ بـ 05 (أوريدو)، 06 (موبيليس)، 07 (جيزي).</span>
+                    <span class="text-[10px] text-zinc-400 mt-1 block">يجب أن يتكون من 10 أرقام ويبدأ بـ 05، 06، أو 07.</span>
                 </div>
 
-                <!-- الولاية (58 ولاية) -->
                 <div>
                     <label class="block text-xs font-bold text-amber-200/90 mb-1">الولاية (58 ولاية) *</label>
                     <select id="cust-wilaya" required onchange="handleWilayaChange()" class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-sm outline-none">
@@ -178,15 +286,13 @@
                     </select>
                 </div>
 
-                <!-- البلدية (الـ 1541 بلدية) -->
                 <div>
-                    <label class="block text-xs font-bold text-amber-200/90 mb-1">البلدية (اختاري بضغطة زر) *</label>
+                    <label class="block text-xs font-bold text-amber-200/90 mb-1">البلدية *</label>
                     <select id="cust-commune" required class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-sm outline-none">
                         <option value="">(الرجاء اختيار الولاية أولاً)</option>
                     </select>
                 </div>
 
-                <!-- نوع التوصيل -->
                 <div>
                     <label class="block text-xs font-bold text-amber-200/90 mb-1.5">نوع التوصيل المطلوب *</label>
                     <div class="grid grid-cols-2 gap-2">
@@ -207,7 +313,6 @@
                     </div>
                 </div>
 
-                <!-- ملخص الفاتورة والحساب الآلي -->
                 <div class="bg-zinc-900/90 border border-amber-500/30 rounded-2xl p-3 space-y-1.5">
                     <div class="flex justify-between text-xs text-zinc-300">
                         <span>سعر القطع:</span>
@@ -223,9 +328,10 @@
                     </div>
                 </div>
 
+                <!-- 1. الزر العادي بدون أي ذكر للواتساب أمام الزبونة -->
                 <div class="pt-2">
                     <button type="submit" id="submit-btn" class="w-full gold-btn text-black py-3.5 rounded-xl font-black text-sm tracking-wide">
-                        تأكيد الطلب الفوري عبر واتساب ⚡
+                        تأكيد حجز الطلب الآن (الدفع عند الاستلام) 🛍️
                     </button>
                 </div>
             </form>
@@ -238,22 +344,81 @@
             <div class="w-16 h-16 rounded-full border border-amber-400 text-amber-300 flex items-center justify-center text-3xl mx-auto mb-4 bg-amber-500/10">✓</div>
             <h3 class="text-xl font-black gold-gradient-text font-brand">RÉSERVATION CONFIRMÉE</h3>
             <p class="text-zinc-300 text-xs mt-3 leading-relaxed">
-                شكراً لطلبكِ من بوتيك <strong>La PÉRLA</strong>. تم تسجيل حجزكِ بنجاح، وسيتصل بكِ فريقنا لتنسيق التوصيل.
+                شكراً لطلبكِ من بوتيك <strong>La PÉRLA</strong>. تم تسجيل حجزكِ بنجاح، وسيتصل بكِ فريقنا لتأكيد موعد التوصيل.
             </p>
             <button onclick="closeSuccessModal()" class="mt-6 w-full gold-btn text-black font-extrabold py-3 rounded-xl text-xs">متابعة التصفح</button>
         </div>
     </div>
 
+    <!-- فوتر المتجر مع أيقونة الدخول السري للمدير -->
     <footer class="border-t border-amber-500/20 py-10 text-center text-zinc-500 text-xs bg-black">
         <div class="max-w-6xl mx-auto px-6">
             <img src="file_0000000076d88210a183a9bcb172509b.png" alt="La PÉRLA" class="w-24 mx-auto mb-3 object-contain opacity-80">
             <p>© 2026 جميع الحقوق محفوظة لبوتيك La PÉRLA الجزائري.</p>
+            
+            <!-- 3. أيقونة القفل السرية لدخول المدير (مخفية بأناقة) -->
+            <div class="mt-4">
+                <button onclick="openAdminLoginModal()" class="text-zinc-800 hover:text-amber-500/60 transition text-xs" title="Administration">
+                    <i class="fa-solid fa-lock"></i>
+                </button>
+            </div>
         </div>
     </footer>
 
     <script>
-        // رقم الواتساب الخاص بك
-        const MY_WHATSAPP_NUMBER = "213778215570";
+        const ADMIN_PIN = "Farid1994#";
+        let logoClickCount = 0;
+        let logoClickTimer = null;
+
+        // التحقق من حالة المدير عند تحميل الصفحة
+        function checkAdminState() {
+            if (localStorage.getItem('laperla_admin_auth') === 'true') {
+                document.getElementById('admin-bar').classList.remove('hidden');
+            }
+        }
+
+        // الضغط 3 مرات على الشعار لفتح تسجيل الدخول السري
+        function secretLogoTrigger() {
+            logoClickCount++;
+            clearTimeout(logoClickTimer);
+            logoClickTimer = setTimeout(() => { logoClickCount = 0; }, 1200);
+            if (logoClickCount >= 3) {
+                logoClickCount = 0;
+                openAdminLoginModal();
+            }
+        }
+
+        function openAdminLoginModal() {
+            document.getElementById('admin-login-modal').classList.remove('hidden');
+            document.getElementById('secret-pin').focus();
+        }
+
+        function closeAdminLoginModal() {
+            document.getElementById('admin-login-modal').classList.add('hidden');
+            document.getElementById('secret-pin-error').classList.add('hidden');
+        }
+
+        function verifyAdminSecret(e) {
+            e.preventDefault();
+            const pin = document.getElementById('secret-pin').value;
+            if (pin === ADMIN_PIN) {
+                localStorage.setItem('laperla_admin_auth', 'true');
+                closeAdminLoginModal();
+                document.getElementById('admin-bar').classList.remove('hidden');
+            } else {
+                document.getElementById('secret-pin-error').classList.remove('hidden');
+            }
+        }
+
+        function toggleVisitorPreview() {
+            const bar = document.getElementById('admin-bar');
+            bar.classList.toggle('hidden');
+        }
+
+        function adminLogout() {
+            localStorage.removeItem('laperla_admin_auth');
+            document.getElementById('admin-bar').classList.add('hidden');
+        }
 
         const SUPABASE_URL = "https://duwazuxedzussasjphqe.supabase.co";
         const SUPABASE_KEY = "sb_publishable_OXs_iWjYnTZW6mSI7LeN8Q_jQQ7r5aC";
@@ -349,7 +514,6 @@
             updateTotalBill();
         }
 
-        // حساب المجموع الإجمالي بالكمية والشحن
         function updateTotalBill() {
             if (!currentProduct) return;
             const wilayaCode = document.getElementById('cust-wilaya').value;
@@ -366,7 +530,7 @@
             document.getElementById('bill-total-price').innerText = `${total.toLocaleString()} دج`;
         }
 
-        // التحقق الذكي من رقم الهاتف الجزائري وإظهار شبكة المتعامل
+        // تمييز رقم الهاتف وشبكة الاتصال (جيزي - موبيليس - أوريدو)
         const phoneInput = document.getElementById('cust-phone');
         const badge = document.getElementById('operator-badge');
         phoneInput.addEventListener('input', function() {
@@ -440,13 +604,19 @@
             }
         }
 
+        // فتح نافذة الطلب وتعبئة صورة ووصف وسعر القطعة المختارة
         function openOrderModal(product) {
             currentProduct = product;
             selectedSize = '';
             selectedColor = '';
             document.getElementById('cust-qty').value = '1';
+            
             document.getElementById('modal-product-name').innerText = product.name;
+            document.getElementById('modal-product-desc').innerText = product.description || 'قطعة حصرية فاخرة مصممة بأعلى معايير الإتقان.';
+            document.getElementById('modal-product-price-tag').innerText = `${product.price} دج`;
+            document.getElementById('modal-product-img').src = product.image_url || 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400';
             document.getElementById('order-product-id').value = product.id;
+
             updateTotalBill();
 
             const sizeCont = document.getElementById('size-container');
@@ -497,6 +667,7 @@
         function closeOrderModal() { document.getElementById('order-modal').classList.add('hidden'); }
         function closeSuccessModal() { document.getElementById('success-modal').classList.add('hidden'); }
 
+        // تأكيد وحفظ الطلب داخلياً دون فتح الواتساب في هاتف الزبونة
         async function submitCustomerOrder(e) {
             e.preventDefault();
             const btn = document.getElementById('submit-btn');
@@ -528,9 +699,7 @@
             if (selectedColor) specs.push(`لون: ${selectedColor}`);
             const specsText = specs.length > 0 ? ` [${specs.join(' | ')}]` : '';
 
-            // ==========================================
-            // 1. التخزين الداخلي للوحة التحكم dashboard.html
-            // ==========================================
+            // 2. الحفظ الداخلي في المتجر (يظهر في dashboard.html فقط)
             const internalOrder = {
                 "الاسم": customer_name,
                 "الهاتف": phone,
@@ -545,7 +714,7 @@
             localOrders.unshift(internalOrder);
             localStorage.setItem("laperla_orders", JSON.stringify(localOrders));
 
-            // محاولة التسجيل في Supabase في الخلفية إن وجدت
+            // حفظ في قاعدة البيانات الاحتياطية
             try {
                 await db.from('orders').insert([{
                     order_number: order_number,
@@ -556,41 +725,26 @@
                     commune: commune,
                     address: `${deliveryType} - بلدية ${commune}`
                 }]);
-            } catch (err) {
-                console.log("Supabase note:", err);
+            } catch (err) {}
+
+            // تتبع البيكسل كعملية شراء ناجحة
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Purchase', { currency: "DZD", value: total });
             }
 
-            // ==========================================
-            // 2. إعداد رسالة WhatsApp التلقائية
-            // ==========================================
-            const whatsappMsg = 
-                `✨ *طلب جديد من بوتيك La PÉRLA* ✨%0A%0A` +
-                `🆔 *رقم الطلب:* ${order_number}%0A` +
-                `👤 *اسم الزبونة:* ${customer_name}%0A` +
-                `📞 *رقم الهاتف:* ${phone}%0A` +
-                `👗 *القطعة:* ${currentProduct.name}%0A` +
-                (selectedSize ? `📏 *المقاس:* ${selectedSize}%0A` : '') +
-                (selectedColor ? `🎨 *اللون:* ${selectedColor}%0A` : '') +
-                `🔢 *الكمية:* ${qty} قطع%0A` +
-                `📍 *الولاية والبلدية:* ${wilaya_name} - ${commune}%0A` +
-                `🚚 *نوع التوصيل:* ${deliveryType} (${currentShippingPrice} دج)%0A` +
-                `💰 *المجموع الإجمالي الواجب دفعه:* *${total.toLocaleString()} دج*%0A` +
-                `🕒 *تاريخ الطلب:* ${orderDate}`;
-
+            // إغلاق نافذة الطلب وإظهار رسالة النجاح للزبونة
             closeOrderModal();
             document.getElementById('success-modal').classList.remove('hidden');
             e.target.reset();
             document.getElementById('cust-commune').innerHTML = '<option value="">(الرجاء اختيار الولاية أولاً)</option>';
             btn.disabled = false;
-            btn.innerText = "تأكيد الطلب الفوري عبر واتساب ⚡";
-
-            // فتح تطبيق الواتساب فوراً
-            window.location.href = `https://wa.me/${MY_WHATSAPP_NUMBER}?text=${whatsappMsg}`;
+            btn.innerText = "تأكيد حجز الطلب الآن (الدفع عند الاستلام) 🛍️";
         }
 
         initWilayas();
         fetchAllCommunes();
         loadStoreProducts();
+        checkAdminState();
     </script>
 </body>
 </html>
