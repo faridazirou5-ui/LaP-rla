@@ -38,11 +38,19 @@
 </head>
 <body class="text-zinc-100 selection:bg-amber-600 selection:text-white">
 
+    <!-- زر التبديل الذكي: يظهر لك أنت فقط كمدير ولا يراه أي زبون -->
+    <div id="admin-floating-switch" class="fixed bottom-6 left-6 z-50 hidden">
+        <a href="dashboard.html" class="flex items-center gap-2.5 bg-zinc-950/95 border border-amber-400 text-amber-300 px-5 py-3 rounded-full shadow-[0_0_25px_rgba(212,175,55,0.4)] text-xs font-black hover:scale-105 transition duration-300 backdrop-blur-md">
+            <span class="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-ping"></span>
+            <span>👑 العودة للوحة الإدارة</span>
+        </a>
+    </div>
+
     <div class="bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 text-amber-200/90 text-xs py-2 text-center tracking-widest font-semibold border-b border-amber-500/20">
         ✨ خدمة التوصيل متوفرة لـ 58 ولاية (للمنزل أو المكتب) • الدفع عند الاستلام
     </div>
 
-    <!-- هيدر الزبائن: لا يحتوي على أي رابط أو زر يخص لوحة الإدارة -->
+    <!-- هيدر المتجر النقي -->
     <header class="bg-black/90 backdrop-blur-md border-b border-amber-500/20 sticky top-0 z-40">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex justify-between items-center">
             <a href="#" class="flex items-center gap-3">
@@ -228,6 +236,12 @@
         const SUPABASE_KEY = "sb_publishable_OXs_iWjYnTZW6mSI7LeN8Q_jQQ7r5aC";
         const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+        // إظهار زر التبديل السري فقط إذا كان جهازك مسجلاً كمدير
+        if (localStorage.getItem('laperla_admin_auth') === 'true') {
+            const adminSwitch = document.getElementById('admin-floating-switch');
+            if (adminSwitch) adminSwitch.classList.remove('hidden');
+        }
+
         const WILAYAS_LIST = [
             {code: 1, name: "أدرار"}, {code: 2, name: "الشلف"}, {code: 3, name: "الأغواط"}, {code: 4, name: "أم البواقي"},
             {code: 5, name: "باتنة"}, {code: 6, name: "بجاية"}, {code: 7, name: "بسكرة"}, {code: 8, name: "بشار"},
@@ -309,7 +323,7 @@
                 const filtered = allCommunesData.filter(c => parseInt(c.wilaya_id) === code);
                 if (filtered.length > 0) {
                     communeSelect.innerHTML = '<option value="">-- اختاري بلديتك بضغطة زر --</option>' + 
-                        filtered.map(c => `<option value="${c}">${c.ar_name || c.name}</option>`).join('');
+                        filtered.map(c => `<option value="${c}">${c}</option>`).join('');
                 } else {
                     const selectedWilayaName = wilayaSelect.options[wilayaSelect.selectedIndex].getAttribute('data-name');
                     communeSelect.innerHTML = `<option value="${selectedWilayaName} مركز">${selectedWilayaName} (البلدية المركزية)</option>`;
