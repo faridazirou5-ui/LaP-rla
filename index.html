@@ -1,1 +1,209 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La PÉRLA | الأناقة والفخامة</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style> body { font-family: 'Cairo', sans-serif; } </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
 
+    <div class="bg-rose-950 text-rose-100 text-xs py-2 text-center font-bold">
+        🚚 التوصيل متوفر لـ 58 ولاية جزائرية • الدفع يد بيد عند الاستلام
+    </div>
+
+    <header class="bg-white border-b border-gray-100 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex justify-between items-center">
+            <a href="#" class="text-2xl font-black tracking-widest text-rose-900">La PÉRLA</a>
+            <div class="flex items-center gap-4 text-sm font-semibold">
+                <a href="#products-section" class="text-gray-700 hover:text-rose-900">المنتجات</a>
+                <a href="dashboard.html" class="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full hover:bg-gray-200">
+                    <i class="fa-solid fa-lock"></i> لوحة الإدارة
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-gradient-to-b from-rose-50 to-white py-12 px-4 text-center">
+        <div class="max-w-3xl mx-auto">
+            <span class="text-rose-800 text-xs font-black tracking-widest uppercase bg-rose-100 px-3 py-1 rounded-full">تشكيلة حصرية</span>
+            <h1 class="text-3xl sm:text-5xl font-extrabold text-gray-900 mt-4 leading-tight">فخامة وأناقة تليق بكِ</h1>
+            <p class="text-gray-600 mt-3 text-sm sm:text-base">اختاري الأجمل مع ضمان الجودة وسرعة التوصيل لباب منزلك.</p>
+            <a href="#products-section" class="mt-6 inline-block bg-rose-900 text-white font-bold px-8 py-3 rounded-full hover:bg-rose-800 shadow-md">
+                تصفحي المنتجات الآن ↓
+            </a>
+        </div>
+    </section>
+
+    <main id="products-section" class="max-w-6xl mx-auto px-4 py-10">
+        <div class="text-center mb-8">
+            <h2 class="text-2xl font-extrabold text-gray-800">أحدث التشكيلات</h2>
+            <div class="w-16 h-1 bg-rose-900 mx-auto mt-2 rounded-full"></div>
+        </div>
+
+        <div id="store-products" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div class="col-span-full text-center py-12 text-gray-400">
+                <i class="fa-solid fa-spinner fa-spin text-2xl text-rose-800 mb-2"></i>
+                <p>جاري تحميل المنتجات...</p>
+            </div>
+        </div>
+    </main>
+
+    <div id="order-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b pb-3 mb-4">
+                <div>
+                    <h3 class="font-extrabold text-lg text-rose-950">تأكيد طلب الشراء</h3>
+                    <p id="modal-product-name" class="text-xs text-gray-500 font-bold mt-0.5"></p>
+                </div>
+                <button onclick="closeOrderModal()" class="text-gray-400 hover:text-gray-600 text-xl font-bold">✕</button>
+            </div>
+
+            <div class="bg-rose-50 border border-rose-100 rounded-xl p-3 flex justify-between items-center mb-4">
+                <span class="text-xs font-bold text-gray-600">سعر المنتج:</span>
+                <span id="modal-product-price" class="font-black text-rose-900 text-lg">0 دج</span>
+            </div>
+
+            <form onsubmit="submitCustomerOrder(event)" class="space-y-3">
+                <input type="hidden" id="order-product-id">
+                
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">الاسم الكامل *</label>
+                    <input type="text" id="cust-name" required placeholder="اسمك الكامل" class="w-full p-2.5 border rounded-lg text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">رقم الهاتف *</label>
+                    <input type="tel" id="cust-phone" required placeholder="05 / 06 / 07 ..." class="w-full p-2.5 border rounded-lg text-sm text-left" dir="ltr">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">الولاية *</label>
+                    <select id="cust-wilaya" required class="w-full p-2.5 border rounded-lg text-sm">
+                        <option value="">اختر الولاية...</option>
+                        <option value="الجزائر العاصمة">16 - الجزائر العاصمة</option>
+                        <option value="وهران">31 - وهران</option>
+                        <option value="قسنطينة">25 - قسنطينة</option>
+                        <option value="سطيف">19 - سطيف</option>
+                        <option value="البليدة">09 - البليدة</option>
+                        <option value="باقي الولايات">باقي الولايات (تأكيد عبر الهاتف)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">البلدية أو العنوان</label>
+                    <input type="text" id="cust-address" placeholder="البلدية أو الحي..." class="w-full p-2.5 border rounded-lg text-sm">
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" id="submit-btn" class="w-full bg-rose-900 hover:bg-rose-800 text-white py-3 rounded-xl font-extrabold text-base shadow-lg transition">
+                        تأكيد الطلب الآن (الدفع عند الاستلام) 🛍️
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="success-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 text-center shadow-2xl">
+            <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-3">✓</div>
+            <h3 class="text-xl font-extrabold text-gray-900">تم تسجيل طلبك بنجاح!</h3>
+            <p class="text-gray-600 text-xs mt-2">شكراً لطلبك من متجر La PÉRLA. سيتصل بك فريقنا قريباً لتأكيد الشحن.</p>
+            <button onclick="closeSuccessModal()" class="mt-5 w-full bg-rose-900 text-white font-bold py-2.5 rounded-xl text-sm">العودة للمتجر</button>
+        </div>
+    </div>
+
+    <script>
+        const SUPABASE_URL = "https://duwazuxedzussasjphqe.supabase.co";
+        const SUPABASE_KEY = "sb_publishable_OXs_iWjYnTZW6mSI7LeN8Q_jQQ7r5aC";
+        const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        let currentProduct = null;
+
+        async function loadStoreProducts() {
+            const container = document.getElementById('store-products');
+            try {
+                const { data, error } = await db.from('products').select('*').order('created_at', { ascending: false });
+                if (error) throw error;
+
+                if (!data || data.length === 0) {
+                    container.innerHTML = `
+                        <div class="col-span-full text-center py-12 bg-white rounded-2xl border border-gray-200">
+                            <i class="fa-solid fa-gem text-4xl text-rose-300 mb-3"></i>
+                            <h4 class="font-bold text-gray-700">التشكيلة قادمة قريباً!</h4>
+                            <p class="text-xs text-gray-400 mt-1">أضف منتجاتك من لوحة التحكم وستظهر هنا فوراً.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = data.map(p => `
+                    <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm flex flex-col justify-between">
+                        <div>
+                            <img src="${p.image_url || 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600'}" class="w-full h-52 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-extrabold text-gray-900 text-base">${p.name}</h3>
+                                <p class="text-xs text-gray-500 mt-1 line-clamp-2">${p.description || ''}</p>
+                                <p class="text-rose-950 font-black text-xl mt-3">${p.price} دج</p>
+                            </div>
+                        </div>
+                        <div class="p-4 pt-0">
+                            <button onclick='openOrderModal(${JSON.stringify(p)})' class="w-full bg-rose-900 hover:bg-rose-800 text-white font-bold py-2.5 rounded-xl text-sm shadow">
+                                اطلبي الآن 🛍️
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                container.innerHTML = `<p class="col-span-full text-center text-red-500">حدث خطأ في تحميل المنتجات.</p>`;
+            }
+        }
+
+        function openOrderModal(product) {
+            currentProduct = product;
+            document.getElementById('modal-product-name').innerText = product.name;
+            document.getElementById('modal-product-price').innerText = product.price + ' دج';
+            document.getElementById('order-product-id').value = product.id;
+            document.getElementById('order-modal').classList.remove('hidden');
+        }
+
+        function closeOrderModal() { document.getElementById('order-modal').classList.add('hidden'); }
+        function closeSuccessModal() { document.getElementById('success-modal').classList.add('hidden'); }
+
+        async function submitCustomerOrder(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            btn.disabled = true;
+            btn.innerText = "جاري تأكيد الطلب...";
+
+            const customer_name = document.getElementById('cust-name').value;
+            const phone = document.getElementById('cust-phone').value;
+            const wilaya = document.getElementById('cust-wilaya').value;
+            const order_number = 'LP-' + Math.floor(1000 + Math.random() * 9000);
+
+            try {
+                const { error } = await db.from('orders').insert([{
+                    order_number: order_number,
+                    customer_name: customer_name + ' (' + wilaya + ' - ' + phone + ')'
+                }]);
+                if (error) throw error;
+
+                closeOrderModal();
+                document.getElementById('success-modal').classList.remove('hidden');
+                e.target.reset();
+            } catch (err) {
+                alert('خطأ: ' + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "تأكيد الطلب الآن (الدفع عند الاستلام) 🛍️";
+            }
+        }
+
+        loadStoreProducts();
+    </script>
+</body>
+</html>
