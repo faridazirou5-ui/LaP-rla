@@ -30,121 +30,144 @@
 </head>
 <body class="text-zinc-100 selection:bg-amber-600 selection:text-white">
 
-    <header class="bg-black/95 border-b border-amber-500/20 sticky top-0 z-40 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center h-20">
-            <div class="flex items-center gap-3">
-                <img src="file_0000000076d88210a183a9bcb172509b.png" alt="La PÉRLA Logo" class="h-14 w-auto object-contain drop-shadow-[0_0_12px_rgba(212,175,55,0.3)]">
-                <span class="text-xs bg-amber-500/10 text-amber-300 border border-amber-500/30 px-3 py-1 rounded-full font-bold">لوحة الإدارة</span>
-            </div>
-            <div class="flex items-center gap-3">
-                <a href="index.html" class="text-xs border border-zinc-700 hover:border-amber-400 text-zinc-300 hover:text-amber-300 px-4 py-2 rounded-full transition flex items-center gap-1.5">
-                    <i class="fa-solid fa-eye text-xs"></i> مشاهدة المتجر
-                </a>
-            </div>
-        </div>
-    </header>
-
-    <div class="bg-zinc-950/90 border-b border-amber-500/20 px-4">
-        <div class="max-w-7xl mx-auto flex space-x-6 space-x-reverse text-sm font-semibold">
-            <button onclick="switchTab('orders')" id="tab-orders" class="py-4 border-b-2 border-amber-400 text-amber-300 flex items-center gap-2">
-                <i class="fa-solid fa-bag-shopping"></i> الطلبات الواردة
-            </button>
-            <button onclick="switchTab('products')" id="tab-products" class="py-4 border-b-2 border-transparent text-zinc-400 hover:text-zinc-200 flex items-center gap-2">
-                <i class="fa-solid fa-shirt"></i> المنتجات
-            </button>
-            <button onclick="switchTab('shipping')" id="tab-shipping" class="py-4 border-b-2 border-transparent text-zinc-400 hover:text-zinc-200 flex items-center gap-2">
-                <i class="fa-solid fa-truck-fast"></i> التوصيل والشحن
-            </button>
+    <!-- شاشة قفل الدخول السري بكلمة المرور -->
+    <div id="login-overlay" class="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4">
+        <div class="bg-zinc-950 border border-amber-500/40 rounded-3xl max-w-sm w-full p-8 text-center shadow-[0_0_50px_rgba(212,175,55,0.25)]">
+            <img src="file_0000000076d88210a183a9bcb172509b.png" alt="La PÉRLA" class="w-24 mx-auto mb-4 object-contain">
+            <h2 class="text-xl font-black gold-gradient-text font-brand mb-1">ESPACE ADMINISTRATION</h2>
+            <p class="text-xs text-zinc-400 mb-6">يرجى إدخال كلمة المرور لفتح لوحة الإدارة</p>
+            
+            <form onsubmit="verifyAdminPIN(event)" class="space-y-4">
+                <input type="password" id="admin-pin" required placeholder="أدخل كلمة المرور..." maxlength="30" class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-center text-white p-3 rounded-2xl text-base tracking-widest outline-none font-sans">
+                <button type="submit" class="w-full gold-btn text-black font-black py-3 rounded-2xl text-sm">
+                    تسجيل الدخول كمدير 🔒
+                </button>
+            </form>
+            <p id="pin-error" class="text-red-400 text-xs mt-3 hidden">⚠️ كلمة المرور غير صحيحة!</p>
         </div>
     </div>
 
-    <main class="max-w-7xl mx-auto px-4 py-8">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            <div class="bg-zinc-950 p-5 rounded-2xl border border-amber-500/20 shadow-lg">
-                <p class="text-xs text-zinc-400 font-bold">إجمالي الطلبات</p>
-                <h3 id="stat-orders" class="text-3xl font-black mt-2 gold-gradient-text font-brand">0</h3>
+    <!-- محتوى لوحة التحكم (محمي ومخفي حتى إدخال كلمة المرور) -->
+    <div id="dashboard-content" class="hidden">
+        <header class="bg-black/95 border-b border-amber-500/20 sticky top-0 z-40 backdrop-blur-md">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center h-20">
+                <div class="flex items-center gap-3">
+                    <img src="file_0000000076d88210a183a9bcb172509b.png" alt="La PÉRLA Logo" class="h-14 w-auto object-contain drop-shadow-[0_0_12px_rgba(212,175,55,0.3)]">
+                    <span class="text-xs bg-amber-500/10 text-amber-300 border border-amber-500/30 px-3 py-1 rounded-full font-bold">لوحة الإدارة</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <a href="index.html" class="text-xs border border-zinc-700 hover:border-amber-400 text-zinc-300 hover:text-amber-300 px-4 py-2 rounded-full transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-eye text-xs"></i> مشاهدة المتجر
+                    </a>
+                    <button onclick="adminLogout()" class="text-xs text-red-400 hover:text-red-300 border border-red-500/30 px-3 py-1.5 rounded-full">
+                        خروج 🚪
+                    </button>
+                </div>
             </div>
-            <div class="bg-zinc-950 p-5 rounded-2xl border border-amber-500/20 shadow-lg">
-                <p class="text-xs text-zinc-400 font-bold">القطع المعروضة</p>
-                <h3 id="stat-products" class="text-3xl font-black mt-2 text-white font-brand">0</h3>
-            </div>
-            <div class="bg-zinc-950 p-5 rounded-2xl border border-amber-500/20 shadow-lg">
-                <p class="text-xs text-zinc-400 font-bold">العملة المعتمدة</p>
-                <h3 class="text-lg font-black mt-3 gold-gradient-text">دينار جزائري (DZD)</h3>
-            </div>
-            <div class="bg-zinc-950 p-5 rounded-2xl border border-amber-500/20 shadow-lg">
-                <p class="text-xs text-zinc-400 font-bold">حالة النظام</p>
-                <h3 class="text-sm font-bold mt-3 text-emerald-400 flex items-center gap-1.5">
-                    <i class="fa-solid fa-circle-check"></i> جاهز لاستقبال الطلبات
-                </h3>
+        </header>
+
+        <div class="bg-zinc-950/90 border-b border-amber-500/20 px-4">
+            <div class="max-w-7xl mx-auto flex space-x-6 space-x-reverse text-sm font-semibold">
+                <button onclick="switchTab('orders')" id="tab-orders" class="py-4 border-b-2 border-amber-400 text-amber-300 flex items-center gap-2">
+                    <i class="fa-solid fa-bag-shopping"></i> الطلبات الواردة
+                </button>
+                <button onclick="switchTab('products')" id="tab-products" class="py-4 border-b-2 border-transparent text-zinc-400 hover:text-zinc-200 flex items-center gap-2">
+                    <i class="fa-solid fa-shirt"></i> المنتجات
+                </button>
+                <button onclick="switchTab('shipping')" id="tab-shipping" class="py-4 border-b-2 border-transparent text-zinc-400 hover:text-zinc-200 flex items-center gap-2">
+                    <i class="fa-solid fa-truck-fast"></i> التوصيل والشحن
+                </button>
             </div>
         </div>
 
-        <section id="section-orders">
-            <div class="flex justify-between items-center mb-5">
-                <div>
-                    <h2 class="text-xl font-black gold-gradient-text font-brand">COMMANDES RÉCENTES</h2>
-                    <p class="text-xs text-zinc-400 mt-0.5">قائمة بجميع طلبات الزبائن المسجلة عبر المتجر</p>
+        <main class="max-w-7xl mx-auto px-4 py-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div class="bg-zinc-950 p-5 rounded-2xl border border-amber-500/20 shadow-lg">
+                    <p class="text-xs text-zinc-400 font-bold">إجمالي الطلبات</p>
+                    <h3 id="stat-orders" class="text-3xl font-black mt-2 gold-gradient-text font-brand">0</h3>
                 </div>
-                <button onclick="fetchOrders()" class="text-xs bg-zinc-900 border border-zinc-700 text-zinc-200 px-4 py-2 rounded-xl flex items-center gap-1.5">
-                    <i class="fa-solid fa-arrows-rotate"></i> تحديث
-                </button>
+                <div class="bg-zinc-950 p-5 rounded-2xl border border-amber-500/20 shadow-lg">
+                    <p class="text-xs text-zinc-400 font-bold">القطع المعروضة</p>
+                    <h3 id="stat-products" class="text-3xl font-black mt-2 text-white font-brand">0</h3>
+                </div>
+                <div class="bg-zinc-950 p-5 rounded-2xl border border-amber-500/20 shadow-lg">
+                    <p class="text-xs text-zinc-400 font-bold">العملة المعتمدة</p>
+                    <h3 class="text-lg font-black mt-3 gold-gradient-text">دينار جزائري (DZD)</h3>
+                </div>
+                <div class="bg-zinc-950 p-5 rounded-2xl border border-amber-500/20 shadow-lg">
+                    <p class="text-xs text-zinc-400 font-bold">حالة النظام</p>
+                    <h3 class="text-sm font-bold mt-3 text-emerald-400 flex items-center gap-1.5">
+                        <i class="fa-solid fa-circle-check"></i> جاهز لاستقبال الطلبات
+                    </h3>
+                </div>
             </div>
-            <div class="bg-zinc-950 rounded-2xl border border-amber-500/20 overflow-x-auto shadow-xl">
-                <table class="w-full text-right text-sm">
-                    <thead class="bg-zinc-900/60 text-zinc-400 text-xs border-b border-zinc-800">
-                        <tr>
-                            <th class="p-4">رقم الطلب</th>
-                            <th class="p-4">الزبونة وتفاصيل القطعة (القياس/اللون)</th>
-                            <th class="p-4">الهاتف</th>
-                            <th class="p-4">الولاية والبلدية</th>
-                            <th class="p-4">التاريخ</th>
-                        </tr>
-                    </thead>
-                    <tbody id="orders-list">
-                        <tr><td colspan="5" class="p-8 text-center text-zinc-500">جاري تحميل الطلبات...</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
 
-        <section id="section-products" class="hidden">
-            <div class="flex justify-between items-center mb-5">
-                <div>
-                    <h2 class="text-xl font-black gold-gradient-text font-brand">COLLECTION PIECES</h2>
-                    <p class="text-xs text-zinc-400 mt-0.5">إدارة القطع والفساتين المعروضة</p>
+            <section id="section-orders">
+                <div class="flex justify-between items-center mb-5">
+                    <div>
+                        <h2 class="text-xl font-black gold-gradient-text font-brand">COMMANDES RÉCENTES</h2>
+                        <p class="text-xs text-zinc-400 mt-0.5">قائمة بجميع طلبات الزبائن المسجلة عبر المتجر</p>
+                    </div>
+                    <button onclick="fetchOrders()" class="text-xs bg-zinc-900 border border-zinc-700 text-zinc-200 px-4 py-2 rounded-xl flex items-center gap-1.5">
+                        <i class="fa-solid fa-arrows-rotate"></i> تحديث
+                    </button>
                 </div>
-                <button onclick="openProductModal()" class="gold-btn text-black text-xs px-5 py-2.5 rounded-xl font-black flex items-center gap-2">
-                    <i class="fa-solid fa-plus"></i> إضافة قطعة جديدة
-                </button>
-            </div>
-            <div id="products-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <p class="text-zinc-500 col-span-full text-center py-12">جاري التحميل...</p>
-            </div>
-        </section>
+                <div class="bg-zinc-950 rounded-2xl border border-amber-500/20 overflow-x-auto shadow-xl">
+                    <table class="w-full text-right text-sm">
+                        <thead class="bg-zinc-900/60 text-zinc-400 text-xs border-b border-zinc-800">
+                            <tr>
+                                <th class="p-4">رقم الطلب</th>
+                                <th class="p-4">الزبونة وتفاصيل القطعة (القياس/اللون)</th>
+                                <th class="p-4">الهاتف</th>
+                                <th class="p-4">الولاية والبلدية</th>
+                                <th class="p-4">التاريخ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-list">
+                            <tr><td colspan="5" class="p-8 text-center text-zinc-500">جاري تحميل الطلبات...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
 
-        <section id="section-shipping" class="hidden">
-            <div class="flex justify-between items-center mb-5">
-                <div>
-                    <h2 class="text-xl font-black gold-gradient-text font-brand">TARIFS DE LIVRAISON</h2>
-                    <p class="text-xs text-zinc-400 mt-0.5">أسعار التوصيل حسب الولايات</p>
+            <section id="section-products" class="hidden">
+                <div class="flex justify-between items-center mb-5">
+                    <div>
+                        <h2 class="text-xl font-black gold-gradient-text font-brand">COLLECTION PIECES</h2>
+                        <p class="text-xs text-zinc-400 mt-0.5">إدارة القطع والفساتين المعروضة</p>
+                    </div>
+                    <button onclick="openProductModal()" class="gold-btn text-black text-xs px-5 py-2.5 rounded-xl font-black flex items-center gap-2">
+                        <i class="fa-solid fa-plus"></i> إضافة قطعة جديدة
+                    </button>
                 </div>
-                <button onclick="fetchShipping()" class="text-xs bg-zinc-900 border border-zinc-700 text-zinc-200 px-4 py-2 rounded-xl">
-                    <i class="fa-solid fa-arrows-rotate"></i> تحديث
-                </button>
-            </div>
-            <div class="bg-zinc-950 rounded-2xl border border-amber-500/20 overflow-x-auto shadow-xl">
-                <table class="w-full text-right text-sm">
-                    <thead class="bg-zinc-900/60 text-zinc-400 text-xs border-b border-zinc-800">
-                        <tr><th class="p-4">الولاية</th><th class="p-4">سعر التوصيل (دج)</th></tr>
-                    </thead>
-                    <tbody id="shipping-list">
-                        <tr><td colspan="2" class="p-8 text-center text-zinc-500">جاري التحميل...</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-    </main>
+                <div id="products-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <p class="text-zinc-500 col-span-full text-center py-12">جاري التحميل...</p>
+                </div>
+            </section>
+
+            <section id="section-shipping" class="hidden">
+                <div class="flex justify-between items-center mb-5">
+                    <div>
+                        <h2 class="text-xl font-black gold-gradient-text font-brand">TARIFS DE LIVRAISON</h2>
+                        <p class="text-xs text-zinc-400 mt-0.5">أسعار التوصيل حسب الولايات</p>
+                    </div>
+                    <button onclick="fetchShipping()" class="text-xs bg-zinc-900 border border-zinc-700 text-zinc-200 px-4 py-2 rounded-xl">
+                        <i class="fa-solid fa-arrows-rotate"></i> تحديث
+                    </button>
+                </div>
+                <div class="bg-zinc-950 rounded-2xl border border-amber-500/20 overflow-x-auto shadow-xl">
+                    <table class="w-full text-right text-sm">
+                        <thead class="bg-zinc-900/60 text-zinc-400 text-xs border-b border-zinc-800">
+                            <tr><th class="p-4">الولاية</th><th class="p-4">سعر التوصيل (دج)</th></tr>
+                        </thead>
+                        <tbody id="shipping-list">
+                            <tr><td colspan="2" class="p-8 text-center text-zinc-500">جاري التحميل...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
 
     <!-- Modal إضافة منتج فاخر بالمقاسات والألوان -->
     <div id="product-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
@@ -166,8 +189,6 @@
                     <label class="block text-xs font-bold text-amber-200/90 mb-1">رابط صورة المنتج (URL)</label>
                     <input type="url" id="p-image" placeholder="https://..." class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-sm outline-none">
                 </div>
-                
-                <!-- حقول المقاسات والألوان الجديدة -->
                 <div class="grid grid-cols-2 gap-2">
                     <div>
                         <label class="block text-xs font-bold text-amber-200/90 mb-1">المقاسات (بفاصلة)</label>
@@ -178,7 +199,6 @@
                         <input type="text" id="p-colors" placeholder="أسود, ذهبي, عنابي" class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-xs outline-none">
                     </div>
                 </div>
-
                 <div>
                     <label class="block text-xs font-bold text-amber-200/90 mb-1">وصف وتفاصيل القطعة</label>
                     <textarea id="p-desc" rows="2" placeholder="نوع القماش، التفاصيل..." class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-sm outline-none"></textarea>
@@ -192,6 +212,35 @@
     </div>
 
     <script>
+        // كلمة المرور الجديدة الخاصة بك
+        const ADMIN_PIN = "Farid1994#";
+
+        function checkAuth() {
+            if (sessionStorage.getItem('laperla_admin') === 'true') {
+                document.getElementById('login-overlay').classList.add('hidden');
+                document.getElementById('dashboard-content').classList.remove('hidden');
+                initDashboard();
+            }
+        }
+
+        function verifyAdminPIN(e) {
+            e.preventDefault();
+            const pin = document.getElementById('admin-pin').value;
+            if (pin === ADMIN_PIN) {
+                sessionStorage.setItem('laperla_admin', 'true');
+                document.getElementById('login-overlay').classList.add('hidden');
+                document.getElementById('dashboard-content').classList.remove('hidden');
+                initDashboard();
+            } else {
+                document.getElementById('pin-error').classList.remove('hidden');
+            }
+        }
+
+        function adminLogout() {
+            sessionStorage.removeItem('laperla_admin');
+            location.reload();
+        }
+
         const SUPABASE_URL = "https://duwazuxedzussasjphqe.supabase.co";
         const SUPABASE_KEY = "sb_publishable_OXs_iWjYnTZW6mSI7LeN8Q_jQQ7r5aC";
         const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -308,7 +357,11 @@
         function openProductModal() { document.getElementById('product-modal').classList.remove('hidden'); }
         function closeProductModal() { document.getElementById('product-modal').classList.add('hidden'); }
 
-        fetchOrders(); fetchProducts(); fetchShipping();
+        function initDashboard() {
+            fetchOrders(); fetchProducts(); fetchShipping();
+        }
+
+        checkAuth();
     </script>
 </body>
 </html>
