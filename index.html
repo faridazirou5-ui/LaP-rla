@@ -33,7 +33,7 @@
 <body class="text-zinc-100 selection:bg-amber-600 selection:text-white">
 
     <div class="bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 text-amber-200/90 text-xs py-2 text-center tracking-widest font-semibold border-b border-amber-500/20">
-        ✨ خدمة التوصيل متوفرة لـ 58 ولاية • الدفع نقداً عند استلام طلبيتك
+        ✨ خدمة التوصيل متوفرة لـ 58 ولاية (للمنزل أو المكتب) • الدفع عند الاستلام
     </div>
 
     <header class="bg-black/90 backdrop-blur-md border-b border-amber-500/20 sticky top-0 z-40">
@@ -94,23 +94,19 @@
         </div>
     </main>
 
-    <!-- نافذة طلب الاقتناء الذكية بالولايات والبلديات التلقائية -->
+    <!-- نافذة طلب الاقتناء المطورة بنوع التوصيل وحساب المجموع -->
     <div id="order-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-zinc-950 border border-amber-500/40 rounded-3xl max-w-md w-full p-6 shadow-[0_0_40px_rgba(212,175,55,0.2)] max-h-[92vh] overflow-y-auto">
-            <div class="flex justify-between items-center border-b border-amber-500/20 pb-4 mb-4">
+        <div class="bg-zinc-950 border border-amber-500/40 rounded-3xl max-w-md w-full p-6 shadow-[0_0_40px_rgba(212,175,55,0.2)] max-h-[94vh] overflow-y-auto">
+            
+            <div class="flex justify-between items-center border-b border-amber-500/20 pb-3 mb-4">
                 <div class="flex items-center gap-2">
                     <img src="file_0000000076d88210a183a9bcb172509b.png" class="w-8 h-8 object-contain">
                     <div>
-                        <h3 class="font-black text-sm gold-gradient-text font-brand">طلب اقتناء قطعة</h3>
+                        <h3 class="font-black text-sm gold-gradient-text font-brand">تأكيد طلب الاقتناء</h3>
                         <p id="modal-product-name" class="text-xs text-zinc-300 font-semibold mt-0.5"></p>
                     </div>
                 </div>
                 <button onclick="closeOrderModal()" class="text-zinc-400 hover:text-amber-400 text-2xl">✕</button>
-            </div>
-
-            <div class="bg-zinc-900/80 border border-amber-500/30 rounded-2xl p-3.5 flex justify-between items-center mb-4">
-                <span class="text-xs text-zinc-400 font-bold">سعر القطعة:</span>
-                <span id="modal-product-price" class="font-black gold-gradient-text text-xl">0 دج</span>
             </div>
 
             <form onsubmit="submitCustomerOrder(event)" class="space-y-3.5">
@@ -118,33 +114,63 @@
                 
                 <div>
                     <label class="block text-xs font-bold text-amber-200/90 mb-1">الاسم واللقب *</label>
-                    <input type="text" id="cust-name" required placeholder="مثال: أميرة بلقاسم" class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-3 rounded-xl text-sm outline-none">
+                    <input type="text" id="cust-name" required placeholder="مثال: سارة بهلول" class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-sm outline-none">
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold text-amber-200/90 mb-1">رقم الهاتف لتأكيد الشحن *</label>
-                    <input type="tel" id="cust-phone" required placeholder="05 / 06 / 07 ..." class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-3 rounded-xl text-sm outline-none text-left" dir="ltr">
+                    <label class="block text-xs font-bold text-amber-200/90 mb-1">رقم الهاتف للتأكيد *</label>
+                    <input type="tel" id="cust-phone" required placeholder="05 / 06 / 07 ..." class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-sm outline-none text-left" dir="ltr">
                 </div>
 
-                <!-- قائمة الولايات الـ 58 كاملة -->
                 <div>
                     <label class="block text-xs font-bold text-amber-200/90 mb-1">الولاية *</label>
-                    <select id="cust-wilaya" required onchange="handleWilayaChange()" class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-3 rounded-xl text-sm outline-none">
+                    <select id="cust-wilaya" required onchange="handleWilayaChange()" class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-sm outline-none">
                         <option value="">-- اضغطي لاختيار الولاية (58 ولاية) --</option>
                     </select>
                 </div>
 
-                <!-- قائمة بلديات الولاية المختارة (تتحدث تلقائياً) -->
                 <div>
                     <label class="block text-xs font-bold text-amber-200/90 mb-1">البلدية (اختر بضغطة زر) *</label>
-                    <select id="cust-commune" required class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-3 rounded-xl text-sm outline-none">
+                    <select id="cust-commune" required class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-sm outline-none">
                         <option value="">(الرجاء اختيار الولاية أولاً)</option>
                     </select>
                 </div>
 
+                <!-- نوع التوصيل: للمنزل أو للمكتب -->
                 <div>
-                    <label class="block text-xs font-bold text-amber-200/90 mb-1">الحي أو عنوان التوصيل بالتفصيل</label>
-                    <input type="text" id="cust-address" placeholder="اسم الحي أو الشارع..." class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-3 rounded-xl text-sm outline-none">
+                    <label class="block text-xs font-bold text-amber-200/90 mb-1.5">نوع التوصيل المطلوب *</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <label class="cursor-pointer border border-zinc-700 has-[:checked]:border-amber-400 has-[:checked]:bg-amber-500/10 p-3 rounded-xl flex items-center gap-2 transition">
+                            <input type="radio" name="delivery_type" value="home" checked onchange="updateTotalBill()" class="accent-amber-400">
+                            <div>
+                                <p class="text-xs font-bold text-white">🏠 إلى باب المنزل</p>
+                                <span class="text-[10px] text-zinc-400">توصيل شخصي</span>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer border border-zinc-700 has-[:checked]:border-amber-400 has-[:checked]:bg-amber-500/10 p-3 rounded-xl flex items-center gap-2 transition">
+                            <input type="radio" name="delivery_type" value="desk" onchange="updateTotalBill()" class="accent-amber-400">
+                            <div>
+                                <p class="text-xs font-bold text-white">🏢 استلام من المكتب</p>
+                                <span class="text-[10px] text-emerald-400 font-semibold">أقل تكلفة (Stop Desk)</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- فاتورة الحساب التفصيلية الشفافة -->
+                <div class="bg-zinc-900/90 border border-amber-500/30 rounded-2xl p-3.5 space-y-1.5">
+                    <div class="flex justify-between text-xs text-zinc-300">
+                        <span>سعر القطعة:</span>
+                        <span id="bill-product-price" class="font-bold text-white">0 دج</span>
+                    </div>
+                    <div class="flex justify-between text-xs text-zinc-300">
+                        <span>تكلفة التوصيل:</span>
+                        <span id="bill-shipping-price" class="font-bold text-amber-300">0 دج</span>
+                    </div>
+                    <div class="border-t border-zinc-800 pt-2 flex justify-between items-baseline">
+                        <span class="text-xs font-black text-amber-200">المجموع الإجمالي للدفع:</span>
+                        <span id="bill-total-price" class="font-black gold-gradient-text text-xl font-brand">0 دج</span>
+                    </div>
                 </div>
 
                 <div class="pt-2">
@@ -162,7 +188,7 @@
             <div class="w-16 h-16 rounded-full border border-amber-400 text-amber-300 flex items-center justify-center text-3xl mx-auto mb-4 bg-amber-500/10">✓</div>
             <h3 class="text-xl font-black gold-gradient-text font-brand">RÉSERVATION CONFIRMÉE</h3>
             <p class="text-zinc-300 text-xs mt-3 leading-relaxed">
-                شكراً لطلبكِ من بوتيك <strong>La PÉRLA</strong>. تم تسجيل حجزكِ بنجاح، وسيتصل بكِ فريقنا هاتفياً لتنسيق موعد التوصيل لباب بيتكِ.
+                شكراً لطلبكِ من بوتيك <strong>La PÉRLA</strong>. تم تسجيل حجزكِ بنجاح، وسيتصل بكِ فريقنا هاتفياً لتنسيق موعد التوصيل.
             </p>
             <button onclick="closeSuccessModal()" class="mt-6 w-full gold-btn text-black font-extrabold py-3 rounded-xl text-xs">
                 متابعة تصفح التشكيلة
@@ -182,7 +208,6 @@
         const SUPABASE_KEY = "sb_publishable_OXs_iWjYnTZW6mSI7LeN8Q_jQQ7r5aC";
         const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // قائمة الولايات الـ 58 الرسمية في الجزائر
         const WILAYAS_LIST = [
             {code: 1, name: "أدرار"}, {code: 2, name: "الشلف"}, {code: 3, name: "الأغواط"}, {code: 4, name: "أم البواقي"},
             {code: 5, name: "باتنة"}, {code: 6, name: "بجاية"}, {code: 7, name: "بسكرة"}, {code: 8, name: "بشار"},
@@ -203,25 +228,36 @@
 
         let allCommunesData = [];
         let currentProduct = null;
+        let currentShippingPrice = 0;
 
-        // تحميل قائمة الولايات في النموذج
         function initWilayas() {
             const select = document.getElementById('cust-wilaya');
             select.innerHTML = '<option value="">-- اضغطي لاختيار الولاية (58 ولاية) --</option>' + 
                 WILAYAS_LIST.map(w => `<option value="${w.code}" data-name="${w.name}">${w.code} - ولاية ${w.name}</option>`).join('');
         }
 
-        // تحميل قاعدة بيانات البلديات في الخلفية
         async function fetchAllCommunes() {
             try {
                 const res = await fetch('https://cdn.jsdelivr.net/gh/AbderrahmeneDZ/Wilaya-Of-Algeria@master/Commune_Of_Algeria.json');
                 allCommunesData = await res.json();
-            } catch (e) {
-                console.log('Communes loaded with fallback');
-            }
+            } catch (e) {}
         }
 
-        // عند تغيير الولاية: ملء البلديات الخاصة بها تلقائياً
+        // حساب تكلفة التوصيل الجزائرية المعتمدة
+        function calculateShippingCost(wilayaCode, isDesk) {
+            if (!wilayaCode) return 0;
+            const code = parseInt(wilayaCode);
+            let homeRate = 700; // الافتراضي للشمال
+
+            if (code === 16) homeRate = 450; // الجزائر العاصمة
+            else if ([9, 35, 42].includes(code)) homeRate = 500; // البليدة، بومرداس، تيبازة
+            else if ([1, 11, 33, 37, 50, 53, 54, 56].includes(code)) homeRate = 1200; // الصحراء الكبرى
+            else if ([7, 8, 17, 30, 32, 39, 45, 47, 49, 51, 52, 55, 57, 58].includes(code)) homeRate = 900; // الهضاب والجنوب
+
+            // سعر المكتب أرخص دائماً بـ 250 دج
+            return isDesk ? Math.max(300, homeRate - 250) : homeRate;
+        }
+
         function handleWilayaChange() {
             const wilayaSelect = document.getElementById('cust-wilaya');
             const communeSelect = document.getElementById('cust-commune');
@@ -229,6 +265,7 @@
 
             if (!code) {
                 communeSelect.innerHTML = '<option value="">(الرجاء اختيار الولاية أولاً)</option>';
+                updateTotalBill();
                 return;
             }
 
@@ -240,9 +277,23 @@
                 const selectedWilayaName = wilayaSelect.options[wilayaSelect.selectedIndex].getAttribute('data-name');
                 communeSelect.innerHTML = `<option value="${selectedWilayaName} مركز">${selectedWilayaName} (البلدية المركزية)</option>`;
             }
+            updateTotalBill();
         }
 
-        // تحميل المنتجات
+        function updateTotalBill() {
+            if (!currentProduct) return;
+            const wilayaCode = document.getElementById('cust-wilaya').value;
+            const isDesk = document.querySelector('input[name="delivery_type"]:checked').value === 'desk';
+            
+            const shipping = calculateShippingCost(wilayaCode, isDesk);
+            currentShippingPrice = shipping;
+            const total = parseInt(currentProduct.price) + shipping;
+
+            document.getElementById('bill-product-price').innerText = `${currentProduct.price} دج`;
+            document.getElementById('bill-shipping-price').innerText = wilayaCode ? `${shipping} دج` : 'يحدد بعد اختيار الولاية';
+            document.getElementById('bill-total-price').innerText = `${total} دج`;
+        }
+
         async function loadStoreProducts() {
             const container = document.getElementById('store-products');
             try {
@@ -289,15 +340,14 @@
         function openOrderModal(product) {
             currentProduct = product;
             document.getElementById('modal-product-name').innerText = product.name;
-            document.getElementById('modal-product-price').innerText = product.price + ' دج';
             document.getElementById('order-product-id').value = product.id;
+            updateTotalBill();
             document.getElementById('order-modal').classList.remove('hidden');
         }
 
         function closeOrderModal() { document.getElementById('order-modal').classList.add('hidden'); }
         function closeSuccessModal() { document.getElementById('success-modal').classList.add('hidden'); }
 
-        // إرسال الطلب مع رقم الولاية واسمها وهاتف الزبون والبلدية بدقة 100%
         async function submitCustomerOrder(e) {
             e.preventDefault();
             const btn = document.getElementById('submit-btn');
@@ -310,17 +360,19 @@
             const wilaya_code = parseInt(wilayaSelect.value);
             const wilaya_name = wilayaSelect.options[wilayaSelect.selectedIndex].getAttribute('data-name');
             const commune = document.getElementById('cust-commune').value;
-            const address = document.getElementById('cust-address').value;
+            const deliveryType = document.querySelector('input[name="delivery_type"]:checked').value === 'home' ? 'توصيل للمنزل' : 'استلام من المكتب';
+            const total = parseInt(currentProduct.price) + currentShippingPrice;
             const order_number = 'LP-' + Math.floor(1000 + Math.random() * 9000);
 
             try {
-                // إرسال الحقول بنفس أسماء أعمدة جدول orders بالضبط
+                // إرسال الحقول مع عمود commune الصريح بدون أي نقص
                 const { error } = await db.from('orders').insert([{
                     order_number: order_number,
-                    customer_name: `${customer_name} (بلدية: ${commune} - ${address})`,
+                    customer_name: `${customer_name} (${deliveryType} - الإجمالي: ${total} دج)`,
                     phone: phone,
                     wilaya_code: wilaya_code,
-                    wilaya_name: wilaya_name
+                    wilaya_name: wilaya_name,
+                    commune: commune
                 }]);
 
                 if (error) throw error;
