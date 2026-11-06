@@ -30,7 +30,7 @@
 </head>
 <body class="text-zinc-100 selection:bg-amber-600 selection:text-white">
 
-    <!-- شاشة قفل الدخول السري بكلمة المرور -->
+    <!-- شاشة قفل الدخول بكلمة المرور -->
     <div id="login-overlay" class="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4">
         <div class="bg-zinc-950 border border-amber-500/40 rounded-3xl max-w-sm w-full p-8 text-center shadow-[0_0_50px_rgba(212,175,55,0.25)]">
             <img src="file_0000000076d88210a183a9bcb172509b.png" alt="La PÉRLA" class="w-24 mx-auto mb-4 object-contain">
@@ -81,6 +81,7 @@
         </div>
 
         <main class="max-w-7xl mx-auto px-4 py-8">
+            <!-- كروت الإحصائيات -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                 <div class="bg-zinc-950 p-5 rounded-2xl border border-amber-500/20 shadow-lg">
                     <p class="text-xs text-zinc-400 font-bold">إجمالي الطلبات</p>
@@ -97,39 +98,43 @@
                 <div class="bg-zinc-950 p-5 rounded-2xl border border-amber-500/20 shadow-lg">
                     <p class="text-xs text-zinc-400 font-bold">حالة النظام</p>
                     <h3 class="text-sm font-bold mt-3 text-emerald-400 flex items-center gap-1.5">
-                        <i class="fa-solid fa-circle-check"></i> جاهز لاستقبال الطلبات
+                        <i class="fa-solid fa-circle-check"></i> جاهز للإدارة والتعديل
                     </h3>
                 </div>
             </div>
 
+            <!-- قسم الطلبات المطور بالإجراءات والحالات -->
             <section id="section-orders">
-                <div class="flex justify-between items-center mb-5">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-5">
                     <div>
-                        <h2 class="text-xl font-black gold-gradient-text font-brand">COMMANDES RÉCENTES</h2>
-                        <p class="text-xs text-zinc-400 mt-0.5">قائمة بجميع طلبات الزبائن المسجلة عبر المتجر</p>
+                        <h2 class="text-xl font-black gold-gradient-text font-brand">GESTION DES COMMANDES</h2>
+                        <p class="text-xs text-zinc-400 mt-0.5">يمكنك تغيير حالة الطلبية فوراً، الاتصال بالزبونة، أو حذف الطلب</p>
                     </div>
-                    <button onclick="fetchOrders()" class="text-xs bg-zinc-900 border border-zinc-700 text-zinc-200 px-4 py-2 rounded-xl flex items-center gap-1.5">
-                        <i class="fa-solid fa-arrows-rotate"></i> تحديث
+                    <button onclick="fetchOrders()" class="text-xs bg-zinc-900 border border-zinc-700 hover:border-amber-400 text-zinc-200 px-4 py-2 rounded-xl flex items-center gap-1.5">
+                        <i class="fa-solid fa-arrows-rotate"></i> تحديث القائمة
                     </button>
                 </div>
+
                 <div class="bg-zinc-950 rounded-2xl border border-amber-500/20 overflow-x-auto shadow-xl">
                     <table class="w-full text-right text-sm">
                         <thead class="bg-zinc-900/60 text-zinc-400 text-xs border-b border-zinc-800">
                             <tr>
                                 <th class="p-4">رقم الطلب</th>
-                                <th class="p-4">الزبونة وتفاصيل القطعة (القياس/اللون)</th>
-                                <th class="p-4">الهاتف</th>
+                                <th class="p-4">الزبونة وتفاصيل القطعة</th>
+                                <th class="p-4">التواصل (هاتف / واتساب)</th>
                                 <th class="p-4">الولاية والبلدية</th>
-                                <th class="p-4">التاريخ</th>
+                                <th class="p-4">حالة الطلبية (تعديل فوري)</th>
+                                <th class="p-4">حذف</th>
                             </tr>
                         </thead>
                         <tbody id="orders-list">
-                            <tr><td colspan="5" class="p-8 text-center text-zinc-500">جاري تحميل الطلبات...</td></tr>
+                            <tr><td colspan="6" class="p-8 text-center text-zinc-500">جاري تحميل الطلبات...</td></tr>
                         </tbody>
                     </table>
                 </div>
             </section>
 
+            <!-- قسم المنتجات -->
             <section id="section-products" class="hidden">
                 <div class="flex justify-between items-center mb-5">
                     <div>
@@ -145,6 +150,7 @@
                 </div>
             </section>
 
+            <!-- قسم الشحن -->
             <section id="section-shipping" class="hidden">
                 <div class="flex justify-between items-center mb-5">
                     <div>
@@ -169,7 +175,7 @@
         </main>
     </div>
 
-    <!-- Modal إضافة منتج فاخر -->
+    <!-- نافذة إضافة منتج -->
     <div id="product-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-zinc-950 border border-amber-500/40 rounded-3xl max-w-md w-full p-6 shadow-[0_0_40px_rgba(212,175,55,0.2)] max-h-[92vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-amber-500/20 pb-4 mb-4">
@@ -214,7 +220,6 @@
     <script>
         const ADMIN_PIN = "Farid1994#";
 
-        // حفظ تسجيل الدخول الدائم في هاتفك
         function checkAuth() {
             if (localStorage.getItem('laperla_admin_auth') === 'true') {
                 document.getElementById('login-overlay').classList.add('hidden');
@@ -254,6 +259,7 @@
             document.getElementById(`tab-${tab}`).className = 'py-4 border-b-2 border-amber-400 text-amber-300 flex items-center gap-2';
         }
 
+        // جلب الطلبات مع نظام تغيير الحالة وأزرار الإجراءات
         async function fetchOrders() {
             const list = document.getElementById('orders-list');
             try {
@@ -262,27 +268,88 @@
                 document.getElementById('stat-orders').innerText = data ? data.length : 0;
                 
                 if (!data || data.length === 0) {
-                    list.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-zinc-500">لا توجد طلبات واردة بعد.</td></tr>`;
+                    list.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-zinc-500">لا توجد طلبات واردة بعد.</td></tr>`;
                     return;
                 }
 
-                list.innerHTML = data.map(o => `
+                list.innerHTML = data.map(o => {
+                    const currentStatus = o.status || 'جديدة';
+                    const cleanPhone = (o.phone || '').replace(/[^0-9]/g, '');
+                    // تحويل رقم الهاتف الجزائري لصيغة دولية للواتساب
+                    const waPhone = cleanPhone.startsWith('0') ? '213' + cleanPhone.substring(1) : cleanPhone;
+
+                    return `
                     <tr class="border-b border-zinc-900 hover:bg-zinc-900/40 transition">
                         <td class="p-4 font-bold text-amber-400 font-brand">#${o.order_number || o.id}</td>
                         <td class="p-4 font-semibold text-white">
                             <span class="text-amber-200 block">${o.customer_name || 'بدون اسم'}</span>
+                            <span class="text-[10px] text-zinc-500">${new Date(o.created_at).toLocaleDateString('ar-DZ')}</span>
                         </td>
-                        <td class="p-4 font-mono text-xs text-zinc-300">
-                            <a href="tel:${o.phone}" class="hover:text-amber-400 flex items-center gap-1.5">
-                                <i class="fa-solid fa-phone text-[10px] text-emerald-400"></i> ${o.phone || ''}
-                            </a>
+                        <td class="p-4">
+                            <div class="flex items-center gap-2">
+                                <a href="tel:${cleanPhone}" title="اتصال هاتفي" class="bg-zinc-900 border border-zinc-700 hover:border-emerald-400 text-emerald-400 px-2.5 py-1.5 rounded-lg text-xs flex items-center gap-1 transition">
+                                    <i class="fa-solid fa-phone"></i> ${cleanPhone}
+                                </a>
+                                <a href="https://wa.me/${waPhone}" target="_blank" title="محادثة واتساب" class="bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-900 px-2 py-1.5 rounded-lg text-xs transition">
+                                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                                </a>
+                            </div>
                         </td>
-                        <td class="p-4 text-xs text-zinc-400">${o.wilaya_name || ''} - ${o.commune || ''}</td>
-                        <td class="p-4 text-xs text-zinc-500">${new Date(o.created_at).toLocaleDateString('ar-DZ')}</td>
+                        <td class="p-4 text-xs text-zinc-300">
+                            <p class="font-bold text-white">${o.wilaya_name || ''}</p>
+                            <p class="text-zinc-500">${o.commune || ''}</p>
+                        </td>
+                        <td class="p-4">
+                            <!-- قائمة تغيير حالة الطلبية فوراً -->
+                            <select onchange="updateOrderStatus('${o.id}', this.value)" class="bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-xs text-amber-300 p-2 rounded-xl outline-none font-bold">
+                                <option value="جديدة" ${currentStatus === 'جديدة' ? 'selected' : ''}>🟡 جديدة</option>
+                                <option value="مؤكدة" ${currentStatus === 'مؤكدة' ? 'selected' : ''}>📞 مؤكدة</option>
+                                <option value="تم الإرسال" ${currentStatus === 'تم الإرسال' ? 'selected' : ''}>🚚 تم الإرسال</option>
+                                <option value="في مكتب التوصيل" ${currentStatus === 'في مكتب التوصيل' ? 'selected' : ''}>🏢 في مكتب التوصيل</option>
+                                <option value="تم الاستلام بنجاح" ${currentStatus === 'تم الاستلام بنجاح' ? 'selected' : ''}>✅ تم الاستلام بنجاح</option>
+                                <option value="ملغية" ${currentStatus === 'ملغية' ? 'selected' : ''}>❌ ملغية</option>
+                            </select>
+                        </td>
+                        <td class="p-4 text-center">
+                            <!-- زر حذف الطلبية -->
+                            <button onclick="deleteOrder('${o.id}')" title="حذف الطلبية" class="text-zinc-600 hover:text-red-400 p-2 rounded-lg hover:bg-red-500/10 transition">
+                                <i class="fa-solid fa-trash-can text-sm"></i>
+                            </button>
+                        </td>
                     </tr>
-                `).join('');
+                `}).join('');
             } catch (err) {
-                list.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-zinc-500">لا توجد طلبات.</td></tr>`;
+                list.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-zinc-500">حدث خطأ في تحميل الطلبات.</td></tr>`;
+            }
+        }
+
+        // دالة تغيير حالة الطلبية في Supabase
+        async function updateOrderStatus(orderId, newStatus) {
+            try {
+                const { error } = await db.from('orders').update({ status: newStatus }).eq('id', orderId);
+                if (error) throw error;
+                // إشعار بسيط سريع
+                const note = document.createElement('div');
+                note.className = 'fixed bottom-5 left-5 bg-emerald-950 border border-emerald-400 text-emerald-300 px-4 py-2.5 rounded-xl text-xs z-50 shadow-xl';
+                note.innerText = `✓ تم تحديث حالة الطلبية إلى: ${newStatus}`;
+                document.body.appendChild(note);
+                setTimeout(() => note.remove(), 2500);
+            } catch (err) {
+                alert('فشل تحديث الحالة: ' + err.message);
+                fetchOrders();
+            }
+        }
+
+        // دالة حذف الطلبية من Supabase
+        async function deleteOrder(orderId) {
+            if (confirm('هل أنت متأكد من حذف هذه الطلبية نهائياً من قاعدة البيانات؟')) {
+                try {
+                    const { error } = await db.from('orders').delete().eq('id', orderId);
+                    if (error) throw error;
+                    fetchOrders();
+                } catch (err) {
+                    alert('فشل حذف الطلبية: ' + err.message);
+                }
             }
         }
 
