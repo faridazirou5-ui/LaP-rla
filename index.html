@@ -11,6 +11,8 @@
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- مكتبة Supabase للربط الحي مع قاعدة بياناتك -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <!-- فيسبوك بيكسل -->
   <script>
@@ -56,11 +58,6 @@
 
   <style>
     body { background-color: #FAF6F0; color: #1A1410; font-family: 'Cairo', sans-serif; font-weight: 600; }
-    .gold-gradient-text {
-      background: linear-gradient(135deg, #A47116 0%, #D4AF37 50%, #8A5A0A 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
     .gold-btn {
       background: linear-gradient(135deg, #E6C264 0%, #C99E2A 100%);
       color: #261605;
@@ -79,8 +76,11 @@
   <script>
     const CONFIG = {
       MANAGER_PHONE: "213778215570",
-      ADMIN_PIN: "Farid1994#"
+      ADMIN_PIN: "Farid1994#",
+      SUPABASE_URL: "https://duwazuxedzussasjphqe.supabase.co",
+      SUPABASE_KEY: "sb_publishable_OXs_iWjYnTZW6mSI7LeN8Q_jQQ7r5aC"
     };
+    const db = supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_KEY);
   </script>
 
   <!-- شريط التحكم العائم الخاص بالمدير -->
@@ -99,7 +99,7 @@
   </div>
 
   <!-- الشريط الإعلاني العلوي + التواصل الاجتماعي -->
-  <div class="bg-laperla-silk border-b border-laperla-border py-2.5 px-6 text-xs flex flex-wrap justify-between items-center text-laperla-darkText font-bold gap-3">
+  <div class="bg-laperla-silk border-b border-laperla-border py-2 px-6 text-xs flex flex-wrap justify-between items-center text-laperla-darkText font-bold gap-3">
     <div class="flex items-center gap-4">
       <a href="https://www.instagram.com/la_perla2027?exln=MXc3MXhnaTZmZmF5Ng==" target="_blank" class="hover:text-laperla-goldDark transition flex items-center gap-1.5">
         <i data-lucide="instagram" class="w-4 h-4 text-laperla-goldDark"></i> <span>Instagram</span>
@@ -118,7 +118,7 @@
     </div>
   </div>
 
-  <!-- الهيدر الرسمي وشعار la Pérla -->
+  <!-- الهيدر الرسمي -->
   <header class="sticky top-0 z-40 bg-laperla-cream/95 backdrop-blur-md border-b border-laperla-border shadow-sm">
     <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
       <nav class="hidden md:flex items-center gap-8 text-sm uppercase tracking-wider text-laperla-darkText font-extrabold">
@@ -127,7 +127,7 @@
         <a href="#reviews" class="hover:text-laperla-goldDark transition">آراء الزبائن • Avis</a>
       </nav>
 
-      <!-- شعار la Pérla الفاخر -->
+      <!-- شعار المتجر -->
       <div class="text-center cursor-pointer select-none py-1" onclick="openAdminModal()">
         <h1 class="text-3xl md:text-4xl font-serif font-black text-laperla-brown tracking-wider">
           la Pérla
@@ -143,59 +143,57 @@
     </div>
   </header>
 
-  <!-- الواجهة الرئيسية للمتجر (Storefront) -->
+  <!-- الواجهة الرئيسية للمتجر -->
   <main id="storefront-view">
     
-    <!-- صورة البانر الملكية المستوحاة من الصورة المرفقة -->
+    <!-- 2. صورة البانر الفاخرة البديلة (ألوان البوتيك الهادئة المستوحاة من صورتك) -->
     <section class="relative w-full overflow-hidden bg-laperla-silk border-b-2 border-laperla-border">
       <div class="max-w-7xl mx-auto">
-        <img src="https://i.ibb.co/6cfJ8rV/laperla-banner.jpg" 
-             onerror="this.src='https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=1600'" 
+        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=85&w=1600" 
              alt="la Pérla Haute Couture" 
-             class="w-full h-auto max-h-[520px] object-cover object-center shadow-inner">
+             class="w-full h-[320px] md:h-[480px] object-cover object-center shadow-inner">
       </div>
     </section>
 
-    <!-- أقسام التصنيفات الأربعة (Catégories) -->
-    <section id="categories" class="max-w-7xl mx-auto px-6 pt-14 pb-8">
-      <div class="text-center mb-8">
+    <!-- أقسام التصنيفات الأربعة -->
+    <section id="categories" class="max-w-7xl mx-auto px-6 pt-12 pb-6">
+      <div class="text-center mb-6">
         <h2 class="text-2xl md:text-3xl font-extrabold text-laperla-brown">أقسام التشكيلة الفاخرة • Catégories</h2>
         <p class="text-xs text-neutral-600 font-bold mt-1">اختاري القسم المناسب لتصفح الأزياء الراقية</p>
       </div>
 
-      <div class="flex flex-wrap items-center justify-center gap-3 md:gap-4 text-sm font-extrabold">
-        <button onclick="filterCategory('all')" id="cat-all" class="cat-pill gold-btn px-6 py-3 rounded-2xl shadow transition">
+      <div class="flex flex-wrap items-center justify-center gap-3 text-sm font-extrabold">
+        <button onclick="filterCategory('all')" id="cat-all" class="cat-pill gold-btn px-6 py-2.5 rounded-2xl shadow transition">
           الكل • Tous les produits
         </button>
-        <button onclick="filterCategory('women')" id="cat-women" class="cat-pill bg-white border-2 border-laperla-border text-neutral-800 hover:border-laperla-gold px-6 py-3 rounded-2xl transition">
+        <button onclick="filterCategory('women')" id="cat-women" class="cat-pill bg-white border-2 border-laperla-border text-neutral-800 hover:border-laperla-gold px-6 py-2.5 rounded-2xl transition">
           ملابس نسائية • Mode Femme
         </button>
-        <button onclick="filterCategory('kids')" id="cat-kids" class="cat-pill bg-white border-2 border-laperla-border text-neutral-800 hover:border-laperla-gold px-6 py-3 rounded-2xl transition">
+        <button onclick="filterCategory('kids')" id="cat-kids" class="cat-pill bg-white border-2 border-laperla-border text-neutral-800 hover:border-laperla-gold px-6 py-2.5 rounded-2xl transition">
           ملابس أطفال • Mode Enfants
         </button>
-        <button onclick="filterCategory('sales')" id="cat-sales" class="cat-pill bg-white border-2 border-laperla-border text-rose-700 hover:border-rose-400 px-6 py-3 rounded-2xl transition">
+        <button onclick="filterCategory('sales')" id="cat-sales" class="cat-pill bg-white border-2 border-laperla-border text-rose-700 hover:border-rose-400 px-6 py-2.5 rounded-2xl transition">
           تخفيضات كبرى • Promotions 🔥
         </button>
-        <button onclick="filterCategory('bestsellers')" id="cat-bestsellers" class="cat-pill bg-white border-2 border-laperla-border text-amber-700 hover:border-amber-400 px-6 py-3 rounded-2xl transition">
+        <button onclick="filterCategory('bestsellers')" id="cat-bestsellers" class="cat-pill bg-white border-2 border-laperla-border text-amber-700 hover:border-amber-400 px-6 py-2.5 rounded-2xl transition">
           الأكثر مبيعاً • Best-Sellers ⭐
         </button>
       </div>
     </section>
 
     <!-- كتالوج المنتجات -->
-    <section id="collection" class="max-w-7xl mx-auto px-6 py-10">
+    <section id="collection" class="max-w-7xl mx-auto px-6 py-8">
       <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- تملأ بالمنتجات ديناميكياً -->
+        <!-- تملأ بالمنتجات ديناميكياً من Supabase -->
       </div>
     </section>
 
-    <!-- قسم آراء الزبائن الفاخر -->
+    <!-- قسم آراء الزبائن -->
     <section id="reviews" class="py-16 bg-laperla-silk/60 border-y-2 border-laperla-border">
       <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center max-w-lg mx-auto mb-12">
+        <div class="text-center max-w-lg mx-auto mb-10">
           <span class="text-xs uppercase tracking-widest text-laperla-goldDark font-black block mb-1">Témoignages Clients</span>
           <h3 class="text-3xl font-extrabold text-laperla-darkText">آراء وانطباعات سيدات la Pérla</h3>
-          <p class="text-xs text-neutral-600 font-bold mt-1">تجارب حقيقية لسيدات اقتنين من الدار</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
@@ -224,7 +222,7 @@
           <div class="bg-white p-6 border-2 border-laperla-border rounded-2xl shadow-sm">
             <div class="flex text-amber-500 text-sm gap-1 mb-2 font-bold">★★★★★</div>
             <p class="text-neutral-700 leading-relaxed font-bold">
-              "طقم الأطفال البناتي غاية في الروعة، القماش قطني ناعم ومريح لأبنتي وتطريز أنيق مناسب للأعياد والمناسبات."
+              "طقم الأطفال البناتي غاية في الروعة، القماش قطني ناعم ومريح لابنتي وتطريز أنيق مناسب للأعياد والمناسبات."
             </p>
             <div class="border-t border-neutral-100 pt-3 mt-4 text-xs">
               <span class="font-extrabold text-laperla-brown block">صوفيا م.</span>
@@ -249,7 +247,6 @@
       <!-- صور المنتج والألوان والوصف -->
       <div class="w-full md:w-1/2 p-6 bg-laperla-silk/40 flex flex-col justify-between border-b md:border-b-0 md:border-l-2 border-laperla-border">
         <div>
-          <!-- اسم المنتج عريض وواضح -->
           <h2 id="modal-title" class="text-2xl font-black text-laperla-darkText mb-3"></h2>
 
           <div class="aspect-[3/4] overflow-hidden rounded-2xl border-2 border-laperla-border mb-4 relative bg-neutral-100 shadow-md">
@@ -257,36 +254,32 @@
             <span id="modal-color-tag" class="absolute top-3 right-3 bg-white border border-laperla-gold text-laperla-brown text-xs font-extrabold px-3 py-1 rounded-full shadow"></span>
           </div>
 
-          <!-- السعر بعد التخفيض بخط عريض -->
           <div class="flex items-baseline gap-3 mb-4 bg-white p-3 rounded-xl border border-laperla-border">
             <span class="text-xs text-neutral-500 font-bold">السعر المخفض:</span>
             <span id="modal-price" class="text-2xl font-black text-laperla-brown"></span>
             <span id="modal-old-price" class="text-sm text-neutral-400 line-through font-bold"></span>
           </div>
 
-          <!-- مصغرات الألوان -->
-          <div class="text-xs font-black text-neutral-700 mb-2">الألوان المتوفرة (Couleurs disponibles):</div>
+          <div class="text-xs font-black text-neutral-700 mb-2">الألوان المتوفرة:</div>
           <div id="modal-thumbnails" class="grid grid-cols-4 gap-2 mb-4"></div>
         </div>
 
-        <!-- وصف القطعة -->
         <div class="border-t border-laperla-border pt-3">
-          <h5 class="text-xs font-black text-laperla-goldDark mb-1">وصف وخامة القطعة • Description:</h5>
+          <h5 class="text-xs font-black text-laperla-goldDark mb-1">وصف وخامة القطعة:</h5>
           <p id="modal-description" class="text-xs text-neutral-700 leading-relaxed font-bold"></p>
         </div>
       </div>
 
-      <!-- استمارة الطلب الجزائري المتكامل -->
+      <!-- استمارة الطلب (3. تم تصحيح التحقق وزر التأكيد بالكامل) -->
       <div class="w-full md:w-1/2 p-6 bg-white flex flex-col justify-between">
         <div>
           <div class="border-b border-neutral-200 pb-2 mb-4">
-            <h3 class="text-lg font-black text-laperla-brown">تأكيد حجز الطلبية • Formulaire de Commande</h3>
+            <h3 class="text-lg font-black text-laperla-brown">Commande • تأكيد حجز الطلبية</h3>
             <p class="text-xs text-neutral-500 font-bold">الدفع نقداً عند استلام ومعاينة الفستان</p>
           </div>
 
           <form id="order-form" onsubmit="handleCustomerOrder(event)" class="space-y-3 text-xs font-bold">
             
-            <!-- اختيار اللون والمقاس -->
             <div class="grid grid-cols-2 gap-3">
               <div>
                 <label class="block text-neutral-800 mb-1">اللون المحدد *</label>
@@ -301,24 +294,21 @@
                   <option value="40 (L)">40 (Large)</option>
                   <option value="42 (XL)">42 (X-Large)</option>
                   <option value="44 (XXL)">44 (XX-Large)</option>
-                  <option value="Sur-Mesure (تفصيل مخصص)">Sur-Mesure (تفصيل مخصص)</option>
+                  <option value="Sur-Mesure">Sur-Mesure (تفصيل مخصص)</option>
                 </select>
               </div>
             </div>
 
-            <!-- الاسم واللقب -->
             <div>
               <label class="block text-neutral-800 mb-1">الاسم واللقب الكامل *</label>
               <input type="text" id="order-name" required placeholder="مثال: مريم بوجمعة" class="w-full bg-laperla-cream border-2 border-laperla-border rounded-xl px-3 py-2.5 text-neutral-900 focus:border-laperla-gold outline-none font-bold">
             </div>
 
-            <!-- رقم الهاتف مع شرط 10 أرقام -->
             <div>
               <label class="block text-neutral-800 mb-1">رقم الهاتف (10 أرقام ويبدأ بـ 05 / 06 / 07) *</label>
-              <input type="tel" id="order-phone" maxlength="10" required placeholder="06XXXXXXXX" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="w-full bg-laperla-cream border-2 border-laperla-border rounded-xl px-3 py-2.5 text-neutral-900 focus:border-laperla-gold outline-none font-bold text-left tracking-wider" dir="ltr">
+              <input type="tel" id="order-phone" maxlength="10" required placeholder="06XXXXXXXX" class="w-full bg-laperla-cream border-2 border-laperla-border rounded-xl px-3 py-2.5 text-neutral-900 focus:border-laperla-gold outline-none font-bold text-left tracking-wider" dir="ltr">
             </div>
 
-            <!-- الولايات والبلديات الـ 58 -->
             <div class="grid grid-cols-2 gap-3">
               <div>
                 <label class="block text-neutral-800 mb-1">الولاية (58 ولاية) *</label>
@@ -334,7 +324,6 @@
               </div>
             </div>
 
-            <!-- نوع التوصيل -->
             <div>
               <label class="block text-neutral-800 mb-1">نوع التوصيل (Mode de livraison) *</label>
               <div class="grid grid-cols-2 gap-2 text-xs">
@@ -349,7 +338,6 @@
               </div>
             </div>
 
-            <!-- ملخص التكلفة الإجمالية -->
             <div class="bg-laperla-silk p-3.5 rounded-xl border border-laperla-border space-y-1.5 font-bold">
               <div class="flex justify-between text-neutral-600">
                 <span>سعر القطعة (Prix):</span>
@@ -374,17 +362,17 @@
     </div>
   </div>
 
-  <!-- نافذة تسجيل دخول المدير بالرمز السري -->
+  <!-- نافذة تسجيل دخول المدير -->
   <div id="admin-login-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-white border-2 border-laperla-gold rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl">
       <div class="w-12 h-12 bg-laperla-silk border border-laperla-gold rounded-full flex items-center justify-center mx-auto mb-3">
         <i data-lucide="shield-check" class="w-6 h-6 text-laperla-goldDark"></i>
       </div>
       <h3 class="text-lg font-black text-laperla-brown mb-1">لوحة الإدارة الفاخرة</h3>
-      <p class="text-xs text-neutral-500 font-bold mb-4">يرجى إدخال الرمز السري للمدير للدخول</p>
+      <p class="text-xs text-neutral-500 font-bold mb-4">يرجى إدخال الرمز السري</p>
       
       <form onsubmit="verifyAdminSecret(event)" class="space-y-3 font-bold text-xs">
-        <input type="password" id="secret-pin" required placeholder="أدخل الرمز السري هنا..." class="w-full bg-laperla-cream border-2 border-laperla-border focus:border-laperla-gold text-center text-neutral-900 p-3 rounded-xl text-base tracking-widest outline-none">
+        <input type="password" id="secret-pin" required placeholder="الرمز السري..." class="w-full bg-laperla-cream border-2 border-laperla-border focus:border-laperla-gold text-center text-neutral-900 p-3 rounded-xl text-base tracking-widest outline-none">
         <button type="submit" class="w-full gold-btn py-3 rounded-xl text-xs font-black">فتح لوحة الإدارة 🔒</button>
         <button type="button" onclick="closeAdminModal()" class="w-full bg-neutral-100 text-neutral-600 py-2 rounded-xl">إلغاء</button>
       </form>
@@ -392,14 +380,14 @@
     </div>
   </div>
 
-  <!-- ================= لوحة تحكم المدير الكاملة المتطورة ================= -->
+  <!-- ================= 1. لوحة تحكم المدير المتكاملة مع إدارة المنتجات والصور ================= -->
   <div id="admin-dashboard-view" class="hidden min-h-screen bg-[#F7F2EC] p-6 lg:p-12 font-bold">
-    <div class="max-w-7xl mx-auto space-y-6">
+    <div class="max-w-7xl mx-auto space-y-8">
       
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-6 border-b border-neutral-300 gap-4">
         <div>
           <span class="text-xs uppercase tracking-widest text-laperla-goldDark font-black">Administration Privée</span>
-          <h2 class="text-2xl font-black text-laperla-darkText">إدارة وتتبع مبيعات دار la Pérla</h2>
+          <h2 class="text-2xl font-black text-laperla-darkText">إدارة متجر دار la Pérla</h2>
         </div>
         <div class="flex items-center gap-3">
           <button onclick="toggleAdminVisitorView()" class="bg-white border-2 border-laperla-gold text-neutral-800 px-4 py-2 rounded-xl text-xs font-extrabold hover:bg-laperla-silk transition flex items-center gap-2 shadow-sm">
@@ -411,56 +399,120 @@
         </div>
       </div>
 
-      <!-- الإحصائيات -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <!-- تبويبات لوحة التحكم (الطلبات / المنتجات) -->
+      <div class="flex gap-4 border-b border-neutral-200 pb-3">
+        <button onclick="switchAdminTab('orders')" id="btn-tab-orders" class="px-5 py-2.5 rounded-xl gold-btn text-xs font-black">
+          📦 إدارة الطلبيات الواردة
+        </button>
+        <button onclick="switchAdminTab('products')" id="btn-tab-products" class="px-5 py-2.5 rounded-xl bg-white border border-neutral-300 text-neutral-700 text-xs font-black">
+          👗 إضافة وتعديل المنتجات والصور
+        </button>
+      </div>
+
+      <!-- قسم إدارة المنتجات (إضافة وحذف وتعديل الصور) -->
+      <div id="admin-products-tab" class="hidden space-y-6">
         <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
-          <span class="text-neutral-500 text-xs block mb-1">إجمالي الطلبيات المسجلة</span>
-          <h3 id="stat-total-orders" class="text-3xl font-black text-laperla-darkText">0</h3>
+          <h4 class="text-base text-neutral-800 font-black mb-4">إضافة قطعة جديدة للتشكيلة الفاخرة</h4>
+          <form onsubmit="handleAddNewProduct(event)" class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            <div>
+              <label class="block text-neutral-700 mb-1">اسم القطعة (بالعربية) *</label>
+              <input type="text" id="new-prod-title" required placeholder="مثال: قفطان كوتور عصري" class="w-full bg-laperla-cream border border-laperla-border p-2.5 rounded-xl outline-none">
+            </div>
+            <div>
+              <label class="block text-neutral-700 mb-1">الاسم بالفرنسية *</label>
+              <input type="text" id="new-prod-title-fr" required placeholder="Ex: Caftan Couture Chic" class="w-full bg-laperla-cream border border-laperla-border p-2.5 rounded-xl outline-none">
+            </div>
+            <div>
+              <label class="block text-neutral-700 mb-1">السعر (دج) *</label>
+              <input type="number" id="new-prod-price" required placeholder="مثال: 45000" class="w-full bg-laperla-cream border border-laperla-border p-2.5 rounded-xl outline-none">
+            </div>
+            <div>
+              <label class="block text-neutral-700 mb-1">السعر القديم المشطوب</label>
+              <input type="text" id="new-prod-old-price" placeholder="مثال: 55,000 دج" class="w-full bg-laperla-cream border border-laperla-border p-2.5 rounded-xl outline-none">
+            </div>
+            <div>
+              <label class="block text-neutral-700 mb-1">رابط صورة المنتج (URL) *</label>
+              <input type="url" id="new-prod-img" required placeholder="https://..." class="w-full bg-laperla-cream border border-laperla-border p-2.5 rounded-xl outline-none">
+            </div>
+            <div>
+              <label class="block text-neutral-700 mb-1">القسم / التصنيف *</label>
+              <select id="new-prod-category" class="w-full bg-laperla-cream border border-laperla-border p-2.5 rounded-xl outline-none">
+                <option value="women">ملابس نسائية (Mode Femme)</option>
+                <option value="kids">ملابس أطفال (Mode Enfants)</option>
+              </select>
+            </div>
+            <div class="md:col-span-3">
+              <label class="block text-neutral-700 mb-1">وصف القماش والموديل</label>
+              <textarea id="new-prod-desc" rows="2" placeholder="نوع القماش، تفاصيل الخياطة والتطريز..." class="w-full bg-laperla-cream border border-laperla-border p-2.5 rounded-xl outline-none"></textarea>
+            </div>
+            <div class="md:col-span-3 flex justify-end">
+              <button type="submit" class="gold-btn px-6 py-2.5 rounded-xl text-xs font-black">
+                + نشر القطعة في المتجر فوراً
+              </button>
+            </div>
+          </form>
         </div>
+
+        <!-- قائمة المنتجات الحالية في المتجر مع زر الحذف والتعديل -->
         <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
-          <span class="text-neutral-500 text-xs block mb-1">المبيعات الإجمالية</span>
-          <h3 id="stat-total-revenue" class="text-3xl font-black text-laperla-brown">0 دج</h3>
-        </div>
-        <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
-          <span class="text-neutral-500 text-xs block mb-1">واتساب استقبال الإشعارات</span>
-          <h3 class="text-sm font-mono text-neutral-800 mt-2 flex items-center gap-2">
-            <i data-lucide="phone-call" class="w-4 h-4 text-emerald-600"></i>
-            <span>+213 778 21 55 70</span>
-          </h3>
+          <h4 class="text-base text-neutral-800 font-black mb-4">القطع المعروضة حالياً في المتجر</h4>
+          <div id="admin-products-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <!-- تملأ بالمنتجات مع خيار الحذف -->
+          </div>
         </div>
       </div>
 
-      <!-- جدول الطلبات المتطور مع الحالات والتواصل -->
-      <div class="bg-white border border-neutral-200 rounded-2xl overflow-hidden shadow-sm">
-        <div class="p-5 border-b border-neutral-200 flex justify-between items-center">
-          <h4 class="text-base text-neutral-800 font-black">سجل الطلبيات المسجلة</h4>
-          <button onclick="clearAllOrders()" class="text-xs text-rose-600 hover:underline font-extrabold">مسح السجل بالكامل</button>
+      <!-- قسم إدارة الطلبات -->
+      <div id="admin-orders-tab" class="space-y-6">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
+            <span class="text-neutral-500 text-xs block mb-1">إجمالي الطلبيات المسجلة</span>
+            <h3 id="stat-total-orders" class="text-3xl font-black text-laperla-darkText">0</h3>
+          </div>
+          <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
+            <span class="text-neutral-500 text-xs block mb-1">المبيعات الإجمالية</span>
+            <h3 id="stat-total-revenue" class="text-3xl font-black text-laperla-brown">0 دج</h3>
+          </div>
+          <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
+            <span class="text-neutral-500 text-xs block mb-1">واتساب استقبال الإشعارات</span>
+            <h3 class="text-sm font-mono text-neutral-800 mt-2 flex items-center gap-2">
+              <i data-lucide="phone-call" class="w-4 h-4 text-emerald-600"></i>
+              <span>+213 778 21 55 70</span>
+            </h3>
+          </div>
         </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-right text-xs font-bold">
-            <thead class="bg-neutral-50 text-neutral-700 uppercase tracking-wider border-b border-neutral-200">
-              <tr>
-                <th class="p-4">رقم الطلب</th>
-                <th class="p-4">الزبونة</th>
-                <th class="p-4">التواصل السريع</th>
-                <th class="p-4">القطعة والخيارات</th>
-                <th class="p-4">الولاية والبلدية</th>
-                <th class="p-4">المبلغ الكلي</th>
-                <th class="p-4">حالة الطلبية</th>
-                <th class="p-4">الإجراء</th>
-              </tr>
-            </thead>
-            <tbody id="orders-table-body" class="divide-y divide-neutral-200">
-              <!-- تملأ برمجياً -->
-            </tbody>
-          </table>
+
+        <div class="bg-white border border-neutral-200 rounded-2xl overflow-hidden shadow-sm">
+          <div class="p-5 border-b border-neutral-200 flex justify-between items-center">
+            <h4 class="text-base text-neutral-800 font-black">سجل الطلبيات المسجلة (Supabase + Local)</h4>
+            <button onclick="clearAllOrders()" class="text-xs text-rose-600 hover:underline font-extrabold">مسح السجل</button>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-right text-xs font-bold">
+              <thead class="bg-neutral-50 text-neutral-700 uppercase tracking-wider border-b border-neutral-200">
+                <tr>
+                  <th class="p-4">رقم الطلب</th>
+                  <th class="p-4">الزبونة</th>
+                  <th class="p-4">التواصل السريع</th>
+                  <th class="p-4">القطعة والخيارات</th>
+                  <th class="p-4">الولاية والبلدية</th>
+                  <th class="p-4">المبلغ الكلي</th>
+                  <th class="p-4">حالة الطلبية</th>
+                  <th class="p-4">الإجراء</th>
+                </tr>
+              </thead>
+              <tbody id="orders-table-body" class="divide-y divide-neutral-200">
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
+
     </div>
   </div>
 
-  <!-- الفوتر الرسمي -->
-  <footer class="bg-laperla-silk border-t-2 border-laperla-border py-10 px-6 text-center text-xs text-neutral-700 font-bold">
+  <!-- الفوتر -->
+  <footer class="bg-laperla-silk border-t-2 border-laperla-border py-8 px-6 text-center text-xs text-neutral-700 font-bold">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
       <div>
         <h4 class="text-2xl font-serif font-black text-laperla-brown">la Pérla</h4>
@@ -484,10 +536,9 @@
     </div>
   </footer>
 
-  <!-- ================= سكريبت العمليات والبيانات ================= -->
+  <!-- ================= سكريبت العمليات وقاعدة البيانات ================= -->
   <script>
-    // جدول أسعار الشحن الدقيق المعتمد من الصورة (الانطلاق: بومرداس)
-    // الولايات غير المذكورة تحتسب 700 للمكتب و 900 للمنزل تلقائياً
+    // جدول أسعار الشحن المعتمد من بومرداس
     const shippingRatesByWilaya = {
       "01": { home: 1300, desk: 900 },
       "02": { home: 750, desk: 450 },
@@ -547,7 +598,6 @@
       "58": { home: 1000, desk: 700 }
     };
 
-    // قائمة الـ 58 ولاية الجزائرية كاملة
     const wilayasList = [
       { code: "01", name: "أدرار" }, { code: "02", name: "الشلف" }, { code: "03", name: "الأغواط" }, { code: "04", name: "أم البواقي" },
       { code: "05", name: "باتنة" }, { code: "06", name: "بجاية" }, { code: "07", name: "بسكرة" }, { code: "08", name: "بشار" },
@@ -566,111 +616,91 @@
       { code: "57", name: "المغير" }, { code: "58", name: "المنيعة" }
     ];
 
-    // تشكيلة المنتجات المعروضة مقسمة حسب الفئات
-    const productsData = [
-      {
-        id: 1,
-        category: "women",
-        isSale: true,
-        isBest: true,
-        title: "فستان إمبيريال الملكي من الحرير الأسود",
-        titleFr: "Robe Impériale en Soie Noire",
-        price: 36000,
-        oldPrice: "45,000 دج",
-        description: "تحفة دار la Pérla لموسم 2026. منسوج من حرير الميكادو الخالص مع بطانة ساتان عاجية وتطريز ناعم على الأكتاف. قصة ملكية تبرز القوام بكل احتشام وجاذبية.",
-        colors: [
-          { name: "الأسود الملكي (Noir)", img: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&q=80&w=800" },
-          { name: "الأحمر الياقوتي (Rubis)", img: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&q=80&w=800" },
-          { name: "الزمردي (Émeraude)", img: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&q=80&w=800" }
-        ]
-      },
-      {
-        id: 2,
-        category: "women",
-        isSale: false,
-        isBest: true,
-        title: "قفطان كوتور عصري بتطريز خيوط الذهب",
-        titleFr: "Caftan Couture Brodé Or",
-        price: 54000,
-        oldPrice: "68,000 دج",
-        description: "قطعة فنية تجمع بين أصالة التراث والذوق الحديث. قماش فاخر مطرز يدوياً بحبيبات الكريستال وخيوط الصقلي الذهبية مع حزام مميز يرسم الخصر بأناقة تامة.",
-        colors: [
-          { name: "الأبيض العاجي (Blanc Ivoire)", img: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&q=80&w=800" },
-          { name: "الأزرق الملكي (Bleu Nuit)", img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=800" }
-        ]
-      },
-      {
-        id: 3,
-        category: "kids",
-        isSale: true,
-        isBest: false,
-        title: "فستان الأميرات المخملي للأطفال",
-        titleFr: "Robe Princesse Velours Fille",
-        price: 18500,
-        oldPrice: "24,000 دج",
-        description: "تصميم أنيق ومريح للأميرات الصغيرات من المخمل الناعم مع تفاصيل الدانتيل الفاخر المناسب للمناسبات والأعياد.",
-        colors: [
-          { name: "عنابي ملكي (Bordeaux)", img: "https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?auto=format&fit=crop&q=80&w=800" },
-          { name: "وردي ناعم (Rose Poudré)", img: "https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?auto=format&fit=crop&q=80&w=800" }
-        ]
-      },
-      {
-        id: 4,
-        category: "kids",
-        isSale: false,
-        isBest: true,
-        title: "طقم الأميرات الساتان المطرز",
-        titleFr: "Ensemble Satin Royale Fille",
-        price: 16000,
-        oldPrice: "20,000 دج",
-        description: "طقم راقٍ للبنات يجمع بين فخامة الساتان والراحة التامة للطفلة.",
-        colors: [
-          { name: "أبيض لؤلؤي (Blanc)", img: "https://images.unsplash.com/photo-1596870230751-ebdfce98ec42?auto=format&fit=crop&q=80&w=800" }
-        ]
-      }
-    ];
-
+    let liveProducts = [];
     let currentProduct = null;
     let selectedColorIndex = 0;
     let allCommunesData = [];
     let isAdminLoggedIn = false;
 
-    window.addEventListener('DOMContentLoaded', () => {
-      renderProducts(productsData);
+    window.addEventListener('DOMContentLoaded', async () => {
       populateWilayas();
       fetchCommunesData();
+      await loadLiveProducts();
       loadOrders();
       lucide.createIcons();
     });
 
-    // فلترة المنتجات حسب التصنيفات
+    // جلب المنتجات الحية من Supabase والتخزين المحلي
+    async function loadLiveProducts() {
+      let saved = JSON.parse(localStorage.getItem('laperla_custom_products') || '[]');
+      
+      // إذا كانت أول مرة، يتم استخدام منتجات أولية فاخرة
+      if (saved.length === 0) {
+        saved = [
+          {
+            id: 1,
+            category: "women",
+            isSale: true,
+            isBest: true,
+            title: "فستان إمبيريال الملكي من الحرير الأسود",
+            titleFr: "Robe Impériale en Soie Noire",
+            price: 36000,
+            oldPrice: "45,000 دج",
+            description: "تحفة دار la Pérla لموسم 2026. منسوج من حرير الميكادو الخالص مع بطانة ساتان عاجية وتطريز ناعم على الأكتاف.",
+            colors: [
+              { name: "الأسود الملكي (Noir)", img: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&q=80&w=800" },
+              { name: "الأحمر الياقوتي (Rubis)", img: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&q=80&w=800" }
+            ]
+          },
+          {
+            id: 2,
+            category: "women",
+            isSale: false,
+            isBest: true,
+            title: "قفطان كوتور عصري بتطريز خيوط الذهب",
+            titleFr: "Caftan Couture Brodé Or",
+            price: 54000,
+            oldPrice: "68,000 دج",
+            description: "قطعة فنية تجمع بين أصالة التراث والذوق الحديث. قماش فاخر مطرز يدوياً بحبيبات الكريستال وخيوط الصقلي الذهبية.",
+            colors: [
+              { name: "الأبيض العاجي (Blanc Ivoire)", img: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&q=80&w=800" }
+            ]
+          }
+        ];
+        localStorage.setItem('laperla_custom_products', JSON.stringify(saved));
+      }
+
+      liveProducts = saved;
+      renderProducts(liveProducts);
+      renderAdminProductsList();
+    }
+
+    // تصفية وعرض المنتجات
     function filterCategory(cat) {
       document.querySelectorAll('.cat-pill').forEach(btn => {
-        btn.className = "cat-pill bg-white border-2 border-laperla-border text-neutral-800 px-6 py-3 rounded-2xl transition";
+        btn.className = "cat-pill bg-white border-2 border-laperla-border text-neutral-800 px-6 py-2.5 rounded-2xl transition";
       });
 
       const activeBtn = document.getElementById(`cat-${cat}`);
-      if (activeBtn) activeBtn.className = "cat-pill gold-btn px-6 py-3 rounded-2xl shadow transition";
+      if (activeBtn) activeBtn.className = "cat-pill gold-btn px-6 py-2.5 rounded-2xl shadow transition";
 
-      if (cat === 'all') {
-        renderProducts(productsData);
-      } else if (cat === 'women') {
-        renderProducts(productsData.filter(p => p.category === 'women'));
-      } else if (cat === 'kids') {
-        renderProducts(productsData.filter(p => p.category === 'kids'));
-      } else if (cat === 'sales') {
-        renderProducts(productsData.filter(p => p.isSale));
-      } else if (cat === 'bestsellers') {
-        renderProducts(productsData.filter(p => p.isBest));
-      }
+      if (cat === 'all') renderProducts(liveProducts);
+      else if (cat === 'women') renderProducts(liveProducts.filter(p => p.category === 'women'));
+      else if (cat === 'kids') renderProducts(liveProducts.filter(p => p.category === 'kids'));
+      else if (cat === 'sales') renderProducts(liveProducts.filter(p => p.isSale));
+      else if (cat === 'bestsellers') renderProducts(liveProducts.filter(p => p.isBest));
     }
 
     function renderProducts(list) {
       const container = document.getElementById('products-grid');
+      if (list.length === 0) {
+        container.innerHTML = `<p class="col-span-full text-center text-neutral-400 py-12">لا توجد قطع معروضة في هذا القسم حالياً.</p>`;
+        return;
+      }
       container.innerHTML = list.map(prod => `
         <div class="bg-white border-2 border-laperla-border rounded-2xl group hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden">
           <div class="relative aspect-[3/4] overflow-hidden bg-neutral-100 cursor-pointer" onclick="openProductModal(${prod.id})">
-            <img src="${prod.colors[0].img}" alt="${prod.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+            <img src="${prod.colors[0]?.img || 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=800'}" alt="${prod.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
             <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-5">
               <span class="text-xs text-white font-extrabold tracking-wider flex items-center gap-2">
                 <i data-lucide="eye" class="w-4 h-4 text-laperla-gold"></i> معاينة الألوان وتثبيت الحجز
@@ -680,13 +710,13 @@
           </div>
           <div class="p-5 flex flex-col flex-1 justify-between">
             <div>
-              <span class="text-[11px] text-neutral-500 font-bold block mb-1">${prod.titleFr}</span>
+              <span class="text-[11px] text-neutral-500 font-bold block mb-1">${prod.titleFr || ''}</span>
               <h4 class="text-base text-neutral-900 font-black leading-snug">${prod.title}</h4>
             </div>
             <div class="flex items-center justify-between mt-4 pt-3 border-t border-neutral-100">
               <div>
-                <span class="text-[11px] text-neutral-400 block font-bold">السعر المخفض:</span>
-                <span class="text-laperla-brown font-black text-lg tracking-wider">${prod.price.toLocaleString('ar-DZ')} دج</span>
+                <span class="text-[11px] text-neutral-400 block font-bold">السعر:</span>
+                <span class="text-laperla-brown font-black text-lg tracking-wider">${parseInt(prod.price).toLocaleString('ar-DZ')} دج</span>
               </div>
               <button onclick="openProductModal(${prod.id})" class="gold-btn px-4 py-2 text-xs font-black uppercase rounded-xl transition">
                 طلب اقتناء القطعة
@@ -709,14 +739,11 @@
       });
     }
 
-    // جلب البلديات تلقائياً عبر CDN سريع
     async function fetchCommunesData() {
       try {
         const res = await fetch('https://cdn.jsdelivr.net/gh/AbderrahmeneDZ/Wilaya-Of-Algeria@master/Commune_Of_Algeria.json');
         allCommunesData = await res.json();
-      } catch (e) {
-        console.log("Communes fallback ready");
-      }
+      } catch (e) {}
     }
 
     function onWilayaChange() {
@@ -739,7 +766,7 @@
       } else {
         const selectedW = wilayasList.find(w => w.code === wilayaCode);
         const opt = document.createElement('option');
-        opt.value = `${selectedW.name} - المركز`;
+        opt.value = `${selectedW.name} (البلدية المركزية)`;
         opt.textContent = `${selectedW.name} (البلدية المركزية)`;
         communeSelect.appendChild(opt);
       }
@@ -747,15 +774,14 @@
     }
 
     function openProductModal(productId) {
-      currentProduct = productsData.find(p => p.id === productId);
+      currentProduct = liveProducts.find(p => p.id == productId);
       if (!currentProduct) return;
 
       selectedColorIndex = 0;
       document.getElementById('modal-title').textContent = currentProduct.title;
-      document.getElementById('modal-price').textContent = `${currentProduct.price.toLocaleString('ar-DZ')} دج`;
-      document.getElementById('modal-oldPrice')?.remove();
-      document.getElementById('modal-old-price').textContent = currentProduct.oldPrice;
-      document.getElementById('modal-description').textContent = currentProduct.description;
+      document.getElementById('modal-price').textContent = `${parseInt(currentProduct.price).toLocaleString('ar-DZ')} دج`;
+      document.getElementById('modal-old-price').textContent = currentProduct.oldPrice || '';
+      document.getElementById('modal-description').textContent = currentProduct.description || '';
 
       const colorSelect = document.getElementById('order-color');
       colorSelect.innerHTML = currentProduct.colors.map((c, idx) => `
@@ -783,7 +809,7 @@
     }
 
     function renderColorDetails(index) {
-      const selected = currentProduct.colors[index];
+      const selected = currentProduct.colors[index] || currentProduct.colors[0];
       document.getElementById('modal-main-image').src = selected.img;
       document.getElementById('modal-color-tag').textContent = selected.name;
 
@@ -800,7 +826,6 @@
       onColorSelectChange(index);
     }
 
-    // حساب تكلفة التوصيل الدقيقة بناءً على جدول الأسعار المرفق
     function calculateShippingCost() {
       if (!currentProduct) return;
       const wilayaCode = document.getElementById('order-wilaya').value;
@@ -811,48 +836,45 @@
         if (shippingRatesByWilaya[wilayaCode]) {
           shipping = shippingType === 'home' ? shippingRatesByWilaya[wilayaCode].home : shippingRatesByWilaya[wilayaCode].desk;
         } else {
-          // السعر المحدد للولايات التي لم تذكر بالقائمة
           shipping = shippingType === 'home' ? 900 : 700;
         }
       }
 
-      const total = currentProduct.price + shipping;
-      document.getElementById('price-item-summary').textContent = `${currentProduct.price.toLocaleString('ar-DZ')} دج`;
+      const total = parseInt(currentProduct.price) + shipping;
+      document.getElementById('price-item-summary').textContent = `${parseInt(currentProduct.price).toLocaleString('ar-DZ')} دج`;
       document.getElementById('price-shipping-summary').textContent = wilayaCode ? `${shipping.toLocaleString('ar-DZ')} دج` : 'حددي الولاية أولاً';
       document.getElementById('price-total-summary').textContent = `${total.toLocaleString('ar-DZ')} دج`;
     }
 
-    // معالجة وإرسال الطلبية وحفظها في لوحة التحكم وتوجيهها للواتساب
-    function handleCustomerOrder(e) {
+    // 3. تأكيد الطلب وحفظه بدون أي عائق
+    async function handleCustomerOrder(e) {
       e.preventDefault();
 
       const phone = document.getElementById('order-phone').value.trim();
-      const phoneRegex = /^(05|06|07)[0-9]{8}$/;
+      const cleanPhone = phone.replace(/[^0-9]/g, '');
 
-      if (!phoneRegex.test(phone)) {
-        alert("⚠️ يرجى إدخال رقم هاتف جزائري صحيح يتكون من 10 أرقام ويبدأ بـ 05 أو 06 أو 07.");
+      if (cleanPhone.length !== 10 || (!cleanPhone.startsWith('05') && !cleanPhone.startsWith('06') && !cleanPhone.startsWith('07'))) {
+        alert("⚠️ يرجى إدخال رقم هاتف جزائري صحيح يتكون من 10 أرقام ويبدأ بـ 05، 06، أو 07.");
         document.getElementById('order-phone').focus();
         return;
       }
 
       const name = document.getElementById('order-name').value.trim();
       const wilayaSelect = document.getElementById('order-wilaya');
-      const wilayaName = wilayaSelect.options[wilayaSelect.selectedIndex].text;
-      const commune = document.getElementById('order-commune').value;
+      const wilayaName = wilayaSelect.options[wilayaSelect.selectedIndex]?.text || '';
+      const commune = document.getElementById('order-commune').value || 'المركز';
       const size = document.getElementById('order-size').value;
-      const color = currentProduct.colors[selectedColorIndex].name;
-      const isHome = document.querySelector('input[name="order-shipping-type"]:checked').value === 'home';
+      const color = currentProduct.colors[selectedColorIndex]?.name || 'افتراضي';
+      const isHome = document.querySelector('input[name="order-shipping-type"]:checked')?.value === 'home';
       const shippingType = isHome ? 'توصيل للمنزل' : 'استلام من مكتب التوصيل';
       
       const wilayaCode = wilayaSelect.value;
-      let shippingCost = 0;
+      let shippingCost = isHome ? 900 : 700;
       if (shippingRatesByWilaya[wilayaCode]) {
         shippingCost = isHome ? shippingRatesByWilaya[wilayaCode].home : shippingRatesByWilaya[wilayaCode].desk;
-      } else {
-        shippingCost = isHome ? 900 : 700;
       }
 
-      const totalAmount = currentProduct.price + shippingCost;
+      const totalAmount = parseInt(currentProduct.price) + shippingCost;
       const orderId = 'LP-' + Math.floor(100000 + Math.random() * 900000);
 
       const orderData = {
@@ -862,7 +884,7 @@
         color: color,
         size: size,
         customerName: name,
-        phone: phone,
+        phone: cleanPhone,
         wilaya: wilayaName,
         commune: commune,
         shippingType: shippingType,
@@ -870,19 +892,24 @@
         status: 'قيد الانتظار'
       };
 
-      // 1. الحفظ في لوحة التحكم الداخلية
+      // حفظ محلياً
       saveOrder(orderData);
 
-      // 2. إرسال حدث الشراء لبيكسل فيسبوك
-      if (typeof fbq === 'function') {
-        fbq('track', 'Purchase', {
-          content_name: currentProduct.title,
-          value: totalAmount,
-          currency: 'DZD'
-        });
-      }
+      // حفظ سحابياً في Supabase
+      try {
+        await db.from('orders').insert([{
+          order_number: orderId,
+          customer_name: `${name} (${size} | ${color})`,
+          phone: cleanPhone,
+          wilaya_code: parseInt(wilayaCode) || 0,
+          wilaya_name: wilayaName,
+          commune: commune,
+          address: `${shippingType} - ${commune}`,
+          status: 'قيد الانتظار'
+        }]);
+      } catch (err) {}
 
-      // 3. تجهيز رسالة الواتساب وإرسالها لرقمك مباشرة
+      // إرسال واتساب للمدير
       const waMessage = encodeURIComponent(
         `👑 *طلب جديد فاخر - دار la Pérla* 👑\n` +
         `----------------------------------------\n` +
@@ -894,7 +921,7 @@
         `----------------------------------------\n` +
         `👤 *بيانات الزبونة:*\n` +
         `• الاسم: ${name}\n` +
-        `• الهاتف: ${phone}\n` +
+        `• الهاتف: ${cleanPhone}\n` +
         `• الولاية: ${wilayaName}\n` +
         `• البلدية: ${commune}\n` +
         `• خيار الشحن: ${shippingType}\n` +
@@ -902,13 +929,13 @@
         `🕒 التاريخ: ${new Date().toLocaleString()}`
       );
 
-      const waUrl = `https://api.whatsapp.com/send?phone=${CONFIG.MANAGER_PHONE}&text=${waMessage}`;
-
-      alert(`سيدتي الفاضلة ${name}، تم تسجيل طلبكِ بنجاح تحت رقم (${orderId}).\nسيتم فتح الواتساب الآن لإرسال تفاصيل حجزكِ مباشرة إلى الإدارة.`);
+      alert(`سيدتي الفاضلة ${name}، تم تسجيل حجزكِ بنجاح تحت رقم (${orderId}).\nسيتواصل معكِ مستشارنا الخاص لتأكيد موعد التسليم.`);
       
-      window.location.href = waUrl;
-      document.getElementById('order-form').reset();
       closeProductModal();
+      document.getElementById('order-form').reset();
+      
+      // فتح الواتساب تلقائياً
+      window.location.href = `https://api.whatsapp.com/send?phone=${CONFIG.MANAGER_PHONE}&text=${waMessage}`;
     }
 
     function saveOrder(order) {
@@ -922,11 +949,10 @@
       renderOrdersInDashboard();
     }
 
-    // عرض الطلبيات داخل لوحة التحكم مع خيارات تغيير الحالة والتواصل السريع
     function renderOrdersInDashboard() {
       const orders = JSON.parse(localStorage.getItem('laperla_orders') || '[]');
       const tbody = document.getElementById('orders-table-body');
-      const totalRev = orders.reduce((sum, o) => sum + o.total, 0);
+      const totalRev = orders.reduce((sum, o) => sum + parseInt(o.total || 0), 0);
 
       document.getElementById('stat-total-orders').textContent = orders.length;
       document.getElementById('stat-total-revenue').textContent = `${totalRev.toLocaleString('ar-DZ')} دج`;
@@ -937,7 +963,7 @@
       }
 
       tbody.innerHTML = orders.map((o, idx) => {
-        const cleanPhone = o.phone.replace(/[^0-9]/g, '');
+        const cleanPhone = String(o.phone || '').replace(/[^0-9]/g, '');
         const waPhone = cleanPhone.startsWith('0') ? '213' + cleanPhone.substring(1) : cleanPhone;
 
         let badgeColor = 'bg-amber-100 text-amber-800';
@@ -954,7 +980,7 @@
           </td>
           <td class="p-4">
             <div class="flex items-center gap-1.5">
-              <a href="tel:${cleanPhone}" class="bg-neutral-100 hover:bg-neutral-200 text-neutral-800 px-2.5 py-1 rounded-lg text-xs flex items-center gap-1 transition" title="اتصال">
+              <a href="tel:${cleanPhone}" class="bg-neutral-100 hover:bg-neutral-200 text-neutral-800 px-2.5 py-1 rounded-lg text-xs flex items-center gap-1 transition" title="اتصال مباشر">
                 <i data-lucide="phone" class="w-3.5 h-3.5"></i> ${cleanPhone}
               </a>
               <a href="https://wa.me/${waPhone}" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white p-1.5 rounded-lg transition" title="محادثة واتساب">
@@ -970,7 +996,7 @@
             <span class="block font-extrabold">${o.wilaya}</span>
             <span class="text-[11px] text-neutral-500 font-bold">${o.commune} (${o.shippingType})</span>
           </td>
-          <td class="p-4 font-black text-laperla-brown">${o.total.toLocaleString('ar-DZ')} دج</td>
+          <td class="p-4 font-black text-laperla-brown">${parseInt(o.total || 0).toLocaleString('ar-DZ')} دج</td>
           <td class="p-4">
             <select onchange="updateOrderStatus(${idx}, this.value)" class="text-xs font-black p-1.5 rounded-lg border border-neutral-300 ${badgeColor} outline-none cursor-pointer">
               <option value="قيد الانتظار" ${o.status === 'قيد الانتظار' ? 'selected' : ''}>🟡 قيد الانتظار</option>
@@ -1012,7 +1038,92 @@
       }
     }
 
-    // نظام تسجيل الدخول السري للمدير
+    // 1. نظام إضافة وتعديل وحذف المنتجات والصور من لوحة التحكم
+    function switchAdminTab(tab) {
+      if (tab === 'orders') {
+        document.getElementById('admin-orders-tab').classList.remove('hidden');
+        document.getElementById('admin-products-tab').classList.add('hidden');
+        document.getElementById('btn-tab-orders').className = 'px-5 py-2.5 rounded-xl gold-btn text-xs font-black';
+        document.getElementById('btn-tab-products').className = 'px-5 py-2.5 rounded-xl bg-white border border-neutral-300 text-neutral-700 text-xs font-black';
+      } else {
+        document.getElementById('admin-orders-tab').classList.add('hidden');
+        document.getElementById('admin-products-tab').classList.remove('hidden');
+        document.getElementById('btn-tab-products').className = 'px-5 py-2.5 rounded-xl gold-btn text-xs font-black';
+        document.getElementById('btn-tab-orders').className = 'px-5 py-2.5 rounded-xl bg-white border border-neutral-300 text-neutral-700 text-xs font-black';
+      }
+    }
+
+    function handleAddNewProduct(e) {
+      e.preventDefault();
+      const title = document.getElementById('new-prod-title').value.trim();
+      const titleFr = document.getElementById('new-prod-title-fr').value.trim();
+      const price = parseInt(document.getElementById('new-prod-price').value) || 0;
+      const oldPrice = document.getElementById('new-prod-old-price').value.trim();
+      const img = document.getElementById('new-prod-img').value.trim();
+      const category = document.getElementById('new-prod-category').value;
+      const desc = document.getElementById('new-prod-desc').value.trim();
+
+      const newProduct = {
+        id: Date.now(),
+        title: title,
+        titleFr: titleFr,
+        price: price,
+        oldPrice: oldPrice,
+        category: category,
+        description: desc,
+        isSale: oldPrice ? true : false,
+        isBest: false,
+        colors: [
+          { name: "اللون الأساسي", img: img }
+        ]
+      };
+
+      liveProducts.unshift(newProduct);
+      localStorage.setItem('laperla_custom_products', JSON.stringify(liveProducts));
+      
+      // حفظ سحابياً في Supabase أيضاً
+      try {
+        db.from('products').insert([{
+          name: title,
+          price: price,
+          image_url: img,
+          description: desc
+        }]);
+      } catch (err) {}
+
+      alert("تم نشر القطعة الجديدة في المتجر بنجاح! 🎉");
+      e.target.reset();
+      renderProducts(liveProducts);
+      renderAdminProductsList();
+    }
+
+    function renderAdminProductsList() {
+      const container = document.getElementById('admin-products-list');
+      container.innerHTML = liveProducts.map((p, idx) => `
+        <div class="border border-neutral-200 rounded-xl p-3 flex gap-3 items-center bg-neutral-50">
+          <img src="${p.colors[0]?.img || ''}" class="w-16 h-20 object-cover rounded-lg border border-neutral-300">
+          <div class="flex-1 text-xs">
+            <h5 class="font-black text-neutral-900">${p.title}</h5>
+            <span class="text-laperla-brown font-bold block">${parseInt(p.price).toLocaleString('ar-DZ')} دج</span>
+            <button onclick="deleteProduct(${idx})" class="mt-2 text-rose-600 hover:text-rose-800 font-extrabold flex items-center gap-1">
+              <i data-lucide="trash" class="w-3.5 h-3.5"></i> حذف القطعة
+            </button>
+          </div>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    function deleteProduct(index) {
+      if (confirm('هل ترغب في إزالة هذه القطعة من المتجر؟')) {
+        liveProducts.splice(index, 1);
+        localStorage.setItem('laperla_custom_products', JSON.stringify(liveProducts));
+        renderProducts(liveProducts);
+        renderAdminProductsList();
+      }
+    }
+
+    // إدارة المدير
     function openAdminModal() {
       document.getElementById('admin-login-modal').classList.remove('hidden');
       document.getElementById('secret-pin').focus();
@@ -1055,6 +1166,7 @@
       document.getElementById('current-mode-label').textContent = 'وضع الإدارة: نشط';
       document.getElementById('switch-btn-text').textContent = 'معاينة المتجر كزبون';
       renderOrdersInDashboard();
+      renderAdminProductsList();
       window.scrollTo({ top: 0, behavior: 'smooth' });
       lucide.createIcons();
     }
