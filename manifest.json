@@ -1,0 +1,21 @@
+{
+  "name": "la Pérla | Haute Couture",
+  "short_name": "la Pérla",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAF6F0",
+  "theme_color": "#FAF6F0",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "file_0000000076d88210a183a9bcb172509b.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "file_0000000076d88210a183a9bcb172509b.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
