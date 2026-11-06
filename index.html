@@ -553,3 +553,50 @@
     </script>
 </body>
 </html>
+</body>
+<!-- كود حفظ الطلب والتحويل المباشر إلى واتساب -->
+<script>
+const MY_PHONE_NUMBER = "213778215570"; // رقم هاتفك الخاص
+
+const orderForm = document.getElementById("orderForm") || document.querySelector("form");
+
+if (orderForm) {
+  orderForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // استخراج بيانات الزبون
+    const customerName = (document.getElementById("fullName") || document.getElementById("name") || {}).value || "زبون";
+    const customerPhone = (document.getElementById("phone") || {}).value || "غير مسجل";
+    const customerWilaya = (document.getElementById("wilaya") || document.getElementById("address") || {}).value || "غير محدد";
+
+    const orderId = "ORD-" + Math.floor(1000 + Math.random() * 9000);
+    const orderDate = new Date().toLocaleDateString("ar-DZ") + " " + new Date().toLocaleTimeString("ar-DZ");
+
+    // 1. التخزين الداخلي بالمتجر
+    const newOrder = {
+      id: orderId,
+      date: orderDate,
+      name: customerName,
+      phone: customerPhone,
+      wilaya: customerWilaya,
+      status: "جديد"
+    };
+
+    let orders = JSON.parse(localStorage.getItem("store_orders")) || [];
+    orders.unshift(newOrder);
+    localStorage.setItem("store_orders", JSON.stringify(orders));
+
+    // 2. إعداد رسالة الواتساب
+    const message = 
+      `مرحباً، أود تأكيد طلبي من المتجر:%0A%0A` +
+      `📦 *رقم الطلب:* ${orderId}%0A` +
+      `👤 *الاسم:* ${customerName}%0A` +
+      `📞 *الهاتف:* ${customerPhone}%0A` +
+      `📍 *الولاية:* ${customerWilaya}%0A` +
+      `🕒 *الوقت:* ${orderDate}`;
+
+    // 3. الفتح التلقائي لتطبيق واتساب
+    window.location.href = `https://wa.me/${MY_PHONE_NUMBER}?text=${message}`;
+  });
+}
+</script>
