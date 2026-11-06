@@ -30,7 +30,6 @@
 </head>
 <body class="text-zinc-100 selection:bg-amber-600 selection:text-white">
 
-    <!-- الهيدر الملكي -->
     <header class="bg-black/95 border-b border-amber-500/20 sticky top-0 z-40 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center h-20">
             <div class="flex items-center gap-3">
@@ -41,15 +40,10 @@
                 <a href="index.html" class="text-xs border border-zinc-700 hover:border-amber-400 text-zinc-300 hover:text-amber-300 px-4 py-2 rounded-full transition flex items-center gap-1.5">
                     <i class="fa-solid fa-eye text-xs"></i> مشاهدة المتجر
                 </a>
-                <div class="hidden sm:flex items-center gap-2 text-xs text-emerald-400 border border-emerald-500/20 bg-emerald-950/40 px-3 py-1.5 rounded-full">
-                    <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
-                    <span>قاعدة البيانات متصلة</span>
-                </div>
             </div>
         </div>
     </header>
 
-    <!-- شريط التبويبات الفاخر -->
     <div class="bg-zinc-950/90 border-b border-amber-500/20 px-4">
         <div class="max-w-7xl mx-auto flex space-x-6 space-x-reverse text-sm font-semibold">
             <button onclick="switchTab('orders')" id="tab-orders" class="py-4 border-b-2 border-amber-400 text-amber-300 flex items-center gap-2">
@@ -64,10 +58,7 @@
         </div>
     </div>
 
-    <!-- المحتوى الرئيسي -->
     <main class="max-w-7xl mx-auto px-4 py-8">
-
-        <!-- بطاقات الإحصائيات الفخمة -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             <div class="bg-zinc-950 p-5 rounded-2xl border border-amber-500/20 shadow-lg">
                 <p class="text-xs text-zinc-400 font-bold">إجمالي الطلبات</p>
@@ -89,14 +80,13 @@
             </div>
         </div>
 
-        <!-- 1. قسم الطلبات -->
         <section id="section-orders">
             <div class="flex justify-between items-center mb-5">
                 <div>
                     <h2 class="text-xl font-black gold-gradient-text font-brand">COMMANDES RÉCENTES</h2>
                     <p class="text-xs text-zinc-400 mt-0.5">قائمة بجميع طلبات الزبائن المسجلة عبر المتجر</p>
                 </div>
-                <button onclick="fetchOrders()" class="text-xs bg-zinc-900 border border-zinc-700 hover:border-amber-400 text-zinc-200 px-4 py-2 rounded-xl flex items-center gap-1.5 transition">
+                <button onclick="fetchOrders()" class="text-xs bg-zinc-900 border border-zinc-700 text-zinc-200 px-4 py-2 rounded-xl flex items-center gap-1.5">
                     <i class="fa-solid fa-arrows-rotate"></i> تحديث
                 </button>
             </div>
@@ -105,35 +95,34 @@
                     <thead class="bg-zinc-900/60 text-zinc-400 text-xs border-b border-zinc-800">
                         <tr>
                             <th class="p-4">رقم الطلب</th>
-                            <th class="p-4">بيانات الزبونة والتوصيل</th>
-                            <th class="p-4">تاريخ الطلب</th>
-                            <th class="p-4">الحالة</th>
+                            <th class="p-4">الزبونة وتفاصيل القطعة (القياس/اللون)</th>
+                            <th class="p-4">الهاتف</th>
+                            <th class="p-4">الولاية والبلدية</th>
+                            <th class="p-4">التاريخ</th>
                         </tr>
                     </thead>
                     <tbody id="orders-list">
-                        <tr><td colspan="4" class="p-8 text-center text-zinc-500">جاري تحميل الطلبات...</td></tr>
+                        <tr><td colspan="5" class="p-8 text-center text-zinc-500">جاري تحميل الطلبات...</td></tr>
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <!-- 2. قسم المنتجات -->
         <section id="section-products" class="hidden">
             <div class="flex justify-between items-center mb-5">
                 <div>
                     <h2 class="text-xl font-black gold-gradient-text font-brand">COLLECTION PIECES</h2>
-                    <p class="text-xs text-zinc-400 mt-0.5">إدارة القطع والفساتين المعروضة في متجر La PÉRLA</p>
+                    <p class="text-xs text-zinc-400 mt-0.5">إدارة القطع والفساتين المعروضة</p>
                 </div>
                 <button onclick="openProductModal()" class="gold-btn text-black text-xs px-5 py-2.5 rounded-xl font-black flex items-center gap-2">
                     <i class="fa-solid fa-plus"></i> إضافة قطعة جديدة
                 </button>
             </div>
             <div id="products-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <p class="text-zinc-500 col-span-full text-center py-12">جاري تحميل التشكيلة...</p>
+                <p class="text-zinc-500 col-span-full text-center py-12">جاري التحميل...</p>
             </div>
         </section>
 
-        <!-- 3. قسم الشحن -->
         <section id="section-shipping" class="hidden">
             <div class="flex justify-between items-center mb-5">
                 <div>
@@ -147,10 +136,7 @@
             <div class="bg-zinc-950 rounded-2xl border border-amber-500/20 overflow-x-auto shadow-xl">
                 <table class="w-full text-right text-sm">
                     <thead class="bg-zinc-900/60 text-zinc-400 text-xs border-b border-zinc-800">
-                        <tr>
-                            <th class="p-4">الولاية</th>
-                            <th class="p-4">سعر التوصيل (دج)</th>
-                        </tr>
+                        <tr><th class="p-4">الولاية</th><th class="p-4">سعر التوصيل (دج)</th></tr>
                     </thead>
                     <tbody id="shipping-list">
                         <tr><td colspan="2" class="p-8 text-center text-zinc-500">جاري التحميل...</td></tr>
@@ -160,29 +146,42 @@
         </section>
     </main>
 
-    <!-- Modal إضافة منتج فاخر -->
+    <!-- Modal إضافة منتج فاخر بالمقاسات والألوان -->
     <div id="product-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-zinc-950 border border-amber-500/40 rounded-3xl max-w-md w-full p-6 shadow-[0_0_40px_rgba(212,175,55,0.2)]">
+        <div class="bg-zinc-950 border border-amber-500/40 rounded-3xl max-w-md w-full p-6 shadow-[0_0_40px_rgba(212,175,55,0.2)] max-h-[92vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-amber-500/20 pb-4 mb-4">
                 <h3 class="font-black gold-gradient-text text-base font-brand">إضافة قطعة جديدة للتشكيلة</h3>
                 <button onclick="closeProductModal()" class="text-zinc-400 hover:text-amber-400 text-xl">✕</button>
             </div>
             <form onsubmit="saveProduct(event)" class="space-y-3.5">
                 <div>
-                    <label class="block text-xs font-bold text-amber-200/90 mb-1">اسم القطعة أو الفستان</label>
-                    <input type="text" id="p-name" required placeholder="مثال: فستان سهرة مخملي أسود" class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-3 rounded-xl text-sm outline-none">
+                    <label class="block text-xs font-bold text-amber-200/90 mb-1">اسم القطعة أو الفستان *</label>
+                    <input type="text" id="p-name" required placeholder="مثال: فستان سهرة مخملي" class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-sm outline-none">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-amber-200/90 mb-1">السعر (دج)</label>
-                    <input type="number" id="p-price" required placeholder="مثال: 5800" class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-3 rounded-xl text-sm outline-none">
+                    <label class="block text-xs font-bold text-amber-200/90 mb-1">السعر (دج) *</label>
+                    <input type="number" id="p-price" required placeholder="8500" class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-sm outline-none">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-amber-200/90 mb-1">رابط صورة المنتج (URL)</label>
-                    <input type="url" id="p-image" placeholder="https://..." class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-3 rounded-xl text-sm outline-none">
+                    <input type="url" id="p-image" placeholder="https://..." class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-sm outline-none">
                 </div>
+                
+                <!-- حقول المقاسات والألوان الجديدة -->
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-xs font-bold text-amber-200/90 mb-1">المقاسات (بفاصلة)</label>
+                        <input type="text" id="p-sizes" placeholder="S, M, L, XL" class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-xs outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-amber-200/90 mb-1">الألوان (بفاصلة)</label>
+                        <input type="text" id="p-colors" placeholder="أسود, ذهبي, عنابي" class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-xs outline-none">
+                    </div>
+                </div>
+
                 <div>
                     <label class="block text-xs font-bold text-amber-200/90 mb-1">وصف وتفاصيل القطعة</label>
-                    <textarea id="p-desc" rows="2" placeholder="نوع القماش، المقاسات، المميزات..." class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-3 rounded-xl text-sm outline-none"></textarea>
+                    <textarea id="p-desc" rows="2" placeholder="نوع القماش، التفاصيل..." class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-sm outline-none"></textarea>
                 </div>
                 <div class="pt-2 flex gap-2">
                     <button type="submit" class="w-full gold-btn text-black py-3 rounded-xl font-black text-sm">نشر في المتجر</button>
@@ -214,22 +213,27 @@
                 document.getElementById('stat-orders').innerText = data ? data.length : 0;
                 
                 if (!data || data.length === 0) {
-                    list.innerHTML = `<tr><td colspan="4" class="p-8 text-center text-zinc-500">لا توجد طلبات واردة بعد. ستظهر هنا فور تسجيل أي زبونة لطلبها!</td></tr>`;
+                    list.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-zinc-500">لا توجد طلبات واردة بعد.</td></tr>`;
                     return;
                 }
 
                 list.innerHTML = data.map(o => `
                     <tr class="border-b border-zinc-900 hover:bg-zinc-900/40 transition">
-                        <td class="p-4 font-bold text-amber-400 font-brand">#${o.order_number || o.id.slice(0, 6)}</td>
-                        <td class="p-4 font-semibold text-white">${o.customer_name || 'بدون اسم'}</td>
-                        <td class="p-4 text-xs text-zinc-400">${new Date(o.created_at).toLocaleDateString('ar-DZ')}</td>
-                        <td class="p-4">
-                            <span class="px-3 py-1 text-xs rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/30 font-bold">طلب جديد 🛍️</span>
+                        <td class="p-4 font-bold text-amber-400 font-brand">#${o.order_number || o.id}</td>
+                        <td class="p-4 font-semibold text-white">
+                            <span class="text-amber-200 block">${o.customer_name || 'بدون اسم'}</span>
                         </td>
+                        <td class="p-4 font-mono text-xs text-zinc-300">
+                            <a href="tel:${o.phone}" class="hover:text-amber-400 flex items-center gap-1.5">
+                                <i class="fa-solid fa-phone text-[10px] text-emerald-400"></i> ${o.phone || ''}
+                            </a>
+                        </td>
+                        <td class="p-4 text-xs text-zinc-400">${o.wilaya_name || ''} - ${o.commune || ''}</td>
+                        <td class="p-4 text-xs text-zinc-500">${new Date(o.created_at).toLocaleDateString('ar-DZ')}</td>
                     </tr>
                 `).join('');
             } catch (err) {
-                list.innerHTML = `<tr><td colspan="4" class="p-6 text-center text-zinc-500">لا توجد طلبات مسجلة بعد.</td></tr>`;
+                list.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-zinc-500">لا توجد طلبات.</td></tr>`;
             }
         }
 
@@ -243,8 +247,7 @@
                 if (!data || data.length === 0) {
                     list.innerHTML = `<div class="col-span-full text-center py-16 bg-zinc-950 rounded-3xl border border-dashed border-zinc-800 p-8">
                         <span class="text-4xl block mb-2">👗</span>
-                        <p class="text-zinc-400 font-bold">لم تقومي بإضافة قطع للتشكيلة بعد</p>
-                        <button onclick="openProductModal()" class="mt-3 text-xs gold-gradient-text font-black underline">أضيفي أول قطعة الآن</button>
+                        <p class="text-zinc-400 font-bold">لم تضف منتجات بعد</p>
                     </div>`;
                     return;
                 }
@@ -254,8 +257,9 @@
                         <img src="${p.image_url || 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600'}" class="w-full h-48 object-cover">
                         <div class="p-4">
                             <h3 class="font-bold text-white text-base">${p.name}</h3>
-                            <p class="text-xs text-zinc-400 mt-1 line-clamp-2">${p.description || ''}</p>
-                            <p class="gold-gradient-text font-black text-xl font-brand mt-3">${p.price} دج</p>
+                            ${p.sizes ? `<p class="text-[10px] text-amber-300/80 mt-1">المقاسات: ${p.sizes}</p>` : ''}
+                            ${p.colors ? `<p class="text-[10px] text-zinc-400">الألوان: ${p.colors}</p>` : ''}
+                            <p class="gold-gradient-text font-black text-xl font-brand mt-2">${p.price} دج</p>
                         </div>
                         <div class="p-3 border-t border-zinc-900 flex justify-end">
                             <button onclick="deleteProduct('${p.id}')" class="text-red-400 hover:text-red-300 text-xs font-bold px-2 py-1">حذف القطعة</button>
@@ -270,15 +274,17 @@
             const name = document.getElementById('p-name').value;
             const price = document.getElementById('p-price').value;
             const image_url = document.getElementById('p-image').value;
+            const sizes = document.getElementById('p-sizes').value;
+            const colors = document.getElementById('p-colors').value;
             const description = document.getElementById('p-desc').value;
 
-            const { error } = await db.from('products').insert([{ name, price, image_url, description }]);
+            const { error } = await db.from('products').insert([{ name, price, image_url, sizes, colors, description }]);
             if (error) { alert('خطأ: ' + error.message); }
             else { closeProductModal(); fetchProducts(); }
         }
 
         async function deleteProduct(id) {
-            if (confirm('هل ترغبين في حذف هذه القطعة من المتجر؟')) {
+            if (confirm('هل ترغب في حذف هذه القطعة؟')) {
                 await db.from('products').delete().eq('id', id);
                 fetchProducts();
             }
@@ -288,7 +294,7 @@
             const list = document.getElementById('shipping-list');
             const { data } = await db.from('shipping_rates').select('*');
             if (!data || data.length === 0) {
-                list.innerHTML = `<tr><td colspan="2" class="p-6 text-center text-zinc-500">لا توجد بيانات شحن مسجلة.</td></tr>`;
+                list.innerHTML = `<tr><td colspan="2" class="p-6 text-center text-zinc-500">لا توجد بيانات شحن.</td></tr>`;
                 return;
             }
             list.innerHTML = data.map(s => `
