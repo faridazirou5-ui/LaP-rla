@@ -28,6 +28,12 @@
             box-shadow: 0 6px 25px rgba(212, 175, 55, 0.45);
             transform: translateY(-1px);
         }
+        .chip-active {
+            border-color: #D4AF37 !important;
+            background-color: rgba(212, 175, 55, 0.15) !important;
+            color: #F9E7B9 !important;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body class="text-zinc-100 selection:bg-amber-600 selection:text-white">
@@ -94,7 +100,7 @@
         </div>
     </main>
 
-    <!-- نافذة طلب الاقتناء المطورة بنوع التوصيل وحساب المجموع -->
+    <!-- نافذة طلب الاقتناء مع محدد رقم الهاتف الصارم -->
     <div id="order-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-zinc-950 border border-amber-500/40 rounded-3xl max-w-md w-full p-6 shadow-[0_0_40px_rgba(212,175,55,0.2)] max-h-[94vh] overflow-y-auto">
             
@@ -112,14 +118,36 @@
             <form onsubmit="submitCustomerOrder(event)" class="space-y-3.5">
                 <input type="hidden" id="order-product-id">
                 
+                <!-- خيارات المقاسات -->
+                <div id="size-container" class="hidden">
+                    <label class="block text-xs font-bold text-amber-200/90 mb-1.5">اختاري المقاس المطلوب *</label>
+                    <div id="size-chips" class="flex flex-wrap gap-2"></div>
+                </div>
+
+                <!-- خيارات الألوان -->
+                <div id="color-container" class="hidden">
+                    <label class="block text-xs font-bold text-amber-200/90 mb-1.5">اختاري اللون المفضل *</label>
+                    <div id="color-chips" class="flex flex-wrap gap-2"></div>
+                </div>
+
                 <div>
                     <label class="block text-xs font-bold text-amber-200/90 mb-1">الاسم واللقب *</label>
                     <input type="text" id="cust-name" required placeholder="مثال: سارة بهلول" class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-sm outline-none">
                 </div>
 
+                <!-- خانة رقم الهاتف مع الفحص المباشر -->
                 <div>
-                    <label class="block text-xs font-bold text-amber-200/90 mb-1">رقم الهاتف للتأكيد *</label>
-                    <input type="tel" id="cust-phone" required placeholder="05 / 06 / 07 ..." class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-sm outline-none text-left" dir="ltr">
+                    <label class="block text-xs font-bold text-amber-200/90 mb-1">رقم الهاتف للتأكيد (10 أرقام) *</label>
+                    <input 
+                        type="tel" 
+                        id="cust-phone" 
+                        required 
+                        maxlength="10" 
+                        oninput="this.value = this.value.replace(/[^0-9]/g, '')" 
+                        placeholder="05 / 06 / 07 ..." 
+                        class="w-full bg-zinc-900 border border-zinc-700 focus:border-amber-400 text-white p-2.5 rounded-xl text-sm outline-none text-left tracking-wider" 
+                        dir="ltr">
+                    <span class="text-[10px] text-zinc-400 mt-1 block">يجب أن يبدأ بـ 05 أو 06 أو 07 ويتكون من 10 أرقام (موبيليس، جيزي، أوريدو).</span>
                 </div>
 
                 <div>
@@ -136,18 +164,18 @@
                     </select>
                 </div>
 
-                <!-- نوع التوصيل: للمنزل أو للمكتب -->
+                <!-- نوع التوصيل -->
                 <div>
                     <label class="block text-xs font-bold text-amber-200/90 mb-1.5">نوع التوصيل المطلوب *</label>
                     <div class="grid grid-cols-2 gap-2">
-                        <label class="cursor-pointer border border-zinc-700 has-[:checked]:border-amber-400 has-[:checked]:bg-amber-500/10 p-3 rounded-xl flex items-center gap-2 transition">
+                        <label class="cursor-pointer border border-zinc-700 has-[:checked]:border-amber-400 has-[:checked]:bg-amber-500/10 p-2.5 rounded-xl flex items-center gap-2 transition">
                             <input type="radio" name="delivery_type" value="home" checked onchange="updateTotalBill()" class="accent-amber-400">
                             <div>
                                 <p class="text-xs font-bold text-white">🏠 إلى باب المنزل</p>
                                 <span class="text-[10px] text-zinc-400">توصيل شخصي</span>
                             </div>
                         </label>
-                        <label class="cursor-pointer border border-zinc-700 has-[:checked]:border-amber-400 has-[:checked]:bg-amber-500/10 p-3 rounded-xl flex items-center gap-2 transition">
+                        <label class="cursor-pointer border border-zinc-700 has-[:checked]:border-amber-400 has-[:checked]:bg-amber-500/10 p-2.5 rounded-xl flex items-center gap-2 transition">
                             <input type="radio" name="delivery_type" value="desk" onchange="updateTotalBill()" class="accent-amber-400">
                             <div>
                                 <p class="text-xs font-bold text-white">🏢 استلام من المكتب</p>
@@ -157,8 +185,8 @@
                     </div>
                 </div>
 
-                <!-- فاتورة الحساب التفصيلية الشفافة -->
-                <div class="bg-zinc-900/90 border border-amber-500/30 rounded-2xl p-3.5 space-y-1.5">
+                <!-- فاتورة الحساب الشفافة -->
+                <div class="bg-zinc-900/90 border border-amber-500/30 rounded-2xl p-3 space-y-1.5">
                     <div class="flex justify-between text-xs text-zinc-300">
                         <span>سعر القطعة:</span>
                         <span id="bill-product-price" class="font-bold text-white">0 دج</span>
@@ -167,8 +195,8 @@
                         <span>تكلفة التوصيل:</span>
                         <span id="bill-shipping-price" class="font-bold text-amber-300">0 دج</span>
                     </div>
-                    <div class="border-t border-zinc-800 pt-2 flex justify-between items-baseline">
-                        <span class="text-xs font-black text-amber-200">المجموع الإجمالي للدفع:</span>
+                    <div class="border-t border-zinc-800 pt-1.5 flex justify-between items-baseline">
+                        <span class="text-xs font-black text-amber-200">المجموع الإجمالي:</span>
                         <span id="bill-total-price" class="font-black gold-gradient-text text-xl font-brand">0 دج</span>
                     </div>
                 </div>
@@ -188,11 +216,9 @@
             <div class="w-16 h-16 rounded-full border border-amber-400 text-amber-300 flex items-center justify-center text-3xl mx-auto mb-4 bg-amber-500/10">✓</div>
             <h3 class="text-xl font-black gold-gradient-text font-brand">RÉSERVATION CONFIRMÉE</h3>
             <p class="text-zinc-300 text-xs mt-3 leading-relaxed">
-                شكراً لطلبكِ من بوتيك <strong>La PÉRLA</strong>. تم تسجيل حجزكِ بنجاح، وسيتصل بكِ فريقنا هاتفياً لتنسيق موعد التوصيل.
+                شكراً لطلبكِ من بوتيك <strong>La PÉRLA</strong>. تم تسجيل حجزكِ بنجاح، وسيتصل بكِ فريقنا لتنسيق التوصيل.
             </p>
-            <button onclick="closeSuccessModal()" class="mt-6 w-full gold-btn text-black font-extrabold py-3 rounded-xl text-xs">
-                متابعة تصفح التشكيلة
-            </button>
+            <button onclick="closeSuccessModal()" class="mt-6 w-full gold-btn text-black font-extrabold py-3 rounded-xl text-xs">متابعة التصفح</button>
         </div>
     </div>
 
@@ -229,6 +255,8 @@
         let allCommunesData = [];
         let currentProduct = null;
         let currentShippingPrice = 0;
+        let selectedSize = '';
+        let selectedColor = '';
 
         function initWilayas() {
             const select = document.getElementById('cust-wilaya');
@@ -318,6 +346,14 @@
                         <div class="p-6">
                             <h3 class="font-bold text-white text-lg tracking-wide">${p.name}</h3>
                             <p class="text-xs text-zinc-400 mt-2 line-clamp-2 leading-relaxed">${p.description || ''}</p>
+                            
+                            ${p.sizes ? `
+                                <div class="mt-3 flex items-center gap-1.5 flex-wrap">
+                                    <span class="text-[10px] text-zinc-500">المقاسات:</span>
+                                    ${p.sizes.split(',').map(s => `<span class="text-[10px] border border-zinc-700 px-2 py-0.5 rounded text-zinc-300">${s.trim()}</span>`).join('')}
+                                </div>
+                            ` : ''}
+
                             <div class="mt-5 flex items-baseline justify-between border-t border-zinc-800/80 pt-4">
                                 <span class="gold-gradient-text font-black text-2xl font-brand">${p.price} دج</span>
                                 <span class="text-[10px] text-amber-400 border border-amber-500/30 px-2.5 py-1 rounded-full font-bold">قطعة حصرية</span>
@@ -337,10 +373,55 @@
 
         function openOrderModal(product) {
             currentProduct = product;
+            selectedSize = '';
+            selectedColor = '';
             document.getElementById('modal-product-name').innerText = product.name;
             document.getElementById('order-product-id').value = product.id;
             updateTotalBill();
+
+            const sizeCont = document.getElementById('size-container');
+            const sizeChips = document.getElementById('size-chips');
+            if (product.sizes && product.sizes.trim()) {
+                const sizesArr = product.sizes.split(',').map(s => s.trim());
+                selectedSize = sizesArr[0];
+                sizeChips.innerHTML = sizesArr.map((s, idx) => `
+                    <button type="button" onclick="selectSizeChip(this, '${s}')" class="px-3.5 py-1.5 border border-zinc-700 rounded-xl text-xs transition ${idx === 0 ? 'chip-active' : 'text-zinc-300'}">
+                        ${s}
+                    </button>
+                `).join('');
+                sizeCont.classList.remove('hidden');
+            } else {
+                sizeCont.classList.add('hidden');
+            }
+
+            const colorCont = document.getElementById('color-container');
+            const colorChips = document.getElementById('color-chips');
+            if (product.colors && product.colors.trim()) {
+                const colorsArr = product.colors.split(',').map(c => c.trim());
+                selectedColor = colorsArr[0];
+                colorChips.innerHTML = colorsArr.map((c, idx) => `
+                    <button type="button" onclick="selectColorChip(this, '${c}')" class="px-3.5 py-1.5 border border-zinc-700 rounded-xl text-xs transition ${idx === 0 ? 'chip-active' : 'text-zinc-300'}">
+                        ${c}
+                    </button>
+                `).join('');
+                colorCont.classList.remove('hidden');
+            } else {
+                colorCont.classList.add('hidden');
+            }
+
             document.getElementById('order-modal').classList.remove('hidden');
+        }
+
+        function selectSizeChip(btn, size) {
+            selectedSize = size;
+            document.querySelectorAll('#size-chips button').forEach(b => b.className = 'px-3.5 py-1.5 border border-zinc-700 rounded-xl text-xs transition text-zinc-300');
+            btn.className = 'px-3.5 py-1.5 border rounded-xl text-xs transition chip-active';
+        }
+
+        function selectColorChip(btn, color) {
+            selectedColor = color;
+            document.querySelectorAll('#color-chips button').forEach(b => b.className = 'px-3.5 py-1.5 border border-zinc-700 rounded-xl text-xs transition text-zinc-300');
+            btn.className = 'px-3.5 py-1.5 border rounded-xl text-xs transition chip-active';
         }
 
         function closeOrderModal() { document.getElementById('order-modal').classList.add('hidden'); }
@@ -349,11 +430,21 @@
         async function submitCustomerOrder(e) {
             e.preventDefault();
             const btn = document.getElementById('submit-btn');
+
+            const phone = document.getElementById('cust-phone').value.trim();
+
+            // فاحص رقم الهاتف الجزائري الصارم (يبدأ بـ 05 أو 06 أو 07 ويتكون من 10 أرقام تماماً)
+            const algerianPhoneRegex = /^(05|06|07)[0-9]{8}$/;
+            if (!algerianPhoneRegex.test(phone)) {
+                alert('⚠️ رقم الهاتف غير مقبول!\nيرجى إدخال رقم هاتف جزائري صحيح يتكون من 10 أرقام تماماً ويبدأ بـ:\n05 (أوريدو) أو 06 (موبيليس) أو 07 (جيزي)');
+                document.getElementById('cust-phone').focus();
+                return;
+            }
+
             btn.disabled = true;
             btn.innerText = "جاري تأكيد حجزك الملكي...";
 
             const customer_name = document.getElementById('cust-name').value;
-            const phone = document.getElementById('cust-phone').value;
             const wilayaSelect = document.getElementById('cust-wilaya');
             const wilaya_code = parseInt(wilayaSelect.value);
             const wilaya_name = wilayaSelect.options[wilayaSelect.selectedIndex].getAttribute('data-name');
@@ -361,19 +452,21 @@
             const deliveryType = document.querySelector('input[name="delivery_type"]:checked').value === 'home' ? 'توصيل للمنزل' : 'استلام من المكتب';
             const total = parseInt(currentProduct.price) + currentShippingPrice;
             const order_number = 'LP-' + Math.floor(1000 + Math.random() * 9000);
-            
-            // إرسال العنوان كاملاً ومضموناً لكي لا يكون فارغاً أبداً
-            const addressDetail = `${deliveryType} - بلدية ${commune}`;
+
+            let specs = [];
+            if (selectedSize) specs.push(`مقاس: ${selectedSize}`);
+            if (selectedColor) specs.push(`لون: ${selectedColor}`);
+            const specsText = specs.length > 0 ? ` [${specs.join(' | ')}]` : '';
 
             try {
                 const { error } = await db.from('orders').insert([{
                     order_number: order_number,
-                    customer_name: `${customer_name} (${deliveryType} - الإجمالي: ${total} دج)`,
+                    customer_name: `${customer_name}${specsText} - (${deliveryType})`,
                     phone: phone,
                     wilaya_code: wilaya_code,
                     wilaya_name: wilaya_name,
                     commune: commune,
-                    address: addressDetail
+                    address: `${deliveryType} - بلدية ${commune}`
                 }]);
 
                 if (error) throw error;
