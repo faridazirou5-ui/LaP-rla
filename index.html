@@ -137,7 +137,7 @@
     </div>
   </div>
 
-  <!-- الهيدر الرسمي (بدون أي زر إدارة ظاهر للزبائن) -->
+  <!-- الهيدر الرسمي -->
   <header class="sticky top-0 z-40 bg-laperla-cream/95 backdrop-blur-md border-b border-laperla-border shadow-sm">
     <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
       <nav class="hidden md:flex items-center gap-8 text-sm uppercase tracking-wider text-laperla-darkText font-extrabold">
@@ -146,7 +146,7 @@
         <a href="#reviews" class="hover:text-laperla-goldDark transition">آراء الزبائن • Avis</a>
       </nav>
 
-      <!-- شعار المتجر (5 نقرات سريعة لفتح الدخول السري للمدير) -->
+      <!-- شعار المتجر (5 نقرات سريعة تفتح الدخول السري للمدير) -->
       <div class="text-center cursor-pointer select-none py-1" onclick="handleSecretLogoClicks()">
         <h1 class="text-3xl md:text-4xl font-serif font-black text-laperla-brown tracking-wider">
           la Pérla
@@ -205,7 +205,7 @@
       <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
     </section>
 
-    <!-- قسم آراء الزبائن -->
+    <!-- قسم آراء الزبائن العام -->
     <section id="reviews" class="py-16 bg-laperla-silk/60 border-y-2 border-laperla-border">
       <div class="max-w-6xl mx-auto px-6">
         <div class="text-center max-w-lg mx-auto mb-10">
@@ -251,17 +251,17 @@
     </section>
   </main>
 
-  <!-- ================= نافذة طلب الاقتناء (معرض الـ 6 صور) ================= -->
+  <!-- ================= نافذة حجز القطعة مع معرض الـ 8 صور والشرح الملكي ================= -->
   <div id="product-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 overflow-y-auto">
     <div class="fixed inset-0 bg-black/60 backdrop-blur-sm" onclick="closeProductModal()"></div>
 
-    <div class="relative bg-white border-2 border-laperla-gold rounded-3xl w-full max-w-4xl max-h-[94vh] overflow-y-auto z-10 flex flex-col md:flex-row shadow-2xl my-auto">
+    <div class="relative bg-white border-2 border-laperla-gold rounded-3xl w-full max-w-5xl max-h-[94vh] overflow-y-auto z-10 flex flex-col md:flex-row shadow-2xl my-auto">
       
       <button onclick="closeProductModal()" class="absolute top-4 left-4 z-20 text-neutral-500 hover:text-black bg-white/90 p-2 rounded-full shadow">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
-      <!-- معرض صور المنتج (حتى 6 صور) والوصف -->
+      <!-- معرض صور المنتج (حتى 8 صور) وتفاصيل القطعة -->
       <div class="w-full md:w-1/2 p-6 bg-laperla-silk/40 flex flex-col justify-between border-b md:border-b-0 md:border-l-2 border-laperla-border">
         <div>
           <h2 id="modal-title" class="text-2xl font-black text-laperla-darkText mb-3"></h2>
@@ -271,12 +271,12 @@
             <span id="modal-photo-counter" class="absolute bottom-3 left-3 bg-black/70 text-white text-[10px] font-bold px-2.5 py-1 rounded-full backdrop-blur-xs"></span>
           </div>
 
-          <!-- مصغرات الصور الـ 6 لمعاينتها بلمسة واحدة -->
+          <!-- مصغرات الصور الـ 8 لمعاينتها بلمسة واحدة -->
           <div class="text-[11px] font-black text-neutral-700 mb-1.5 flex items-center justify-between">
-            <span>معرض صور القطعة (اضغطي للمعاينة):</span>
-            <span class="text-neutral-400 font-normal text-[10px]">حتى 6 زوايا</span>
+            <span>معرض صور القطعة (اضغطي للتكبير والمعاينة):</span>
+            <span class="text-neutral-400 font-normal text-[10px]">حتى 8 زوايا</span>
           </div>
-          <div id="modal-thumbnails" class="grid grid-cols-6 gap-1.5 mb-4"></div>
+          <div id="modal-thumbnails" class="grid grid-cols-4 sm:grid-cols-8 gap-1.5 mb-4"></div>
 
           <div class="flex items-baseline gap-3 mb-3 bg-white p-3 rounded-xl border border-laperla-border">
             <span class="text-xs text-neutral-500 font-bold">السعر المخفض:</span>
@@ -291,16 +291,54 @@
         </div>
       </div>
 
-      <!-- استمارة الطلب (المقاسات بالأرقام فقط وحذف قياس مخصص) -->
-      <div class="w-full md:w-1/2 p-6 bg-white flex flex-col justify-between">
+      <!-- استمارة الطلب + الشرح الملكي للتوصيل والمعاينة + لقطات آراء الزبائن -->
+      <div class="w-full md:w-1/2 p-6 bg-white flex flex-col justify-between overflow-y-auto">
         <div>
           <div class="border-b border-neutral-200 pb-2 mb-4">
             <h3 class="text-lg font-black text-laperla-brown">Commande • تأكيد حجز الطلبية</h3>
             <p class="text-xs text-neutral-500 font-bold">الدفع نقداً عند استلام ومعاينة الفستان</p>
           </div>
 
+          <!-- بطاقة الشرح والتوصيل الملكية لزيادة ثقة الزبونة -->
+          <div class="bg-laperla-silk/60 border border-laperla-border rounded-2xl p-4 mb-4 text-xs font-bold text-neutral-800 space-y-2.5 shadow-xs">
+            <div class="text-center pb-2 border-b border-laperla-border/70">
+              <span class="text-sm font-black text-laperla-brown block">🤍 مرحباً بكِ في La PÉRLA</span>
+              <p class="text-[11px] text-neutral-600 mt-1 leading-relaxed">
+                تسوقكِ معنا ليس مجرد طلب منتج، بل تجربة نهتم فيها بأدق التفاصيل لنكسب رضاكِ وثقتكِ.
+              </p>
+            </div>
+
+            <div class="space-y-2 text-[11px] pt-1">
+              <div class="flex items-start gap-2">
+                <span class="text-sm">🛍️</span>
+                <div><strong class="text-neutral-900">1. تأكيد الطلب:</strong> املئي معلوماتكِ واختاري المقاس واللون المناسب، وسنتكفل بالباقي.</div>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="text-sm">🎁</span>
+                <div><strong class="text-neutral-900">2. تغليف احترافي:</strong> نحضّر طلبكِ بعناية ونغلفه بطريقة أنيقة تليق بكِ وبعلامتنا التجارية.</div>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="text-sm">🚚</span>
+                <div><strong class="text-neutral-900">3. شحن سريع:</strong> نعمل على إرسال طلبكِ في أسرع وقت، مع مدة توصيل تتراوح عادةً بين 24 و48 ساعة.</div>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="text-sm">👗</span>
+                <div><strong class="text-neutral-900">4. معاينة قبل الدفع:</strong> من حقكِ معاينة المنتج مع عامل التوصيل قبل الدفع للتأكد براحة واطمئنان.</div>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="text-sm">💵</span>
+                <div><strong class="text-neutral-900">5. الدفع عند الاستلام:</strong> لا حاجة للدفع مسبقاً، ادفعي فقط عند وصول طلبكِ.</div>
+              </div>
+            </div>
+
+            <div class="pt-2 border-t border-laperla-border/70 text-[10px] text-neutral-600 text-center">
+              <span class="text-rose-700 font-black block">❤️ وعد La PÉRLA لكِ:</span>
+              هدفنا الأول هو إرضاؤكِ وبناء علاقة ثقة تدوم طويلاً. شكراً لاختياركِ دارنا الفاخرة.
+            </div>
+          </div>
+
+          <!-- استمارة الحجز -->
           <form id="order-form" onsubmit="handleCustomerOrder(event)" class="space-y-3 text-xs font-bold">
-            
             <input type="text" id="bot-trap-field" name="website_url_check" style="display:none !important; position:absolute; left:-9999px;" tabindex="-1" autocomplete="off">
 
             <div class="grid grid-cols-2 gap-3">
@@ -374,6 +412,29 @@
               <i data-lucide="check-circle" class="w-5 h-5"></i> تأكيد حجز الطلبية الآن (الدفع عند الاستلام)
             </button>
           </form>
+
+          <!-- صور ولقطات آراء الزبائن بالصور (Social Proof) -->
+          <div class="mt-6 pt-4 border-t border-neutral-200">
+            <h5 class="text-xs font-black text-laperla-brown mb-2 text-center">📸 تجارب حقيقية لزبونات دار La PÉRLA</h5>
+            <div class="grid grid-cols-3 gap-2">
+              <div class="border border-laperla-border rounded-xl p-2 bg-laperla-silk/40 text-center">
+                <span class="text-amber-500 text-[10px] block">★★★★★</span>
+                <p class="text-[9px] text-neutral-600 line-clamp-2 mt-1">"الفستان وصلني في 24 ساعة تحفة فنية!"</p>
+                <span class="text-[8px] text-neutral-400 block mt-0.5">أمينة • الجزائر</span>
+              </div>
+              <div class="border-laperla-border border rounded-xl p-2 bg-laperla-silk/40 text-center">
+                <span class="text-amber-500 text-[10px] block">★★★★★</span>
+                <p class="text-[9px] text-neutral-600 line-clamp-2 mt-1">"المعاينة قبل الدفع ميزة رائعة جداً"</p>
+                <span class="text-[8px] text-neutral-400 block mt-0.5">دليلة • وهران</span>
+              </div>
+              <div class="border-laperla-border border rounded-xl p-2 bg-laperla-silk/40 text-center">
+                <span class="text-amber-500 text-[10px] block">★★★★★</span>
+                <p class="text-[9px] text-neutral-600 line-clamp-2 mt-1">"خياطة وقماش توب يعطيك الصحة"</p>
+                <span class="text-[8px] text-neutral-400 block mt-0.5">ليلى • قسنطينة</span>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -434,7 +495,7 @@
     </div>
   </div>
 
-  <!-- ================= لوحة تحكم المدير المتكاملة مع إضافة وتعديل 6 صور وروابط الحملات ================= -->
+  <!-- ================= لوحة تحكم المدير: إضافة وتعديل بـ 8 صور وجميع التصنيفات ================= -->
   <div id="admin-dashboard-view" class="hidden min-h-screen bg-[#F7F2EC] p-6 lg:p-12 font-bold">
     <div class="max-w-7xl mx-auto space-y-8">
       
@@ -458,16 +519,16 @@
           📦 إدارة الطلبيات الواردة
         </button>
         <button onclick="switchAdminTab('products')" id="btn-tab-products" class="px-5 py-2.5 rounded-xl bg-white border border-neutral-300 text-neutral-700 text-xs font-black">
-          👗 إضافة وتعديل المنتجات (حتى 6 صور)
+          👗 إضافة وتعديل المنتجات (حتى 8 صور + جميع التصنيفات)
         </button>
       </div>
 
-      <!-- قسم إدارة المنتجات -->
+      <!-- قسم إدارة المنتجات: إضافة + تعديل + رفع 8 صور + جميع التصنيفات -->
       <div id="admin-products-tab" class="hidden space-y-6">
         <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
           <div class="flex justify-between items-center mb-4">
             <h4 id="form-product-mode-title" class="text-base text-neutral-800 font-black">إضافة قطعة جديدة للتشكيلة الفاخرة</h4>
-            <button type="button" id="cancel-edit-btn" onclick="resetProductForm()" class="hidden text-xs text-rose-600 hover:underline">إلغاء التعديل والعودة للإضافة</button>
+            <button type="button" id="cancel-edit-btn" onclick="resetProductForm()" class="hidden text-xs text-rose-600 hover:underline font-bold">إلغاء التعديل والعودة للإضافة</button>
           </div>
 
           <form onsubmit="handleSaveProduct(event)" class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
@@ -493,12 +554,27 @@
               <input type="text" id="new-prod-old-price" placeholder="مثال: 55,000 دج" class="w-full bg-laperla-cream border border-laperla-border p-2.5 rounded-xl outline-none font-bold">
             </div>
 
+            <!-- 1. قائمة التصنيفات الكاملة المطابقة للمتجر -->
             <div>
-              <label class="block text-neutral-700 mb-1">القسم / التصنيف *</label>
+              <label class="block text-neutral-700 mb-1">التصنيف الأساسي للمنتج *</label>
               <select id="new-prod-category" class="w-full bg-laperla-cream border border-laperla-border p-2.5 rounded-xl outline-none font-bold">
                 <option value="women">ملابس نسائية (Mode Femme)</option>
                 <option value="kids">ملابس أطفال (Mode Enfants)</option>
+                <option value="sales">تخفيضات كبرى (Promotions)</option>
+                <option value="bestsellers">الأكثر مبيعاً (Best-Sellers)</option>
               </select>
+            </div>
+
+            <!-- خيارات ظهور إضافية في التخفيضات أو الأكثر مبيعاً -->
+            <div class="flex items-center gap-4 pt-4">
+              <label class="flex items-center gap-1.5 cursor-pointer">
+                <input type="checkbox" id="new-prod-is-sale" class="accent-rose-600 w-4 h-4">
+                <span class="text-xs font-bold text-rose-700">🔥 إظهار في التخفيضات (Promo)</span>
+              </label>
+              <label class="flex items-center gap-1.5 cursor-pointer">
+                <input type="checkbox" id="new-prod-is-best" class="accent-amber-600 w-4 h-4">
+                <span class="text-xs font-bold text-amber-700">⭐ الأكثر مبيعاً (Best-Seller)</span>
+              </label>
             </div>
 
             <!-- المقاسات بالأرقام فقط (38 إلى 50) -->
@@ -530,21 +606,20 @@
               <input type="text" id="new-prod-colors" required placeholder="مثال: الأسود الملكي, عنابي فاخر" class="w-full bg-laperla-cream border border-laperla-border p-2.5 rounded-xl outline-none font-bold">
             </div>
 
-            <!-- 1. تحميل حتى 6 صور من الهاتف مباشرة مع المعاينة والضغط التلقائي -->
+            <!-- 2. تحميل حتى 8 صور من الهاتف مع المعاينة والضغط التلقائي -->
             <div class="md:col-span-3 border-2 border-dashed border-laperla-border p-4 rounded-2xl bg-laperla-silk/30 space-y-3">
               <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                 <div>
-                  <label class="block text-neutral-800 font-black">📁 تحميل صور القطعة من الهاتف (حتى 6 صور) *</label>
-                  <p class="text-[11px] text-neutral-500">يمكنك اختيار صور متعددة من ألبوم هاتفك مرة واحدة لرؤية الفستان من كل الزوايا.</p>
+                  <label class="block text-neutral-800 font-black">📁 تحميل صور القطعة من الهاتف (حتى 8 صور كاملة) *</label>
+                  <p class="text-[11px] text-neutral-500">اختاري حتى 8 صور من ألبوم هاتفك لمعاينة الفستان والظهر والتطريز بدقة.</p>
                 </div>
-                <span id="photo-upload-count" class="bg-white border border-laperla-gold text-laperla-brown text-[11px] font-bold px-3 py-1 rounded-full">0 / 6 صور محددة</span>
+                <span id="photo-upload-count" class="bg-white border border-laperla-gold text-laperla-brown text-[11px] font-bold px-3 py-1 rounded-full">0 / 8 صور محددة</span>
               </div>
               
               <input type="file" id="new-prod-files" accept="image/*" multiple onchange="handleMultipleImagesUpload(event)" class="w-full bg-white border border-neutral-300 p-2 rounded-xl text-xs cursor-pointer font-bold">
 
-              <!-- شبكة المعاينة للصور الـ 6 مع زر الحذف الفردي -->
-              <div id="multi-images-preview-grid" class="grid grid-cols-3 sm:grid-cols-6 gap-2 pt-2">
-              </div>
+              <!-- شبكة المعاينة للـ 8 صور -->
+              <div id="multi-images-preview-grid" class="grid grid-cols-4 sm:grid-cols-8 gap-2 pt-2"></div>
             </div>
 
             <div class="md:col-span-3">
@@ -700,7 +775,7 @@
     let logoClicks = 0;
     let logoTimer = null;
     let editingProductId = null;
-    let currentUploadedImages = []; // مصفوفة لتخزين حتى 6 صور
+    let currentUploadedImages = []; // مصفوفة لتخزين حتى 8 صور
 
     window.addEventListener('DOMContentLoaded', async () => {
       populateWilayas();
@@ -708,11 +783,10 @@
       await loadLiveProducts();
       await loadOrders();
       checkAdminParam();
-      checkDirectProductLink(); // 2. فحص الرابط المباشر لـ Meta Ads
+      checkDirectProductLink();
       lucide.createIcons();
     });
 
-    // 2. التحقق من رابط إعلان Meta Ads لفتح القطعة المحددة فوراً
     function checkDirectProductLink() {
       const urlParams = new URLSearchParams(window.location.search);
       const prodId = urlParams.get('p') || urlParams.get('product');
@@ -723,7 +797,6 @@
       }
     }
 
-    // 2. دالة نسخ رابط الإعلان المباشر لوضعه في Meta Ads Manager
     function copyProductAdLink(id) {
       const currentUrl = window.location.origin + window.location.pathname;
       const adUrl = `${currentUrl}?p=${id}`;
@@ -814,8 +887,8 @@
       if (cat === 'all') renderProducts(liveProducts);
       else if (cat === 'women') renderProducts(liveProducts.filter(p => p.category === 'women'));
       else if (cat === 'kids') renderProducts(liveProducts.filter(p => p.category === 'kids'));
-      else if (cat === 'sales') renderProducts(liveProducts.filter(p => p.isSale));
-      else if (cat === 'bestsellers') renderProducts(liveProducts.filter(p => p.isBest));
+      else if (cat === 'sales') renderProducts(liveProducts.filter(p => p.isSale || p.category === 'sales'));
+      else if (cat === 'bestsellers') renderProducts(liveProducts.filter(p => p.isBest || p.category === 'bestsellers'));
     }
 
     function renderProducts(list) {
@@ -918,7 +991,6 @@
       calculateShippingCost();
     }
 
-    // فتح نافذة المنتج مع معرض الصور الـ 6 وخيارات الحجز
     function openProductModal(productId) {
       currentProduct = liveProducts.find(p => p.id == productId);
       if (!currentProduct) return;
@@ -929,17 +1001,14 @@
       document.getElementById('modal-old-price').textContent = currentProduct.oldPrice || '';
       document.getElementById('modal-description').textContent = currentProduct.description || '';
 
-      // المقاسات الرقمية الخاصة بهذا المنتج فقط
       const sizeSelect = document.getElementById('order-size');
       const prodSizes = (currentProduct.sizes || '38, 40, 42, 44').split(',').map(s => s.trim());
       sizeSelect.innerHTML = prodSizes.map(s => `<option value="${s}">${s}</option>`).join('');
 
-      // الألوان المتاحة
       const colorSelect = document.getElementById('order-color');
       const prodColors = (currentProduct.colors || 'الأسود الملكي').split(',').map(c => c.trim());
       colorSelect.innerHTML = prodColors.map(c => `<option value="${c}">${c}</option>`).join('');
 
-      // 1. تجهيز الـ 6 صور في المعرض
       const imagesList = (currentProduct.images && currentProduct.images.length > 0) ? currentProduct.images : [
         'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=800'
       ];
@@ -947,7 +1016,6 @@
       renderModalImageGallery(imagesList, 0);
       calculateShippingCost();
 
-      // تتبع ViewContent في فيسبوك بيكسل لمساعدتك في إعلانات Meta
       if (typeof fbq === 'function') {
         fbq('track', 'ViewContent', {
           content_name: currentProduct.title,
@@ -969,7 +1037,7 @@
       modal.classList.remove('flex');
     }
 
-    // 1. عرض معرض الصور الـ 6 داخل مودال الشراء
+    // 2. عرض معرض الصور الـ 8 في المودال
     function renderModalImageGallery(images, activeIndex) {
       selectedImageIndex = activeIndex;
       const mainImg = document.getElementById('modal-main-image');
@@ -1286,7 +1354,7 @@
       }
     }
 
-    // 1. معالجة وضغط حتى 6 صور من الهاتف عبر Canvas لمنع بطء الذاكرة
+    // 2. ضغط حتى 8 صور من الهاتف عبر Canvas
     function compressImageFile(file, maxWidth = 800, quality = 0.75) {
       return new Promise((resolve) => {
         const reader = new FileReader();
@@ -1312,14 +1380,14 @@
       });
     }
 
-    // 1. رفع عدة صور من الهاتف (حتى 6 صور)
+    // 2. رفع حتى 8 صور للقطعة
     async function handleMultipleImagesUpload(e) {
       const files = Array.from(e.target.files);
       if (!files || files.length === 0) return;
 
-      const remainingSlots = 6 - currentUploadedImages.length;
+      const remainingSlots = 8 - currentUploadedImages.length;
       if (remainingSlots <= 0) {
-        alert("⚠️ لقد وصلت للحد الأقصى المسموح به (6 صور للقطعة). احذف بعض الصور لإضافة غيرها.");
+        alert("⚠️ لقد وصلت للحد الأقصى المسموح به (8 صور للقطعة). يمكنك حذف بعض الصور لإضافة غيرها.");
         return;
       }
 
@@ -1333,11 +1401,10 @@
       renderUploadedImagesGrid();
     }
 
-    // 1. عرض معاينة الـ 6 صور المحملة مع خيار حذف أي صورة
     function renderUploadedImagesGrid() {
       const grid = document.getElementById('multi-images-preview-grid');
       const counter = document.getElementById('photo-upload-count');
-      counter.textContent = `${currentUploadedImages.length} / 6 صور محددة`;
+      counter.textContent = `${currentUploadedImages.length} / 8 صور محددة`;
 
       grid.innerHTML = currentUploadedImages.map((src, idx) => `
         <div class="relative aspect-[3/4] rounded-xl overflow-hidden border border-neutral-300 group shadow-xs">
@@ -1371,7 +1438,7 @@
       }
     }
 
-    // حفظ المنتج (إضافة جديد أو تعديل مع الـ 6 صور)
+    // حفظ المنتج (إضافة جديد أو تعديل مع الـ 8 صور وكل التصنيفات)
     function handleSaveProduct(e) {
       e.preventDefault();
       const title = document.getElementById('new-prod-title').value.trim();
@@ -1379,11 +1446,12 @@
       const price = parseInt(document.getElementById('new-prod-price').value) || 0;
       const oldPrice = document.getElementById('new-prod-old-price').value.trim();
       const category = document.getElementById('new-prod-category').value;
+      const isSale = document.getElementById('new-prod-is-sale').checked || category === 'sales';
+      const isBest = document.getElementById('new-prod-is-best').checked || category === 'bestsellers';
       const sizes = document.getElementById('new-prod-sizes').value || '38, 40, 42, 44';
       const colorsStr = document.getElementById('new-prod-colors').value || 'الأسود الملكي';
       const desc = document.getElementById('new-prod-desc').value.trim();
 
-      // التأكد من وجود صورة واحدة على الأقل
       const imagesToSave = currentUploadedImages.length > 0 ? currentUploadedImages : [
         'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=800'
       ];
@@ -1402,7 +1470,8 @@
             colors: colorsStr,
             description: desc,
             images: imagesToSave,
-            isSale: oldPrice ? true : false
+            isSale: isSale,
+            isBest: isBest
           };
           alert("تم حفظ التعديلات على القطعة بنجاح! ✏️");
         }
@@ -1419,8 +1488,8 @@
           colors: colorsStr,
           description: desc,
           images: imagesToSave,
-          isSale: oldPrice ? true : false,
-          isBest: false
+          isSale: isSale,
+          isBest: isBest
         };
         liveProducts.unshift(newProduct);
         alert("تم نشر القطعة الجديدة في المتجر بنجاح! 🎉");
@@ -1432,7 +1501,6 @@
       renderAdminProductsList();
     }
 
-    // بدء تعديل القطعة
     function editProduct(id) {
       const prod = liveProducts.find(p => p.id == id);
       if (!prod) return;
@@ -1447,6 +1515,8 @@
       document.getElementById('new-prod-price').value = prod.price;
       document.getElementById('new-prod-old-price').value = prod.oldPrice || '';
       document.getElementById('new-prod-category').value = prod.category || 'women';
+      document.getElementById('new-prod-is-sale').checked = prod.isSale || false;
+      document.getElementById('new-prod-is-best').checked = prod.isBest || false;
       document.getElementById('new-prod-desc').value = prod.description || '';
       document.getElementById('new-prod-colors').value = prod.colors || '';
 
@@ -1461,7 +1531,7 @@
         }
       });
 
-      // الصور الـ 6
+      // الصور الـ 8
       currentUploadedImages = prod.images ? [...prod.images] : [];
       renderUploadedImagesGrid();
 
@@ -1481,6 +1551,8 @@
       document.getElementById('new-prod-desc').value = '';
       document.getElementById('new-prod-colors').value = '';
       document.getElementById('new-prod-files').value = '';
+      document.getElementById('new-prod-is-sale').checked = false;
+      document.getElementById('new-prod-is-best').checked = false;
       currentUploadedImages = [];
       renderUploadedImagesGrid();
 
@@ -1488,7 +1560,6 @@
       document.getElementById('new-prod-sizes').value = '';
     }
 
-    // عرض المنتجات في لوحة الإدارة مع زر نسخ رابط إعلان Meta وزر التعديل
     function renderAdminProductsList() {
       const container = document.getElementById('admin-products-list');
       container.innerHTML = liveProducts.map((p) => {
@@ -1509,7 +1580,6 @@
             </div>
           </div>
 
-          <!-- أزرار الإجراءات وروابط Meta Ads -->
           <div class="mt-3 pt-2.5 border-t border-neutral-100 flex flex-col gap-1.5">
             <button onclick="copyProductAdLink(${p.id})" class="w-full bg-laperla-silk border border-laperla-gold hover:bg-laperla-cream text-laperla-brown py-1.5 px-2 rounded-lg text-[11px] font-black flex items-center justify-center gap-1.5 transition">
               <i data-lucide="link" class="w-3.5 h-3.5 text-laperla-goldDark"></i> نسخ رابط الإعلان لـ Meta Ads
