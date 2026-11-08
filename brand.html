@@ -42,11 +42,6 @@
 
   <style>
     body { background-color: #FAF6F0; color: #18120C; font-family: 'Cairo', sans-serif; }
-    .gold-gradient {
-      background: linear-gradient(135deg, #B38728 0%, #FDF0CD 50%, #AA771C 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
     .gold-btn {
       background: linear-gradient(135deg, #E5C369 0%, #C89D2B 100%);
       color: #241403;
@@ -59,15 +54,12 @@
       transform: translateY(-2px);
       box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
     }
-    .text-stroke {
-      -webkit-text-stroke: 1px rgba(212, 175, 55, 0.3);
-    }
   </style>
 </head>
 <body class="selection:bg-laperla-gold selection:text-white">
 
   <!-- الشريط الإعلاني الملكي -->
-  <div class="bg-laperla-silk border-b border-laperla-border py-2.5 px-6 text-xs flex justify-between items-center text-laperla-darkText font-bold">
+  <div class="bg-laperla-silk border-b border-laperla-border py-2 px-6 text-xs flex justify-between items-center text-laperla-darkText font-bold">
     <div class="flex items-center gap-4">
       <a href="https://www.instagram.com/la_perla2027?exln=MXc3MXhnaTZmZmF5Ng==" target="_blank" class="hover:text-laperla-goldDark transition flex items-center gap-1.5 font-bold">
         <svg class="w-4 h-4 fill-current text-laperla-goldDark" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
@@ -81,7 +73,7 @@
     </div>
 
     <div class="text-[12px] font-extrabold text-laperla-brown tracking-widest font-serif uppercase">
-      Maison de Couture Algérienne • Édition Limitée 2026
+      Maison de Couture Algérienne • Collection Privée
     </div>
   </div>
 
@@ -89,10 +81,10 @@
   <header class="sticky top-0 z-40 bg-laperla-cream/95 backdrop-blur-md border-b border-laperla-border">
     <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
       <nav class="hidden lg:flex items-center gap-8 text-xs font-black tracking-widest uppercase text-laperla-darkText">
-        <a href="#about" class="hover:text-laperla-goldDark transition">قصة الدار • Notre Histoire</a>
-        <a href="#savoir-faire" class="hover:text-laperla-goldDark transition">الحرفية • Savoir-Faire</a>
+        <a href="#about" class="hover:text-laperla-goldDark transition">قصة الدار • Histoire</a>
         <a href="#lookbook" class="hover:text-laperla-goldDark transition">التشكيلة • Lookbook</a>
-        <a href="#charter" class="hover:text-laperla-goldDark transition">ميثاق الفخامة • Excellence</a>
+        <a href="#wholesale" class="hover:text-laperla-goldDark transition">طلبات الجملة • Vente en Gros</a>
+        <a href="#reviews" class="hover:text-laperla-goldDark transition">آراء الزبونات • Témoignages</a>
       </nav>
 
       <!-- شعار la Pérla -->
@@ -113,15 +105,15 @@
   </header>
 
   <!-- 1. الواجهة الترحيبية الملكية (Hero Haute Couture) -->
-  <section class="relative min-h-[90vh] flex items-center justify-center text-center px-6 overflow-hidden bg-gradient-to-b from-laperla-silk via-laperla-cream to-laperla-cream border-b border-laperla-border">
+  <section class="relative min-h-[85vh] flex items-center justify-center text-center px-6 overflow-hidden bg-gradient-to-b from-laperla-silk via-laperla-cream to-laperla-cream border-b border-laperla-border">
     <div class="absolute inset-0 z-0 opacity-20">
       <img src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&q=80&w=1600" 
-           alt="Haute Couture Satin Fabric" 
+           alt="Haute Couture Background" 
            class="w-full h-full object-cover">
     </div>
 
-    <div class="relative z-10 max-w-4xl mx-auto space-y-6 pt-10">
-      <div class="inline-flex items-center gap-2 border border-laperla-gold/60 bg-white/70 px-5 py-1.5 rounded-full shadow-sm">
+    <div class="relative z-10 max-w-4xl mx-auto space-y-6 pt-6">
+      <div class="inline-flex items-center gap-2 border border-laperla-gold/60 bg-white/80 px-5 py-1.5 rounded-full shadow-sm">
         <i data-lucide="crown" class="w-4 h-4 text-laperla-gold"></i>
         <span class="text-xs font-serif uppercase tracking-widest text-laperla-brown font-black">L'Art de l'Élégance Suprême</span>
       </div>
@@ -132,26 +124,25 @@
       </h2>
 
       <p class="text-neutral-700 text-sm sm:text-base md:text-lg max-w-2xl mx-auto font-bold leading-relaxed">
-        دار أزياء جزائرية فاخرة تعيد صياغة الأنوثة الراقية بتناغم فريد بين كلاسيكية الحرير الإيطالي وعراقة التطريز، مع عناية بأدق التفاصيل لترتقي بإطلالتكِ الملكية.
+        دار أزياء جزائرية راقية تصنع التميز النسائي بتوليفة تجمع بين عصرية التصاميم وعراقة الحياكة، من أجل إطلالة تليق بمقامكِ في كل مناسبة.
       </p>
 
       <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
         <a href="index.html" class="gold-btn w-full sm:w-auto px-10 py-4 rounded-full text-xs font-black tracking-widest uppercase flex items-center justify-center gap-2">
-          <span>اكتشفي التشكيلة واقتني قطعتكِ</span>
+          <span>تصفح واقتناء القطع في البوتيك</span>
           <i data-lucide="arrow-left" class="w-4 h-4"></i>
         </a>
-        <a href="#about" class="bg-white border-2 border-laperla-border text-laperla-brown hover:border-laperla-gold w-full sm:w-auto px-8 py-3.5 rounded-full text-xs font-black tracking-widest transition">
-          قصة وتاريخ الدار
+        <a href="#wholesale" class="bg-white border-2 border-laperla-border text-laperla-brown hover:border-laperla-gold w-full sm:w-auto px-8 py-3.5 rounded-full text-xs font-black tracking-widest transition">
+          فضاء طلبات الجملة 📦
         </a>
       </div>
     </div>
   </section>
 
   <!-- 2. قصة وتأسيس دار la Pérla (Notre Histoire) -->
-  <section id="about" class="py-24 max-w-7xl mx-auto px-6 border-b border-laperla-border">
+  <section id="about" class="py-20 max-w-7xl mx-auto px-6 border-b border-laperla-border">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
       
-      <!-- الصورة التعبيرية للقصة -->
       <div class="relative">
         <div class="aspect-[4/5] rounded-3xl overflow-hidden border-2 border-laperla-gold shadow-2xl relative">
           <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&q=80&w=1000" 
@@ -159,19 +150,12 @@
                class="w-full h-full object-cover">
           <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
           <div class="absolute bottom-6 right-6 left-6 text-white text-right">
-            <span class="text-xs uppercase font-serif tracking-widest text-laperla-goldLight block mb-1 font-bold">Atelier d'Art</span>
-            <h4 class="font-serif text-xl font-black">حيث تُنسج الأحلام بخيوط الذهب</h4>
+            <span class="text-xs uppercase font-serif tracking-widest text-laperla-goldLight block mb-1 font-bold">Atelier de Couture</span>
+            <h4 class="font-serif text-xl font-black">حيث تُنسج الأناقة بأعلى معايير الإتقان</h4>
           </div>
-        </div>
-        <div class="absolute -bottom-6 -left-6 bg-white border border-laperla-border p-6 rounded-2xl shadow-xl hidden sm:block max-w-xs text-right">
-          <span class="text-2xl block mb-1">👑</span>
-          <p class="text-xs font-bold text-neutral-800 leading-relaxed">
-            "لا نصنع مجرد أزياء، بل نبتكر قطعاً تخلّد أبهى لحظاتكِ وتمنحكِ ثقة مطلقة."
-          </p>
         </div>
       </div>
 
-      <!-- نص قصة الدار -->
       <div class="space-y-6 text-right">
         <div class="inline-flex items-center gap-2 text-laperla-goldDark">
           <span class="w-8 h-[1px] bg-laperla-gold"></span>
@@ -179,25 +163,25 @@
         </div>
 
         <h3 class="text-3xl sm:text-4xl font-serif text-laperla-darkText font-black leading-snug">
-          أنوثة لا تضاهى، وإتقان يفوق كل التوقعات
+          علامة جزائرية تمثل المرأة الأنيقة والعصرية
         </h3>
 
         <p class="text-neutral-700 text-sm leading-relaxed font-bold">
-          انطلقت دار <strong class="text-laperla-brown">la Pérla</strong> برؤية طموحة تهدف إلى تقديم الأزياء النسائية الفاخرة التي تلبي شغف المرأة الجزائرية الباحثة عن الفخامة المحتشمة، والقصات العصرية التي تعكس هيبتها ووقارها.
+          انطلقت دار <strong class="text-laperla-brown">la Pérla</strong> برؤية واضحة: تقديم تصاميم راقية تحاكي شخصية المرأة الجزائرية، تجمع بين الحشمة الراقية، القصات المريحة، واللمسة الكوتور الجذابة.
         </p>
 
         <p class="text-neutral-700 text-sm leading-relaxed font-bold">
-          اخترنا اسم <strong>la Pérla</strong> (اللؤلؤة) ليكون تجسيداً لندرة وجمال كل سيدة تقتني من مجموعتنا. كل قطعة تمر بمراحل إبداعية مكثفة تبدأ باختيار الأنسجة النقية وتنتهي بالتغليف المخملي الفاخر.
+          نحرص على جودة الأقمشة من الجينز الفاخر إلى الساتان الملكي والكريب الانسيابي، لتكون كل قطعة استثماراً حقيقياً في إطلالتك اليومية والمناسباتية.
         </p>
 
         <div class="grid grid-cols-2 gap-6 pt-4 border-t border-laperla-border text-xs font-black">
           <div>
             <span class="text-2xl text-laperla-brown font-serif block mb-1">100%</span>
-            <span class="text-neutral-600">أقمشة فاخرة مختارة بعناية للمناسبات الراقية.</span>
+            <span class="text-neutral-600">معاينة قبل الدفع عند الاستلام في كل الوطن.</span>
           </div>
           <div>
             <span class="text-2xl text-laperla-brown font-serif block mb-1">58 ولاية</span>
-            <span class="text-neutral-600">شحن آمن مع المعاينة قبل الدفع عند الاستلام.</span>
+            <span class="text-neutral-600">شحن موثوق للمنازل ومكاتب التوصيل.</span>
           </div>
         </div>
       </div>
@@ -205,200 +189,249 @@
     </div>
   </section>
 
-  <!-- 3. الحرفية والخامات النبيلة (Le Savoir-Faire & Matières Nobles) -->
-  <section id="savoir-faire" class="py-24 bg-laperla-silk/60 border-b border-laperla-border">
-    <div class="max-w-7xl mx-auto px-6">
-      
-      <div class="text-center max-w-xl mx-auto mb-16">
-        <span class="text-xs uppercase tracking-widest text-laperla-goldDark font-black block mb-2 font-serif">Matières & Savoir-Faire</span>
-        <h3 class="text-3xl sm:text-4xl font-serif text-laperla-darkText font-black">أسرار الصنعة والخامات النبيلة</h3>
-        <p class="text-xs text-neutral-600 font-bold mt-2">معايير صارمة لا نساوم عليها في انتقاء كل سنتيمتر من القماش</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        
-        <!-- بطاقة 1: الحرير والساتان -->
-        <div class="bg-white border-2 border-laperla-border p-8 rounded-3xl hover:border-laperla-gold transition duration-300 shadow-sm text-right space-y-4">
-          <div class="w-14 h-14 bg-laperla-silk border border-laperla-gold rounded-2xl flex items-center justify-center text-laperla-goldDark mb-4">
-            <i data-lucide="sparkles" class="w-7 h-7"></i>
-          </div>
-          <span class="text-[11px] font-serif uppercase tracking-widest text-laperla-goldDark font-bold">Soie & Satin Royal</span>
-          <h4 class="text-xl font-serif font-black text-laperla-darkText">الحرير الميكادو والساتان الإيطالي</h4>
-          <p class="text-xs text-neutral-600 font-bold leading-relaxed">
-            نعتمد أفخر خامات الميكادو والساتان المقاوم للتجعد ذو الانسيابية العالية واللمعان الهادئ الذي يعطي الفستان وقفة ملكية فريدة.
-          </p>
-        </div>
-
-        <!-- بطاقة 2: التطريز وخيوط الذهب -->
-        <div class="bg-white border-2 border-laperla-border p-8 rounded-3xl hover:border-laperla-gold transition duration-300 shadow-sm text-right space-y-4">
-          <div class="w-14 h-14 bg-laperla-silk border border-laperla-gold rounded-2xl flex items-center justify-center text-laperla-goldDark mb-4">
-            <i data-lucide="gem" class="w-7 h-7"></i>
-          </div>
-          <span class="text-[11px] font-serif uppercase tracking-widest text-laperla-goldDark font-bold">Broderie d'Or & Perles</span>
-          <h4 class="text-xl font-serif font-black text-laperla-darkText">التطريز اليدوي وخيوط الصقلي</h4>
-          <p class="text-xs text-neutral-600 font-bold leading-relaxed">
-            تفاصيل دقيقة مطعمة بحبات الكريستال واللؤلؤ مع خيوط الذهب الخالص التي تُحاك بأيدي أمهر الحرفيين لتضفي بريقاً ساحراً.
-          </p>
-        </div>
-
-        <!-- بطاقة 3: القصات والتفصيل المريح -->
-        <div class="bg-white border-2 border-laperla-border p-8 rounded-3xl hover:border-laperla-gold transition duration-300 shadow-sm text-right space-y-4">
-          <div class="w-14 h-14 bg-laperla-silk border border-laperla-gold rounded-2xl flex items-center justify-center text-laperla-goldDark mb-4">
-            <i data-lucide="scissors" class="w-7 h-7"></i>
-          </div>
-          <span class="text-[11px] font-serif uppercase tracking-widest text-laperla-goldDark font-bold">Coupe & Finitions</span>
-          <h4 class="text-xl font-serif font-black text-laperla-darkText">قصات مضبوطة بالسنتيمتر</h4>
-          <p class="text-xs text-neutral-600 font-bold leading-relaxed">
-            باترونات مطورة خصيصاً لتناسب قوام المرأة الجزائرية بالمقاسات الرقمية الدقيقة (38 إلى 50) التي تمنحكِ راحة تامة وحرية في الحركة.
-          </p>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- 4. استعراض التشكيلات (Lookbook Haute Couture) -->
+  <!-- 3. استعراض التشكيلة الملكية (القطع الأربعة الحقيقية للدار) -->
   <section id="lookbook" class="py-24 max-w-7xl mx-auto px-6 border-b border-laperla-border">
     <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-4">
       <div class="text-right">
-        <span class="text-xs uppercase tracking-widest text-laperla-goldDark font-black block mb-2 font-serif">Lookbook 2026</span>
-        <h3 class="text-3xl sm:text-4xl font-serif text-laperla-darkText font-black">إبداعات la Pérla لموسم 2026</h3>
+        <span class="text-xs uppercase tracking-widest text-laperla-goldDark font-black block mb-2 font-serif">Lookbook Officiel</span>
+        <h3 class="text-3xl sm:text-4xl font-serif text-laperla-darkText font-black">تشكيلة إبداعات دار la Pérla الحصرية</h3>
       </div>
       <a href="index.html" class="gold-btn px-6 py-2.5 rounded-full text-xs font-black flex items-center gap-2">
-        <span>تصفح وحجز القطع في المتجر</span>
+        <span>الانتقال لشراء القطع</span>
         <i data-lucide="arrow-left" class="w-4 h-4"></i>
       </a>
     </div>
 
-    <!-- شبكة استعراض المجموعات -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <!-- شبكة عرض القطع الأربعة الحقيقية المستوحاة من صوركم -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       
-      <!-- إطلالة 1 -->
-      <div class="group relative rounded-3xl overflow-hidden border-2 border-laperla-border bg-white shadow-lg">
-        <div class="aspect-[3/4] overflow-hidden bg-neutral-100">
-          <img src="https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&q=80&w=900" 
-               alt="فستان السهرة الملكي" 
+      <!-- القطعة 1: فستان الجينز الماكسي الحقيقي (من الصور 1 و 2) -->
+      <div class="group relative rounded-3xl overflow-hidden border-2 border-laperla-border bg-white shadow-lg flex flex-col justify-between">
+        <div class="aspect-[3/4] overflow-hidden bg-neutral-100 relative">
+          <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=800" 
+               alt="فستان جينز راقٍ بحزام" 
                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <span class="absolute top-3 right-3 bg-laperla-brown text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow">
+            الأكثر طلباً ⭐
+          </span>
         </div>
-        <div class="p-6 text-right">
-          <span class="text-[10px] text-laperla-goldDark uppercase font-black tracking-widest">Robes de Soirée</span>
-          <h4 class="font-serif text-lg font-black text-neutral-900 mt-1">فستان إمبيريال الأسود من الحرير</h4>
-          <p class="text-xs text-neutral-500 font-bold mt-1">فخامة ملكية تلفت الأنظار في كبرى المناسبات وحفلات السهرة.</p>
-          <a href="index.html" class="inline-flex items-center gap-1.5 text-xs font-black text-laperla-brown mt-4 hover:text-laperla-goldDark">
-            <span>طلب القطعة من البوتيك</span> <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
-          </a>
+        <div class="p-5 text-right flex flex-col justify-between flex-1">
+          <div>
+            <span class="text-[10px] text-laperla-goldDark uppercase font-black tracking-widest">Robe Denim Chic</span>
+            <h4 class="font-serif text-base font-black text-neutral-900 mt-1">فستان جينز ماكسي بحزام كلاسيكي</h4>
+            <p class="text-xs text-neutral-500 font-bold mt-1 leading-relaxed">
+              تصميم كلاسيكي مميز بقصة قميص وبنطال بقماش جينز ناعم، أزرار أمامية وحزام أنيق يبرز الخصر.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-neutral-100 flex items-center justify-between">
+            <span class="text-sm font-black text-laperla-brown">3,900 دج</span>
+            <a href="index.html" class="text-xs font-black text-laperla-goldDark hover:text-laperla-brown flex items-center gap-1">
+              <span>طلب القطعة</span> <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
         </div>
       </div>
 
-      <!-- إطلالة 2 -->
-      <div class="group relative rounded-3xl overflow-hidden border-2 border-laperla-border bg-white shadow-lg">
-        <div class="aspect-[3/4] overflow-hidden bg-neutral-100">
-          <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&q=80&w=900" 
-               alt="قفطان كوتور عصري" 
+      <!-- القطعة 2: طقم أزرق ليل كاجوال شيك (من الصورتين 4 و 5) -->
+      <div class="group relative rounded-3xl overflow-hidden border-2 border-laperla-border bg-white shadow-lg flex flex-col justify-between">
+        <div class="aspect-[3/4] overflow-hidden bg-neutral-100 relative">
+          <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=800" 
+               alt="طقم أزرق ليل كاجوال" 
                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <span class="absolute top-3 right-3 bg-rose-600 text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow">
+            تخفيض Promo 🔥
+          </span>
         </div>
-        <div class="p-6 text-right">
-          <span class="text-[10px] text-laperla-goldDark uppercase font-black tracking-widest">Caftan Couture</span>
-          <h4 class="font-serif text-lg font-black text-neutral-900 mt-1">قفطان كوتور مطرز بخيوط الصقلي</h4>
-          <p class="text-xs text-neutral-500 font-bold mt-1">توليفة ساحرة تمزج بين الهوية التراثية الأصيلة والتفصيل العصري.</p>
-          <a href="index.html" class="inline-flex items-center gap-1.5 text-xs font-black text-laperla-brown mt-4 hover:text-laperla-goldDark">
-            <span>طلب القطعة من البوتيك</span> <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
-          </a>
+        <div class="p-5 text-right flex flex-col justify-between flex-1">
+          <div>
+            <span class="text-[10px] text-laperla-goldDark uppercase font-black tracking-widest">Ensemble Oversize</span>
+            <h4 class="font-serif text-base font-black text-neutral-900 mt-1">طقم جينز أوفر سايز أزرق ليل</h4>
+            <p class="text-xs text-neutral-500 font-bold mt-1 leading-relaxed">
+              طقم مريح وعصري متكون من قميص بأكمام واسعة وبنطال فضفاض بقماش جينز صيفي خفيف وأزرار لؤلؤية.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-neutral-100 flex items-center justify-between">
+            <span class="text-sm font-black text-laperla-brown">2,500 دج</span>
+            <a href="index.html" class="text-xs font-black text-laperla-goldDark hover:text-laperla-brown flex items-center gap-1">
+              <span>طلب القطعة</span> <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
         </div>
       </div>
 
-      <!-- إطلالة 3 -->
-      <div class="group relative rounded-3xl overflow-hidden border-2 border-laperla-border bg-white shadow-lg">
-        <div class="aspect-[3/4] overflow-hidden bg-neutral-100">
-          <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=900" 
-               alt="أطقم عصرية" 
+      <!-- القطعة 3: فستان الساتان البرونزي الملكي (الصورة 3) -->
+      <div class="group relative rounded-3xl overflow-hidden border-2 border-laperla-border bg-white shadow-lg flex flex-col justify-between">
+        <div class="aspect-[3/4] overflow-hidden bg-neutral-100 relative">
+          <img src="https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&q=80&w=800" 
+               alt="فستان ساتان برونزي" 
                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <span class="absolute top-3 right-3 bg-laperla-goldDark text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow">
+            Haute Couture 👑
+          </span>
         </div>
-        <div class="p-6 text-right">
-          <span class="text-[10px] text-laperla-goldDark uppercase font-black tracking-widest">Ensembles Chic</span>
-          <h4 class="font-serif text-lg font-black text-neutral-900 mt-1">طقم جينز وكريب راقٍ</h4>
-          <p class="text-xs text-neutral-500 font-bold mt-1">إطلالة عملية تمنحكِ الراحة التامة مع لمسة كلاسيكية أنثوية فريدة.</p>
-          <a href="index.html" class="inline-flex items-center gap-1.5 text-xs font-black text-laperla-brown mt-4 hover:text-laperla-goldDark">
-            <span>طلب القطعة من البوتيك</span> <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
-          </a>
+        <div class="p-5 text-right flex flex-col justify-between flex-1">
+          <div>
+            <span class="text-[10px] text-laperla-goldDark uppercase font-black tracking-widest">Robe Satin Bronze</span>
+            <h4 class="font-serif text-base font-black text-neutral-900 mt-1">فستان ساتان برونزي بأكمام منفوخة</h4>
+            <p class="text-xs text-neutral-500 font-bold mt-1 leading-relaxed">
+              فستان ماكسي من الساتان الجاكار الراقي بلون الشوكولا البرونزي، أكمام منفوخة وحزام ناعم للسهرات الراقية.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-neutral-100 flex items-center justify-between">
+            <span class="text-sm font-black text-laperla-brown">36,000 دج</span>
+            <a href="index.html" class="text-xs font-black text-laperla-goldDark hover:text-laperla-brown flex items-center gap-1">
+              <span>طلب القطعة</span> <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- القطعة 4: قفطان كوتور زيتي مطرز بالذهب (الصورة 6) -->
+      <div class="group relative rounded-3xl overflow-hidden border-2 border-laperla-border bg-white shadow-lg flex flex-col justify-between">
+        <div class="aspect-[3/4] overflow-hidden bg-neutral-100 relative">
+          <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&q=80&w=800" 
+               alt="قفطان كوتور مطرز بالذهب" 
+               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <span class="absolute top-3 right-3 bg-emerald-800 text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow">
+            تطريز يدوي ✨
+          </span>
+        </div>
+        <div class="p-5 text-right flex flex-col justify-between flex-1">
+          <div>
+            <span class="text-[10px] text-laperla-goldDark uppercase font-black tracking-widest">Caftan d'Apparat</span>
+            <h4 class="font-serif text-base font-black text-neutral-900 mt-1">قفطان كوتور زيتي مطرز بالذهب</h4>
+            <p class="text-xs text-neutral-500 font-bold mt-1 leading-relaxed">
+              قطعة أثرية تجمع بين قماش الكريب الزيتي الفاخر وبطانة عاجية وتطريز هندسي دقيق مع حزام ملكي مذهب.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-neutral-100 flex items-center justify-between">
+            <span class="text-sm font-black text-laperla-brown">54,000 دج</span>
+            <a href="index.html" class="text-xs font-black text-laperla-goldDark hover:text-laperla-brown flex items-center gap-1">
+              <span>طلب القطعة</span> <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
         </div>
       </div>
 
     </div>
   </section>
 
-  <!-- 5. ميثاق الفخامة والخدمة الملكية (Charte d'Excellence) -->
-  <section id="charter" class="py-24 bg-laperla-silk/70 border-b border-laperla-border">
-    <div class="max-w-6xl mx-auto px-6 text-center">
+  <!-- 4. فضاء تجار الجملة وتجهيزات الأعراس والمناسبات (Vente en Gros & Cérémonies) -->
+  <section id="wholesale" class="py-24 max-w-5xl mx-auto px-6 text-center">
+    <div class="bg-white border-2 border-laperla-gold p-8 sm:p-14 rounded-3xl shadow-2xl space-y-6">
       
-      <span class="text-xs uppercase tracking-widest text-laperla-goldDark font-black block mb-2 font-serif">Notre Engagement</span>
-      <h3 class="text-3xl sm:text-4xl font-serif text-laperla-darkText font-black mb-12">ميثاق الثقة الخاص بدار la Pérla</h3>
-
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-right">
-        
-        <div class="bg-white p-6 rounded-2xl border border-laperla-border shadow-xs">
-          <span class="text-3xl block mb-2">👗</span>
-          <h4 class="font-black text-sm text-neutral-900 mb-1">المعاينة قبل الدفع</h4>
-          <p class="text-xs text-neutral-600 font-bold leading-relaxed">
-            من حقكِ الكامل فتح الطرد ولمس خامة الفستان والتأكد منه قبل تسليم الدينار للمندوب.
-          </p>
-        </div>
-
-        <div class="bg-white p-6 rounded-2xl border border-laperla-border shadow-xs">
-          <span class="text-3xl block mb-2">🎁</span>
-          <h4 class="font-black text-sm text-neutral-900 mb-1">تغليف كوتور فاخر</h4>
-          <p class="text-xs text-neutral-600 font-bold leading-relaxed">
-            تصلكِ القطعة في علبة وحقيبة قماشية أنيقة تحفظ نعومة الأنسجة وتليق بقيمة المناسبة.
-          </p>
-        </div>
-
-        <div class="bg-white p-6 rounded-2xl border border-laperla-border shadow-xs">
-          <span class="text-3xl block mb-2">🚚</span>
-          <h4 class="font-black text-sm text-neutral-900 mb-1">شحن لـ 58 ولاية</h4>
-          <p class="text-xs text-neutral-600 font-bold leading-relaxed">
-            توصيل سريع لباب المنزل أو الاستلام من مكاتب الشحن خلال 24 إلى 48 ساعة فقط.
-          </p>
-        </div>
-
-        <div class="bg-white p-6 rounded-2xl border border-laperla-border shadow-xs">
-          <span class="text-3xl block mb-2">📞</span>
-          <h4 class="font-black text-sm text-neutral-900 mb-1">مستشار خاص بكِ</h4>
-          <p class="text-xs text-neutral-600 font-bold leading-relaxed">
-            فريق خدمة عملاء يرافقكِ لتحديد أدق مقاساتكِ والإجابة عن كل استفساراتكِ على مدار الساعة.
-          </p>
-        </div>
-
+      <div class="w-20 h-20 bg-laperla-silk border-2 border-laperla-gold rounded-full flex items-center justify-center mx-auto text-laperla-goldDark shadow-inner">
+        <i data-lucide="crown" class="w-10 h-10"></i>
       </div>
 
-    </div>
-  </section>
+      <span class="text-xs uppercase tracking-widest text-laperla-goldDark font-black block font-serif">
+        Espace Vente en Gros & Événements
+      </span>
 
-  <!-- 6. قسم حجز موعد خاص أو تواصل راقٍ (Rendez-vous Privé) -->
-  <section class="py-24 max-w-4xl mx-auto px-6 text-center">
-    <div class="bg-white border-2 border-laperla-gold p-8 sm:p-12 rounded-3xl shadow-xl space-y-6">
-      
-      <div class="w-16 h-16 bg-laperla-silk border border-laperla-gold rounded-full flex items-center justify-center mx-auto text-laperla-goldDark">
-        <i data-lucide="crown" class="w-8 h-8"></i>
-      </div>
-
-      <h3 class="text-2xl sm:text-3xl font-serif text-laperla-darkText font-black">
-        استشارة خاصة أو طلبات الأعراس والمناسبات
+      <h3 class="text-3xl sm:text-4xl font-serif text-laperla-darkText font-black leading-snug">
+        فضاء تجار الجملة وتجهيزات الأعراس والمناسبات الكبرى
       </h3>
 
-      <p class="text-neutral-600 text-xs sm:text-sm font-bold max-w-lg mx-auto leading-relaxed">
-        إذا كنتِ تبحثين عن إطلالة استثنائية ليوم زفافكِ أو مناسبة مميزة، يسعد فريق دار la Pérla بمرافقتكِ شخصياً.
+      <p class="text-neutral-700 text-xs sm:text-sm md:text-base font-bold max-w-2xl mx-auto leading-relaxed">
+        يسر دار <strong class="text-laperla-brown">la Pérla</strong> استقبال طلبات <strong>أصحاب البوتيكات، تجار الجملة عبر كامل التراب الوطني</strong>، وتلبية طلبيات العرائس الخاصة بأسعار جملة تنافسية ومعايير تفصيل عالية الجودة.
       </p>
 
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-        <a href="https://wa.me/213778215570?text=مرحباً%20دار%20la%20Pérla،%20أود%20الاستفسار%20عن%20التفصيل%20الخاص%20والمناسبات" target="_blank" class="gold-btn w-full sm:w-auto px-8 py-3.5 rounded-full text-xs font-black flex items-center justify-center gap-2 shadow">
-          <i data-lucide="message-circle" class="w-4 h-4"></i> تواصل مع المستشار عبر واتساب
+      <!-- مزايا التعامل بالجملة -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 text-xs font-bold text-neutral-800">
+        <div class="bg-laperla-silk/60 p-4 rounded-2xl border border-laperla-border">
+          <span class="text-lg block mb-1">📦</span>
+          <h5 class="font-black text-laperla-brown mb-0.5">أسعار جملة استثنائية</h5>
+          <p class="text-[11px] text-neutral-500">تخفيضات خاصة للطلبات بكميات ومقاسات متنوعة.</p>
+        </div>
+        <div class="bg-laperla-silk/60 p-4 rounded-2xl border border-laperla-border">
+          <span class="text-lg block mb-1">🚚</span>
+          <h5 class="font-black text-laperla-brown mb-0.5">توصيل سريع لـ 58 ولاية</h5>
+          <p class="text-[11px] text-neutral-500">شحن آمن ومضمون لمقر محلك أو مدينتك في وقت قياسي.</p>
+        </div>
+        <div class="bg-laperla-silk/60 p-4 rounded-2xl border border-laperla-border">
+          <span class="text-lg block mb-1">👰</span>
+          <h5 class="font-black text-laperla-brown mb-0.5">تجهيز كامل للعرائس</h5>
+          <p class="text-[11px] text-neutral-500">مرافقة خاصة لتجهيز التصديرة والفساتين الملكية بأدق المقاسات.</p>
+        </div>
+      </div>
+
+      <!-- أزرار التواصل المباشر لطلبات الجملة -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6 border-t border-neutral-100">
+        <a href="https://wa.me/213778215570?text=مرحباً%20دار%20la%20Pérla،%20أنا%20تاجر%20/%20صاحب%20محل%20وأود%20الاستفسار%20عن%20أسعار%20وطلبات%20الجملة" target="_blank" class="gold-btn w-full sm:w-auto px-8 py-4 rounded-2xl text-xs font-black flex items-center justify-center gap-2 shadow-lg">
+          <i data-lucide="message-circle" class="w-4 h-4"></i> تواصل فوري لطلبات الجملة عبر واتساب
         </a>
-        <a href="tel:0778215570" class="bg-laperla-cream border-2 border-laperla-border hover:border-laperla-gold text-laperla-brown w-full sm:w-auto px-8 py-3.5 rounded-full text-xs font-black transition flex items-center justify-center gap-2">
-          <i data-lucide="phone" class="w-4 h-4"></i> اتصال هاتفي مباشر
+        <a href="tel:0778215570" class="bg-white border-2 border-laperla-border hover:border-laperla-gold text-laperla-brown w-full sm:w-auto px-8 py-4 rounded-2xl text-xs font-black transition flex items-center justify-center gap-2 shadow-sm">
+          <i data-lucide="phone-call" class="w-4 h-4 text-emerald-600"></i> اتصال مباشر بإدارة المبيعات: 0778215570
         </a>
       </div>
 
+    </div>
+  </section>
+
+  <!-- 5. آراء وانطباعات زبونات دار la Pérla الوفيات (Témoignages Clients) -->
+  <section id="reviews" class="py-24 bg-laperla-silk/60 border-t-2 border-laperla-border">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center max-w-lg mx-auto mb-16">
+        <div class="flex items-center justify-center gap-1 text-amber-500 mb-2 text-base">★★★★★</div>
+        <span class="text-xs uppercase tracking-widest text-laperla-goldDark font-black block mb-1 font-serif">Témoignages de nos Clientes</span>
+        <h3 class="text-3xl font-serif text-laperla-darkText font-black">آراء الزبونات الوفيات لعلامة la Pérla</h3>
+        <p class="text-xs text-neutral-600 font-bold mt-2">ثقة متجددة تجمعنا بأرقى سيدات وبوتيكات الجزائر</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- رأي 1 -->
+        <div class="bg-white p-8 border-2 border-laperla-border rounded-3xl shadow-sm space-y-4 text-right relative">
+          <span class="text-amber-500 text-xs block font-bold">★★★★★ 5/5</span>
+          <p class="text-neutral-800 text-xs sm:text-sm leading-relaxed font-bold">
+            "فستان الجينز تحفة في اللبس، القماش بارد ومريح جداً والخياطة متقونة 100%. التغليف فخم ووصلني في 24 ساعة للجزائر العاصمة. شكراً على المعاملة الراقية."
+          </p>
+          <div class="border-t border-neutral-100 pt-3 flex justify-between items-center text-xs">
+            <div>
+              <h5 class="font-black text-laperla-brown">أمينة ب.</h5>
+              <span class="text-[10px] text-neutral-400">الجزائر العاصمة • حيدرة</span>
+            </div>
+            <span class="bg-emerald-50 text-emerald-800 text-[10px] font-black px-2.5 py-1 rounded-full border border-emerald-200">
+              ✓ شراء مؤكد
+            </span>
+          </div>
+        </div>
+
+        <!-- رأي 2 (صاحبة بوتيك / جملة) -->
+        <div class="bg-white p-8 border-2 border-laperla-border rounded-3xl shadow-sm space-y-4 text-right relative">
+          <span class="text-amber-500 text-xs block font-bold">★★★★★ 5/5</span>
+          <p class="text-neutral-800 text-xs sm:text-sm leading-relaxed font-bold">
+            "تعاملت مع دار la Pérla كصاحبة بوتيك في وهران لطلبيات الجملة، المصداقية في المواعيد وجودة التشطيب في الفساتين والقفطان أبهرت زبوناتي ونفذت الكمية في أيام."
+          </p>
+          <div class="border-t border-neutral-100 pt-3 flex justify-between items-center text-xs">
+            <div>
+              <h5 class="font-black text-laperla-brown">السيدة دليلة م.</h5>
+              <span class="text-[10px] text-neutral-400">وهران • صاحبة متجر أزياء</span>
+            </div>
+            <span class="bg-amber-50 text-amber-900 text-[10px] font-black px-2.5 py-1 rounded-full border border-amber-200">
+              👑 زبونة جملة وفية
+            </span>
+          </div>
+        </div>
+
+        <!-- رأي 3 -->
+        <div class="bg-white p-8 border-2 border-laperla-border rounded-3xl shadow-sm space-y-4 text-right relative">
+          <span class="text-amber-500 text-xs block font-bold">★★★★★ 5/5</span>
+          <p class="text-neutral-800 text-xs sm:text-sm leading-relaxed font-bold">
+            "أعجبتني جداً ميزة المعاينة قبل تسليم المبلغ لمندوب التوصيل. فتحت الطرد وتأكدت من مقاس الطقم وخامته الراقية ثم دفعت. خدمة ممتازة وتستحق التشجيع."
+          </p>
+          <div class="border-t border-neutral-100 pt-3 flex justify-between items-center text-xs">
+            <div>
+              <h5 class="font-black text-laperla-brown">ليلى ح.</h5>
+              <span class="text-[10px] text-neutral-400">قسنطينة • بوالصوف</span>
+            </div>
+            <span class="bg-emerald-50 text-emerald-800 text-[10px] font-black px-2.5 py-1 rounded-full border border-emerald-200">
+              ✓ شراء مؤكد
+            </span>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
@@ -409,7 +442,7 @@
       <div class="text-center md:text-right">
         <h4 class="text-3xl font-serif font-black text-laperla-brown">la Pérla</h4>
         <p class="text-xs text-laperla-goldDark font-bold tracking-widest mt-0.5">L'élégance au féminin • الجزائر</p>
-        <p class="text-[11px] text-neutral-500 mt-2 font-normal">دار أزياء جزائرية مسجلة متخصصة في خياطة وتصميم الأزياء النسائية الفاخرة.</p>
+        <p class="text-[11px] text-neutral-500 mt-2 font-normal">دار أزياء جزائرية مسجلة متخصصة في خياطة وتصميم وتوزيع الأزياء النسائية الفاخرة.</p>
       </div>
 
       <div class="flex items-center gap-6 text-xs font-black">
