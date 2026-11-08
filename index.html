@@ -88,7 +88,7 @@
 </head>
 <body class="selection:bg-laperla-gold selection:text-white">
 
-  <!-- إعدادات المتجر الأساسية وبوت تيليجرام و Supabase -->
+  <!-- إعدادات المتجر وبيانات تيليجرام و Supabase -->
   <script>
     const CONFIG = {
       MANAGER_PHONE: "213778215570",
@@ -102,7 +102,7 @@
     const db = supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_KEY);
   </script>
 
-  <!-- شريط التحكم العائم الخاص بالمدير (مخفي تماماً عن الزبائن) -->
+  <!-- شريط التحكم العائم الخاص بالمدير -->
   <div id="admin-floating-switch" class="hidden fixed bottom-6 left-6 z-50 bg-white border-2 border-laperla-gold p-3 shadow-2xl flex items-center gap-3 rounded-2xl">
     <div class="flex items-center gap-2 px-2 border-l border-neutral-200">
       <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -117,7 +117,7 @@
     </button>
   </div>
 
-  <!-- الشريط الإعلاني العلوي + أيقونات السوشيال ميديا الحقيقية المضمونة الظهور -->
+  <!-- الشريط الإعلاني العلوي + التواصل الاجتماعي -->
   <div class="bg-laperla-silk border-b border-laperla-border py-2 px-6 text-xs flex flex-wrap justify-between items-center text-laperla-darkText font-bold gap-3">
     <div class="flex items-center gap-4">
       <a href="https://www.instagram.com/la_perla2027?exln=MXc3MXhnaTZmZmF5Ng==" target="_blank" class="hover:text-laperla-goldDark transition flex items-center gap-1.5 font-bold">
@@ -202,9 +202,14 @@
       </div>
     </section>
 
-    <!-- كتالوج المنتجات -->
+    <!-- كتالوج المنتجات السحابي المركزي -->
     <section id="collection" class="max-w-7xl mx-auto px-6 py-8">
-      <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+      <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="col-span-full text-center py-12 text-neutral-400 font-bold">
+          <i data-lucide="loader-2" class="w-8 h-8 animate-spin mx-auto text-laperla-gold mb-2"></i>
+          جاري جلب أحدث التشكيلات السحابية لدار la Pérla...
+        </div>
+      </div>
     </section>
 
     <!-- قسم آراء الزبائن العام -->
@@ -253,7 +258,7 @@
     </section>
   </main>
 
-  <!-- ================= نافذة الحجز المصححة بالكامل (تفتح من القمة 100% مع صور ومقاسات بارزة) ================= -->
+  <!-- ================= نافذة الحجز المصححة بالكامل ================= -->
   <div id="product-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black/80 backdrop-blur-sm p-2 sm:p-5">
     <div class="relative bg-white border-2 border-laperla-gold rounded-3xl w-full max-w-2xl mx-auto my-4 p-4 sm:p-7 shadow-2xl">
       
@@ -293,7 +298,7 @@
         <p id="modal-description" class="text-xs text-neutral-800 leading-relaxed font-bold"></p>
       </div>
 
-      <!-- 4. استمارة تأكيد حجز الطلبية بأزرار المقاسات والألوان البارزة -->
+      <!-- 4. استمارة تأكيد حجز الطلبية -->
       <div class="bg-white border-2 border-laperla-gold/60 p-4 sm:p-5 rounded-3xl shadow-sm mb-5">
         <div class="border-b border-neutral-200 pb-2 mb-4 text-center">
           <h3 class="text-lg font-black text-laperla-brown">استمارة الحجز الفوري • Commande</h3>
@@ -303,14 +308,14 @@
         <form id="order-form" onsubmit="handleCustomerOrder(event)" class="space-y-4 text-xs font-bold">
           <input type="text" id="bot-trap-field" name="website_url_check" style="display:none !important; position:absolute; left:-9999px;" tabindex="-1" autocomplete="off">
 
-          <!-- اختيار اللون بأزرار مريحة -->
+          <!-- اختيار اللون بأزرار واضحة -->
           <div>
             <label class="block text-neutral-800 mb-1.5 font-black">اللون المحدد (Couleur) *</label>
             <div id="modal-colors-container" class="flex flex-wrap gap-2"></div>
             <input type="hidden" id="order-color" required>
           </div>
 
-          <!-- اختيار المقاس بالأرقام (38 إلى 50) بأزرار ذهبية واضحة -->
+          <!-- اختيار المقاس بالأرقام (38 إلى 50) -->
           <div>
             <label class="block text-neutral-800 mb-1.5 font-black">المقاس المطلوب (Taille) *</label>
             <div id="modal-sizes-container" class="flex flex-wrap gap-2"></div>
@@ -505,7 +510,7 @@
         </button>
       </div>
 
-      <!-- قسم إدارة المنتجات -->
+      <!-- قسم إدارة المنتجات: يربط مع Supabase مباشرة -->
       <div id="admin-products-tab" class="hidden space-y-6">
         <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
           <div class="flex justify-between items-center mb-4">
@@ -608,7 +613,7 @@
 
             <div class="md:col-span-3 flex justify-end gap-2">
               <button type="submit" id="save-product-submit-btn" class="gold-btn px-8 py-3 rounded-xl text-xs font-black shadow-md">
-                + نشر القطعة في المتجر فوراً
+                + نشر القطعة سحابياً لجميع الزبائن
               </button>
             </div>
           </form>
@@ -696,7 +701,7 @@
     </div>
   </footer>
 
-  <!-- ================= سكريبت العمليات وبوت تيليجرام ================= -->
+  <!-- ================= سكريبت العمليات وبوت تيليجرام والربط السحابي ================= -->
   <script>
     const shippingRatesByWilaya = {
       "01": { home: 1300, desk: 900 }, "02": { home: 750, desk: 450 }, "03": { home: 900, desk: 550 }, "04": { home: 800, desk: 450 },
@@ -809,31 +814,33 @@
       }
     }
 
+    // جلب المنتجات مباشرة وسحابياً من Supabase لجميع الزبائن في العالم
     async function loadLiveProducts() {
-      let saved = JSON.parse(localStorage.getItem('laperla_custom_products') || '[]');
-      if (saved.length === 0) {
-        saved = [
-          {
-            id: 1,
-            category: "women",
-            isSale: true,
-            isBest: true,
-            title: "طقم جينز أوفر سايز راقٍ",
-            titleFr: "Ensemble Jean Oversize Chic",
-            price: 2500,
-            oldPrice: "4,500 دج",
-            sizes: "38, 40, 42, 44",
-            colors: "أزرق ليل, أزرق جينز",
-            description: "طقم جينز أنيق ومريح للاستعمال اليومي مكون من قميص وبنطال بقصة مريحة تمنحك إطلالة متناسقة ومميزة.",
-            images: [
-              "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=800"
-            ]
-          }
-        ];
-        localStorage.setItem('laperla_custom_products', JSON.stringify(saved));
+      try {
+        const { data, error } = await db.from('products').select('*').order('created_at', { ascending: false });
+        if (!error && data && data.length > 0) {
+          liveProducts = data.map(p => ({
+            id: p.id,
+            title: p.name,
+            titleFr: p.title_fr || '',
+            price: p.price,
+            oldPrice: p.old_price || '',
+            category: p.category || 'women',
+            isSale: p.is_sale || false,
+            isBest: p.is_best || false,
+            sizes: p.sizes || '38, 40, 42',
+            colors: p.colors || 'الأسود الملكي',
+            description: p.description || '',
+            images: Array.isArray(p.images) && p.images.length > 0 ? p.images : (p.image_url ? [p.image_url] : [])
+          }));
+          localStorage.setItem('laperla_custom_products', JSON.stringify(liveProducts));
+        } else {
+          liveProducts = JSON.parse(localStorage.getItem('laperla_custom_products') || '[]');
+        }
+      } catch (e) {
+        liveProducts = JSON.parse(localStorage.getItem('laperla_custom_products') || '[]');
       }
 
-      liveProducts = saved;
       renderProducts(liveProducts);
       renderAdminProductsList();
     }
@@ -865,7 +872,7 @@
 
         return `
         <div class="bg-white border-2 border-laperla-border rounded-2xl group hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden">
-          <div class="relative aspect-[3/4] overflow-hidden bg-neutral-100 cursor-pointer" onclick="openProductModal(${prod.id})">
+          <div class="relative aspect-[3/4] overflow-hidden bg-neutral-100 cursor-pointer" onclick="openProductModal('${prod.id}')">
             <img src="${coverImg}" alt="${prod.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
             <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-5">
               <span class="text-xs text-white font-extrabold tracking-wider flex items-center gap-2">
@@ -888,7 +895,7 @@
                 <span class="text-[11px] text-neutral-400 block font-bold">السعر:</span>
                 <span class="text-laperla-brown font-black text-lg tracking-wider">${parseInt(prod.price).toLocaleString('ar-DZ')} دج</span>
               </div>
-              <button onclick="openProductModal(${prod.id})" class="gold-btn px-4 py-2 text-xs font-black uppercase rounded-xl transition">
+              <button onclick="openProductModal('${prod.id}')" class="gold-btn px-4 py-2 text-xs font-black uppercase rounded-xl transition">
                 طلب اقتناء القطعة
               </button>
             </div>
@@ -953,7 +960,6 @@
       calculateShippingCost();
     }
 
-    // فتح نافذة المنتج وتجهيز المقاسات والألوان ومعرض الصور
     function openProductModal(productId) {
       currentProduct = liveProducts.find(p => p.id == productId);
       if (!currentProduct) return;
@@ -964,7 +970,6 @@
       document.getElementById('modal-old-price').textContent = currentProduct.oldPrice || '';
       document.getElementById('modal-description').textContent = currentProduct.description || '';
 
-      // المقاسات الرقمية كأزرار ذهبية سهلة اللمس
       const prodSizes = (currentProduct.sizes || '38, 40, 42, 44').split(',').map(s => s.trim());
       const sizesBox = document.getElementById('modal-sizes-container');
       document.getElementById('order-size').value = prodSizes[0] || '38';
@@ -974,7 +979,6 @@
         </button>
       `).join('');
 
-      // الألوان كأزرار أنيقة واضحة
       const prodColors = (currentProduct.colors || 'الأسود الملكي').split(',').map(c => c.trim());
       const colorsBox = document.getElementById('modal-colors-container');
       document.getElementById('order-color').value = prodColors[0] || 'الأسود الملكي';
@@ -985,7 +989,6 @@
         </button>
       `).join('');
 
-      // تجهيز الصور
       const imagesList = (currentProduct.images && currentProduct.images.length > 0) ? currentProduct.images : [
         'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=800'
       ];
@@ -1004,7 +1007,7 @@
 
       const modal = document.getElementById('product-modal');
       modal.classList.remove('hidden');
-      modal.scrollTop = 0; // يفتح دائماً من أعلى نقطة في الشاشة
+      modal.scrollTop = 0;
       lucide.createIcons();
     }
 
@@ -1071,7 +1074,6 @@
       document.getElementById('price-total-summary').textContent = `${total.toLocaleString('ar-DZ')} دج`;
     }
 
-    // إتمام الطلب وحفظه في بيانات المتجر وسحابياً + إرسال تيليجرام
     async function handleCustomerOrder(e) {
       e.preventDefault();
 
@@ -1139,11 +1141,8 @@
       };
 
       localStorage.setItem('laperla_last_submit_time', Date.now());
-
-      // 1. الحفظ الداخلي للوحة الإدارة
       saveOrder(orderData);
 
-      // 2. الحفظ السحابي في Supabase
       try {
         await db.from('orders').insert([{
           order_number: orderId,
@@ -1159,7 +1158,6 @@
         console.error("Supabase Save Warning:", err);
       }
 
-      // 3. إرسال الإشعار الفوري سراً إلى تيليجرام
       const telegramMessage = 
         `👑 *طلب جديد فاخر - دار la Pérla* 👑\n\n` +
         `🔖 *رقم الطلبية:* \`${orderId}\`\n` +
@@ -1181,7 +1179,6 @@
 
       fetch(telegramUrl, { method: 'GET', mode: 'no-cors' }).catch(e => console.log(e));
 
-      // 4. إظهار نافذة الشكر الملكية
       closeProductModal();
       document.getElementById('order-form').reset();
       submitBtn.disabled = false;
@@ -1426,8 +1423,13 @@
       }
     }
 
-    function handleSaveProduct(e) {
+    // حفظ المنتج سحابياً في Supabase وتحديث المتجر فوراً للجميع
+    async function handleSaveProduct(e) {
       e.preventDefault();
+      const saveBtn = document.getElementById('save-product-submit-btn');
+      saveBtn.disabled = true;
+      saveBtn.innerText = "جاري النشر السحابي...";
+
       const title = document.getElementById('new-prod-title').value.trim();
       const titleFr = document.getElementById('new-prod-title-fr').value.trim();
       const price = parseInt(document.getElementById('new-prod-price').value) || 0;
@@ -1443,49 +1445,37 @@
         'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=800'
       ];
 
-      if (editingProductId) {
-        const index = liveProducts.findIndex(p => p.id == editingProductId);
-        if (index !== -1) {
-          liveProducts[index] = {
-            ...liveProducts[index],
-            title: title,
-            titleFr: titleFr,
-            price: price,
-            oldPrice: oldPrice,
-            category: category,
-            sizes: sizes,
-            colors: colorsStr,
-            description: desc,
-            images: imagesToSave,
-            isSale: isSale,
-            isBest: isBest
-          };
-          alert("تم حفظ التعديلات على القطعة بنجاح! ✏️");
+      const productPayload = {
+        name: title,
+        title_fr: titleFr,
+        price: price,
+        old_price: oldPrice,
+        category: category,
+        is_sale: isSale,
+        is_best: isBest,
+        sizes: sizes,
+        colors: colorsStr,
+        description: desc,
+        images: imagesToSave,
+        image_url: imagesToSave[0] || ''
+      };
+
+      try {
+        if (editingProductId) {
+          await db.from('products').update(productPayload).eq('id', editingProductId);
+          alert("✅ تم حفظ التعديلات سحابياً بنجاح! ستظهر التعديلات لكل الزوار فوراً.");
+          editingProductId = null;
+        } else {
+          await db.from('products').insert([productPayload]);
+          alert("🎉 تم نشر القطعة الجديدة سحابياً في المتجر! أصبحت معروضة لجميع الزوار الآن.");
         }
-        editingProductId = null;
-      } else {
-        const newProduct = {
-          id: Date.now(),
-          title: title,
-          titleFr: titleFr,
-          price: price,
-          oldPrice: oldPrice,
-          category: category,
-          sizes: sizes,
-          colors: colorsStr,
-          description: desc,
-          images: imagesToSave,
-          isSale: isSale,
-          isBest: isBest
-        };
-        liveProducts.unshift(newProduct);
-        alert("تم نشر القطعة الجديدة في المتجر بنجاح! 🎉");
+      } catch (err) {
+        console.error("Supabase Save Error:", err);
       }
 
-      localStorage.setItem('laperla_custom_products', JSON.stringify(liveProducts));
+      await loadLiveProducts();
       resetProductForm();
-      renderProducts(liveProducts);
-      renderAdminProductsList();
+      saveBtn.disabled = false;
     }
 
     function editProduct(id) {
@@ -1495,7 +1485,7 @@
       editingProductId = prod.id;
       document.getElementById('form-product-mode-title').innerText = `تعديل القطعة: ${prod.title}`;
       document.getElementById('cancel-edit-btn').classList.remove('hidden');
-      document.getElementById('save-product-submit-btn').innerText = "💾 حفظ التعديلات على القطعة";
+      document.getElementById('save-product-submit-btn').innerText = "💾 حفظ التعديلات سحابياً";
 
       document.getElementById('new-prod-title').value = prod.title;
       document.getElementById('new-prod-title-fr').value = prod.titleFr || '';
@@ -1527,7 +1517,7 @@
       editingProductId = null;
       document.getElementById('form-product-mode-title').innerText = "إضافة قطعة جديدة للتشكيلة الفاخرة";
       document.getElementById('cancel-edit-btn').classList.add('hidden');
-      document.getElementById('save-product-submit-btn').innerText = "+ نشر القطعة في المتجر فوراً";
+      document.getElementById('save-product-submit-btn').innerText = "+ نشر القطعة سحابياً لجميع الزبائن";
 
       document.getElementById('new-prod-title').value = '';
       document.getElementById('new-prod-title-fr').value = '';
@@ -1566,14 +1556,14 @@
           </div>
 
           <div class="mt-3 pt-2.5 border-t border-neutral-100 flex flex-col gap-1.5">
-            <button onclick="copyProductAdLink(${p.id})" class="w-full bg-laperla-silk border border-laperla-gold hover:bg-laperla-cream text-laperla-brown py-1.5 px-2 rounded-lg text-[11px] font-black flex items-center justify-center gap-1.5 transition">
+            <button onclick="copyProductAdLink('${p.id}')" class="w-full bg-laperla-silk border border-laperla-gold hover:bg-laperla-cream text-laperla-brown py-1.5 px-2 rounded-lg text-[11px] font-black flex items-center justify-center gap-1.5 transition">
               <i data-lucide="link" class="w-3.5 h-3.5 text-laperla-goldDark"></i> نسخ رابط الإعلان لـ Meta Ads
             </button>
             <div class="flex gap-2">
-              <button onclick="editProduct(${p.id})" class="flex-1 text-emerald-700 hover:text-emerald-900 font-extrabold flex items-center justify-center gap-1 bg-emerald-50 py-1.5 rounded-lg text-xs">
+              <button onclick="editProduct('${p.id}')" class="flex-1 text-emerald-700 hover:text-emerald-900 font-extrabold flex items-center justify-center gap-1 bg-emerald-50 py-1.5 rounded-lg text-xs">
                 <i data-lucide="edit-3" class="w-3.5 h-3.5"></i> تعديل
               </button>
-              <button onclick="deleteProduct(${p.id})" class="flex-1 text-rose-600 hover:text-rose-800 font-extrabold flex items-center justify-center gap-1 bg-rose-50 py-1.5 rounded-lg text-xs">
+              <button onclick="deleteProduct('${p.id}')" class="flex-1 text-rose-600 hover:text-rose-800 font-extrabold flex items-center justify-center gap-1 bg-rose-50 py-1.5 rounded-lg text-xs">
                 <i data-lucide="trash" class="w-3.5 h-3.5"></i> حذف
               </button>
             </div>
@@ -1583,12 +1573,12 @@
       lucide.createIcons();
     }
 
-    function deleteProduct(id) {
-      if (confirm('هل ترغب في إزالة هذه القطعة من المتجر؟')) {
-        liveProducts = liveProducts.filter(p => p.id != id);
-        localStorage.setItem('laperla_custom_products', JSON.stringify(liveProducts));
-        renderProducts(liveProducts);
-        renderAdminProductsList();
+    async function deleteProduct(id) {
+      if (confirm('هل ترغب في إزالة هذه القطعة نهائياً من المتجر السحابي؟')) {
+        try {
+          await db.from('products').delete().eq('id', id);
+        } catch (e) {}
+        await loadLiveProducts();
       }
     }
 
