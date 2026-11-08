@@ -5,7 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>la Pérla | Vente en Gros & Détail</title>
   
-  <!-- الخطوط الرسمية الفاخرة -->
+  <!-- إعدادات تطبيق الهاتف PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#FAF6F0">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(err => console.log('SW setup'));
+      });
+    }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=Cairo:wght@400;600;700;800;900&family=Alex+Brush&display=swap" rel="stylesheet">
@@ -144,6 +154,7 @@
       
       <div class="relative">
         <div class="aspect-[4/5] rounded-3xl overflow-hidden border-2 border-laperla-gold shadow-2xl relative">
+          <!-- الصورة التعبيرية لقصة الدار -->
           <img src="file_00000000fd1c81f49abc48c10bad6193.png" 
                alt="Atelier la Pérla" 
                class="w-full h-full object-cover">
@@ -188,7 +199,7 @@
     </div>
   </section>
 
-  <!-- 3. استعراض التشكيلة (بصوركم الحقيقية المرفوعة 100%) -->
+  <!-- 3. استعراض التشكيلة (مطابقة تامة 100% بين كل صورة ووصفها مع حذف الأسعار نهائياً) -->
   <section id="lookbook" class="py-24 max-w-7xl mx-auto px-6 border-b border-laperla-border">
     <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-4">
       <div class="text-right">
@@ -196,171 +207,165 @@
         <h3 class="text-3xl sm:text-4xl font-serif text-laperla-darkText font-black">تشكيلة إبداعات دار la Pérla الحصرية</h3>
       </div>
       <a href="index.html" class="gold-btn px-6 py-2.5 rounded-full text-xs font-black flex items-center gap-2">
-        <span>الانتقال لشراء القطع</span>
+        <span>الانتقال للبوتيك</span>
         <i data-lucide="arrow-left" class="w-4 h-4"></i>
       </a>
     </div>
 
-    <!-- شبكة عرض القطع الحقيقية التابعة لمشروعك -->
+    <!-- شبكة عرض القطع الحقيقية مع الوصف الدقيق وبدون أي سعر -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
       
-      <!-- القطعة 1: فستان الجينز الماكسي الحقيقي (الصورة الأولى) -->
+      <!-- القطعة 1: طقم أزرق ليل كاجوال شيك (جالسة مع الحقيبة) -->
       <div class="group relative rounded-3xl overflow-hidden border-2 border-laperla-border bg-white shadow-lg flex flex-col justify-between">
         <div class="aspect-[3/4] overflow-hidden bg-neutral-100 relative">
           <img src="file_00000000128481f4b14a0440613fcfb4.png" 
-               alt="فستان جينز ماكسي بحزام" 
+               alt="طقم أزرق ليل كاجوال" 
                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
           <span class="absolute top-3 right-3 bg-laperla-brown text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow">
             الأكثر طلباً ⭐
           </span>
         </div>
-        <div class="p-5 text-right flex flex-col justify-between flex-1">
+        <div class="p-6 text-right flex flex-col justify-between flex-1">
           <div>
-            <span class="text-[10px] text-laperla-goldDark uppercase font-black tracking-widest">Robe Denim Chic</span>
-            <h4 class="font-serif text-base font-black text-neutral-900 mt-1">فستان جينز ماكسي بحزام كلاسيكي</h4>
-            <p class="text-xs text-neutral-500 font-bold mt-1 leading-relaxed">
-              تصميم كلاسيكي مميز بقماش جينز ناعم، أزرار أمامية وحزام أنيق يبرز الخصر بإطلالة انسيابية محتشمة.
+            <span class="text-[10px] text-laperla-goldDark uppercase font-black tracking-widest">Ensemble Oversize Chic</span>
+            <h4 class="font-serif text-lg font-black text-neutral-900 mt-1">طقم أزرق ليل أوفر سايز راقٍ</h4>
+            <p class="text-xs text-neutral-600 font-bold mt-2 leading-relaxed">
+              طقم مريح وعصري متكون من قميص بأكمام واسعة وبنطال فضفاض بقماش جينز صيفي خفيف وأزرار أنيقة، مناسب للإطلالات اليومية والعملية.
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-neutral-100 flex items-center justify-between">
-            <span class="text-sm font-black text-laperla-brown">3,900 دج</span>
-            <a href="index.html" class="text-xs font-black text-laperla-goldDark hover:text-laperla-brown flex items-center gap-1 font-bold">
-              <span>طلب القطعة</span> <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
+          <div class="mt-5 pt-3 border-t border-neutral-100">
+            <a href="index.html" class="gold-btn w-full py-2.5 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 shadow">
+              <span>اقتناء القطعة من البوتيك 🛍️</span>
             </a>
           </div>
         </div>
       </div>
 
-      <!-- القطعة 2: فستان الجينز إطلالة الشارع الحقيقية (الصورة الثانية) -->
+      <!-- القطعة 2: طقم أزرق ليل (واقفة كامل الإطلالة) -->
       <div class="group relative rounded-3xl overflow-hidden border-2 border-laperla-border bg-white shadow-lg flex flex-col justify-between">
         <div class="aspect-[3/4] overflow-hidden bg-neutral-100 relative">
           <img src="file_00000000725c8230b436f78947c90bec.png" 
+               alt="طقم كاجوال شيك فضفاض" 
+               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <span class="absolute top-3 right-3 bg-blue-700 text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow">
+            قصة فضفاضة New
+          </span>
+        </div>
+        <div class="p-6 text-right flex flex-col justify-between flex-1">
+          <div>
+            <span class="text-[10px] text-laperla-goldDark uppercase font-black tracking-widest">Ensemble Bleu Nuit</span>
+            <h4 class="font-serif text-lg font-black text-neutral-900 mt-1">طقم كاجوال شيك بقصة فضفاضة ومريحة</h4>
+            <p class="text-xs text-neutral-600 font-bold mt-2 leading-relaxed">
+              تناغم مثالي بين الراحة والفخامة اليومية، يتميز بقصة انسيابية متناسقة تمنحكِ وقاراً وثقة تامة طوال اليوم.
+            </p>
+          </div>
+          <div class="mt-5 pt-3 border-t border-neutral-100">
+            <a href="index.html" class="gold-btn w-full py-2.5 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 shadow">
+              <span>اقتناء القطعة من البوتيك 🛍️</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- القطعة 3: قفطان كوتور زيتي ملكي مطرز بالذهب (موديل 1) -->
+      <div class="group relative rounded-3xl overflow-hidden border-2 border-laperla-border bg-white shadow-lg flex flex-col justify-between">
+        <div class="aspect-[3/4] overflow-hidden bg-neutral-100 relative">
+          <img src="file_000000007600824681b2f9d378c764aa.png" 
+               alt="قفطان كوتور زيتي مطرز بالذهب" 
+               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <span class="absolute top-3 right-3 bg-emerald-800 text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow">
+            Haute Couture 👑
+          </span>
+        </div>
+        <div class="p-6 text-right flex flex-col justify-between flex-1">
+          <div>
+            <span class="text-[10px] text-laperla-goldDark uppercase font-black tracking-widest">Caftan d'Apparat</span>
+            <h4 class="font-serif text-lg font-black text-neutral-900 mt-1">قفطان كوتور زيتي ملكي مطرز بالذهب</h4>
+            <p class="text-xs text-neutral-600 font-bold mt-2 leading-relaxed">
+              قطعة ملكية ساحرة تجمع بين قماش الكريب الزيتي الفاخر، بطانة حريرية عاجية وتطريز هندسي دقيق مع حزام مذهب راقٍ.
+            </p>
+          </div>
+          <div class="mt-5 pt-3 border-t border-neutral-100">
+            <a href="index.html" class="gold-btn w-full py-2.5 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 shadow">
+              <span>اقتناء القطعة من البوتيك 🛍️</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- القطعة 4: قفطان كوتور زيتي مع تفاصيل التطريز الدقيقة (موديل 2) -->
+      <div class="group relative rounded-3xl overflow-hidden border-2 border-laperla-border bg-white shadow-lg flex flex-col justify-between">
+        <div class="aspect-[3/4] overflow-hidden bg-neutral-100 relative">
+          <img src="file_00000000885c8246880bd3ecff59d10a.png" 
+               alt="قفطان كوتور زيتي بتفاصيل دقيقة" 
+               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <span class="absolute top-3 right-3 bg-emerald-800 text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow">
+            تطريز يدوي فاخر ✨
+          </span>
+        </div>
+        <div class="p-6 text-right flex flex-col justify-between flex-1">
+          <div>
+            <span class="text-[10px] text-laperla-goldDark uppercase font-black tracking-widest">Finitions Haute Couture</span>
+            <h4 class="font-serif text-lg font-black text-neutral-900 mt-1">قفطان كوتور بأدق تفاصيل التطريز اليدوي</h4>
+            <p class="text-xs text-neutral-600 font-bold mt-2 leading-relaxed">
+              إبداع حرفي يعكس فخامة التطريز على الأكمام والصدر وحزام الخصر لإطلالة تقليدية بهية في أرقى السهرات.
+            </p>
+          </div>
+          <div class="mt-5 pt-3 border-t border-neutral-100">
+            <a href="index.html" class="gold-btn w-full py-2.5 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 shadow">
+              <span>اقتناء القطعة من البوتيك 🛍️</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- القطعة 5: فستان جينز طويل بقصة قميص كوتور (إطلالة الحجاب) -->
+      <div class="group relative rounded-3xl overflow-hidden border-2 border-laperla-border bg-white shadow-lg flex flex-col justify-between">
+        <div class="aspect-[3/4] overflow-hidden bg-neutral-100 relative">
+          <img src="file_00000000b21081f4865ccd4e9992526d.png" 
                alt="فستان جينز كوتور محتشم" 
                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
           <span class="absolute top-3 right-3 bg-laperla-goldDark text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow">
             إطلالة الحجاب الراقي ✨
           </span>
         </div>
-        <div class="p-5 text-right flex flex-col justify-between flex-1">
+        <div class="p-6 text-right flex flex-col justify-between flex-1">
           <div>
-            <span class="text-[10px] text-laperla-goldDark uppercase font-black tracking-widest">Robe Longue Denim</span>
-            <h4 class="font-serif text-base font-black text-neutral-900 mt-1">فستان جينز طويل بقصة قميص كوتور</h4>
-            <p class="text-xs text-neutral-500 font-bold mt-1 leading-relaxed">
-              تناسق جذاب يناسب المشاوير اليومية والعملية بقماش ناعم وخياطة احترافية عالية الدقة.
+            <span class="text-[10px] text-laperla-goldDark uppercase font-black tracking-widest">Robe Denim Longue</span>
+            <h4 class="font-serif text-lg font-black text-neutral-900 mt-1">فستان جينز طويل بقصة قميص كوتور</h4>
+            <p class="text-xs text-neutral-600 font-bold mt-2 leading-relaxed">
+              تصميم كلاسيكي مميز بقماش جينز ناعم، أزرار أمامية وحزام كلاسيكي يبرز الخصر بإطلالة انسيابية محتشمة.
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-neutral-100 flex items-center justify-between">
-            <span class="text-sm font-black text-laperla-brown">3,900 دج</span>
-            <a href="index.html" class="text-xs font-black text-laperla-goldDark hover:text-laperla-brown flex items-center gap-1 font-bold">
-              <span>طلب القطعة</span> <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
+          <div class="mt-5 pt-3 border-t border-neutral-100">
+            <a href="index.html" class="gold-btn w-full py-2.5 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 shadow">
+              <span>اقتناء القطعة من البوتيك 🛍️</span>
             </a>
           </div>
         </div>
       </div>
 
-      <!-- القطعة 3: فستان الساتان البرونزي الملكي (الصورة الثالثة) -->
-      <div class="group relative rounded-3xl overflow-hidden border-2 border-laperla-border bg-white shadow-lg flex flex-col justify-between">
-        <div class="aspect-[3/4] overflow-hidden bg-neutral-100 relative">
-          <img src="file_000000007600824681b2f9d378c764aa.png" 
-               alt="فستان ساتان برونزي ملكي" 
-               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-          <span class="absolute top-3 right-3 bg-laperla-brown text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow">
-            Haute Couture 👑
-          </span>
-        </div>
-        <div class="p-5 text-right flex flex-col justify-between flex-1">
-          <div>
-            <span class="text-[10px] text-laperla-goldDark uppercase font-black tracking-widest">Robe Satin Bronze</span>
-            <h4 class="font-serif text-base font-black text-neutral-900 mt-1">فستان ساتان برونزي بأكمام منفوخة</h4>
-            <p class="text-xs text-neutral-500 font-bold mt-1 leading-relaxed">
-              تحفة من الساتان الجاكار الراقي بلون الشوكولا المذهب، أكمام ملكية وحزام خصر متناسق للسهرات.
-            </p>
-          </div>
-          <div class="mt-4 pt-3 border-t border-neutral-100 flex items-center justify-between">
-            <span class="text-sm font-black text-laperla-brown">36,000 دج</span>
-            <a href="index.html" class="text-xs font-black text-laperla-goldDark hover:text-laperla-brown flex items-center gap-1 font-bold">
-              <span>طلب القطعة</span> <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- القطعة 4: طقم أزرق ليل كاجوال شيك (الصورة الرابعة) -->
-      <div class="group relative rounded-3xl overflow-hidden border-2 border-laperla-border bg-white shadow-lg flex flex-col justify-between">
-        <div class="aspect-[3/4] overflow-hidden bg-neutral-100 relative">
-          <img src="file_00000000885c8246880bd3ecff59d10a.png" 
-               alt="طقم أزرق ليل كاجوال" 
-               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-          <span class="absolute top-3 right-3 bg-rose-600 text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow">
-            تخفيض Promo 🔥
-          </span>
-        </div>
-        <div class="p-5 text-right flex flex-col justify-between flex-1">
-          <div>
-            <span class="text-[10px] text-laperla-goldDark uppercase font-black tracking-widest">Ensemble Oversize</span>
-            <h4 class="font-serif text-base font-black text-neutral-900 mt-1">طقم جينز أوفر سايز أزرق ليل</h4>
-            <p class="text-xs text-neutral-500 font-bold mt-1 leading-relaxed">
-              طقم مريح وعصري متكون من قميص بأكمام واسعة وبنطال فضفاض بقماش جينز صيفي خفيف وأزرار أنيقة.
-            </p>
-          </div>
-          <div class="mt-4 pt-3 border-t border-neutral-100 flex items-center justify-between">
-            <span class="text-sm font-black text-laperla-brown">2,500 دج</span>
-            <a href="index.html" class="text-xs font-black text-laperla-goldDark hover:text-laperla-brown flex items-center gap-1 font-bold">
-              <span>طلب القطعة</span> <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- القطعة 5: طقم أزرق ليل كامل بالوقفة (الصورة الخامسة) -->
-      <div class="group relative rounded-3xl overflow-hidden border-2 border-laperla-border bg-white shadow-lg flex flex-col justify-between">
-        <div class="aspect-[3/4] overflow-hidden bg-neutral-100 relative">
-          <img src="file_00000000b21081f4865ccd4e9992526d.png" 
-               alt="طقم جينز كلاسيك" 
-               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-          <span class="absolute top-3 right-3 bg-blue-700 text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow">
-            جديد New
-          </span>
-        </div>
-        <div class="p-5 text-right flex flex-col justify-between flex-1">
-          <div>
-            <span class="text-[10px] text-laperla-goldDark uppercase font-black tracking-widest">Ensemble Chic</span>
-            <h4 class="font-serif text-base font-black text-neutral-900 mt-1">طقم أوفر سايز بقصة انسيابية كاملة</h4>
-            <p class="text-xs text-neutral-500 font-bold mt-1 leading-relaxed">
-              تناغم مثالي بين الراحة والفخامة الكاجوال مع حقيبة يد وحذاء كلاسيكي لإطلالة يومية مبهرة.
-            </p>
-          </div>
-          <div class="mt-4 pt-3 border-t border-neutral-100 flex items-center justify-between">
-            <span class="text-sm font-black text-laperla-brown">2,500 دج</span>
-            <a href="index.html" class="text-xs font-black text-laperla-goldDark hover:text-laperla-brown flex items-center gap-1 font-bold">
-              <span>طلب القطعة</span> <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- القطعة 6: قفطان كوتور زيتي ملكي مطرز بالذهب (الصورة السادسة) -->
+      <!-- القطعة 6: فستان الساتان البرونزي الملكي بأكمام منفوخة -->
       <div class="group relative rounded-3xl overflow-hidden border-2 border-laperla-border bg-white shadow-lg flex flex-col justify-between">
         <div class="aspect-[3/4] overflow-hidden bg-neutral-100 relative">
           <img src="file_00000000ef8081f480c83efafe065a48.png" 
-               alt="قفطان كوتور زيتي مطرز بالذهب" 
+               alt="فستان ساتان برونزي ملكي" 
                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-          <span class="absolute top-3 right-3 bg-emerald-800 text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow">
-            تطريز يدوي فاخر ✨
+          <span class="absolute top-3 right-3 bg-laperla-brown text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow">
+            Robe de Soirée 💎
           </span>
         </div>
-        <div class="p-5 text-right flex flex-col justify-between flex-1">
+        <div class="p-6 text-right flex flex-col justify-between flex-1">
           <div>
-            <span class="text-[10px] text-laperla-goldDark uppercase font-black tracking-widest">Caftan d'Apparat</span>
-            <h4 class="font-serif text-base font-black text-neutral-900 mt-1">قفطان كوتور زيتي مطرز بالذهب</h4>
-            <p class="text-xs text-neutral-500 font-bold mt-1 leading-relaxed">
-              قطعة أثرية ملكية تجمع بين قماش الكريب الزيتي الفاخر، تفاصيل التطريز الدقيق، وحزام مذهب راقٍ.
+            <span class="text-[10px] text-laperla-goldDark uppercase font-black tracking-widest">Robe Satin Bronze</span>
+            <h4 class="font-serif text-lg font-black text-neutral-900 mt-1">فستان ساتان برونزي بأكمام منفوخة</h4>
+            <p class="text-xs text-neutral-600 font-bold mt-2 leading-relaxed">
+              تحفة من الساتان الجاكار الراقي بلون الشوكولا المذهب، أكمام منفوخة ملكية وحزام خصر متناسق للسهرات الراقية.
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-neutral-100 flex items-center justify-between">
-            <span class="text-sm font-black text-laperla-brown">54,000 دج</span>
-            <a href="index.html" class="text-xs font-black text-laperla-goldDark hover:text-laperla-brown flex items-center gap-1 font-bold">
-              <span>طلب القطعة</span> <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
+          <div class="mt-5 pt-3 border-t border-neutral-100">
+            <a href="index.html" class="gold-btn w-full py-2.5 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 shadow">
+              <span>اقتناء القطعة من البوتيك 🛍️</span>
             </a>
           </div>
         </div>
@@ -369,7 +374,7 @@
     </div>
   </section>
 
-  <!-- 4. فضاء البيع بالجملة والتجزئة (Vente en Gros & Détail) -->
+  <!-- 4. فضاء البيع بالجملة والتجزئة (بدون ذكر العرائس وبدون أسعار) -->
   <section id="wholesale" class="py-24 max-w-5xl mx-auto px-6 text-center">
     <div class="bg-white border-2 border-laperla-gold p-8 sm:p-14 rounded-3xl shadow-2xl space-y-6">
       
@@ -394,7 +399,7 @@
         <div class="bg-laperla-silk/60 p-4 rounded-2xl border border-laperla-border">
           <span class="text-lg block mb-1">📦</span>
           <h5 class="font-black text-laperla-brown mb-0.5">أسعار جملة تفضيلية</h5>
-          <p class="text-[11px] text-neutral-500">تخفيضات خاصة للكميات الموجهة لأصحاب البوتيكات.</p>
+          <p class="text-[11px] text-neutral-500">تخفيضات خاصة للكميات الموجهة لأصحاب البوتيكات والمحلات.</p>
         </div>
         <div class="bg-laperla-silk/60 p-4 rounded-2xl border border-laperla-border">
           <span class="text-lg block mb-1">🚚</span>
@@ -421,7 +426,7 @@
     </div>
   </section>
 
-  <!-- 5. آراء وانطباعات زبونات دار la Pérla (Témoignages Clients) -->
+  <!-- 5. آراء وانطباعات زبونات دار la Pérla الوفيات (Témoignages Clients) -->
   <section id="reviews" class="py-24 bg-laperla-silk/60 border-t-2 border-laperla-border">
     <div class="max-w-6xl mx-auto px-6">
       <div class="text-center max-w-lg mx-auto mb-16">
