@@ -102,7 +102,7 @@
     const db = supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_KEY);
   </script>
 
-  <!-- شريط التحكم العائم الخاص بالمدير -->
+  <!-- شريط التحكم العائم للمدير (مخفي تماماً ولا يظهر لأي زبون) -->
   <div id="admin-floating-switch" class="hidden fixed bottom-6 left-6 z-50 bg-white border-2 border-laperla-gold p-3 shadow-2xl flex items-center gap-3 rounded-2xl">
     <div class="flex items-center gap-2 px-2 border-l border-neutral-200">
       <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -112,21 +112,26 @@
       <i data-lucide="repeat" class="w-4 h-4"></i>
       <span id="switch-btn-text">التبديل إلى واجهة الزائر</span>
     </button>
-    <button onclick="logoutAdmin()" title="خروج المدير" class="text-neutral-400 hover:text-rose-600 p-1">
+    <button onclick="logoutAdmin()" title="تسجيل خروج نهائي" class="text-neutral-400 hover:text-rose-600 p-1">
       <i data-lucide="log-out" class="w-4 h-4"></i>
     </button>
   </div>
 
-  <!-- الشريط الإعلاني العلوي + التواصل الاجتماعي -->
+  <!-- الشريط الإعلاني العلوي + أيقونات السوشيال ميديا الحقيقية المضمونة الظهور -->
   <div class="bg-laperla-silk border-b border-laperla-border py-2 px-6 text-xs flex flex-wrap justify-between items-center text-laperla-darkText font-bold gap-3">
     <div class="flex items-center gap-4">
-      <a href="https://www.instagram.com/la_perla2027?exln=MXc3MXhnaTZmZmF5Ng==" target="_blank" class="hover:text-laperla-goldDark transition flex items-center gap-1.5">
-        <i data-lucide="instagram" class="w-4 h-4 text-laperla-goldDark"></i> <span>Instagram</span>
+      <!-- إنستغرام SVG مضمون -->
+      <a href="https://www.instagram.com/la_perla2027?exln=MXc3MXhnaTZmZmF5Ng==" target="_blank" class="hover:text-laperla-goldDark transition flex items-center gap-1.5 font-bold">
+        <svg class="w-4 h-4 fill-current text-laperla-goldDark" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        <span>Instagram</span>
       </a>
-      <a href="https://www.facebook.com/share/1E3YfXJyKX/" target="_blank" class="hover:text-laperla-goldDark transition flex items-center gap-1.5">
-        <i data-lucide="facebook" class="w-4 h-4 text-laperla-goldDark"></i> <span>Facebook</span>
+      <!-- فيسبوك SVG مضمون -->
+      <a href="https://www.facebook.com/share/1E3YfXJyKX/" target="_blank" class="hover:text-laperla-goldDark transition flex items-center gap-1.5 font-bold">
+        <svg class="w-4 h-4 fill-current text-laperla-goldDark" viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.5 5H18V0h-3.808C10.595 0 9 1.583 9 4.615V8z"/></svg>
+        <span>Facebook</span>
       </a>
-      <a href="https://www.tiktok.com/@_perla102" target="_blank" class="hover:text-laperla-goldDark transition flex items-center gap-1.5">
+      <!-- تيك توك SVG مضمون -->
+      <a href="https://www.tiktok.com/@_perla102" target="_blank" class="hover:text-laperla-goldDark transition flex items-center gap-1.5 font-bold">
         <svg class="w-4 h-4 fill-current text-laperla-goldDark" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.24 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg> 
         <span>TikTok</span>
       </a>
@@ -137,7 +142,7 @@
     </div>
   </div>
 
-  <!-- الهيدر الرسمي -->
+  <!-- الهيدر الرسمي للمتجر -->
   <header class="sticky top-0 z-40 bg-laperla-cream/95 backdrop-blur-md border-b border-laperla-border shadow-sm">
     <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
       <nav class="hidden md:flex items-center gap-8 text-sm uppercase tracking-wider text-laperla-darkText font-extrabold">
@@ -146,7 +151,7 @@
         <a href="#reviews" class="hover:text-laperla-goldDark transition">آراء الزبائن • Avis</a>
       </nav>
 
-      <!-- شعار المتجر (5 نقرات سريعة تفتح الدخول السري للمدير) -->
+      <!-- شعار المتجر (5 نقرات سريعة تفتح الدخول السري للمدير فريد) -->
       <div class="text-center cursor-pointer select-none py-1" onclick="handleSecretLogoClicks()">
         <h1 class="text-3xl md:text-4xl font-serif font-black text-laperla-brown tracking-wider">
           la Pérla
@@ -251,94 +256,55 @@
     </section>
   </main>
 
-  <!-- ================= نافذة حجز القطعة مع معرض الـ 8 صور والشرح الملكي ================= -->
-  <div id="product-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 overflow-y-auto">
-    <div class="fixed inset-0 bg-black/60 backdrop-blur-sm" onclick="closeProductModal()"></div>
-
-    <div class="relative bg-white border-2 border-laperla-gold rounded-3xl w-full max-w-5xl max-h-[94vh] overflow-y-auto z-10 flex flex-col md:flex-row shadow-2xl my-auto">
+  <!-- ================= نافذة الحجز المصححة بالكامل (مع التمرير السلس للنموذج) ================= -->
+  <div id="product-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-2 sm:p-4 bg-black/75 backdrop-blur-sm overflow-y-auto">
+    <div class="relative bg-white border-2 border-laperla-gold rounded-3xl w-full max-w-3xl my-6 p-4 sm:p-7 shadow-2xl overflow-hidden">
       
-      <button onclick="closeProductModal()" class="absolute top-4 left-4 z-20 text-neutral-500 hover:text-black bg-white/90 p-2 rounded-full shadow">
+      <!-- زر إغلاق النافذة -->
+      <button onclick="closeProductModal()" class="absolute top-4 left-4 z-20 text-neutral-500 hover:text-black bg-white/90 p-2 rounded-full shadow border border-neutral-200">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
-      <!-- معرض صور المنتج (حتى 8 صور) وتفاصيل القطعة -->
-      <div class="w-full md:w-1/2 p-6 bg-laperla-silk/40 flex flex-col justify-between border-b md:border-b-0 md:border-l-2 border-laperla-border">
-        <div>
-          <h2 id="modal-title" class="text-2xl font-black text-laperla-darkText mb-3"></h2>
-
-          <div class="aspect-[3/4] overflow-hidden rounded-2xl border-2 border-laperla-border mb-3 relative bg-neutral-100 shadow-md">
-            <img id="modal-main-image" src="" alt="صورة الفستان" class="w-full h-full object-cover transition-all duration-300">
-            <span id="modal-photo-counter" class="absolute bottom-3 left-3 bg-black/70 text-white text-[10px] font-bold px-2.5 py-1 rounded-full backdrop-blur-xs"></span>
-          </div>
-
-          <!-- مصغرات الصور الـ 8 لمعاينتها بلمسة واحدة -->
-          <div class="text-[11px] font-black text-neutral-700 mb-1.5 flex items-center justify-between">
-            <span>معرض صور القطعة (اضغطي للتكبير والمعاينة):</span>
-            <span class="text-neutral-400 font-normal text-[10px]">حتى 8 زوايا</span>
-          </div>
-          <div id="modal-thumbnails" class="grid grid-cols-4 sm:grid-cols-8 gap-1.5 mb-4"></div>
-
-          <div class="flex items-baseline gap-3 mb-3 bg-white p-3 rounded-xl border border-laperla-border">
-            <span class="text-xs text-neutral-500 font-bold">السعر المخفض:</span>
-            <span id="modal-price" class="text-2xl font-black text-laperla-brown"></span>
-            <span id="modal-old-price" class="text-sm text-neutral-400 line-through font-bold"></span>
-          </div>
-        </div>
-
-        <div class="border-t border-laperla-border pt-3">
-          <h5 class="text-xs font-black text-laperla-goldDark mb-1">وصف وخامة القطعة:</h5>
-          <p id="modal-description" class="text-xs text-neutral-700 leading-relaxed font-bold"></p>
+      <!-- رأس النافذة: اسم القطعة والسعر -->
+      <div class="text-center pb-3 border-b border-neutral-200 pr-8">
+        <h2 id="modal-title" class="text-2xl sm:text-3xl font-black text-laperla-darkText"></h2>
+        <div class="flex items-center justify-center gap-3 mt-1.5">
+          <span class="text-xs text-neutral-500 font-bold">السعر المخفض:</span>
+          <span id="modal-price" class="text-2xl font-black text-laperla-brown"></span>
+          <span id="modal-old-price" class="text-sm text-neutral-400 line-through font-bold"></span>
         </div>
       </div>
 
-      <!-- استمارة الطلب + الشرح الملكي للتوصيل والمعاينة + لقطات آراء الزبائن -->
-      <div class="w-full md:w-1/2 p-6 bg-white flex flex-col justify-between overflow-y-auto">
+      <div class="mt-4 space-y-6">
+        
+        <!-- معرض الصور (حتى 8 صور) -->
         <div>
-          <div class="border-b border-neutral-200 pb-2 mb-4">
-            <h3 class="text-lg font-black text-laperla-brown">Commande • تأكيد حجز الطلبية</h3>
-            <p class="text-xs text-neutral-500 font-bold">الدفع نقداً عند استلام ومعاينة الفستان</p>
+          <div class="aspect-[3/4] sm:aspect-[16/11] max-h-[380px] w-full overflow-hidden rounded-2xl border-2 border-laperla-border relative bg-neutral-100 shadow-md mx-auto">
+            <img id="modal-main-image" src="" alt="صورة الفستان" class="w-full h-full object-cover object-top transition-all duration-300">
+            <span id="modal-photo-counter" class="absolute bottom-3 left-3 bg-black/75 text-white text-[11px] font-bold px-3 py-1 rounded-full backdrop-blur-xs"></span>
           </div>
 
-          <!-- بطاقة الشرح والتوصيل الملكية لزيادة ثقة الزبونة -->
-          <div class="bg-laperla-silk/60 border border-laperla-border rounded-2xl p-4 mb-4 text-xs font-bold text-neutral-800 space-y-2.5 shadow-xs">
-            <div class="text-center pb-2 border-b border-laperla-border/70">
-              <span class="text-sm font-black text-laperla-brown block">🤍 مرحباً بكِ في La PÉRLA</span>
-              <p class="text-[11px] text-neutral-600 mt-1 leading-relaxed">
-                تسوقكِ معنا ليس مجرد طلب منتج، بل تجربة نهتم فيها بأدق التفاصيل لنكسب رضاكِ وثقتكِ.
-              </p>
-            </div>
+          <div class="text-[11px] font-black text-neutral-700 mt-3 mb-1.5 flex items-center justify-between">
+            <span>معرض صور القطعة (اضغطي على أي صورة للمعاينة):</span>
+            <span class="text-neutral-400 font-normal text-[10px]">حتى 8 زوايا</span>
+          </div>
+          <div id="modal-thumbnails" class="grid grid-cols-4 sm:grid-cols-8 gap-2"></div>
+        </div>
 
-            <div class="space-y-2 text-[11px] pt-1">
-              <div class="flex items-start gap-2">
-                <span class="text-sm">🛍️</span>
-                <div><strong class="text-neutral-900">1. تأكيد الطلب:</strong> املئي معلوماتكِ واختاري المقاس واللون المناسب، وسنتكفل بالباقي.</div>
-              </div>
-              <div class="flex items-start gap-2">
-                <span class="text-sm">🎁</span>
-                <div><strong class="text-neutral-900">2. تغليف احترافي:</strong> نحضّر طلبكِ بعناية ونغلفه بطريقة أنيقة تليق بكِ وبعلامتنا التجارية.</div>
-              </div>
-              <div class="flex items-start gap-2">
-                <span class="text-sm">🚚</span>
-                <div><strong class="text-neutral-900">3. شحن سريع:</strong> نعمل على إرسال طلبكِ في أسرع وقت، مع مدة توصيل تتراوح عادةً بين 24 و48 ساعة.</div>
-              </div>
-              <div class="flex items-start gap-2">
-                <span class="text-sm">👗</span>
-                <div><strong class="text-neutral-900">4. معاينة قبل الدفع:</strong> من حقكِ معاينة المنتج مع عامل التوصيل قبل الدفع للتأكد براحة واطمئنان.</div>
-              </div>
-              <div class="flex items-start gap-2">
-                <span class="text-sm">💵</span>
-                <div><strong class="text-neutral-900">5. الدفع عند الاستلام:</strong> لا حاجة للدفع مسبقاً، ادفعي فقط عند وصول طلبكِ.</div>
-              </div>
-            </div>
+        <!-- وصف وخامة القطعة -->
+        <div class="bg-laperla-silk/50 p-3.5 rounded-2xl border border-laperla-border">
+          <h5 class="text-xs font-black text-laperla-goldDark mb-1">وصف وخامة القطعة:</h5>
+          <p id="modal-description" class="text-xs text-neutral-800 leading-relaxed font-bold"></p>
+        </div>
 
-            <div class="pt-2 border-t border-laperla-border/70 text-[10px] text-neutral-600 text-center">
-              <span class="text-rose-700 font-black block">❤️ وعد La PÉRLA لكِ:</span>
-              هدفنا الأول هو إرضاؤكِ وبناء علاقة ثقة تدوم طويلاً. شكراً لاختياركِ دارنا الفاخرة.
-            </div>
+        <!-- استمارة تأكيد حجز الطلبية (في مكانها البارز والواضح دون أي قص) -->
+        <div class="bg-white border-2 border-laperla-gold/60 p-4 sm:p-5 rounded-3xl shadow-sm">
+          <div class="border-b border-neutral-200 pb-2 mb-4 text-center">
+            <h3 class="text-lg font-black text-laperla-brown">استمارة الحجز الفوري • Commande</h3>
+            <p class="text-xs text-neutral-500 font-bold">املئي معلوماتكِ وسيتصل بكِ فريقنا لتأكيد التوصيل</p>
           </div>
 
-          <!-- استمارة الحجز -->
-          <form id="order-form" onsubmit="handleCustomerOrder(event)" class="space-y-3 text-xs font-bold">
+          <form id="order-form" onsubmit="handleCustomerOrder(event)" class="space-y-3.5 text-xs font-bold">
             <input type="text" id="bot-trap-field" name="website_url_check" style="display:none !important; position:absolute; left:-9999px;" tabindex="-1" autocomplete="off">
 
             <div class="grid grid-cols-2 gap-3">
@@ -393,6 +359,7 @@
               </div>
             </div>
 
+            <!-- ملخص الفاتورة التلقائي -->
             <div class="bg-laperla-silk p-3.5 rounded-xl border border-laperla-border space-y-1.5 font-bold">
               <div class="flex justify-between text-neutral-600">
                 <span>سعر القطعة (Prix):</span>
@@ -403,39 +370,58 @@
                 <span id="price-shipping-summary">0 دج</span>
               </div>
               <div class="flex justify-between text-laperla-brown font-black text-base pt-2 border-t border-laperla-border">
-                <span>المجموع الكلي (Total):</span>
+                <span>المجموع الكلي الواجب دفعه:</span>
                 <span id="price-total-summary">0 دج</span>
               </div>
             </div>
 
-            <button type="submit" id="submit-order-btn" class="gold-btn w-full py-4 text-sm font-black uppercase tracking-wider rounded-xl transition shadow-lg flex items-center justify-center gap-2">
+            <!-- زر التأكيد الكبير والبارز -->
+            <button type="submit" id="submit-order-btn" class="gold-btn w-full py-4 text-base font-black uppercase tracking-wider rounded-2xl transition shadow-xl flex items-center justify-center gap-2">
               <i data-lucide="check-circle" class="w-5 h-5"></i> تأكيد حجز الطلبية الآن (الدفع عند الاستلام)
             </button>
           </form>
+        </div>
 
-          <!-- صور ولقطات آراء الزبائن بالصور (Social Proof) -->
-          <div class="mt-6 pt-4 border-t border-neutral-200">
-            <h5 class="text-xs font-black text-laperla-brown mb-2 text-center">📸 تجارب حقيقية لزبونات دار La PÉRLA</h5>
-            <div class="grid grid-cols-3 gap-2">
-              <div class="border border-laperla-border rounded-xl p-2 bg-laperla-silk/40 text-center">
-                <span class="text-amber-500 text-[10px] block">★★★★★</span>
-                <p class="text-[9px] text-neutral-600 line-clamp-2 mt-1">"الفستان وصلني في 24 ساعة تحفة فنية!"</p>
-                <span class="text-[8px] text-neutral-400 block mt-0.5">أمينة • الجزائر</span>
-              </div>
-              <div class="border-laperla-border border rounded-xl p-2 bg-laperla-silk/40 text-center">
-                <span class="text-amber-500 text-[10px] block">★★★★★</span>
-                <p class="text-[9px] text-neutral-600 line-clamp-2 mt-1">"المعاينة قبل الدفع ميزة رائعة جداً"</p>
-                <span class="text-[8px] text-neutral-400 block mt-0.5">دليلة • وهران</span>
-              </div>
-              <div class="border-laperla-border border rounded-xl p-2 bg-laperla-silk/40 text-center">
-                <span class="text-amber-500 text-[10px] block">★★★★★</span>
-                <p class="text-[9px] text-neutral-600 line-clamp-2 mt-1">"خياطة وقماش توب يعطيك الصحة"</p>
-                <span class="text-[8px] text-neutral-400 block mt-0.5">ليلى • قسنطينة</span>
-              </div>
+        <!-- الشرح الملكي الشامل للتوصيل والمعاينة ووعد La PÉRLA -->
+        <div class="bg-laperla-silk/70 border border-laperla-border rounded-3xl p-5 text-xs font-bold text-neutral-800 space-y-3 shadow-xs">
+          <div class="text-center pb-2.5 border-b border-laperla-border">
+            <span class="text-base font-black text-laperla-brown block">🤍 مرحباً بكِ في La PÉRLA</span>
+            <p class="text-xs text-neutral-600 mt-1 leading-relaxed">
+              تسوقكِ معنا ليس مجرد طلب منتج، بل تجربة نهتم فيها بأدق التفاصيل لنكسب رضاكِ وثقتكِ.
+            </p>
+          </div>
+
+          <div class="space-y-2.5 text-xs pt-1">
+            <div class="flex items-start gap-2.5">
+              <span class="text-base">🛍️</span>
+              <div><strong class="text-neutral-900">1. تأكيد الطلب:</strong> املئي معلوماتكِ واختاري المقاس واللون المناسب، وسنتكفل بالباقي.</div>
+            </div>
+            <div class="flex items-start gap-2.5">
+              <span class="text-base">🎁</span>
+              <div><strong class="text-neutral-900">2. تغليف احترافي:</strong> نحضّر طلبكِ بعناية ونغلفه بطريقة أنيقة تليق بكِ وبعلامتنا التجارية.</div>
+            </div>
+            <div class="flex items-start gap-2.5">
+              <span class="text-base">🚚</span>
+              <div><strong class="text-neutral-900">3. شحن سريع:</strong> نعمل على إرسال طلبكِ في أسرع وقت، مع مدة توصيل تتراوح عادةً بين 24 و48 ساعة، وقد تختلف بالنسبة للولايات البعيدة.</div>
+            </div>
+            <div class="flex items-start gap-2.5">
+              <span class="text-base">👗</span>
+              <div><strong class="text-neutral-900">4. معاينة قبل الدفع:</strong> من حقكِ معاينة المنتج مع عامل التوصيل قبل الدفع، حتى تتأكدي من طلبكِ بكل راحة واطمئنان.</div>
+            </div>
+            <div class="flex items-start gap-2.5">
+              <span class="text-base">💵</span>
+              <div><strong class="text-neutral-900">5. الدفع عند الاستلام:</strong> لا حاجة للدفع مسبقاً، ادفعي فقط عند وصول طلبكِ.</div>
             </div>
           </div>
 
+          <div class="pt-3 border-t border-laperla-border text-xs text-neutral-700 text-center space-y-1">
+            <span class="text-rose-700 font-black block text-sm">❤️ وعد La PÉRLA لكِ</span>
+            <p>هدفنا الأول ليس مجرد بيع قطعة ملابس، بل إرضاؤكِ وبناء علاقة ثقة تدوم طويلاً.</p>
+            <p>ثقتكِ هي أجمل ما يمكن أن نحصل عليه، ورضاكِ هو نجاحنا الحقيقي.</p>
+            <span class="text-laperla-goldDark font-black block pt-1">شكراً لاختياركِ La PÉRLA.</span>
+          </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -554,7 +540,7 @@
               <input type="text" id="new-prod-old-price" placeholder="مثال: 55,000 دج" class="w-full bg-laperla-cream border border-laperla-border p-2.5 rounded-xl outline-none font-bold">
             </div>
 
-            <!-- 1. قائمة التصنيفات الكاملة المطابقة للمتجر -->
+            <!-- قائمة التصنيفات الكاملة -->
             <div>
               <label class="block text-neutral-700 mb-1">التصنيف الأساسي للمنتج *</label>
               <select id="new-prod-category" class="w-full bg-laperla-cream border border-laperla-border p-2.5 rounded-xl outline-none font-bold">
@@ -565,7 +551,6 @@
               </select>
             </div>
 
-            <!-- خيارات ظهور إضافية في التخفيضات أو الأكثر مبيعاً -->
             <div class="flex items-center gap-4 pt-4">
               <label class="flex items-center gap-1.5 cursor-pointer">
                 <input type="checkbox" id="new-prod-is-sale" class="accent-rose-600 w-4 h-4">
@@ -606,7 +591,7 @@
               <input type="text" id="new-prod-colors" required placeholder="مثال: الأسود الملكي, عنابي فاخر" class="w-full bg-laperla-cream border border-laperla-border p-2.5 rounded-xl outline-none font-bold">
             </div>
 
-            <!-- 2. تحميل حتى 8 صور من الهاتف مع المعاينة والضغط التلقائي -->
+            <!-- تحميل حتى 8 صور من الهاتف مع المعاينة والضغط التلقائي -->
             <div class="md:col-span-3 border-2 border-dashed border-laperla-border p-4 rounded-2xl bg-laperla-silk/30 space-y-3">
               <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                 <div>
@@ -617,8 +602,6 @@
               </div>
               
               <input type="file" id="new-prod-files" accept="image/*" multiple onchange="handleMultipleImagesUpload(event)" class="w-full bg-white border border-neutral-300 p-2 rounded-xl text-xs cursor-pointer font-bold">
-
-              <!-- شبكة المعاينة للـ 8 صور -->
               <div id="multi-images-preview-grid" class="grid grid-cols-4 sm:grid-cols-8 gap-2 pt-2"></div>
             </div>
 
@@ -775,7 +758,7 @@
     let logoClicks = 0;
     let logoTimer = null;
     let editingProductId = null;
-    let currentUploadedImages = []; // مصفوفة لتخزين حتى 8 صور
+    let currentUploadedImages = [];
 
     window.addEventListener('DOMContentLoaded', async () => {
       populateWilayas();
@@ -1037,7 +1020,6 @@
       modal.classList.remove('flex');
     }
 
-    // 2. عرض معرض الصور الـ 8 في المودال
     function renderModalImageGallery(images, activeIndex) {
       selectedImageIndex = activeIndex;
       const mainImg = document.getElementById('modal-main-image');
@@ -1218,7 +1200,6 @@
       renderOrdersInDashboard();
     }
 
-    // جلب الطلبات ودمجها مع Supabase
     async function loadOrders() {
       let localOrders = JSON.parse(localStorage.getItem('laperla_orders') || '[]');
       try {
@@ -1354,7 +1335,6 @@
       }
     }
 
-    // 2. ضغط حتى 8 صور من الهاتف عبر Canvas
     function compressImageFile(file, maxWidth = 800, quality = 0.75) {
       return new Promise((resolve) => {
         const reader = new FileReader();
@@ -1380,7 +1360,6 @@
       });
     }
 
-    // 2. رفع حتى 8 صور للقطعة
     async function handleMultipleImagesUpload(e) {
       const files = Array.from(e.target.files);
       if (!files || files.length === 0) return;
@@ -1438,7 +1417,6 @@
       }
     }
 
-    // حفظ المنتج (إضافة جديد أو تعديل مع الـ 8 صور وكل التصنيفات)
     function handleSaveProduct(e) {
       e.preventDefault();
       const title = document.getElementById('new-prod-title').value.trim();
@@ -1520,7 +1498,6 @@
       document.getElementById('new-prod-desc').value = prod.description || '';
       document.getElementById('new-prod-colors').value = prod.colors || '';
 
-      // المقاسات
       document.getElementById('new-prod-sizes').value = prod.sizes || '';
       const prodSizesArr = (prod.sizes || '').split(',').map(s => s.trim());
       document.querySelectorAll('#admin-size-options .size-badge').forEach(b => {
@@ -1531,7 +1508,6 @@
         }
       });
 
-      // الصور الـ 8
       currentUploadedImages = prod.images ? [...prod.images] : [];
       renderUploadedImagesGrid();
 
