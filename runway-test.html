@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>La PÉRLA | 3D Runway Test Lab (Phase 1)</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #050507;
+      color: #FAF6F0;
+      font-family: 'Cairo', sans-serif;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .font-brand {
+      font-family: 'Cinzel', serif;
+      letter-spacing: 0.18em;
+    }
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #F9E7B9 0%, #D4AF37 50%, #AA771C 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .glass-panel {
+      background: rgba(12, 12, 16, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+    }
+    canvas {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+
+  <!-- Three.js ES Module Import Map -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <!-- WebGL Render Canvas -->
+  <canvas id="runway-canvas"></canvas>
+
+  <!-- Top Status Banner -->
+  <header class="fixed top-4 inset-x-4 sm:inset-x-8 flex justify-between items-center pointer-events-none z-20">
+    <div class="glass-panel px-4 py-2 rounded-2xl pointer-events-auto flex items-center gap-3">
+      <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></div>
+      <div>
+        <h1 class="text-xs font-brand gold-gradient-text font-black">LA PÉRLA HAUTE COUTURE</h1>
+        <p class="text-[10px] text-neutral-400">3D Runway Simulation • Phase 1 Isolated Test</p>
+      </div>
+    </div>
+
+    <!-- Active Camera & FPS Readout -->
+    <div class="glass-panel px-3 py-1.5 rounded-xl pointer-events-auto text-[11px] font-mono text-amber-300/80">
+      <span id="fps-counter">60 FPS</span> • <span id="camera-name">Front Track</span>
+    </div>
+  </header>
+
+  <!-- Bottom Interactive Floating Deck -->
+  <footer class="fixed bottom-4 sm:bottom-6 inset-x-4 sm:inset-x-8 flex flex-col sm:flex-row justify-between items-center gap-3 z-20 pointer-events-none">
+    
+    <!-- Camera View Selectors -->
+    <div class="glass-panel p-1.5 rounded-2xl pointer-events-auto flex items-center gap-1.5">
+      <button onclick="setCameraView('track')" id="btn-cam-track" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#D4AF37] text-black transition">
+        🎥 Catwalk Follow
+      </button>
+      <button onclick="setCameraView('low')" id="btn-cam-low" class="px-3.5 py-1.5 rounded-xl text-xs font-bold text-neutral-300 hover:text-white transition">
+        📐 Low Editorial
+      </button>
+      <button onclick="setCameraView('orbit')" id="btn-cam-orbit" class="px-3.5 py-1.5 rounded-xl text-xs font-bold text-neutral-300 hover:text-white transition">
+        🔄 360° Orbit
+      </button>
+    </div>
+
+    <!-- Dress Color & Light Controls -->
+    <div class="glass-panel p-2 rounded-2xl pointer-events-auto flex items-center gap-2 text-xs">
+      <span class="text-neutral-400 text-[11px] font-bold px-1">Dress Fabric:</span>
+      <button onclick="changeDressColor(0x1A2B4C)" class="w-6 h-6 rounded-full bg-[#1A2B4C] border border-amber-400/50 hover:scale-110 transition shadow" title="Royal Denim Blue"></button>
+      <button onclick="changeDressColor(0x6A381F)" class="w-6 h-6 rounded-full bg-[#6A381F] border border-amber-400/50 hover:scale-110 transition shadow" title="Bronze Satin"></button>
+      <button onclick="changeDressColor(0x1F3A2B)" class="w-6 h-6 rounded-full bg-[#1F3A2B] border border-amber-400/50 hover:scale-110 transition shadow" title="Olive Emerald Caftan"></button>
+      <button onclick="changeDressColor(0x0E0E10)" class="w-6 h-6 rounded-full bg-[#0E0E10] border border-amber-400/50 hover:scale-110 transition shadow" title="Imperial Black"></button>
+    </div>
+
+    <!-- Custom GLB Model Drop-in Tool -->
+    <div class="glass-panel px-3 py-2 rounded-2xl pointer-events-auto flex items-center gap-2 text-xs">
+      <label class="cursor-pointer text-amber-300 hover:text-amber-200 text-[11px] font-bold flex items-center gap-1.5">
+        <span>📁 Load Custom .GLB</span>
+        <input type="file" id="glb-file-input" accept=".glb,.gltf" class="hidden">
+      </label>
+    </div>
+
+  </footer>
+
+  <!-- 3D Engine Script -->
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+    // Global Scene Holders
+    let scene, camera, renderer, controls;
+    let clock = new THREE.Clock();
+    let currentCameraMode = 'track';
+
+    // Model & Animation References
+    let modelGroup, dressMesh;
+    let rightLeg, leftLeg, rightArm, leftArm, torso, head;
+    let customMixer = null;
+
+    // Lighting Elements
+    let followSpotLight, followSpotLightTarget;
+    let particles;
+
+    init();
+    animate();
+
+    function init() {
+      const canvas = document.getElementById('runway-canvas');
+      
+      // 1. Scene Setup
+      scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x060608);
+      scene.fog = new THREE.FogExp2(0x060608, 0.035);
+
+      // 2. Camera Setup
+      camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 150);
+      camera.position.set(0, 2.4, 7.5);
+
+      // 3. WebGL Renderer
+      renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.15;
+
+      // 4. Orbit Controls (Enabled in Orbit Mode)
+      controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+      controls.maxPolarAngle = Math.PI / 2 + 0.02; // Don't clip beneath floor
+      controls.minDistance = 2.0;
+      controls.maxDistance = 14.0;
+      controls.enabled = false;
+
+      // 5. Environment & Lights
+      setupLighting();
+      buildRunwayStage();
+      createGoldDriftingParticles();
+
+      // 6. Character Rig Construction
+      buildProceduralFashionModel();
+
+      // 7. Event Listeners
+      window.addEventListener('resize', onWindowResize);
+      setupFileInput();
+    }
+
+    function setupLighting() {
+      // Ambient Base
+      const ambient = new THREE.AmbientLight(0xfff6e6, 0.6);
+      scene.add(ambient);
+
+      // Follow Spotlight (Runway Keylight)
+      followSpotLight = new THREE.SpotLight(0xfffaed, 220);
+      followSpotLight.position.set(0, 10, 4);
+      followSpotLight.angle = Math.PI / 7;
+      followSpotLight.penumbra = 0.55;
+      followSpotLight.decay = 2;
+      followSpotLight.distance = 25;
+      followSpotLight.castShadow = true;
+      followSpotLight.shadow.mapSize.width = 1024;
+      followSpotLight.shadow.mapSize.height = 1024;
+      followSpotLight.shadow.bias = -0.0001;
+
+      followSpotLightTarget = new THREE.Object3D();
+      followSpotLightTarget.position.set(0, 1.4, 0);
+      scene.add(followSpotLightTarget);
+      followSpotLight.target = followSpotLightTarget;
+      scene.add(followSpotLight);
+
+      // Champagne-Gold Rim Light (Backlight for Silhouette Definition)
+      const rimLight = new THREE.DirectionalLight(0xD4AF37, 3.2);
+      rimLight.position.set(0, 5, -8);
+      scene.add(rimLight);
+
+      // Fill Lights along Catwalk
+      const fillLightLeft = new THREE.PointLight(0xffecd1, 35, 12);
+      fillLightLeft.position.set(-3, 3, 2);
+      scene.add(fillLightLeft);
+
+      const fillLightRight = new THREE.PointLight(0xD4AF37, 30, 12);
+      fillLightRight.position.set(3, 3, -1);
+      scene.add(fillLightRight);
+    }
+
+    function buildRunwayStage() {
+      // 1. Catwalk High-Gloss Mirror Floor
+      const runwayGeo = new THREE.BoxGeometry(3.2, 0.35, 30);
+      const runwayMat = new THREE.MeshPhysicalMaterial({
+        color: 0x08080A,
+        roughness: 0.12,
+        metalness: 0.1,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.08,
+        reflectivity: 0.95
+      });
+      const runway = new THREE.Mesh(runwayGeo, runwayMat);
+      runway.position.set(0, -0.175, 0);
+      runway.receiveShadow = true;
+      scene.add(runway);
+
+      // 2. Dual Gold LED Trim Rails
+      const railGeo = new THREE.BoxGeometry(0.08, 0.05, 30);
+      const railMat = new THREE.MeshStandardMaterial({
+        color: 0xD4AF37,
+        emissive: 0x856617,
+        metalness: 0.9,
+        roughness: 0.25
+      });
+
+      const leftRail = new THREE.Mesh(railGeo, railMat);
+      leftRail.position.set(-1.62, 0.02, 0);
+      scene.add(leftRail);
+
+      const rightRail = new THREE.Mesh(railGeo, railMat);
+      rightRail.position.set(1.62, 0.02, 0);
+      scene.add(rightRail);
+
+      // 3. Distant Backdrop Arch (Entrance Portal)
+      const archGeo = new THREE.TorusGeometry(3.6, 0.06, 16, 64, Math.PI);
+      const archMat = new THREE.MeshStandardMaterial({ color: 0xD4AF37, emissive: 0x594109, metalness: 0.9 });
+      const arch = new THREE.Mesh(archGeo, archMat);
+      arch.position.set(0, 0, -14.5);
+      scene.add(arch);
+
+      // Infinite Outer Floor
+      const floorGeo = new THREE.PlaneGeometry(100, 100);
+      const floorMat = new THREE.MeshStandardMaterial({ color: 0x030304, roughness: 0.8 });
+      const floor = new THREE.Mesh(floorGeo, floorMat);
+      floor.rotation.x = -Math.PI / 2;
+      floor.position.y = -0.36;
+      floor.receiveShadow = true;
+      scene.add(floor);
+    }
+
+    function createGoldDriftingParticles() {
+      const particleCount = 200;
+      const geometry = new THREE.BufferGeometry();
+      const positions = new Float32Array(particleCount * 3);
+
+      for (let i = 0; i < particleCount * 3; i += 3) {
+        positions[i] = (Math.random() - 0.5) * 12;
+        positions[i + 1] = Math.random() * 6;
+        positions[i + 2] = (Math.random() - 0.5) * 26;
+      }
+
+      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+      const material = new THREE.PointsMaterial({
+        color: 0xD4AF37,
+        size: 0.045,
+        transparent: true,
+        opacity: 0.65,
+        blending: THREE.AdditiveBlending
+      });
+
+      particles = new THREE.Points(geometry, material);
+      scene.add(particles);
+    }
+
+    // Procedural Anatomical 3D Mannequin & Dress Construction
+    function buildProceduralFashionModel() {
+      modelGroup = new THREE.Group();
+
+      const skinMat = new THREE.MeshStandardMaterial({
+        color: 0xEAD8C7,
+        roughness: 0.45,
+        metalness: 0.05
+      });
+
+      // Default Couture Dress Fabric: Royal Denim Blue PBR Satin
+      const dressMat = new THREE.MeshPhysicalMaterial({
+        color: 0x1A2B4C,
+        roughness: 0.28,
+        metalness: 0.08,
+        clearcoat: 0.75,
+        clearcoatRoughness: 0.15,
+        sheen: 1.0,
+        sheenColor: new THREE.Color(0xD4AF37),
+        sheenRoughness: 0.35,
+        side: THREE.DoubleSide
+      });
+
+      // Torso & Upper Body
+      const torsoGeo = new THREE.CylinderGeometry(0.24, 0.18, 0.8, 16);
+      torso = new THREE.Mesh(torsoGeo, skinMat);
+      torso.position.y = 1.85;
+      torso.castShadow = true;
+      modelGroup.add(torso);
+
+      // Haute Couture Fitted Bodice & Maxi Dress Flared Hem
+      const dressGeo = new THREE.CylinderGeometry(0.25, 0.72, 1.45, 32, 16, true);
+      dressMesh = new THREE.Mesh(dressGeo, dressMat);
+      dressMesh.position.y = 1.35;
+      dressMesh.castShadow = true;
+      modelGroup.add(dressMesh);
+
+      // Gold Waist Cinch Belt
+      const beltGeo = new THREE.CylinderGeometry(0.22, 0.22, 0.07, 24);
+      const beltMat = new THREE.MeshStandardMaterial({ color: 0xD4AF37, metalness: 0.9, roughness: 0.2 });
+      const belt = new THREE.Mesh(beltGeo, beltMat);
+      belt.position.y = 1.72;
+      modelGroup.add(belt);
+
+      // Neck & Head with Styled Top-knot
+      const neckGeo = new THREE.CylinderGeometry(0.08, 0.09, 0.22, 16);
+      const neck = new THREE.Mesh(neckGeo, skinMat);
+      neck.position.y = 2.3;
+      modelGroup.add(neck);
+
+      const headGeo = new THREE.SphereGeometry(0.16, 24, 24);
+      head = new THREE.Mesh(headGeo, skinMat);
+      head.position.y = 2.52;
+      head.scale.set(0.9, 1.15, 0.95);
+      head.castShadow = true;
+      modelGroup.add(head);
+
+      const bunGeo = new THREE.SphereGeometry(0.09, 16, 16);
+      const hairMat = new THREE.MeshStandardMaterial({ color: 0x1A1410, roughness: 0.7 });
+      const bun = new THREE.Mesh(bunGeo, hairMat);
+      bun.position.set(0, 2.7, -0.06);
+      modelGroup.add(bun);
+
+      // Legs Hierarchy
+      const legGeo = new THREE.CylinderGeometry(0.08, 0.05, 1.25, 16);
+
+      rightLeg = new THREE.Group();
+      rightLeg.position.set(0.12, 1.25, 0);
+      const rMesh = new THREE.Mesh(legGeo, skinMat);
+      rMesh.position.y = -0.6;
+      rMesh.castShadow = true;
+      rightLeg.add(rMesh);
+      modelGroup.add(rightLeg);
+
+      leftLeg = new THREE.Group();
+      leftLeg.position.set(-0.12, 1.25, 0);
+      const lMesh = new THREE.Mesh(legGeo, skinMat);
+      lMesh.position.y = -0.6;
+      lMesh.castShadow = true;
+      leftLeg.add(lMesh);
+      modelGroup.add(leftLeg);
+
+      // Arms Hierarchy
+      const armGeo = new THREE.CylinderGeometry(0.06, 0.045, 0.85, 16);
+
+      rightArm = new THREE.Group();
+      rightArm.position.set(0.32, 2.15, 0);
+      const raMesh = new THREE.Mesh(armGeo, skinMat);
+      raMesh.position.y = -0.4;
+      raMesh.castShadow = true;
+      rightArm.add(raMesh);
+      modelGroup.add(rightArm);
+
+      leftArm = new THREE.Group();
+      leftArm.position.set(-0.32, 2.15, 0);
+      const laMesh = new THREE.Mesh(armGeo, skinMat);
+      laMesh.position.y = -0.4;
+      laMesh.castShadow = true;
+      leftArm.add(laMesh);
+      modelGroup.add(leftArm);
+
+      // Start Position at back of catwalk
+      modelGroup.position.set(0, 0, -10);
+      scene.add(modelGroup);
+    }
+
+    // Live Catwalk Kinematics & Wave Displacement Animation
+    function animate() {
+      requestAnimationFrame(animate);
+
+      const delta = clock.getDelta();
+      const time = clock.getElapsedTime();
+
+      // Custom GLB Animation Mixer if user uploaded a file
+      if (customMixer) {
+        customMixer.update(delta);
+      } else if (modelGroup) {
+        // Procedural Fashion Model Catwalk Kinematics
+        const walkSpeed = 2.4;
+        const strideZ = (time * 0.95) % 22 - 11; // Walks from -11 to +11
+        modelGroup.position.z = strideZ;
+
+        // Kinematic Striding Rotations
+        const legSwing = Math.sin(time * walkSpeed * 2.2) * 0.45;
+        rightLeg.rotation.x = legSwing;
+        leftLeg.rotation.x = -legSwing;
+
+        // Opposite arm counter-swing
+        rightArm.rotation.x = -legSwing * 0.65;
+        leftArm.rotation.x = legSwing * 0.65;
+
+        // Feminine Catwalk Hip & Shoulder Counter-Rotation
+        modelGroup.rotation.y = Math.sin(time * walkSpeed * 1.1) * 0.08;
+        torso.rotation.z = Math.sin(time * walkSpeed * 2.2) * 0.035;
+        modelGroup.position.y = Math.abs(Math.cos(time * walkSpeed * 2.2)) * 0.04;
+
+        // Dynamic Fabric Movement: Sway & Flare
+        if (dressMesh) {
+          dressMesh.rotation.z = -Math.sin(time * walkSpeed * 2.2) * 0.06;
+          dressMesh.rotation.x = Math.sin(time * walkSpeed * 2.2) * 0.08 + 0.05;
+        }
+      }
+
+      // Lights Tracking Model
+      if (followSpotLight && modelGroup) {
+        followSpotLight.position.z = modelGroup.position.z + 3.5;
+        followSpotLightTarget.position.z = modelGroup.position.z;
+      }
+
+      // Floating Particles Drift
+      if (particles) {
+        particles.rotation.y = time * 0.025;
+      }
+
+      // Camera Modes
+      updateCameraPosition();
+
+      // Render Scene
+      renderer.render(scene, camera);
+    }
+
+    function updateCameraPosition() {
+      if (!modelGroup) return;
+
+      if (currentCameraMode === 'track') {
+        // Smoothly glide camera directly in front of the approaching model
+        const targetZ = modelGroup.position.z + 6.2;
+        camera.position.z = THREE.MathUtils.lerp(camera.position.z, targetZ, 0.08);
+        camera.position.x = THREE.MathUtils.lerp(camera.position.x, 0, 0.08);
+        camera.position.y = THREE.MathUtils.lerp(camera.position.y, 2.2, 0.08);
+        camera.lookAt(0, 1.6, modelGroup.position.z);
+      } else if (currentCameraMode === 'low') {
+        // Dramatic low runway floor perspective
+        const targetZ = modelGroup.position.z + 4.8;
+        camera.position.z = THREE.MathUtils.lerp(camera.position.z, targetZ, 0.08);
+        camera.position.x = THREE.MathUtils.lerp(camera.position.x, 1.4, 0.08);
+        camera.position.y = THREE.MathUtils.lerp(camera.position.y, 0.45, 0.08);
+        camera.lookAt(0, 1.8, modelGroup.position.z);
+      } else if (currentCameraMode === 'orbit') {
+        controls.update();
+      }
+    }
+
+    // Public Exposure for Interactive Buttons
+    window.setCameraView = function(mode) {
+      currentCameraMode = mode;
+      document.querySelectorAll('footer button').forEach(b => {
+        b.className = b.className.replace('bg-[#D4AF37] text-black', 'text-neutral-300 hover:text-white');
+      });
+
+      const btn = document.getElementById(`btn-cam-${mode}`);
+      if (btn) btn.className = "px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#D4AF37] text-black transition";
+
+      const nameEl = document.getElementById('camera-name');
+      if (mode === 'track') {
+        controls.enabled = false;
+        nameEl.innerText = 'Catwalk Follow';
+      } else if (mode === 'low') {
+        controls.enabled = false;
+        nameEl.innerText = 'Low Editorial';
+      } else if (mode === 'orbit') {
+        controls.enabled = true;
+        controls.target.set(0, 1.5, modelGroup ? modelGroup.position.z : 0);
+        nameEl.innerText = '360° Free Orbit';
+      }
+    };
+
+    window.changeDressColor = function(hexColor) {
+      if (dressMesh) {
+        dressMesh.material.color.setHex(hexColor);
+      }
+    };
+
+    // Support Loading Custom .GLB Models On-The-Fly
+    function setupFileInput() {
+      const input = document.getElementById('glb-file-input');
+      input.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          const contents = evt.target.result;
+          const loader = new GLTFLoader();
+          loader.parse(contents, '', (gltf) => {
+            // Remove procedural model
+            if (modelGroup) scene.remove(modelGroup);
+
+            modelGroup = gltf.scene;
+            modelGroup.position.set(0, 0, 0);
+            modelGroup.traverse(c => {
+              if (c.isMesh) {
+                c.castShadow = true;
+                c.receiveShadow = true;
+              }
+            });
+            scene.add(modelGroup);
+
+            if (gltf.animations && gltf.animations.length > 0) {
+              customMixer = new THREE.AnimationMixer(modelGroup);
+              const action = customMixer.clipAction(gltf.animations[0]);
+              action.play();
+            }
+
+            alert("✅ Custom 3D Model Loaded Successfully!");
+          });
+        };
+        reader.readAsArrayBuffer(file);
+      });
+    }
+
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+  </script>
+</body>
+</html>
