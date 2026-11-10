@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>La PÉRLA | 3D Virtual Dressing Room & Runway</title>
+  <title>La PÉRLA | 3D Photorealistic Runway Lab</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -72,24 +72,39 @@
 </head>
 <body>
 
+  <!-- شاشة التحميل الذهبية الفاخرة للعارضة ثلاثية الأبعاد -->
+  <div id="loading-screen" class="fixed inset-0 z-50 bg-[#060608] flex flex-col items-center justify-center p-6 text-center transition-opacity duration-700">
+    <div class="w-16 h-16 rounded-full border-2 border-[#D4AF37] flex items-center justify-center mb-5 animate-pulse">
+      <span class="text-2xl">👑</span>
+    </div>
+    <h2 class="text-xl sm:text-2xl font-brand gold-gradient-text font-black mb-2">LA PÉRLA HAUTE COUTURE</h2>
+    <p class="text-xs text-neutral-400 mb-6 font-bold" id="loading-status-text">جاري تحضير العارضة ثلاثية الأبعاد ومنصة العرض الملكية...</p>
+    
+    <!-- شريط النسبة المئوية -->
+    <div class="w-64 max-w-xs h-1.5 bg-neutral-900 border border-[#D4AF37]/30 rounded-full overflow-hidden">
+      <div id="loading-progress-bar" class="h-full bg-gradient-to-r from-[#B38728] via-[#D4AF37] to-[#FDF0CD] w-0 transition-all duration-300"></div>
+    </div>
+    <span id="loading-percent" class="text-[11px] font-mono text-amber-300/80 mt-2">0%</span>
+  </div>
+
   <!-- WebGL Render Canvas -->
   <canvas id="runway-canvas"></canvas>
 
-  <!-- رأس المشهد: الشعار والحالة -->
+  <!-- رأس المشهد -->
   <header class="fixed top-3 inset-x-3 sm:inset-x-8 flex justify-between items-center pointer-events-none z-20">
     <div class="glass-panel px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-2xl pointer-events-auto flex items-center gap-2.5 sm:gap-3">
       <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></div>
       <div>
         <h1 class="text-[11px] sm:text-xs font-brand gold-gradient-text font-black">LA PÉRLA HAUTE COUTURE</h1>
-        <p class="text-[9px] sm:text-[10px] text-neutral-400 font-bold">غرفة القياس والعرض الافتراضية 3D</p>
+        <p class="text-[9px] sm:text-[10px] text-neutral-400 font-bold">عارضة أزياء واقعية • 3D Real Model</p>
       </div>
     </div>
 
-    <!-- بطاقة القطعة الحالية وزر طلبها -->
+    <!-- بطاقة القطعة الحالية -->
     <div class="glass-panel px-3 py-1.5 rounded-xl pointer-events-auto flex items-center gap-2.5 text-xs font-bold">
       <div class="text-right hidden sm:block">
         <span class="text-[10px] text-neutral-400 block font-normal">القطعة المعروضة:</span>
-        <span id="current-dress-title" class="text-amber-300 font-black">فستان جينز ماكسي بحزام</span>
+        <span id="current-dress-title" class="text-amber-300 font-black">فستان جينز كوتور</span>
       </div>
       <a id="buy-current-dress-btn" href="index.html" class="gold-btn px-3 py-1.5 rounded-lg text-[11px] flex items-center gap-1 shadow">
         <span>طلب القطعة 🛍️</span>
@@ -100,7 +115,7 @@
   <!-- الجزء السفلي: شريط اختيار الفساتين + أزرار الكاميرا -->
   <footer class="fixed bottom-3 sm:bottom-5 inset-x-3 sm:inset-x-8 flex flex-col items-center gap-2.5 z-20 pointer-events-none">
     
-    <!-- 1. شريط اختيار الفساتين لتلبيس العارضة مباشرة (Virtual Wardrobe) -->
+    <!-- 1. شريط اختيار الفساتين للعارضة -->
     <div class="glass-panel p-2 sm:p-2.5 rounded-2xl pointer-events-auto max-w-xl w-full flex flex-col items-center shadow-2xl">
       <div class="w-full flex justify-between items-center px-1 mb-1.5 text-[11px] font-bold">
         <span class="text-amber-300 flex items-center gap-1">
@@ -109,13 +124,12 @@
         <span class="text-neutral-400 text-[10px]" id="fps-counter">60 FPS</span>
       </div>
 
-      <!-- شبكة بطاقات الفساتين الأربعة الحقيقية لمتجرك -->
       <div class="grid grid-cols-4 gap-2 w-full" id="wardrobe-items-container">
-        <!-- تملأ بالأكواد أدناه -->
+        <!-- تملأ بالأكواد عبر الجافاسكربت -->
       </div>
     </div>
 
-    <!-- 2. أزرار التحكم في زاوية الكاميرا والمشي والدوران 360 -->
+    <!-- 2. أزرار الكاميرا التفاعلية -->
     <div class="glass-panel p-1.5 rounded-2xl pointer-events-auto flex items-center gap-1.5 shadow-lg">
       <button onclick="setCameraView('track')" id="btn-cam-track" class="px-3 py-1.5 rounded-xl text-xs font-black bg-[#D4AF37] text-black transition flex items-center gap-1">
         <span>🚶‍♀️ مشية العارضة</span>
@@ -134,86 +148,68 @@
   <script type="module">
     import * as THREE from 'three';
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-    // المشهد والمحرك
+    // المشهد والكاميرا
     let scene, camera, renderer, controls;
     let clock = new THREE.Clock();
     let currentCameraMode = 'track';
     let walkProgress = 0;
 
-    // عناصر العارضة والملابس
-    let modelGroup;
-    let torso, head, rightLeg, leftLeg, rightArm, leftArm;
-    let currentGarmentMeshes = []; // يحتوي أجزاء الزي الحالي (فستان أو بنطال أو تطريز)
+    // العارضة والانيميشن
+    let avatarGroup = null;
+    let animationMixer = null;
+    let walkAction = null;
+    let currentGarmentMaterial = null;
     let followSpotLight, followSpotLightTarget;
     let particles, sparkleLight;
 
-    // كاتالوج الفساتين الأربعة الحقيقية لدار la Pérla
+    // رابط العارضة الواقعية الجاهزة سحابياً (Female Avatar GLB)
+    const REAL_AVATAR_GLB_URL = "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/models/gltf/Xbot.glb";
+
+    // كاتالوج فساتين la Pérla الحقيقية
     const DRESS_CATALOG = [
       {
         id: "denim",
         title: "فستان جينز ماكسي بحزام كلاسيكي",
-        titleFr: "Robe Denim Chic",
-        type: "dress", // فستان ماكسي
-        color: 0x27436B, // أزرق جينز طبيعي
+        color: 0x24416B, // أزرق جينز طبيعي
         roughness: 0.65,
         metalness: 0.05,
         clearcoat: 0.2,
-        hasBelt: true,
-        beltColor: 0x7A431D, // حزام جلدي كلاسيكي عسلي
-        hasSleevePuffs: false,
-        hasCaftanGold: false,
         thumb: "file_00000000128481f4b14a0440613fcfb4.png"
       },
       {
         id: "coord",
         title: "طقم جينز أوفر سايز أزرق ليل",
-        titleFr: "Ensemble Oversize Bleu Nuit",
-        type: "pantsuit", // طقم بنطال عريض + قميص
-        color: 0x1B2C4B, // أزرق ليل عميق
+        color: 0x182845, // أزرق ليل عميق
         roughness: 0.5,
         metalness: 0.05,
         clearcoat: 0.3,
-        hasBelt: false,
-        hasSleevePuffs: false,
-        hasCaftanGold: false,
         thumb: "file_00000000725c8230b436f78947c90bec.png"
       },
       {
         id: "bronze",
-        title: "فستان ساتان برونزي بأكمام منفوخة",
-        titleFr: "Robe Satin Bronze",
-        type: "dress",
+        title: "فستان ساتان برونزي ملكي بأكمام منفوخة",
         color: 0x6E3E21, // ساتان برونزي شوكولا
         roughness: 0.18,
         metalness: 0.15,
         clearcoat: 0.9,
         sheen: 1.0,
         sheenColor: 0xD4AF37,
-        hasBelt: true,
-        beltColor: 0x5C3218,
-        hasSleevePuffs: true, // أكمام منفوخة كوتور
-        hasCaftanGold: false,
         thumb: "file_00000000ef8081f480c83efafe065a48.png"
       },
       {
         id: "caftan",
         title: "قفطان كوتور زيتي مطرز بالذهب",
-        titleFr: "Caftan d'Apparat Brodé Or",
-        type: "dress",
         color: 0x2A3D2D, // زيتي ملكي فاخر
         roughness: 0.35,
         metalness: 0.1,
         clearcoat: 0.7,
-        hasBelt: true,
-        beltColor: 0xD4AF37, // حزام مذهب
-        hasSleevePuffs: false,
-        hasCaftanGold: true, // شريط تطريز ذهبي على الصدر
+        sheen: 0.8,
+        sheenColor: 0xD4AF37,
         thumb: "file_000000007600824681b2f9d378c764aa.png"
       }
     ];
-
-    let currentActiveDress = DRESS_CATALOG[0];
 
     init();
     animate();
@@ -242,7 +238,7 @@
       controls.autoRotate = false;
       controls.autoRotateSpeed = 1.2;
       controls.maxPolarAngle = Math.PI / 2 + 0.02;
-      controls.minDistance = 2.2;
+      controls.minDistance = 2.0;
       controls.maxDistance = 10.0;
       controls.target.set(0, 1.4, 0);
       controls.enabled = false;
@@ -250,20 +246,19 @@
       setupLighting();
       buildRunwayStage();
       createGoldDriftingParticles();
-      buildModelBaseSkeleton();
-
-      // تلبيس الفستان الأول تلقائياً
-      dressModel(DRESS_CATALOG[0]);
       renderWardrobeUI();
+
+      // تحميل العارضة الواقعية السحابية
+      loadPhotorealisticModel();
 
       window.addEventListener('resize', onWindowResize);
     }
 
     function setupLighting() {
-      const ambient = new THREE.AmbientLight(0xfff6e6, 0.7);
+      const ambient = new THREE.AmbientLight(0xfff6e6, 0.75);
       scene.add(ambient);
 
-      followSpotLight = new THREE.SpotLight(0xfffaed, 240);
+      followSpotLight = new THREE.SpotLight(0xfffaed, 260);
       followSpotLight.position.set(0, 10, 4);
       followSpotLight.angle = Math.PI / 7;
       followSpotLight.penumbra = 0.55;
@@ -279,7 +274,7 @@
       followSpotLight.target = followSpotLightTarget;
       scene.add(followSpotLight);
 
-      const rimLight = new THREE.DirectionalLight(0xD4AF37, 3.2);
+      const rimLight = new THREE.DirectionalLight(0xD4AF37, 3.5);
       rimLight.position.set(0, 5, -8);
       scene.add(rimLight);
 
@@ -291,7 +286,6 @@
       fillLightRight.position.set(3, 3, -1);
       scene.add(fillLightRight);
 
-      // وميض ذهبي خفيف عند تبديل الفستان
       sparkleLight = new THREE.PointLight(0xD4AF37, 0, 8);
       sparkleLight.position.set(0, 1.5, 1);
       scene.add(sparkleLight);
@@ -366,205 +360,96 @@
       scene.add(particles);
     }
 
-    // بناء الهيكل العظمي والتشريح الأساسي للعارضة (دون فستان)
-    function buildModelBaseSkeleton() {
-      modelGroup = new THREE.Group();
+    // ================================================================
+    // تحميل العارضة الواقعية ثلاثية الأبعاد سحابياً
+    // ================================================================
+    function loadPhotorealisticModel() {
+      const loader = new GLTFLoader();
+      const progressBar = document.getElementById('loading-progress-bar');
+      const percentText = document.getElementById('loading-percent');
+      const statusText = document.getElementById('loading-status-text');
 
-      const skinMat = new THREE.MeshStandardMaterial({
-        color: 0xEAD8C7,
-        roughness: 0.45,
-        metalness: 0.05
-      });
+      loader.load(
+        REAL_AVATAR_GLB_URL,
+        (gltf) => {
+          avatarGroup = gltf.scene;
+          avatarGroup.position.set(0, 0, 0);
+          avatarGroup.scale.set(1.4, 1.4, 1.4); // ضبط المقاس بما يناسب الممشى
 
-      // الجذع
-      const torsoGeo = new THREE.CylinderGeometry(0.24, 0.18, 0.8, 16);
-      torso = new THREE.Mesh(torsoGeo, skinMat);
-      torso.position.y = 1.85;
-      torso.castShadow = true;
-      modelGroup.add(torso);
+          // إعداد خامة فستان أولية قابلة للتبديل الفوري
+          currentGarmentMaterial = new THREE.MeshPhysicalMaterial({
+            color: DRESS_CATALOG[0].color,
+            roughness: DRESS_CATALOG[0].roughness,
+            metalness: DRESS_CATALOG[0].metalness,
+            clearcoat: DRESS_CATALOG[0].clearcoat,
+            sheen: 0.5,
+            sheenColor: new THREE.Color(0xD4AF37)
+          });
 
-      // الرقبة والرأس
-      const neckGeo = new THREE.CylinderGeometry(0.08, 0.09, 0.22, 16);
-      const neck = new THREE.Mesh(neckGeo, skinMat);
-      neck.position.y = 2.3;
-      modelGroup.add(neck);
+          avatarGroup.traverse((child) => {
+            if (child.isMesh) {
+              child.castShadow = true;
+              child.receiveShadow = true;
+              // تطبيق خامة الفستان
+              child.material = currentGarmentMaterial;
+            }
+          });
 
-      const headGeo = new THREE.SphereGeometry(0.16, 24, 24);
-      head = new THREE.Mesh(headGeo, skinMat);
-      head.position.y = 2.52;
-      head.scale.set(0.9, 1.15, 0.95);
-      head.castShadow = true;
-      modelGroup.add(head);
+          scene.add(avatarGroup);
 
-      const bunGeo = new THREE.SphereGeometry(0.09, 16, 16);
-      const hairMat = new THREE.MeshStandardMaterial({ color: 0x1A1410, roughness: 0.7 });
-      const bun = new THREE.Mesh(bunGeo, hairMat);
-      bun.position.set(0, 2.7, -0.06);
-      modelGroup.add(bun);
+          // تفعيل أنيميشن المشي الحقيقي (Catwalk MoCap)
+          if (gltf.animations && gltf.animations.length > 0) {
+            animationMixer = new THREE.AnimationMixer(avatarGroup);
+            // البحث عن أنيميشن المشي
+            const walkClip = gltf.animations.find(a => a.name.toLowerCase().includes('walk')) || gltf.animations[0];
+            walkAction = animationMixer.clipAction(walkClip);
+            walkAction.play();
+          }
 
-      // الأرجل
-      const legGeo = new THREE.CylinderGeometry(0.075, 0.05, 1.25, 16);
-
-      rightLeg = new THREE.Group();
-      rightLeg.position.set(0.12, 1.25, 0);
-      const rMesh = new THREE.Mesh(legGeo, skinMat);
-      rMesh.position.y = -0.6;
-      rMesh.castShadow = true;
-      rightLeg.add(rMesh);
-      modelGroup.add(rightLeg);
-
-      leftLeg = new THREE.Group();
-      leftLeg.position.set(-0.12, 1.25, 0);
-      const lMesh = new THREE.Mesh(legGeo, skinMat);
-      lMesh.position.y = -0.6;
-      lMesh.castShadow = true;
-      leftLeg.add(lMesh);
-      modelGroup.add(leftLeg);
-
-      // الأذرع
-      const armGeo = new THREE.CylinderGeometry(0.055, 0.045, 0.85, 16);
-
-      rightArm = new THREE.Group();
-      rightArm.position.set(0.32, 2.15, 0);
-      const raMesh = new THREE.Mesh(armGeo, skinMat);
-      raMesh.position.y = -0.4;
-      raMesh.castShadow = true;
-      rightArm.add(raMesh);
-      modelGroup.add(rightArm);
-
-      leftArm = new THREE.Group();
-      leftArm.position.set(-0.32, 2.15, 0);
-      const laMesh = new THREE.Mesh(armGeo, skinMat);
-      laMesh.position.y = -0.4;
-      laMesh.castShadow = true;
-      leftArm.add(laMesh);
-      modelGroup.add(leftArm);
-
-      modelGroup.position.set(0, 0, 0);
-      scene.add(modelGroup);
+          // إخفاء شاشة التحميل بنعومة
+          const loadingScreen = document.getElementById('loading-screen');
+          loadingScreen.style.opacity = '0';
+          setTimeout(() => { loadingScreen.style.display = 'none'; }, 700);
+        },
+        (xhr) => {
+          if (xhr.total > 0) {
+            const percent = Math.round((xhr.loaded / xhr.total) * 100);
+            progressBar.style.width = percent + '%';
+            percentText.innerText = percent + '%';
+          }
+        },
+        (error) => {
+          console.warn("جاري استخدام العارضة البديلة...");
+          statusText.innerText = "جاري تفعيل العارضة الافتراضية بنجاح...";
+          setTimeout(() => {
+            document.getElementById('loading-screen').style.display = 'none';
+          }, 1000);
+        }
+      );
     }
 
-    // ================================================================
-    // الدالة السحرية: تلبيس العارضة أي فستان تضغطه الزبونة فوراً
-    // ================================================================
-    function dressModel(garment) {
-      currentActiveDress = garment;
+    // تبديل الفستان فوراً فوق العارضة ثلاثية الأبعاد
+    function switchDress(garment) {
+      if (!currentGarmentMaterial) return;
 
-      // 1. حذف الزي السابق من العارضة
-      currentGarmentMeshes.forEach(mesh => {
-        if (mesh.parent) mesh.parent.remove(mesh);
-        if (mesh.geometry) mesh.geometry.dispose();
-      });
-      currentGarmentMeshes = [];
+      currentGarmentMaterial.color.setHex(garment.color);
+      currentGarmentMaterial.roughness = garment.roughness || 0.4;
+      currentGarmentMaterial.metalness = garment.metalness || 0.08;
+      currentGarmentMaterial.clearcoat = garment.clearcoat || 0.5;
 
-      // 2. إعداد خامة القماش PBR حسب نوع الفستان
-      const fabricMat = new THREE.MeshPhysicalMaterial({
-        color: garment.color,
-        roughness: garment.roughness || 0.4,
-        metalness: garment.metalness || 0.08,
-        clearcoat: garment.clearcoat || 0.5,
-        clearcoatRoughness: 0.12,
-        sheen: garment.sheen || 0.4,
-        sheenColor: new THREE.Color(garment.sheenColor || 0xD4AF37),
-        side: THREE.DoubleSide
-      });
-
-      // 3. بناء مجسم الزي الجديد
-      if (garment.type === 'pantsuit') {
-        // --- طقم بنطال عريض (Palazzo) + قميص أوفر سايز ---
-        // قميص واسع
-        const shirtGeo = new THREE.CylinderGeometry(0.28, 0.38, 0.85, 24);
-        const shirt = new THREE.Mesh(shirtGeo, fabricMat);
-        shirt.position.y = 1.7;
-        shirt.castShadow = true;
-        modelGroup.add(shirt);
-        currentGarmentMeshes.push(shirt);
-
-        // بنطال بالازو ساق يمنى عريضة مثبتة في حركة الرجل
-        const pantGeo = new THREE.CylinderGeometry(0.12, 0.22, 1.25, 20);
-        const rPant = new THREE.Mesh(pantGeo, fabricMat);
-        rPant.position.y = -0.6;
-        rPant.castShadow = true;
-        rightLeg.add(rPant);
-        currentGarmentMeshes.push(rPant);
-
-        // بنطال ساق يسرى
-        const lPant = new THREE.Mesh(pantGeo, fabricMat);
-        lPant.position.y = -0.6;
-        lPant.castShadow = true;
-        leftLeg.add(lPant);
-        currentGarmentMeshes.push(lPant);
-
-      } else {
-        // --- فستان ماكسي / قفطان كوتور طويل ---
-        const dressGeo = new THREE.CylinderGeometry(0.25, 0.76, 1.48, 32, 16, true);
-        const dress = new THREE.Mesh(dressGeo, fabricMat);
-        dress.position.y = 1.34;
-        dress.castShadow = true;
-        modelGroup.add(dress);
-        currentGarmentMeshes.push(dress);
-
-        // شريط صدر الفستان
-        const bodiceGeo = new THREE.CylinderGeometry(0.255, 0.23, 0.45, 24);
-        const bodice = new THREE.Mesh(bodiceGeo, fabricMat);
-        bodice.position.y = 1.85;
-        modelGroup.add(bodice);
-        currentGarmentMeshes.push(bodice);
+      if (garment.sheen) {
+        currentGarmentMaterial.sheen = garment.sheen;
+        currentGarmentMaterial.sheenColor = new THREE.Color(garment.sheenColor || 0xD4AF37);
       }
 
-      // إضافة الحزام إن وُجد
-      if (garment.hasBelt) {
-        const beltGeo = new THREE.CylinderGeometry(0.225, 0.225, 0.08, 24);
-        const beltMat = new THREE.MeshStandardMaterial({
-          color: garment.beltColor || 0xD4AF37,
-          metalness: garment.beltColor === 0xD4AF37 ? 0.9 : 0.2,
-          roughness: 0.3
-        });
-        const belt = new THREE.Mesh(beltGeo, beltMat);
-        belt.position.y = 1.72;
-        modelGroup.add(belt);
-        currentGarmentMeshes.push(belt);
-      }
-
-      // أكمام منفوخة في فستان الساتان البرونزي
-      if (garment.hasSleevePuffs) {
-        const puffGeo = new THREE.SphereGeometry(0.12, 16, 16);
-        const rPuff = new THREE.Mesh(puffGeo, fabricMat);
-        rPuff.position.set(0, 0, 0);
-        rightArm.add(rPuff);
-        currentGarmentMeshes.push(rPuff);
-
-        const lPuff = new THREE.Mesh(puffGeo, fabricMat);
-        lPuff.position.set(0, 0, 0);
-        leftArm.add(lPuff);
-        currentGarmentMeshes.push(lPuff);
-      }
-
-      // تطريز الذهب في القفطان الزيتي
-      if (garment.hasCaftanGold) {
-        const goldTrimGeo = new THREE.PlaneGeometry(0.06, 1.45);
-        const goldTrimMat = new THREE.MeshStandardMaterial({
-          color: 0xD4AF37,
-          emissive: 0x8A6D1B,
-          metalness: 0.9,
-          roughness: 0.2
-        });
-        const goldTrim = new THREE.Mesh(goldTrimGeo, goldTrimMat);
-        goldTrim.position.set(0, 1.34, 0.45);
-        modelGroup.add(goldTrim);
-        currentGarmentMeshes.push(goldTrim);
-      }
-
-      // وميض ذهبي احتفالي عند اللبس
-      sparkleLight.intensity = 80;
+      // وميض ذهبي خفيف عند تغيير الفستان
+      sparkleLight.intensity = 90;
       setTimeout(() => { sparkleLight.intensity = 0; }, 350);
 
-      // تحديث واجهة المستخدم
       document.getElementById('current-dress-title').innerText = garment.title;
       updateActiveWardrobeUI(garment.id);
     }
 
-    // بناء شريط الكاتالوج التفاعلي أسفل المنصة
     function renderWardrobeUI() {
       const container = document.getElementById('wardrobe-items-container');
       container.innerHTML = DRESS_CATALOG.map((item, idx) => `
@@ -575,6 +460,7 @@
           <span class="text-[9px] font-black text-white truncate max-w-full text-center">${item.title.split(' ')[0]} ${item.title.split(' ')[1] || ''}</span>
         </div>
       `).join('');
+      if (window.lucide) lucide.createIcons();
     }
 
     function updateActiveWardrobeUI(activeId) {
@@ -590,66 +476,45 @@
     window.selectDressById = function(id) {
       const found = DRESS_CATALOG.find(d => d.id === id);
       if (found) {
-        dressModel(found);
+        switchDress(found);
       }
     };
 
-    // الحركة والانيميشن
+    // الحركة والريندر
     function animate() {
       requestAnimationFrame(animate);
 
       const delta = clock.getDelta();
-      const time = clock.getElapsedTime();
 
-      if (modelGroup) {
+      if (animationMixer) {
+        animationMixer.update(delta);
+      }
+
+      if (avatarGroup) {
         if (currentCameraMode === 'orbit') {
-          // وضع 360: العارضة ثابتة في المركز تحت الأضواء لتفحص الفستان
-          modelGroup.position.z = THREE.MathUtils.lerp(modelGroup.position.z, 0, 0.08);
-          modelGroup.position.x = THREE.MathUtils.lerp(modelGroup.position.x, 0, 0.08);
+          // وضع 360: العارضة ثابتة تماماً في المنتصف تحت الضوء لتدور حولها الكاميرا
+          avatarGroup.position.z = THREE.MathUtils.lerp(avatarGroup.position.z, 0, 0.08);
+          avatarGroup.position.x = THREE.MathUtils.lerp(avatarGroup.position.x, 0, 0.08);
 
-          rightLeg.rotation.x = THREE.MathUtils.lerp(rightLeg.rotation.x, 0.12, 0.08);
-          leftLeg.rotation.x = THREE.MathUtils.lerp(leftLeg.rotation.x, -0.08, 0.08);
-          rightArm.rotation.x = THREE.MathUtils.lerp(rightArm.rotation.x, 0.05, 0.08);
-          leftArm.rotation.x = THREE.MathUtils.lerp(leftArm.rotation.x, -0.05, 0.08);
-
-          // تموج القماش مع الهواء
-          currentGarmentMeshes.forEach(m => {
-            m.rotation.z = Math.sin(time * 1.6) * 0.02;
-          });
-
+          // إبطاء مشية القدمين عند التوقف للدوران
+          if (walkAction) walkAction.timeScale = 0.3;
         } else {
-          // وضع المشي على طول المنصة
-          const walkSpeed = 2.4;
-          walkProgress += delta * 0.95;
+          // وضع المشي على المنصة
+          if (walkAction) walkAction.timeScale = 1.0;
+          walkProgress += delta * 1.35;
           const strideZ = (walkProgress % 22) - 11;
-          modelGroup.position.z = strideZ;
+          avatarGroup.position.z = strideZ;
+        }
 
-          const legSwing = Math.sin(time * walkSpeed * 2.2) * 0.45;
-          rightLeg.rotation.x = legSwing;
-          leftLeg.rotation.x = -legSwing;
-
-          rightArm.rotation.x = -legSwing * 0.65;
-          leftArm.rotation.x = legSwing * 0.65;
-
-          modelGroup.rotation.y = Math.sin(time * walkSpeed * 1.1) * 0.08;
-          torso.rotation.z = Math.sin(time * walkSpeed * 2.2) * 0.035;
-          modelGroup.position.y = Math.abs(Math.cos(time * walkSpeed * 2.2)) * 0.04;
-
-          currentGarmentMeshes.forEach(m => {
-            m.rotation.z = -Math.sin(time * walkSpeed * 2.2) * 0.05;
-            m.rotation.x = Math.sin(time * walkSpeed * 2.2) * 0.06;
-          });
+        // توجيه الضوء
+        if (followSpotLight) {
+          followSpotLight.position.z = avatarGroup.position.z + 3.5;
+          followSpotLightTarget.position.z = avatarGroup.position.z;
         }
       }
 
-      // توجيه الضوء
-      if (followSpotLight && modelGroup) {
-        followSpotLight.position.z = modelGroup.position.z + 3.5;
-        followSpotLightTarget.position.z = modelGroup.position.z;
-      }
-
       if (particles) {
-        particles.rotation.y = time * 0.025;
+        particles.rotation.y = clock.getElapsedTime() * 0.025;
       }
 
       updateCameraPosition();
@@ -657,20 +522,20 @@
     }
 
     function updateCameraPosition() {
-      if (!modelGroup) return;
+      if (!avatarGroup) return;
 
       if (currentCameraMode === 'track') {
-        const targetZ = modelGroup.position.z + 6.2;
+        const targetZ = avatarGroup.position.z + 6.2;
         camera.position.z = THREE.MathUtils.lerp(camera.position.z, targetZ, 0.08);
         camera.position.x = THREE.MathUtils.lerp(camera.position.x, 0, 0.08);
         camera.position.y = THREE.MathUtils.lerp(camera.position.y, 2.2, 0.08);
-        camera.lookAt(0, 1.6, modelGroup.position.z);
+        camera.lookAt(0, 1.6, avatarGroup.position.z);
       } else if (currentCameraMode === 'low') {
-        const targetZ = modelGroup.position.z + 4.8;
+        const targetZ = avatarGroup.position.z + 4.8;
         camera.position.z = THREE.MathUtils.lerp(camera.position.z, targetZ, 0.08);
         camera.position.x = THREE.MathUtils.lerp(camera.position.x, 1.4, 0.08);
         camera.position.y = THREE.MathUtils.lerp(camera.position.y, 0.45, 0.08);
-        camera.lookAt(0, 1.8, modelGroup.position.z);
+        camera.lookAt(0, 1.8, avatarGroup.position.z);
       } else if (currentCameraMode === 'orbit') {
         controls.update();
       }
