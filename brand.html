@@ -3,22 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>la Pérla | Vente en Gros & Détail</title>
+  <title>la Pérla | Maison de Couture</title>
   
   <!-- إعدادات تطبيق الهاتف PWA -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#FAF6F0">
+  <meta name="theme-color" content="#FBF9F5">
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js').catch(err => console.log('SW setup'));
+        navigator.serviceWorker.register('sw.js').catch(() => {});
       });
     }
   </script>
 
+  <!-- خطوط كلاسيكية مستوحاة من مجلات الموضة العالمية -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=Cairo:wght@400;600;700;800;900&family=Alex+Brush&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -28,22 +29,21 @@
       theme: {
         extend: {
           colors: {
-            laperla: {
-              cream: '#FAF6F0',
-              silk: '#F4ECE1',
-              gold: '#D4AF37',
-              goldLight: '#F5E6BE',
-              goldDark: '#996515',
-              brown: '#4A2E18',
-              darkText: '#18120C',
-              border: '#E3D2BF'
+            brand: {
+              bg: '#FBF9F5',         // خلفية كتان عاجي مريحة وهادئة
+              card: '#FFFFFF',
+              surface: '#F4EFEA',     // بيج دافئ راقٍ
+              border: '#E8DFD3',      // حدود ناعمة
+              gold: '#9E804D',        // ذهب عتيق كلاسيكي
+              goldLight: '#E8DCBF',
+              dark: '#1C1612',        // بني إسبريسو غامق جداً وفخم
+              muted: '#6B5F55'        // نصوص ثانوية هادئة
             }
           },
           fontFamily: {
             sans: ['Cairo', 'sans-serif'],
-            cinzel: ['Cinzel', 'serif'],
-            serif: ['Playfair Display', 'serif'],
-            script: ['"Alex Brush"', 'cursive']
+            serif: ['"Playfair Display"', 'serif'],
+            cinzel: ['Cinzel', 'serif']
           }
         }
       }
@@ -51,146 +51,145 @@
   </script>
 
   <style>
-    body { background-color: #FAF6F0; color: #18120C; font-family: 'Cairo', sans-serif; }
-    .gold-btn {
-      background: linear-gradient(135deg, #E5C369 0%, #C89D2B 100%);
-      color: #241403;
-      font-weight: 800;
-      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.25);
+    body {
+      background-color: #FBF9F5;
+      color: #1C1612;
+      font-family: 'Cairo', sans-serif;
+      overflow-x: hidden;
+    }
+    .arch-frame {
+      border-top-left-radius: 240px;
+      border-top-right-radius: 240px;
+      border-bottom-left-radius: 24px;
+      border-bottom-right-radius: 24px;
+    }
+    .btn-dark {
+      background-color: #1C1612;
+      color: #FBF9F5;
       transition: all 0.3s ease;
     }
-    .gold-btn:hover {
-      background: linear-gradient(135deg, #EED58D 0%, #D4AF37 100%);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+    .btn-dark:hover {
+      background-color: #9E804D;
+      color: #FFFFFF;
+      transform: translateY(-1px);
+    }
+    .btn-outline {
+      border: 1px solid #1C1612;
+      color: #1C1612;
+      transition: all 0.3s ease;
+    }
+    .btn-outline:hover {
+      border-color: #9E804D;
+      color: #9E804D;
+      background-color: #FFFFFF;
     }
   </style>
 </head>
-<body class="selection:bg-laperla-gold selection:text-white">
+<body class="selection:bg-brand-gold selection:text-white">
 
-  <!-- الشريط الإعلاني الملكي -->
-  <div class="bg-laperla-silk border-b border-laperla-border py-2 px-6 text-xs flex justify-between items-center text-laperla-darkText font-bold">
-    <div class="flex items-center gap-4">
-      <a href="https://www.instagram.com/la_perla2027?exln=MXc3MXhnaTZmZmF5Ng==" target="_blank" class="hover:text-laperla-goldDark transition flex items-center gap-1.5 font-bold">
-        <svg class="w-4 h-4 fill-current text-laperla-goldDark" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+  <!-- الشريط العلوي الهادئ جداً -->
+  <div class="bg-brand-surface/70 border-b border-brand-border/60 py-2.5 px-6 text-[11px] font-bold text-brand-muted flex justify-between items-center">
+    <div class="flex items-center gap-5">
+      <a href="https://www.instagram.com/la_perla2027?exln=MXc3MXhnaTZmZmF5Ng==" target="_blank" class="hover:text-brand-dark transition flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        <span>Instagram</span>
       </a>
-      <a href="https://www.facebook.com/share/1E3YfXJyKX/" target="_blank" class="hover:text-laperla-goldDark transition flex items-center gap-1.5 font-bold">
-        <svg class="w-4 h-4 fill-current text-laperla-goldDark" viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.5 5H18V0h-3.808C10.595 0 9 1.583 9 4.615V8z"/></svg>
+      <a href="https://www.facebook.com/share/1E3YfXJyKX/" target="_blank" class="hover:text-brand-dark transition flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.5 5H18V0h-3.808C10.595 0 9 1.583 9 4.615V8z"/></svg>
+        <span>Facebook</span>
       </a>
-      <a href="https://www.tiktok.com/@_perla102" target="_blank" class="hover:text-laperla-goldDark transition flex items-center gap-1.5 font-bold">
-        <svg class="w-4 h-4 fill-current text-laperla-goldDark" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.24 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg> 
+      <a href="https://www.tiktok.com/@_perla102" target="_blank" class="hover:text-brand-dark transition flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.24 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+        <span>TikTok</span>
       </a>
     </div>
 
-    <div class="text-[12px] font-extrabold text-laperla-brown tracking-widest font-serif uppercase">
-      Vente en Gros & Détail • شحن لـ 58 ولاية
+    <div class="tracking-widest uppercase font-serif text-[10px] hidden sm:block">
+      Maison de Couture • Vente en Gros & Détail
     </div>
   </div>
 
-  <!-- الهيدر الرسمي وشعار الدار -->
-  <header class="sticky top-0 z-40 bg-laperla-cream/95 backdrop-blur-md border-b border-laperla-border">
-    <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
-      <nav class="hidden lg:flex items-center gap-8 text-xs font-black tracking-widest uppercase text-laperla-darkText">
-        <a href="#about" class="hover:text-laperla-goldDark transition">قصة الدار • Histoire</a>
-        <a href="#lookbook" class="hover:text-laperla-goldDark transition">التشكيلة • Lookbook</a>
-        <a href="#wholesale" class="hover:text-laperla-goldDark transition">البيع بالجملة • Vente en Gros</a>
-        <a href="#reviews" class="hover:text-laperla-goldDark transition">آراء الزبونات • Témoignages</a>
+  <!-- الهيدر الكلاسيكي الفاخر بأسلوب دور الأزياء الفرنسية -->
+  <header class="sticky top-0 z-40 bg-brand-bg/95 backdrop-blur-md border-b border-brand-border/70">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <nav class="hidden md:flex items-center gap-8 text-xs uppercase tracking-widest text-brand-dark font-bold font-serif">
+        <a href="#lookbook" class="hover:text-brand-gold transition">Lookbook</a>
+        <a href="#about" class="hover:text-brand-gold transition">Notre Histoire</a>
+        <a href="#wholesale" class="hover:text-brand-gold transition">Vente en Gros</a>
+        <a href="#reviews" class="hover:text-brand-gold transition">Avis Clients</a>
       </nav>
 
       <!-- شعار la Pérla -->
       <a href="brand.html" class="text-center group">
-        <h1 class="text-3xl md:text-4xl font-serif font-black text-laperla-brown tracking-wider group-hover:scale-105 transition-transform duration-300">
+        <h1 class="text-2xl sm:text-3xl font-serif font-black tracking-wider text-brand-dark group-hover:text-brand-gold transition duration-300">
           la Pérla
         </h1>
-        <p class="text-[11px] font-serif italic text-laperla-goldDark tracking-widest font-bold">L'élégance au féminin</p>
+        <p class="text-[9px] font-serif italic tracking-widest text-brand-gold font-bold">L'ÉLÉGANCE AU FÉMININ</p>
       </a>
 
-      <div class="flex items-center gap-3">
-        <a href="index.html" class="gold-btn px-6 py-2.5 rounded-full text-xs font-black flex items-center gap-2 shadow-sm uppercase tracking-wider">
-          <i data-lucide="shopping-bag" class="w-4 h-4"></i> دخول البوتيك الملكي
+      <div>
+        <a href="index.html" class="btn-dark px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-2">
+          <span>دخول البوتيك</span>
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
         </a>
       </div>
     </div>
   </header>
 
-  <!-- 1. الواجهة الترحيبية -->
-  <section class="relative min-h-[85vh] flex items-center justify-center text-center px-6 overflow-hidden bg-gradient-to-b from-laperla-silk via-laperla-cream to-laperla-cream border-b border-laperla-border">
-    <div class="absolute inset-0 z-0 opacity-15">
-      <img src="file_00000000fd1c81f49abc48c10bad6193.png" 
-           alt="Haute Couture Background" 
-           class="w-full h-full object-cover">
-    </div>
-
-    <div class="relative z-10 max-w-4xl mx-auto space-y-6 pt-6">
-      <div class="inline-flex items-center gap-2 border border-laperla-gold/60 bg-white/80 px-5 py-1.5 rounded-full shadow-sm">
-        <i data-lucide="crown" class="w-4 h-4 text-laperla-gold"></i>
-        <span class="text-xs font-serif uppercase tracking-widest text-laperla-brown font-black">Vente en Gros & Détail</span>
-      </div>
-
-      <h2 class="text-4xl sm:text-6xl md:text-7xl font-serif text-laperla-darkText font-black leading-tight">
-        فخامة صُممت خصيصاً <br>
-        <span class="font-script text-6xl sm:text-8xl text-laperla-brown block mt-2 font-normal">la Pérla</span>
-      </h2>
-
-      <p class="text-neutral-700 text-sm sm:text-base md:text-lg max-w-2xl mx-auto font-bold leading-relaxed">
-        دار أزياء جزائرية راقية متخصصة في تصميم وصناعة وتوزيع الأزياء النسائية الفاخرة، نوفر تشكيلاتنا بأسعار الجملة التفضيلية للمحلات والبوتيكات، وبالتجزئة مع خدمة التوصيل لـ 58 ولاية والمعاينة قبل الدفع.
-      </p>
-
-      <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="index.html" class="gold-btn w-full sm:w-auto px-10 py-4 rounded-full text-xs font-black tracking-widest uppercase flex items-center justify-center gap-2">
-          <span>طلب بالتجزئة من البوتيك</span>
-          <i data-lucide="arrow-left" class="w-4 h-4"></i>
-        </a>
-        <a href="#wholesale" class="bg-white border-2 border-laperla-border text-laperla-brown hover:border-laperla-gold w-full sm:w-auto px-8 py-3.5 rounded-full text-xs font-black tracking-widest transition">
-          طلبات الجملة للمحلات 📦
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- 2. قصة وتأسيس دار la Pérla -->
-  <section id="about" class="py-20 max-w-7xl mx-auto px-6 border-b border-laperla-border">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+  <!-- 1. واجهة الـ Hero الكلاسيكية الهادئة (مستوحاة من تصميم LUXE و 5th Avenue) -->
+  <section class="py-12 sm:py-20 max-w-7xl mx-auto px-6 border-b border-brand-border/60">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
       
-      <div class="relative">
-        <div class="aspect-[4/5] rounded-3xl overflow-hidden border-2 border-laperla-gold shadow-2xl relative">
-          <img src="file_00000000fd1c81f49abc48c10bad6193.png" 
-               alt="Atelier la Pérla" 
-               class="w-full h-full object-cover">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-          <div class="absolute bottom-6 right-6 left-6 text-white text-right">
-            <span class="text-xs uppercase font-serif tracking-widest text-laperla-goldLight block mb-1 font-bold">Atelier de Couture</span>
-            <h4 class="font-serif text-xl font-black">حيث تُنسج الأناقة بأعلى معايير الإتقان</h4>
+      <!-- الجانب النصي التحريري (Editorial Typography) -->
+      <div class="lg:col-span-7 space-y-6 text-right">
+        <div class="inline-flex items-center gap-2 text-brand-gold text-xs font-serif tracking-widest uppercase font-bold">
+          <span class="w-6 h-[1px] bg-brand-gold"></span>
+          <span>Édition Limitée 2026</span>
+        </div>
+
+        <h2 class="text-4xl sm:text-6xl font-serif font-black text-brand-dark leading-[1.15] tracking-tight">
+          Timeless Elegance <br>
+          <span class="italic font-normal font-serif text-brand-gold">Redefined.</span>
+        </h2>
+
+        <p class="text-brand-muted text-sm sm:text-base font-normal leading-relaxed max-w-xl">
+          نبتكر أزياء راقية تحاكي الأنوثة الوقورة بتناغم فريد بين جودة الأقمشة ونعومة القصات العصرية، صُممت لتمنحكِ إطلالة مريحة واستثنائية تدوم مواسم طويلة.
+        </p>
+
+        <div class="pt-2 flex flex-wrap items-center gap-4">
+          <a href="index.html" class="btn-dark px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest">
+            اقتناء القطع من البوتيك
+          </a>
+          <a href="#wholesale" class="btn-outline px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest">
+            فضاء طلبات الجملة 📦
+          </a>
+        </div>
+
+        <div class="pt-6 border-t border-brand-border/60 flex items-center gap-8 text-xs text-brand-muted">
+          <div>
+            <span class="block font-serif text-lg font-bold text-brand-dark">58</span>
+            <span>ولاية مشمولة بالتوصيل</span>
+          </div>
+          <div class="w-[1px] h-8 bg-brand-border"></div>
+          <div>
+            <span class="block font-serif text-lg font-bold text-brand-dark">100%</span>
+            <span>معاينة قبل الدفع عند الاستلام</span>
           </div>
         </div>
       </div>
 
-      <div class="space-y-6 text-right">
-        <div class="inline-flex items-center gap-2 text-laperla-goldDark">
-          <span class="w-8 h-[1px] bg-laperla-gold"></span>
-          <span class="text-xs font-serif uppercase tracking-widest font-black">L'Origine de la Maison</span>
-        </div>
-
-        <h3 class="text-3xl sm:text-4xl font-serif text-laperla-darkText font-black leading-snug">
-          علامة جزائرية تمثل المرأة الأنيقة والعصرية
-        </h3>
-
-        <p class="text-neutral-700 text-sm leading-relaxed font-bold">
-          انطلقت دار <strong class="text-laperla-brown">la Pérla</strong> برؤية واضحة: تقديم تصاميم راقية تحاكي شخصية المرأة الجزائرية، تجمع بين الحشمة الراقية، القصات المريحة، واللمسة الكوتور الجذابة.
-        </p>
-
-        <p class="text-neutral-700 text-sm leading-relaxed font-bold">
-          نحرص على جودة الأقمشة من الجينز الفاخر إلى الساتان الملكي والكريب الانسيابي، لتكون كل قطعة استثماراً حقيقياً للمحلات والزبونات على حد سواء.
-        </p>
-
-        <div class="grid grid-cols-2 gap-6 pt-4 border-t border-laperla-border text-xs font-black">
-          <div>
-            <span class="text-2xl text-laperla-brown font-serif block mb-1">جملة وتجزئة</span>
-            <span class="text-neutral-600">تلبية كافة الكميات للبوتيكات والأفراد.</span>
+      <!-- الجانب البصري: إطار قوسي كلاسيكي فخم (مستوحى من تصميم LUXE في صورتك) -->
+      <div class="lg:col-span-5 flex justify-center">
+        <div class="relative w-full max-w-sm">
+          <div class="arch-frame overflow-hidden border border-brand-border bg-brand-surface shadow-xl aspect-[3/4.2]">
+            <img src="file_00000000fd1c81f49abc48c10bad6193.png" 
+                 alt="la Pérla Signature Dress" 
+                 class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
           </div>
-          <div>
-            <span class="text-2xl text-laperla-brown font-serif block mb-1">58 ولاية</span>
-            <span class="text-neutral-600">شحن موثوق للمنازل ومكاتب التوصيل.</span>
+          <!-- بطاقة عائمة ناعمة كلاسيكية -->
+          <div class="absolute -bottom-4 -right-4 bg-white/95 backdrop-blur-md border border-brand-border/80 px-4 py-2.5 rounded-2xl shadow-lg text-right">
+            <span class="text-[9px] font-serif uppercase tracking-widest text-brand-gold block font-bold">Signature Piece</span>
+            <p class="font-serif text-xs font-bold text-brand-dark">فستان جينز ماكسي كلاسيكي</p>
           </div>
         </div>
       </div>
@@ -198,173 +197,171 @@
     </div>
   </section>
 
-  <!-- 3. استعراض التشكيلة (بصوركم الحقيقية وبدون أسعار) -->
-  <section id="lookbook" class="py-24 max-w-7xl mx-auto px-6 border-b border-laperla-border">
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-4">
-      <div class="text-right">
-        <span class="text-xs uppercase tracking-widest text-laperla-goldDark font-black block mb-2 font-serif">Lookbook Officiel</span>
-        <h3 class="text-3xl sm:text-4xl font-serif text-laperla-darkText font-black">تشكيلة إبداعات دار la Pérla الحصرية</h3>
+  <!-- 2. قصة الدار (مستوحاة من أسلوب مجلات 5th Avenue في صورتك) -->
+  <section id="about" class="py-20 max-w-5xl mx-auto px-6 border-b border-brand-border/60 text-center">
+    <div class="max-w-2xl mx-auto space-y-5">
+      <div class="w-10 h-[1px] bg-brand-gold mx-auto"></div>
+      <span class="text-xs font-serif uppercase tracking-widest text-brand-gold font-bold">Our Heritage</span>
+      <h3 class="text-3xl sm:text-4xl font-serif font-black text-brand-dark">
+        عالم من الإتقان والهدوء
+      </h3>
+      <p class="text-brand-muted text-sm sm:text-base leading-relaxed font-normal">
+        تأسست دار <strong class="text-brand-dark font-bold">la Pérla</strong> لتقدم بديلاً فاخراً للمرأة التي تقدر البساطة والجمال غير المتكلف. ننتقي أقمشتنا بعناية لنوفر ملابس يومية ومناسباتية تمتاز بالحشمة الراقية والتفصيل المدروس.
+      </p>
+      <div class="pt-2 text-xs font-serif italic text-brand-gold tracking-widest">
+        "Votre style, notre passion — L'élégance au féminin"
       </div>
-      <a href="index.html" class="gold-btn px-6 py-2.5 rounded-full text-xs font-black flex items-center gap-2">
-        <span>الانتقال للبوتيك</span>
-        <i data-lucide="arrow-left" class="w-4 h-4"></i>
-      </a>
+    </div>
+  </section>
+
+  <!-- 3. الكتالوج (Lookbook): عرض القطع الحقيقية بدون أسعار وبأعلى درجات الهدوء -->
+  <section id="lookbook" class="py-20 max-w-7xl mx-auto px-6 border-b border-brand-border/60">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-12 gap-4 text-right">
+      <div>
+        <span class="text-xs font-serif uppercase tracking-widest text-brand-gold font-bold block mb-1">Collection Actuelle</span>
+        <h3 class="text-3xl font-serif font-black text-brand-dark">إبداعات la Pérla الحصرية</h3>
+      </div>
+      <p class="text-xs text-brand-muted max-w-xs">
+        قطع متناسقة تجمع بين الراحة والوقار، متوفرة للطلب بالتجزئة أو بالجملة للمحلات.
+      </p>
     </div>
 
-    <!-- شبكة عرض القطع الحقيقية -->
+    <!-- شبكة عرض القطع المتطابقة 100% مع صوركم الحقيقية وبدون أي أسعار -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
       
-      <!-- القطعة 1: طقم أزرق ليل كاجوال شيك -->
-      <div class="group relative rounded-3xl overflow-hidden border-2 border-laperla-border bg-white shadow-lg flex flex-col justify-between">
-        <div class="aspect-[3/4] overflow-hidden bg-neutral-100 relative">
+      <!-- القطعة 1: طقم أزرق ليل كاجوال شيك (جالسة مع الحقيبة) -->
+      <div class="group bg-white border border-brand-border/80 rounded-2xl overflow-hidden hover:shadow-lg transition duration-300 flex flex-col justify-between">
+        <div class="aspect-[3/4] overflow-hidden bg-brand-surface relative">
           <img src="file_00000000128481f4b14a0440613fcfb4.png" 
                alt="طقم أزرق ليل كاجوال" 
                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-          <span class="absolute top-3 right-3 bg-laperla-brown text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow">
-            الأكثر طلباً ⭐
-          </span>
         </div>
-        <div class="p-6 text-right flex flex-col justify-between flex-1">
+        <div class="p-6 text-right flex-1 flex flex-col justify-between">
           <div>
-            <span class="text-[10px] text-laperla-goldDark uppercase font-black tracking-widest">Ensemble Oversize Chic</span>
-            <h4 class="font-serif text-lg font-black text-neutral-900 mt-1">طقم أزرق ليل أوفر سايز راقٍ</h4>
-            <p class="text-xs text-neutral-600 font-bold mt-2 leading-relaxed">
-              طقم مريح وعصري متكون من قميص بأكمام واسعة وبنطال فضفاض بقماش جينز صيفي خفيف وأزرار أنيقة، مناسب للإطلالات اليومية والعملية.
+            <span class="text-[10px] font-serif uppercase tracking-widest text-brand-gold font-bold">Ensemble Chic</span>
+            <h4 class="font-serif text-lg font-bold text-brand-dark mt-1">طقم أزرق ليل أوفر سايز راقٍ</h4>
+            <p class="text-xs text-brand-muted mt-2 leading-relaxed">
+              طقم مريح وعصري متكون من قميص بأكمام واسعة وبنطال فضفاض بقماش جينز صيفي خفيف وأزرار أنيقة.
             </p>
           </div>
-          <div class="mt-5 pt-3 border-t border-neutral-100">
-            <a href="index.html" class="gold-btn w-full py-2.5 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 shadow">
-              <span>اقتناء القطعة من البوتيك 🛍️</span>
+          <div class="mt-5 pt-3 border-t border-brand-border/50">
+            <a href="index.html" class="btn-dark w-full py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5">
+              <span>طلب القطعة من البوتيك</span>
             </a>
           </div>
         </div>
       </div>
 
-      <!-- القطعة 2: طقم أزرق ليل كامل الإطلالة -->
-      <div class="group relative rounded-3xl overflow-hidden border-2 border-laperla-border bg-white shadow-lg flex flex-col justify-between">
-        <div class="aspect-[3/4] overflow-hidden bg-neutral-100 relative">
+      <!-- القطعة 2: طقم أزرق ليل (واقفة كامل الإطلالة) -->
+      <div class="group bg-white border border-brand-border/80 rounded-2xl overflow-hidden hover:shadow-lg transition duration-300 flex flex-col justify-between">
+        <div class="aspect-[3/4] overflow-hidden bg-brand-surface relative">
           <img src="file_00000000725c8230b436f78947c90bec.png" 
                alt="طقم كاجوال شيك فضفاض" 
                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-          <span class="absolute top-3 right-3 bg-blue-700 text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow">
-            قصة فضفاضة New
-          </span>
         </div>
-        <div class="p-6 text-right flex flex-col justify-between flex-1">
+        <div class="p-6 text-right flex-1 flex flex-col justify-between">
           <div>
-            <span class="text-[10px] text-laperla-goldDark uppercase font-black tracking-widest">Ensemble Bleu Nuit</span>
-            <h4 class="font-serif text-lg font-black text-neutral-900 mt-1">طقم كاجوال شيك بقصة فضفاضة ومريحة</h4>
-            <p class="text-xs text-neutral-600 font-bold mt-2 leading-relaxed">
-              تناغم مثالي بين الراحة والفخامة اليومية، يتميز بقصة انسيابية متناسقة تمنحكِ وقاراً وثقة تامة طوال اليوم.
+            <span class="text-[10px] font-serif uppercase tracking-widest text-brand-gold font-bold">Ensemble Bleu Nuit</span>
+            <h4 class="font-serif text-lg font-bold text-brand-dark mt-1">طقم كاجوال شيك بقصة فضفاضة ومريحة</h4>
+            <p class="text-xs text-brand-muted mt-2 leading-relaxed">
+              تناغم مثالي بين الراحة والفخامة اليومية، يتميز بقصة انسيابية متناسقة تمنحكِ وقاراً وثقة تامة.
             </p>
           </div>
-          <div class="mt-5 pt-3 border-t border-neutral-100">
-            <a href="index.html" class="gold-btn w-full py-2.5 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 shadow">
-              <span>اقتناء القطعة من البوتيك 🛍️</span>
+          <div class="mt-5 pt-3 border-t border-brand-border/50">
+            <a href="index.html" class="btn-dark w-full py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5">
+              <span>طلب القطعة من البوتيك</span>
             </a>
           </div>
         </div>
       </div>
 
       <!-- القطعة 3: قفطان كوتور زيتي ملكي مطرز بالذهب -->
-      <div class="group relative rounded-3xl overflow-hidden border-2 border-laperla-border bg-white shadow-lg flex flex-col justify-between">
-        <div class="aspect-[3/4] overflow-hidden bg-neutral-100 relative">
+      <div class="group bg-white border border-brand-border/80 rounded-2xl overflow-hidden hover:shadow-lg transition duration-300 flex flex-col justify-between">
+        <div class="aspect-[3/4] overflow-hidden bg-brand-surface relative">
           <img src="file_000000007600824681b2f9d378c764aa.png" 
                alt="قفطان كوتور زيتي مطرز بالذهب" 
                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-          <span class="absolute top-3 right-3 bg-emerald-800 text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow">
-            Haute Couture 👑
-          </span>
         </div>
-        <div class="p-6 text-right flex flex-col justify-between flex-1">
+        <div class="p-6 text-right flex-1 flex flex-col justify-between">
           <div>
-            <span class="text-[10px] text-laperla-goldDark uppercase font-black tracking-widest">Caftan d'Apparat</span>
-            <h4 class="font-serif text-lg font-black text-neutral-900 mt-1">قفطان كوتور زيتي ملكي مطرز بالذهب</h4>
-            <p class="text-xs text-neutral-600 font-bold mt-2 leading-relaxed">
-              قطعة ملكية ساحرة تجمع بين قماش الكريب الزيتي الفاخر، بطانة حريرية عاجية وتطريز هندسي دقيق مع حزام مذهب راقٍ.
+            <span class="text-[10px] font-serif uppercase tracking-widest text-brand-gold font-bold">Caftan d'Apparat</span>
+            <h4 class="font-serif text-lg font-bold text-brand-dark mt-1">قفطان كوتور زيتي ملكي مطرز بالذهب</h4>
+            <p class="text-xs text-brand-muted mt-2 leading-relaxed">
+              قطعة ملكية ساحرة تجمع بين قماش الكريب الزيتي الفاخر، بطانة حريرية عاجية وتطريز هندسي دقيق مع حزام مذهب.
             </p>
           </div>
-          <div class="mt-5 pt-3 border-t border-neutral-100">
-            <a href="index.html" class="gold-btn w-full py-2.5 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 shadow">
-              <span>اقتناء القطعة من البوتيك 🛍️</span>
+          <div class="mt-5 pt-3 border-t border-brand-border/50">
+            <a href="index.html" class="btn-dark w-full py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5">
+              <span>طلب القطعة من البوتيك</span>
             </a>
           </div>
         </div>
       </div>
 
       <!-- القطعة 4: قفطان كوتور بأدق تفاصيل التطريز اليدوي -->
-      <div class="group relative rounded-3xl overflow-hidden border-2 border-laperla-border bg-white shadow-lg flex flex-col justify-between">
-        <div class="aspect-[3/4] overflow-hidden bg-neutral-100 relative">
+      <div class="group bg-white border border-brand-border/80 rounded-2xl overflow-hidden hover:shadow-lg transition duration-300 flex flex-col justify-between">
+        <div class="aspect-[3/4] overflow-hidden bg-brand-surface relative">
           <img src="file_00000000885c8246880bd3ecff59d10a.png" 
                alt="قفطان كوتور زيتي بتفاصيل دقيقة" 
                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-          <span class="absolute top-3 right-3 bg-emerald-800 text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow">
-            تطريز يدوي فاخر ✨
-          </span>
         </div>
-        <div class="p-5 text-right flex flex-col justify-between flex-1">
+        <div class="p-6 text-right flex-1 flex flex-col justify-between">
           <div>
-            <span class="text-[10px] text-laperla-goldDark uppercase font-black tracking-widest">Finitions Haute Couture</span>
-            <h4 class="font-serif text-lg font-black text-neutral-900 mt-1">قفطان كوتور بأدق تفاصيل التطريز اليدوي</h4>
-            <p class="text-xs text-neutral-600 font-bold mt-2 leading-relaxed">
+            <span class="text-[10px] font-serif uppercase tracking-widest text-brand-gold font-bold">Finitions Haute Couture</span>
+            <h4 class="font-serif text-lg font-bold text-brand-dark mt-1">قفطان كوتور بتفاصيل التطريز اليدوي</h4>
+            <p class="text-xs text-brand-muted mt-2 leading-relaxed">
               إبداع حرفي يعكس فخامة التطريز على الأكمام والصدر وحزام الخصر لإطلالة تقليدية بهية في أرقى المناسبات.
             </p>
           </div>
-          <div class="mt-5 pt-3 border-t border-neutral-100">
-            <a href="index.html" class="gold-btn w-full py-2.5 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 shadow">
-              <span>اقتناء القطعة من البوتيك 🛍️</span>
+          <div class="mt-5 pt-3 border-t border-brand-border/50">
+            <a href="index.html" class="btn-dark w-full py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5">
+              <span>طلب القطعة من البوتيك</span>
             </a>
           </div>
         </div>
       </div>
 
-      <!-- القطعة 5: فستان جينز طويل بقصة قميص كوتور -->
-      <div class="group relative rounded-3xl overflow-hidden border-2 border-laperla-border bg-white shadow-lg flex flex-col justify-between">
-        <div class="aspect-[3/4] overflow-hidden bg-neutral-100 relative">
+      <!-- القطعة 5: فستان جينز طويل بقصة قميص كوتور (إطلالة الحجاب) -->
+      <div class="group bg-white border border-brand-border/80 rounded-2xl overflow-hidden hover:shadow-lg transition duration-300 flex flex-col justify-between">
+        <div class="aspect-[3/4] overflow-hidden bg-brand-surface relative">
           <img src="file_00000000b21081f4865ccd4e9992526d.png" 
                alt="فستان جينز كوتور محتشم" 
                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-          <span class="absolute top-3 right-3 bg-laperla-goldDark text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow">
-            إطلالة الحجاب الراقي ✨
-          </span>
         </div>
-        <div class="p-6 text-right flex flex-col justify-between flex-1">
+        <div class="p-6 text-right flex-1 flex flex-col justify-between">
           <div>
-            <span class="text-[10px] text-laperla-goldDark uppercase font-black tracking-widest">Robe Denim Longue</span>
-            <h4 class="font-serif text-lg font-black text-neutral-900 mt-1">فستان جينز طويل بقصة قميص كوتور</h4>
-            <p class="text-xs text-neutral-600 font-bold mt-2 leading-relaxed">
+            <span class="text-[10px] font-serif uppercase tracking-widest text-brand-gold font-bold">Robe Denim Longue</span>
+            <h4 class="font-serif text-lg font-bold text-brand-dark mt-1">فستان جينز طويل بقصة قميص كوتور</h4>
+            <p class="text-xs text-brand-muted mt-2 leading-relaxed">
               تصميم كلاسيكي مميز بقماش جينز ناعم، أزرار أمامية وحزام كلاسيكي يبرز الخصر بإطلالة انسيابية محتشمة.
             </p>
           </div>
-          <div class="mt-5 pt-3 border-t border-neutral-100">
-            <a href="index.html" class="gold-btn w-full py-2.5 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 shadow">
-              <span>اقتناء القطعة من البوتيك 🛍️</span>
+          <div class="mt-5 pt-3 border-t border-brand-border/50">
+            <a href="index.html" class="btn-dark w-full py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5">
+              <span>طلب القطعة من البوتيك</span>
             </a>
           </div>
         </div>
       </div>
 
       <!-- القطعة 6: فستان الساتان البرونزي الملكي بأكمام منفوخة -->
-      <div class="group relative rounded-3xl overflow-hidden border-2 border-laperla-border bg-white shadow-lg flex flex-col justify-between">
-        <div class="aspect-[3/4] overflow-hidden bg-neutral-100 relative">
+      <div class="group bg-white border border-brand-border/80 rounded-2xl overflow-hidden hover:shadow-lg transition duration-300 flex flex-col justify-between">
+        <div class="aspect-[3/4] overflow-hidden bg-brand-surface relative">
           <img src="file_00000000ef8081f480c83efafe065a48.png" 
                alt="فستان ساتان برونزي ملكي" 
                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-          <span class="absolute top-3 right-3 bg-laperla-brown text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow">
-            Robe de Soirée 💎
-          </span>
         </div>
-        <div class="p-6 text-right flex flex-col justify-between flex-1">
+        <div class="p-6 text-right flex-1 flex flex-col justify-between">
           <div>
-            <span class="text-[10px] text-laperla-goldDark uppercase font-black tracking-widest">Robe Satin Bronze</span>
-            <h4 class="font-serif text-lg font-black text-neutral-900 mt-1">فستان ساتان برونزي بأكمام منفوخة</h4>
-            <p class="text-xs text-neutral-600 font-bold mt-2 leading-relaxed">
+            <span class="text-[10px] font-serif uppercase tracking-widest text-brand-gold font-bold">Robe Satin Bronze</span>
+            <h4 class="font-serif text-lg font-bold text-brand-dark mt-1">فستان ساتان برونزي بأكمام منفوخة</h4>
+            <p class="text-xs text-brand-muted mt-2 leading-relaxed">
               تحفة من الساتان الجاكار الراقي بلون الشوكولا المذهب، أكمام منفوخة ملكية وحزام خصر متناسق للسهرات الراقية.
             </p>
           </div>
-          <div class="mt-5 pt-3 border-t border-neutral-100">
-            <a href="index.html" class="gold-btn w-full py-2.5 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 shadow">
-              <span>اقتناء القطعة من البوتيك 🛍️</span>
+          <div class="mt-5 pt-3 border-t border-brand-border/50">
+            <a href="index.html" class="btn-dark w-full py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5">
+              <span>طلب القطعة من البوتيك</span>
             </a>
           </div>
         </div>
@@ -373,115 +370,90 @@
     </div>
   </section>
 
-  <!-- 4. فضاء البيع بالجملة والتجزئة (بالرقم الجديد 0542 63 45 73) -->
-  <section id="wholesale" class="py-24 max-w-5xl mx-auto px-6 text-center">
-    <div class="bg-white border-2 border-laperla-gold p-8 sm:p-14 rounded-3xl shadow-2xl space-y-6">
+  <!-- 4. فضاء البيع بالجملة (تم حذف الاتصال الهاتفي وترك الواتساب فقط بطلبك) -->
+  <section id="wholesale" class="py-20 max-w-4xl mx-auto px-6 text-center">
+    <div class="bg-brand-surface border border-brand-border p-8 sm:p-14 rounded-3xl shadow-sm space-y-6">
       
-      <div class="w-20 h-20 bg-laperla-silk border-2 border-laperla-gold rounded-full flex items-center justify-center mx-auto text-laperla-goldDark shadow-inner">
-        <i data-lucide="package" class="w-10 h-10"></i>
+      <div class="w-12 h-12 bg-white border border-brand-border rounded-full flex items-center justify-center mx-auto text-brand-gold shadow-xs">
+        <i data-lucide="package" class="w-6 h-6"></i>
       </div>
 
-      <span class="text-xs uppercase tracking-widest text-laperla-goldDark font-black block font-serif">
-        Vente en Gros & Détail
+      <span class="text-xs uppercase tracking-widest text-brand-gold font-bold font-serif">
+        Vente en Gros
       </span>
 
-      <h3 class="text-3xl sm:text-4xl font-serif text-laperla-darkText font-black leading-snug">
-        فضاء البيع بالجملة والتجزئة عبر الـ 58 ولاية
+      <h3 class="text-2xl sm:text-3xl font-serif font-black text-brand-dark">
+        فضاء طلبات الجملة لأصحاب المحلات والبوتيكات
       </h3>
 
-      <p class="text-neutral-700 text-xs sm:text-sm md:text-base font-bold max-w-2xl mx-auto leading-relaxed">
-        يسر دار <strong class="text-laperla-brown">la Pérla</strong> تلبية جميع الطلبات سواء <strong>بالتجزئة للأفراد</strong> أو <strong>بالجملة لأصحاب المحلات، البوتيكات، والصفحات التجارية</strong> بأسعار تنافسية ممتازة وجودة تصنيع وتشطيب عالية.
+      <p class="text-brand-muted text-xs sm:text-sm font-normal max-w-xl mx-auto leading-relaxed">
+        يسر دار <strong class="text-brand-dark font-bold">la Pérla</strong> تلبية طلبيات الجملة للتجار والصفحات التجارية عبر الـ 58 ولاية، بأسعار تفضيلية وجودة تصنيع وتشطيب تليق بزبائنكم.
       </p>
 
-      <!-- مزايا التعامل -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 text-xs font-bold text-neutral-800">
-        <div class="bg-laperla-silk/60 p-4 rounded-2xl border border-laperla-border">
-          <span class="text-lg block mb-1">📦</span>
-          <h5 class="font-black text-laperla-brown mb-0.5">أسعار جملة تفضيلية</h5>
-          <p class="text-[11px] text-neutral-500">تخفيضات خاصة للكميات الموجهة لأصحاب البوتيكات والمحلات.</p>
+      <!-- مزايا الجملة -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto pt-2 text-xs text-right">
+        <div class="bg-white p-4 rounded-xl border border-brand-border/60">
+          <strong class="text-brand-dark block mb-1">📦 أسعار جملة تفضيلية</strong>
+          <span class="text-brand-muted">تخفيضات خاصة بالكميات المتنوعة للمحلات.</span>
         </div>
-        <div class="bg-laperla-silk/60 p-4 rounded-2xl border border-laperla-border">
-          <span class="text-lg block mb-1">🚚</span>
-          <h5 class="font-black text-laperla-brown mb-0.5">شحن سريع لـ 58 ولاية</h5>
-          <p class="text-[11px] text-neutral-500">توصيل آمن وسريع للمحلات أو لمنازل الزبائن.</p>
-        </div>
-        <div class="bg-laperla-silk/60 p-4 rounded-2xl border border-laperla-border">
-          <span class="text-lg block mb-1">👗</span>
-          <h5 class="font-black text-laperla-brown mb-0.5">بيع بالتجزئة مضمون</h5>
-          <p class="text-[11px] text-neutral-500">إمكانية اقتناء قطعة واحدة مع المعاينة قبل الدفع.</p>
+        <div class="bg-white p-4 rounded-xl border border-brand-border/60">
+          <strong class="text-brand-dark block mb-1">🚚 شحن سريع ومضمون</strong>
+          <span class="text-brand-muted">توصيل آمن لجميع ولايات الوطن في وقت قياسي.</span>
         </div>
       </div>
 
-      <!-- أزرار التواصل لطلبات الجملة والتجزئة (الرقم الجديد) -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6 border-t border-neutral-100">
-        <a href="https://wa.me/213542634573?text=مرحباً%20دار%20la%20Pérla،%20أنا%20تاجر%20/%20صاحب%20محل%20وأود%20الاستفسار%20عن%20أسعار%20وطلبات%20الجملة" target="_blank" class="gold-btn w-full sm:w-auto px-8 py-4 rounded-2xl text-xs font-black flex items-center justify-center gap-2 shadow-lg">
-          <i data-lucide="message-circle" class="w-4 h-4"></i> تواصل لطلبات الجملة عبر واتساب
-        </a>
-        <a href="tel:0542634573" class="bg-white border-2 border-laperla-border hover:border-laperla-gold text-laperla-brown w-full sm:w-auto px-8 py-4 rounded-2xl text-xs font-black transition flex items-center justify-center gap-2 shadow-sm">
-          <i data-lucide="phone-call" class="w-4 h-4 text-emerald-600"></i> اتصال مباشر بإدارة المبيعات: 0542 63 45 73
+      <!-- زر الواتساب فقط لطلبات الجملة (تم إلغاء الاتصال الهاتفي بطلبك) -->
+      <div class="pt-4 flex justify-center">
+        <a href="https://wa.me/213542634573?text=مرحباً%20دار%20la%20Pérla،%20أنا%20تاجر%20/%20صاحب%20محل%20وأود%20الاستفسار%20عن%20أسعار%20وطلبات%20الجملة" target="_blank" class="btn-dark px-10 py-4 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-2.5 shadow-md">
+          <i data-lucide="message-circle" class="w-4 h-4 text-emerald-400"></i>
+          <span>تواصل لطلبات الجملة عبر واتساب</span>
         </a>
       </div>
 
     </div>
   </section>
 
-  <!-- 5. آراء وانطباعات زبونات دار la Pérla (Témoignages Clients) -->
-  <section id="reviews" class="py-24 bg-laperla-silk/60 border-t-2 border-laperla-border">
+  <!-- 5. آراء وانطباعات زبونات الدار (Témoignages) -->
+  <section id="reviews" class="py-20 border-t border-brand-border/60 bg-white">
     <div class="max-w-6xl mx-auto px-6">
-      <div class="text-center max-w-lg mx-auto mb-16">
-        <div class="flex items-center justify-center gap-1 text-amber-500 mb-2 text-base">★★★★★</div>
-        <span class="text-xs uppercase tracking-widest text-laperla-goldDark font-black block mb-1 font-serif">Témoignages de nos Clientes</span>
-        <h3 class="text-3xl font-serif text-laperla-darkText font-black">آراء الزبونات الوفيات لعلامة la Pérla</h3>
-        <p class="text-xs text-neutral-600 font-bold mt-2">ثقة متجددة تجمعنا بأرقى سيدات وبوتيكات الجزائر</p>
+      
+      <div class="text-center max-w-md mx-auto mb-14">
+        <span class="text-xs uppercase tracking-widest text-brand-gold font-bold block mb-1 font-serif">Avis Clients</span>
+        <h3 class="text-2xl sm:text-3xl font-serif font-black text-brand-dark">انطباعات زبونات la Pérla</h3>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
-        <div class="bg-white p-8 border-2 border-laperla-border rounded-3xl shadow-sm space-y-4 text-right relative">
-          <span class="text-amber-500 text-xs block font-bold">★★★★★ 5/5</span>
-          <p class="text-neutral-800 text-xs sm:text-sm leading-relaxed font-bold">
-            "فستان الجينز تحفة في اللبس، القماش بارد ومريح جداً والخياطة متقونة 100%. التغليف فخم ووصلني في 24 ساعة للجزائر العاصمة. شكراً على المعاملة الراقية."
+        <div class="p-6 bg-brand-bg rounded-2xl border border-brand-border/60 space-y-3 text-right">
+          <div class="flex text-amber-500 text-xs">★★★★★</div>
+          <p class="text-brand-dark text-xs sm:text-sm leading-relaxed">
+            "فستان الجينز تحفة في اللبس، القماش بارد ومريح جداً والخياطة متقونة 100%. التغليف فخم ووصلني في 24 ساعة للجزائر العاصمة."
           </p>
-          <div class="border-t border-neutral-100 pt-3 flex justify-between items-center text-xs">
-            <div>
-              <h5 class="font-black text-laperla-brown">أمينة ب.</h5>
-              <span class="text-[10px] text-neutral-400">الجزائر العاصمة • حيدرة</span>
-            </div>
-            <span class="bg-emerald-50 text-emerald-800 text-[10px] font-black px-2.5 py-1 rounded-full border border-emerald-200">
-              ✓ شراء مؤكد
-            </span>
+          <div class="border-t border-brand-border/50 pt-3 text-[11px] text-brand-muted">
+            <strong class="text-brand-dark block">أمينة ب.</strong>
+            <span>الجزائر العاصمة • حيدرة</span>
           </div>
         </div>
 
-        <div class="bg-white p-8 border-2 border-laperla-border rounded-3xl shadow-sm space-y-4 text-right relative">
-          <span class="text-amber-500 text-xs block font-bold">★★★★★ 5/5</span>
-          <p class="text-neutral-800 text-xs sm:text-sm leading-relaxed font-bold">
-            "تعاملت مع دار la Pérla كصاحبة بوتيك في وهران لطلبيات الجملة، المصداقية في المواعيد وجودة التشطيب في الفساتين والقفطان أبهرت زبوناتي ونفذت الكمية في أيام."
+        <div class="p-6 bg-brand-bg rounded-2xl border border-brand-border/60 space-y-3 text-right">
+          <div class="flex text-amber-500 text-xs">★★★★★</div>
+          <p class="text-brand-dark text-xs sm:text-sm leading-relaxed">
+            "تعاملت مع دار la Pérla كصاحبة بوتيك في وهران لطلبيات الجملة، المصداقية في المواعيد وجودة التشطيب في الفساتين والقفطان نالت إعجاب زبوناتي."
           </p>
-          <div class="border-t border-neutral-100 pt-3 flex justify-between items-center text-xs">
-            <div>
-              <h5 class="font-black text-laperla-brown">السيدة دليلة م.</h5>
-              <span class="text-[10px] text-neutral-400">وهران • صاحبة متجر أزياء</span>
-            </div>
-            <span class="bg-amber-50 text-amber-900 text-[10px] font-black px-2.5 py-1 rounded-full border border-amber-200">
-              👑 زبونة جملة وفية
-            </span>
+          <div class="border-t border-brand-border/50 pt-3 text-[11px] text-brand-muted">
+            <strong class="text-brand-dark block">السيدة دليلة م.</strong>
+            <span>وهران • صاحبة متجر أزياء</span>
           </div>
         </div>
 
-        <div class="bg-white p-8 border-2 border-laperla-border rounded-3xl shadow-sm space-y-4 text-right relative">
-          <span class="text-amber-500 text-xs block font-bold">★★★★★ 5/5</span>
-          <p class="text-neutral-800 text-xs sm:text-sm leading-relaxed font-bold">
-            "أعجبتني جداً ميزة المعاينة قبل تسليم المبلغ لمندوب التوصيل. فتحت الطرد وتأكدت من مقاس الطقم وخامته الراقية ثم دفعت. خدمة ممتازة وتستحق التشجيع."
+        <div class="p-6 bg-brand-bg rounded-2xl border border-brand-border/60 space-y-3 text-right">
+          <div class="flex text-amber-500 text-xs">★★★★★</div>
+          <p class="text-brand-dark text-xs sm:text-sm leading-relaxed">
+            "أعجبتني جداً ميزة المعاينة قبل تسليم المبلغ لمندوب التوصيل. فتحت الطرد وتأكدت من مقاس الطقم وخامته الراقية ثم دفعت. خدمة ممتازة."
           </p>
-          <div class="border-t border-neutral-100 pt-3 flex justify-between items-center text-xs">
-            <div>
-              <h5 class="font-black text-laperla-brown">ليلى ح.</h5>
-              <span class="text-[10px] text-neutral-400">قسنطينة • بوالصوف</span>
-            </div>
-            <span class="bg-emerald-50 text-emerald-800 text-[10px] font-black px-2.5 py-1 rounded-full border border-emerald-200">
-              ✓ شراء مؤكد
-            </span>
+          <div class="border-t border-brand-border/50 pt-3 text-[11px] text-brand-muted">
+            <strong class="text-brand-dark block">ليلى ح.</strong>
+            <span>قسنطينة • بوالصوف</span>
           </div>
         </div>
 
@@ -489,31 +461,24 @@
     </div>
   </section>
 
-  <!-- الفوتر الرسمي لدار la Pérla -->
-  <footer class="bg-laperla-silk border-t-2 border-laperla-border py-14 px-6 text-center text-xs text-neutral-700 font-bold">
+  <!-- الفوتر الكلاسيكي الناعم -->
+  <footer class="bg-brand-surface border-t border-brand-border/60 py-12 px-6 text-center text-xs text-brand-muted">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
       
       <div class="text-center md:text-right">
-        <h4 class="text-3xl font-serif font-black text-laperla-brown">la Pérla</h4>
-        <p class="text-xs text-laperla-goldDark font-bold tracking-widest mt-0.5">L'élégance au féminin • الجزائر</p>
-        <p class="text-[11px] text-neutral-500 mt-2 font-normal">دار أزياء جزائرية متخصصة في خياطة وتصميم وتوزيع الأزياء النسائية بالجملة والتجزئة.</p>
+        <h4 class="text-2xl font-serif font-black text-brand-dark">la Pérla</h4>
+        <p class="text-[10px] font-serif italic text-brand-gold tracking-widest mt-0.5">L'ÉLÉGANCE AU FÉMININ</p>
       </div>
 
-      <div class="flex items-center gap-6 text-xs font-black">
-        <a href="https://www.instagram.com/la_perla2027?exln=MXc3MXhnaTZmZmF5Ng==" target="_blank" class="hover:text-laperla-brown flex items-center gap-1.5">
-          Instagram
-        </a>
+      <div class="flex items-center gap-6 text-xs font-bold text-brand-dark">
+        <a href="https://www.instagram.com/la_perla2027?exln=MXc3MXhnaTZmZmF5Ng==" target="_blank" class="hover:text-brand-gold">Instagram</a>
         <span>•</span>
-        <a href="https://www.facebook.com/share/1E3YfXJyKX/" target="_blank" class="hover:text-laperla-brown flex items-center gap-1.5">
-          Facebook
-        </a>
+        <a href="https://www.facebook.com/share/1E3YfXJyKX/" target="_blank" class="hover:text-brand-gold">Facebook</a>
         <span>•</span>
-        <a href="https://www.tiktok.com/@_perla102" target="_blank" class="hover:text-laperla-brown flex items-center gap-1.5">
-          TikTok
-        </a>
+        <a href="https://www.tiktok.com/@_perla102" target="_blank" class="hover:text-brand-gold">TikTok</a>
       </div>
 
-      <div class="text-neutral-500 text-[11px]">
+      <div class="text-[11px]">
         جميع الحقوق محفوظة &copy; 2026 Maison la Pérla.
       </div>
     </div>
