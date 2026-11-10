@@ -120,6 +120,7 @@
     let scene, camera, renderer, controls;
     let clock = new THREE.Clock();
     let currentCameraMode = 'track';
+    let walkProgress = 0;
 
     // Model & Animation References
     let modelGroup, dressMesh;
@@ -154,13 +155,16 @@
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure = 1.15;
 
-      // 4. Orbit Controls (Enabled in Orbit Mode)
+      // 4. Orbit Controls (محدث بالدوران التلقائي وتثبيت الكاميرا)
       controls = new OrbitControls(camera, renderer.domElement);
       controls.enableDamping = true;
       controls.dampingFactor = 0.05;
-      controls.maxPolarAngle = Math.PI / 2 + 0.02; // Don't clip beneath floor
-      controls.minDistance = 2.0;
-      controls.maxDistance = 14.0;
+      controls.autoRotate = false;
+      controls.autoRotateSpeed = 1.2;
+      controls.maxPolarAngle = Math.PI / 2 + 0.02; // منع النزول تحت الأرضية
+      controls.minDistance = 2.2;
+      controls.maxDistance = 10.0;
+      controls.target.set(0, 1.4, 0);
       controls.enabled = false;
 
       // 5. Environment & Lights
@@ -177,12 +181,11 @@
     }
 
     function setupLighting() {
-      // Ambient Base
-      const ambient = new THREE.AmbientLight(0xfff6e6, 0.6);
+      const ambient = new THREE.AmbientLight(0xfff6e6, 0.65);
       scene.add(ambient);
 
-      // Follow Spotlight (Runway Keylight)
-      followSpotLight = new THREE.SpotLight(0xfffaed, 220);
+      // Follow Spotlight
+      followSpotLight = new THREE.SpotLight(0xfffaed, 240);
       followSpotLight.position.set(0, 10, 4);
       followSpotLight.angle = Math.PI / 7;
       followSpotLight.penumbra = 0.55;
@@ -199,12 +202,12 @@
       followSpotLight.target = followSpotLightTarget;
       scene.add(followSpotLight);
 
-      // Champagne-Gold Rim Light (Backlight for Silhouette Definition)
+      // Champagne-Gold Rim Light
       const rimLight = new THREE.DirectionalLight(0xD4AF37, 3.2);
       rimLight.position.set(0, 5, -8);
       scene.add(rimLight);
 
-      // Fill Lights along Catwalk
+      // Fill Lights
       const fillLightLeft = new THREE.PointLight(0xffecd1, 35, 12);
       fillLightLeft.position.set(-3, 3, 2);
       scene.add(fillLightLeft);
@@ -215,7 +218,7 @@
     }
 
     function buildRunwayStage() {
-      // 1. Catwalk High-Gloss Mirror Floor
+      // Catwalk High-Gloss Mirror Floor
       const runwayGeo = new THREE.BoxGeometry(3.2, 0.35, 30);
       const runwayMat = new THREE.MeshPhysicalMaterial({
         color: 0x08080A,
@@ -230,7 +233,7 @@
       runway.receiveShadow = true;
       scene.add(runway);
 
-      // 2. Dual Gold LED Trim Rails
+      // Dual Gold LED Trim Rails
       const railGeo = new THREE.BoxGeometry(0.08, 0.05, 30);
       const railMat = new THREE.MeshStandardMaterial({
         color: 0xD4AF37,
@@ -247,14 +250,14 @@
       rightRail.position.set(1.62, 0.02, 0);
       scene.add(rightRail);
 
-      // 3. Distant Backdrop Arch (Entrance Portal)
+      // Entrance Portal Arch
       const archGeo = new THREE.TorusGeometry(3.6, 0.06, 16, 64, Math.PI);
       const archMat = new THREE.MeshStandardMaterial({ color: 0xD4AF37, emissive: 0x594109, metalness: 0.9 });
       const arch = new THREE.Mesh(archGeo, archMat);
       arch.position.set(0, 0, -14.5);
       scene.add(arch);
 
-      // Infinite Outer Floor
+      // Outer Dark Stage Floor
       const floorGeo = new THREE.PlaneGeometry(100, 100);
       const floorMat = new THREE.MeshStandardMaterial({ color: 0x030304, roughness: 0.8 });
       const floor = new THREE.Mesh(floorGeo, floorMat);
@@ -289,7 +292,6 @@
       scene.add(particles);
     }
 
-    // Procedural Anatomical 3D Mannequin & Dress Construction
     function buildProceduralFashionModel() {
       modelGroup = new THREE.Group();
 
@@ -299,7 +301,7 @@
         metalness: 0.05
       });
 
-      // Default Couture Dress Fabric: Royal Denim Blue PBR Satin
+      // Default Fabric: Royal Denim Blue Satin
       const dressMat = new THREE.MeshPhysicalMaterial({
         color: 0x1A2B4C,
         roughness: 0.28,
@@ -312,28 +314,28 @@
         side: THREE.DoubleSide
       });
 
-      // Torso & Upper Body
+      // Torso
       const torsoGeo = new THREE.CylinderGeometry(0.24, 0.18, 0.8, 16);
       torso = new THREE.Mesh(torsoGeo, skinMat);
       torso.position.y = 1.85;
       torso.castShadow = true;
       modelGroup.add(torso);
 
-      // Haute Couture Fitted Bodice & Maxi Dress Flared Hem
+      // Dress
       const dressGeo = new THREE.CylinderGeometry(0.25, 0.72, 1.45, 32, 16, true);
       dressMesh = new THREE.Mesh(dressGeo, dressMat);
       dressMesh.position.y = 1.35;
       dressMesh.castShadow = true;
       modelGroup.add(dressMesh);
 
-      // Gold Waist Cinch Belt
+      // Gold Belt
       const beltGeo = new THREE.CylinderGeometry(0.22, 0.22, 0.07, 24);
       const beltMat = new THREE.MeshStandardMaterial({ color: 0xD4AF37, metalness: 0.9, roughness: 0.2 });
       const belt = new THREE.Mesh(beltGeo, beltMat);
       belt.position.y = 1.72;
       modelGroup.add(belt);
 
-      // Neck & Head with Styled Top-knot
+      // Head & Neck
       const neckGeo = new THREE.CylinderGeometry(0.08, 0.09, 0.22, 16);
       const neck = new THREE.Mesh(neckGeo, skinMat);
       neck.position.y = 2.3;
@@ -352,9 +354,8 @@
       bun.position.set(0, 2.7, -0.06);
       modelGroup.add(bun);
 
-      // Legs Hierarchy
+      // Legs
       const legGeo = new THREE.CylinderGeometry(0.08, 0.05, 1.25, 16);
-
       rightLeg = new THREE.Group();
       rightLeg.position.set(0.12, 1.25, 0);
       const rMesh = new THREE.Mesh(legGeo, skinMat);
@@ -371,9 +372,8 @@
       leftLeg.add(lMesh);
       modelGroup.add(leftLeg);
 
-      // Arms Hierarchy
+      // Arms
       const armGeo = new THREE.CylinderGeometry(0.06, 0.045, 0.85, 16);
-
       rightArm = new THREE.Group();
       rightArm.position.set(0.32, 2.15, 0);
       const raMesh = new THREE.Mesh(armGeo, skinMat);
@@ -390,63 +390,83 @@
       leftArm.add(laMesh);
       modelGroup.add(leftArm);
 
-      // Start Position at back of catwalk
-      modelGroup.position.set(0, 0, -10);
+      modelGroup.position.set(0, 0, 0);
       scene.add(modelGroup);
     }
 
-    // Live Catwalk Kinematics & Wave Displacement Animation
+    // حركة العارضة الذكية (تتحرك في وضع المشي، وتتوقف في المركز عند وضع 360)
     function animate() {
       requestAnimationFrame(animate);
 
       const delta = clock.getDelta();
       const time = clock.getElapsedTime();
 
-      // Custom GLB Animation Mixer if user uploaded a file
       if (customMixer) {
         customMixer.update(delta);
       } else if (modelGroup) {
-        // Procedural Fashion Model Catwalk Kinematics
-        const walkSpeed = 2.4;
-        const strideZ = (time * 0.95) % 22 - 11; // Walks from -11 to +11
-        modelGroup.position.z = strideZ;
+        
+        if (currentCameraMode === 'orbit') {
+          // ========================================================
+          // وضع 360: تثبيت العارضة في المركز تحت الضوء تماماً دون أن تبتعد
+          // ========================================================
+          modelGroup.position.z = THREE.MathUtils.lerp(modelGroup.position.z, 0, 0.08);
+          modelGroup.position.x = THREE.MathUtils.lerp(modelGroup.position.x, 0, 0.08);
+          modelGroup.position.y = THREE.MathUtils.lerp(modelGroup.position.y, 0, 0.08);
 
-        // Kinematic Striding Rotations
-        const legSwing = Math.sin(time * walkSpeed * 2.2) * 0.45;
-        rightLeg.rotation.x = legSwing;
-        leftLeg.rotation.x = -legSwing;
+          // وقفة عارضة أزياء هادئة مع تموج القماش الخفيف
+          rightLeg.rotation.x = THREE.MathUtils.lerp(rightLeg.rotation.x, 0.12, 0.08);
+          leftLeg.rotation.x = THREE.MathUtils.lerp(leftLeg.rotation.x, -0.08, 0.08);
+          rightArm.rotation.x = THREE.MathUtils.lerp(rightArm.rotation.x, 0.05, 0.08);
+          leftArm.rotation.x = THREE.MathUtils.lerp(leftArm.rotation.x, -0.05, 0.08);
 
-        // Opposite arm counter-swing
-        rightArm.rotation.x = -legSwing * 0.65;
-        leftArm.rotation.x = legSwing * 0.65;
+          // تموج انسيابي خفيف جداً لفستان السهرة مع الهواء
+          if (dressMesh) {
+            dressMesh.rotation.z = Math.sin(time * 1.6) * 0.025;
+            dressMesh.rotation.x = Math.sin(time * 1.6) * 0.015;
+          }
 
-        // Feminine Catwalk Hip & Shoulder Counter-Rotation
-        modelGroup.rotation.y = Math.sin(time * walkSpeed * 1.1) * 0.08;
-        torso.rotation.z = Math.sin(time * walkSpeed * 2.2) * 0.035;
-        modelGroup.position.y = Math.abs(Math.cos(time * walkSpeed * 2.2)) * 0.04;
+        } else {
+          // ========================================================
+          // وضع المشي: مشية الكات ووك الكاملة على طول المنصة
+          // ========================================================
+          const walkSpeed = 2.4;
+          walkProgress += delta * 0.95;
+          const strideZ = (walkProgress % 22) - 11; // تمشي من -11 إلى +11
+          modelGroup.position.z = strideZ;
 
-        // Dynamic Fabric Movement: Sway & Flare
-        if (dressMesh) {
-          dressMesh.rotation.z = -Math.sin(time * walkSpeed * 2.2) * 0.06;
-          dressMesh.rotation.x = Math.sin(time * walkSpeed * 2.2) * 0.08 + 0.05;
+          const legSwing = Math.sin(time * walkSpeed * 2.2) * 0.45;
+          rightLeg.rotation.x = legSwing;
+          leftLeg.rotation.x = -legSwing;
+
+          rightArm.rotation.x = -legSwing * 0.65;
+          leftArm.rotation.x = legSwing * 0.65;
+
+          modelGroup.rotation.y = Math.sin(time * walkSpeed * 1.1) * 0.08;
+          torso.rotation.z = Math.sin(time * walkSpeed * 2.2) * 0.035;
+          modelGroup.position.y = Math.abs(Math.cos(time * walkSpeed * 2.2)) * 0.04;
+
+          if (dressMesh) {
+            dressMesh.rotation.z = -Math.sin(time * walkSpeed * 2.2) * 0.06;
+            dressMesh.rotation.x = Math.sin(time * walkSpeed * 2.2) * 0.08 + 0.05;
+          }
         }
       }
 
-      // Lights Tracking Model
+      // توجيه الضوء الرئيسي للعارضة
       if (followSpotLight && modelGroup) {
         followSpotLight.position.z = modelGroup.position.z + 3.5;
         followSpotLightTarget.position.z = modelGroup.position.z;
       }
 
-      // Floating Particles Drift
+      // جزيئات الذهب العائمة
       if (particles) {
         particles.rotation.y = time * 0.025;
       }
 
-      // Camera Modes
+      // تحديث وضعية الكاميرا
       updateCameraPosition();
 
-      // Render Scene
+      // رسم المشهد
       renderer.render(scene, camera);
     }
 
@@ -454,14 +474,12 @@
       if (!modelGroup) return;
 
       if (currentCameraMode === 'track') {
-        // Smoothly glide camera directly in front of the approaching model
         const targetZ = modelGroup.position.z + 6.2;
         camera.position.z = THREE.MathUtils.lerp(camera.position.z, targetZ, 0.08);
         camera.position.x = THREE.MathUtils.lerp(camera.position.x, 0, 0.08);
         camera.position.y = THREE.MathUtils.lerp(camera.position.y, 2.2, 0.08);
         camera.lookAt(0, 1.6, modelGroup.position.z);
       } else if (currentCameraMode === 'low') {
-        // Dramatic low runway floor perspective
         const targetZ = modelGroup.position.z + 4.8;
         camera.position.z = THREE.MathUtils.lerp(camera.position.z, targetZ, 0.08);
         camera.position.x = THREE.MathUtils.lerp(camera.position.x, 1.4, 0.08);
@@ -472,7 +490,7 @@
       }
     }
 
-    // Public Exposure for Interactive Buttons
+    // أزرار التحكم في الكاميرا
     window.setCameraView = function(mode) {
       currentCameraMode = mode;
       document.querySelectorAll('footer button').forEach(b => {
@@ -485,13 +503,16 @@
       const nameEl = document.getElementById('camera-name');
       if (mode === 'track') {
         controls.enabled = false;
+        controls.autoRotate = false;
         nameEl.innerText = 'Catwalk Follow';
       } else if (mode === 'low') {
         controls.enabled = false;
+        controls.autoRotate = false;
         nameEl.innerText = 'Low Editorial';
       } else if (mode === 'orbit') {
         controls.enabled = true;
-        controls.target.set(0, 1.5, modelGroup ? modelGroup.position.z : 0);
+        controls.autoRotate = true; // دوران استوديو تلقائي ناعم
+        controls.target.set(0, 1.4, 0); // تركيز الكاميرا في مركز العارضة
         nameEl.innerText = '360° Free Orbit';
       }
     };
@@ -502,7 +523,6 @@
       }
     };
 
-    // Support Loading Custom .GLB Models On-The-Fly
     function setupFileInput() {
       const input = document.getElementById('glb-file-input');
       input.addEventListener('change', (e) => {
@@ -514,7 +534,6 @@
           const contents = evt.target.result;
           const loader = new GLTFLoader();
           loader.parse(contents, '', (gltf) => {
-            // Remove procedural model
             if (modelGroup) scene.remove(modelGroup);
 
             modelGroup = gltf.scene;
