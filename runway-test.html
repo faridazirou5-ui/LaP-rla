@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>La PÉRLA | Paris Haute Couture Interactive Runway</title>
+  <title>La PÉRLA | Paris Haute Couture Runway 2026</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,11 +29,11 @@
       letter-spacing: 0.16em;
     }
     .glass-luxury {
-      background: rgba(18, 16, 14, 0.78);
+      background: rgba(18, 16, 14, 0.82);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border: 1px solid rgba(212, 175, 55, 0.35);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     }
     .gold-btn {
       background: linear-gradient(135deg, #D4AF37 0%, #AA771C 100%);
@@ -45,23 +45,33 @@
       background: linear-gradient(135deg, #E6C264 0%, #C99E2A 100%);
       transform: translateY(-1px);
     }
-    .hotspot-pulse {
-      box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);
-      animation: pulse-gold 2s infinite;
+    /* شريط التمرير الزمني الذهبي */
+    .timeline-track {
+      background: rgba(255, 255, 255, 0.2);
     }
-    @keyframes pulse-gold {
-      0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
-      70% { box-shadow: 0 0 0 14px rgba(212, 175, 55, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+    .timeline-progress {
+      background: linear-gradient(90deg, #AA771C, #D4AF37, #F9E7B9);
     }
-    /* إخفاء شريط التمرير */
-    ::-webkit-scrollbar { display: none; }
+    input[type=range] {
+      -webkit-appearance: none;
+      background: transparent;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 14px;
+      width: 14px;
+      border-radius: 50%;
+      background: #D4AF37;
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 0 8px rgba(212, 175, 55, 0.8);
+      cursor: pointer;
+    }
   </style>
 </head>
 <body class="relative w-screen h-screen overflow-hidden flex items-center justify-center">
 
   <!-- مشغل الفيديو السينمائي عالي الدقة -->
-  <div id="video-stage" class="relative w-full h-full max-w-md sm:max-w-lg md:max-w-xl mx-auto flex items-center justify-center bg-black overflow-hidden shadow-2xl">
+  <div id="video-stage" class="relative w-full h-full max-w-md sm:max-w-lg md:max-w-xl mx-auto flex items-center justify-center bg-black overflow-hidden shadow-2xl cursor-pointer" onclick="togglePlayState()">
     
     <video 
       id="runway-video" 
@@ -74,33 +84,12 @@
       class="w-full h-full object-cover pointer-events-none transition-transform duration-300"
     ></video>
 
-    <!-- طبقة تدرج سينمائي خفيف في الأعلى والأسفل لقراءة النصوص -->
-    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/75 pointer-events-none"></div>
+    <!-- طبقة تدرج سينمائي خفيف في الأعلى والأسفل لحماية وضوح النصوص -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/85 pointer-events-none"></div>
 
-    <!-- نقطة تفحص تفاعلية 1: الكورسيه المنحوت (Hotspot 1) -->
-    <div id="hotspot-corset" onclick="openDetailModal('corset')" class="absolute top-[38%] left-[50%] -translate-x-1/2 cursor-pointer z-20 flex items-center gap-1.5 group transition-transform hover:scale-110">
-      <div class="w-6 h-6 rounded-full bg-[#D4AF37]/90 text-black flex items-center justify-center text-[10px] font-black hotspot-pulse border border-white/60">
-        ✦
-      </div>
-      <span class="text-[9px] font-bold bg-black/70 border border-[#D4AF37]/50 text-white px-2 py-0.5 rounded-full opacity-0 group-hover:opacity-100 transition duration-300 whitespace-nowrap backdrop-blur-sm">
-        الكورسيه المنحوت
-      </span>
-    </div>
-
-    <!-- نقطة تفحص تفاعلية 2: تطريز اللؤلؤ الكريستالي (Hotspot 2) -->
-    <div id="hotspot-skirt" onclick="openDetailModal('skirt')" class="absolute top-[55%] left-[52%] -translate-x-1/2 cursor-pointer z-20 flex items-center gap-1.5 group transition-transform hover:scale-110">
-      <div class="w-6 h-6 rounded-full bg-white/90 text-black flex items-center justify-center text-[10px] font-black hotspot-pulse border border-[#D4AF37]">
-        💎
-      </div>
-      <span class="text-[9px] font-bold bg-black/70 border border-[#D4AF37]/50 text-white px-2 py-0.5 rounded-full opacity-0 group-hover:opacity-100 transition duration-300 whitespace-nowrap backdrop-blur-sm">
-        تطريز اللؤلؤ اليدوي
-      </span>
-    </div>
-
-    <!-- مؤشر السحب اليدوي الخفيف للزبونة -->
-    <div id="swipe-hint" class="absolute inset-x-0 bottom-28 mx-auto w-max pointer-events-none z-10 flex items-center gap-2 bg-black/60 border border-[#D4AF37]/40 px-3 py-1 rounded-full text-[10px] font-bold text-amber-200/90 backdrop-blur-md transition-opacity duration-700">
-      <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 animate-bounce"></i>
-      <span>اسحبي بإصبعكِ للتحكم بخطوات العارضة</span>
+    <!-- مؤشر الإيقاف المؤقت التفاعلي عند النقر على الشاشة -->
+    <div id="pause-indicator" class="absolute inset-0 m-auto w-14 h-14 rounded-full bg-black/60 border border-[#D4AF37] flex items-center justify-center text-[#D4AF37] pointer-events-none opacity-0 scale-75 transition-all duration-300 z-20">
+      <i data-lucide="play" class="w-6 h-6 ml-0.5"></i>
     </div>
 
   </div>
@@ -111,7 +100,7 @@
       <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></div>
       <div>
         <h1 class="text-[11px] sm:text-xs font-brand text-amber-300 font-black tracking-wider">LA PÉRLA PARIS</h1>
-        <p class="text-[8px] sm:text-[9px] text-neutral-400 font-bold">Paris Fashion Week • العرض الحي</p>
+        <p class="text-[8px] sm:text-[9px] text-neutral-300 font-bold">Paris Fashion Week • إطلالة العام الحصرية</p>
       </div>
     </div>
 
@@ -122,61 +111,63 @@
     </div>
   </header>
 
-  <!-- الشريط السفلي التفاعلي المدمج -->
+  <!-- البطاقة السفلية لإطلالة العام الحصرية وشريط التمرير الزمني -->
   <footer class="fixed bottom-3 inset-x-3 sm:inset-x-6 flex flex-col items-center gap-2 z-30 pointer-events-none max-w-lg mx-auto">
     
-    <!-- تشكيلة أزياء الدار المصغرة (دون حجب المنصة) -->
-    <div class="glass-luxury px-3 py-1.5 rounded-2xl pointer-events-auto w-full flex items-center justify-between shadow-2xl">
-      <div class="flex items-center gap-1.5 text-[10px] font-bold text-amber-300">
-        <i data-lucide="sparkles" class="w-3 h-3 text-[#D4AF37]"></i>
-        <span>الإطلالات:</span>
-      </div>
-
-      <!-- صور مصغرة خفيفة -->
-      <div class="flex items-center gap-2">
-        <button onclick="changeLook('couture')" class="w-9 h-9 rounded-xl overflow-hidden border-2 border-[#D4AF37] hover:scale-105 transition relative group" title="فستان الكوتور الباريسي">
-          <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=150" class="w-full h-full object-cover">
-        </button>
-        <button onclick="changeLook('denim')" class="w-9 h-9 rounded-xl overflow-hidden border border-white/20 hover:border-[#D4AF37] hover:scale-105 transition" title="فستان جينز ماكسي">
-          <img src="file_00000000128481f4b14a0440613fcfb4.png" onerror="this.src='Atelier.jpg'" class="w-full h-full object-cover">
-        </button>
-        <button onclick="changeLook('coord')" class="w-9 h-9 rounded-xl overflow-hidden border border-white/20 hover:border-[#D4AF37] hover:scale-105 transition" title="طقم جينز أزرق ليل">
-          <img src="file_00000000725c8230b436f78947c90bec.png" onerror="this.src='Atelier.jpg'" class="w-full h-full object-cover">
-        </button>
-        <button onclick="changeLook('bronze')" class="w-9 h-9 rounded-xl overflow-hidden border border-white/20 hover:border-[#D4AF37] hover:scale-105 transition" title="فستان ساتان برونزي">
-          <img src="file_00000000ef8081f480c83efafe065a48.png" onerror="this.src='Atelier.jpg'" class="w-full h-full object-cover">
+    <!-- بطاقة تفاصيل فستان الجينز الحصري -->
+    <div class="glass-luxury p-3 rounded-2xl pointer-events-auto w-full flex flex-col gap-2.5 shadow-2xl text-right">
+      
+      <!-- عنوان القطعة وتفاصيلها الفاخرة -->
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="text-[9px] font-brand tracking-widest text-amber-300 uppercase block font-bold">Signature Piece • Édition Limitée</span>
+          <h2 class="text-xs sm:text-sm font-serif font-black text-white">فستان جينز ماكسي كلاسيكي</h2>
+        </div>
+        <button onclick="toggleDetailDrawer()" class="px-2.5 py-1 rounded-lg text-[10px] font-bold bg-white/10 hover:bg-white/20 text-neutral-300 transition flex items-center gap-1 border border-white/10">
+          <i data-lucide="info" class="w-3.5 h-3.5 text-amber-300"></i>
+          <span>التفاصيل</span>
         </button>
       </div>
 
-      <!-- مؤشر وقت العرض -->
-      <div class="text-[9px] font-mono text-neutral-400" id="time-display">00:04</div>
-    </div>
+      <!-- وسوم الخياطة والمواصفات -->
+      <div class="flex items-center gap-1.5 text-[9px] text-neutral-300 font-bold overflow-x-auto pb-0.5">
+        <span class="bg-white/5 border border-white/10 px-2 py-0.5 rounded-md whitespace-nowrap">✨ قماش جينز ناعم فاخر</span>
+        <span class="bg-white/5 border border-white/10 px-2 py-0.5 rounded-md whitespace-nowrap">👗 قصة ماكسي محتشمة</span>
+        <span class="bg-white/5 border border-white/10 px-2 py-0.5 rounded-md whitespace-nowrap">🎗️ حزام جلد كلاسيكي</span>
+      </div>
 
-    <!-- أزرار التحكم السريعة -->
-    <div class="glass-luxury px-3 py-1.5 rounded-xl pointer-events-auto flex items-center gap-2 shadow-lg">
-      <button id="toggle-play-btn" onclick="togglePlayMode()" class="px-3 py-1 rounded-lg text-[10px] font-bold bg-[#D4AF37] text-black transition flex items-center gap-1.5">
-        <i data-lucide="pause" id="play-icon" class="w-3.5 h-3.5"></i>
-        <span id="play-text">عرض مستمر</span>
-      </button>
+      <!-- شريط التحكم الزمني الانسيابي (Timeline Scrubber) -->
+      <div class="flex items-center gap-2 pt-1 border-t border-white/10">
+        <button onclick="togglePlayState()" id="play-pause-btn" class="w-7 h-7 rounded-full bg-[#D4AF37] text-black flex items-center justify-center shrink-0">
+          <i data-lucide="pause" id="btn-icon" class="w-3.5 h-3.5"></i>
+        </button>
 
-      <button onclick="openDetailModal('corset')" class="px-3 py-1 rounded-lg text-[10px] font-bold text-neutral-300 hover:text-white transition flex items-center gap-1">
-        <i data-lucide="eye" class="w-3.5 h-3.5 text-amber-300"></i>
-        <span>تفحص القطعة</span>
-      </button>
+        <div class="relative flex-1 flex items-center">
+          <input 
+            type="range" 
+            id="timeline-slider" 
+            min="0" 
+            max="100" 
+            value="0" 
+            step="0.1"
+            class="w-full h-1.5 rounded-full cursor-pointer timeline-track relative z-10"
+            oninput="onScrubVideo(this.value)"
+          >
+          <div id="timeline-fill" class="absolute left-0 top-0 h-1.5 rounded-full timeline-progress pointer-events-none w-0"></div>
+        </div>
 
-      <a href="index.html" class="px-3 py-1 rounded-lg text-[10px] font-bold text-neutral-300 hover:text-white transition flex items-center gap-1">
-        <i data-lucide="store" class="w-3.5 h-3.5 text-emerald-400"></i>
-        <span>المتجر</span>
-      </a>
+        <span class="text-[9px] font-mono text-neutral-400 shrink-0" id="time-counter">00:00</span>
+      </div>
+
     </div>
 
   </footer>
 
-  <!-- نافذة المعاينة المقربة والتفاصيل (Inspection Modal) -->
-  <div id="detail-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4 transition-all duration-300">
-    <div class="glass-luxury rounded-3xl max-w-sm w-full p-6 text-center border-2 border-[#D4AF37] shadow-2xl relative">
+  <!-- نافذة تفاصيل الخياطة والقماش (تفتح بضغطة زر عند الطلب) -->
+  <div id="detail-drawer" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4 transition-all duration-300">
+    <div class="glass-luxury rounded-3xl max-w-sm w-full p-6 text-center border-2 border-[#D4AF37] shadow-2xl relative text-right">
       
-      <button onclick="closeDetailModal()" class="absolute top-4 left-4 text-neutral-400 hover:text-white text-lg">
+      <button onclick="toggleDetailDrawer()" class="absolute top-4 left-4 text-neutral-400 hover:text-white text-lg">
         ✕
       </button>
 
@@ -184,19 +175,22 @@
         👑
       </div>
 
-      <h3 id="modal-title" class="font-brand text-lg font-black text-amber-300 mb-1">فستان الكوتور المنحوت باللؤلؤ</h3>
-      <p class="text-[10px] font-serif text-neutral-400 mb-3 tracking-widest uppercase">Édition Limitée • Paris 2026</p>
+      <div class="text-center mb-4">
+        <h3 class="font-serif text-base font-black text-amber-300">فستان جينز ماكسي بحزام كلاسيكي</h3>
+        <p class="text-[9px] font-serif text-neutral-400 tracking-widest uppercase mt-0.5">Maison de Couture • Édition 2026</p>
+      </div>
 
-      <div class="bg-black/40 border border-white/10 rounded-2xl p-3.5 text-xs text-neutral-200 text-right leading-relaxed mb-5" id="modal-desc">
-        تحفة فنية تجمع بين كورسيه منحوت بلون الباستيل الوردي وتطريز لؤلؤي يدوي دقيق، تتدلى منه حبات الكريستال الشفافة بانسيابية مذهلة تعكس الضوء مع كل خطوة.
+      <div class="space-y-2.5 text-xs text-neutral-200 leading-relaxed bg-black/40 border border-white/10 rounded-2xl p-4 mb-5">
+        <p>• <strong class="text-white">الخامة:</strong> قماش جينز ناعم عالي الجودة يوفر انسيابية محتشمة ومريحة طوال اليوم.</p>
+        <p>• <strong class="text-white">التصميم:</strong> قصة قميص كلاسيكية بأزرار أمامية ميتاليك وياقة رسمية أنيقة مع جيب صدر متناسق.</p>
+        <p>• <strong class="text-white">الخصر:</strong> حزام جلدي عسلي كلاسيكي قابل للتعديل يبرز رشاقة القوام بوقار لا يضاهى.</p>
       </div>
 
       <div class="flex gap-2">
         <a href="index.html" class="flex-1 gold-btn py-2.5 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 shadow">
-          <span>طلب القطعة من البوتيك</span>
-          <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i>
+          <span>طلب القطعة من البوتيك 🛍️</span>
         </a>
-        <button onclick="closeDetailModal()" class="px-4 py-2.5 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 text-white">
+        <button onclick="toggleDetailDrawer()" class="px-4 py-2.5 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 text-white">
           إغلاق
         </button>
       </div>
@@ -206,131 +200,87 @@
 
   <script>
     const video = document.getElementById('runway-video');
-    const stage = document.getElementById('video-stage');
-    const swipeHint = document.getElementById('swipe-hint');
-    const timeDisplay = document.getElementById('time-display');
+    const slider = document.getElementById('timeline-slider');
+    const fill = document.getElementById('timeline-fill');
+    const timeCounter = document.getElementById('time-counter');
+    const pauseIndicator = document.getElementById('pause-indicator');
+    const btnIcon = document.getElementById('btn-icon');
 
-    let isPlaying = true;
-    let isUserScrubbing = false;
-    let touchStartY = 0;
-    let touchStartTime = 0;
+    let isUserSeeking = false;
 
-    // تشغيل الأيقونات
     if (window.lucide) lucide.createIcons();
 
-    // تشغيل الفيديو التلقائي بسلاسة
-    video.addEventListener('loadedmetadata', () => {
-      video.play().catch(() => {});
-    });
-
+    // تشغيل الفيديو ومزامنة شريط التمرير
     video.addEventListener('timeupdate', () => {
+      if (isUserSeeking || !video.duration) return;
+
+      const progress = (video.currentTime / video.duration) * 100;
+      slider.value = progress;
+      fill.style.width = progress + '%';
+
       const current = Math.floor(video.currentTime);
-      const total = Math.floor(video.duration) || 8;
-      timeDisplay.innerText = `00:0${current} / 00:0${total}`;
-
-      // إخفاء مؤشر السحب بعد بضع ثوانٍ
-      if (video.currentTime > 2.5 && swipeHint) {
-        swipeHint.classList.add('opacity-0');
-      }
+      timeCounter.innerText = `00:0${current}`;
     });
 
-    // ==========================================================
-    // التحكم باللمس والسحب (Interactive Touch Scrubbing)
-    // ==========================================================
-    stage.addEventListener('touchstart', (e) => {
-      isUserScrubbing = true;
+    // السحب اليدوي على شريط التمرير
+    function onScrubVideo(val) {
+      isUserSeeking = true;
       video.pause();
-      touchStartY = e.touches[0].clientY;
-      touchStartTime = video.currentTime;
-      updatePlayButtonUI(false);
-    }, { passive: true });
+      updatePlayIcon(false);
 
-    stage.addEventListener('touchmove', (e) => {
-      if (!isUserScrubbing || !video.duration) return;
+      const targetTime = (val / 100) * video.duration;
+      video.currentTime = targetTime;
+      fill.style.width = val + '%';
       
-      const deltaY = touchStartY - e.touches[0].clientY;
-      const sensitivity = 0.015; // حساسية الحركة
-      let newTime = touchStartTime + (deltaY * sensitivity);
+      const current = Math.floor(targetTime);
+      timeCounter.innerText = `00:0${current}`;
 
-      // حصر وقت الفيديو
-      newTime = Math.max(0, Math.min(video.duration, newTime));
-      video.currentTime = newTime;
-    }, { passive: true });
+      setTimeout(() => { isUserSeeking = false; }, 80);
+    }
 
-    stage.addEventListener('touchend', () => {
-      isUserScrubbing = false;
-    });
-
-    // دعم عجلة الفأرة على الحاسوب (Mouse Wheel Scrubbing)
-    stage.addEventListener('wheel', (e) => {
-      e.preventDefault();
-      video.pause();
-      updatePlayButtonUI(false);
-      const delta = e.deltaY * 0.003;
-      video.currentTime = Math.max(0, Math.min(video.duration, video.currentTime + delta));
-    }, { passive: false });
-
-    // التبديل بين وضع العرض المستمر والتحكم
-    function togglePlayMode() {
+    // إيقاف واستئناف العرض عند النقر على الفيديو أو الزر
+    function togglePlayState() {
       if (video.paused) {
         video.play();
-        updatePlayButtonUI(true);
+        updatePlayIcon(true);
+        showPauseAnimation(false);
       } else {
         video.pause();
-        updatePlayButtonUI(false);
+        updatePlayIcon(false);
+        showPauseAnimation(true);
       }
     }
 
-    function updatePlayButtonUI(playing) {
-      isPlaying = playing;
-      const icon = document.getElementById('play-icon');
-      const text = document.getElementById('play-text');
-      const btn = document.getElementById('toggle-play-btn');
-
-      if (playing) {
-        btn.className = "px-3 py-1 rounded-lg text-[10px] font-bold bg-[#D4AF37] text-black transition flex items-center gap-1.5";
-        icon.setAttribute('data-lucide', 'pause');
-        text.innerText = 'عرض مستمر';
+    function updatePlayIcon(isPlaying) {
+      if (isPlaying) {
+        btnIcon.setAttribute('data-lucide', 'pause');
       } else {
-        btn.className = "px-3 py-1 rounded-lg text-[10px] font-bold bg-white/20 text-white transition flex items-center gap-1.5";
-        icon.setAttribute('data-lucide', 'play');
-        text.innerText = 'استئناف العرض';
+        btnIcon.setAttribute('data-lucide', 'play');
       }
       if (window.lucide) lucide.createIcons();
     }
 
-    // النوافذ التفاعلية
-    function openDetailModal(type) {
-      const modal = document.getElementById('detail-modal');
-      const title = document.getElementById('modal-title');
-      const desc = document.getElementById('modal-desc');
-
-      if (type === 'corset') {
-        title.innerText = 'كورسيه الكوتور المنحوت';
-        desc.innerText = 'كورسيه كلاسيكي أنيق بلون الباستيل الوردي، منحوت بحرفية دقيقة ليحدد القوام ويمنح إطلالة ملوكية تعود لأرقى عروض أزياء باريس.';
+    function showPauseAnimation(isPaused) {
+      if (isPaused) {
+        pauseIndicator.innerHTML = '<i data-lucide="pause" class="w-6 h-6"></i>';
+        pauseIndicator.classList.remove('opacity-0', 'scale-75');
+        pauseIndicator.classList.add('opacity-100', 'scale-100');
+        if (window.lucide) lucide.createIcons();
       } else {
-        title.innerText = 'تطريز اللؤلؤ الكريستالي';
-        desc.innerText = 'تطريز يدوي متقن من حبات اللؤلؤ الكريستالية التي تتدلى بانسيابية مع حركة المشي لتعكس أضواء القاعة المرآتية ببريق استثنائي.';
+        pauseIndicator.classList.remove('opacity-100', 'scale-100');
+        pauseIndicator.classList.add('opacity-0', 'scale-75');
       }
-
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
     }
 
-    function closeDetailModal() {
-      const modal = document.getElementById('detail-modal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    }
-
-    function changeLook(lookId) {
-      if (lookId === 'couture') {
-        video.currentTime = 0;
-        video.play();
-        updatePlayButtonUI(true);
+    // نافذة التفاصيل
+    function toggleDetailDrawer() {
+      const drawer = document.getElementById('detail-drawer');
+      if (drawer.classList.contains('hidden')) {
+        drawer.classList.remove('hidden');
+        drawer.classList.add('flex');
       } else {
-        // عند اختيار فستان من فساتين المتجر، التوجيه لصفحة الشراء
-        window.location.href = 'index.html';
+        drawer.classList.add('hidden');
+        drawer.classList.remove('flex');
       }
     }
   </script>
