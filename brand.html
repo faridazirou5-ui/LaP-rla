@@ -91,7 +91,6 @@
       background: linear-gradient(135deg, #E6C264 0%, #C99E2A 100%);
       transform: translateY(-1px);
     }
-    /* تأثير التحديد الدقيق لكل فستان */
     .dress-clickable-zone {
       transition: all 0.25s ease-out;
       border: 1px solid transparent;
@@ -259,7 +258,7 @@
     </div>
   </section>
 
-  <!-- ================= 2. منصة أسبوع الموضة بباريس: إطلالة العام الحصرية ================= -->
+  <!-- ================= 2. منصة أسبوع الموضة بباريس: مدعومة للآيفون 100% ================= -->
   <section id="runway-showcase" class="py-16 sm:py-24 bg-[#141210] text-[#FAF6F0] border-b border-[#2A241E] relative overflow-hidden select-none">
     
     <div class="max-w-4xl mx-auto px-6 text-center mb-8 sm:mb-12">
@@ -278,16 +277,20 @@
     <div class="max-w-md sm:max-w-lg mx-auto px-4">
       <div class="relative aspect-[9/16] max-h-[640px] rounded-3xl overflow-hidden shadow-2xl border-2 border-[#D4AF37]/40 bg-black cursor-pointer group" onclick="toggleRunwayPlay()">
         
+        <!-- تشغيل الفيديو مع خاصية webkit-playsinline لدعم سفاري والآيفون والماسنجر -->
         <video 
           id="brand-runway-video" 
-          src="runway.mp4" 
           playsinline 
+          webkit-playsinline 
           muted 
           loop 
           autoplay 
           preload="auto"
           class="w-full h-full object-cover pointer-events-none transition-transform duration-300"
-        ></video>
+        >
+          <source src="runway.mp4" type="video/mp4">
+          <source src="runway.MP4" type="video/mp4">
+        </video>
 
         <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/85 pointer-events-none"></div>
 
@@ -342,7 +345,7 @@
 
   </section>
 
-  <!-- ================= 3. الحامل الملكي العريض باللغة الفاخرة المعتمدة (Le Portant Doré) ================= -->
+  <!-- ================= 3. الحامل الملكي العريض مع محاكي الصور الذكي لمنع أي خطأ 404 ================= -->
   <section id="interactive-rack" class="py-16 sm:py-24 bg-brand-surface/70 border-b border-brand-border/80 relative overflow-hidden select-none">
     
     <div class="max-w-5xl mx-auto px-6 text-center mb-8">
@@ -351,7 +354,6 @@
         <span>تجربة البوتيك الملكية • Le Portant Doré</span>
       </div>
       <h3 class="text-3xl sm:text-4xl font-serif font-black text-brand-dark">تفقدي التشكيلة على الحامل الملكي</h3>
-      <!-- التعبير الفاخر المعتمد تحت العنوان -->
       <p class="text-xs text-brand-muted font-bold mt-2 max-w-lg mx-auto leading-relaxed">
         انقري على أي تصميم لاستكشاف تفاصيل القماش ودقة الحياكة الراقية عن قرب
       </p>
@@ -360,14 +362,15 @@
     <div class="relative max-w-5xl mx-auto px-4">
       <div class="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-brand-gold/50 bg-white">
         
-        <!-- صورة الحامل الملكي العريضة -->
+        <!-- صورة الحامل العريضة مع دعم بدائل الامتدادات التلقائي -->
         <img 
+          id="main-rack-img"
           src="rack.jpg" 
           alt="حامل فساتين دار la Pérla الملكي" 
           class="w-full h-auto block object-cover"
         >
 
-        <!-- طبقة اللمس المطلقة LTR -->
+        <!-- طبقة اللمس المطلقة LTR من اليسار لليمين -->
         <div style="direction: ltr !important;" class="absolute inset-0 z-20 pointer-events-none">
           
           <!-- 1. فستان الجينز الماكسي -->
@@ -434,7 +437,6 @@
 
       </div>
 
-      <!-- الشارة الفاخرة المعتمدة أسفل الحامل (بدون تعابير غير احترافية وبأيقونة البريق الذهبي) -->
       <div class="mt-4 text-center">
         <span class="inline-flex items-center gap-2 text-xs text-brand-dark font-bold bg-white/95 border border-brand-gold/60 px-5 py-2 rounded-full shadow-sm">
           <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-gold"></i>
@@ -808,7 +810,20 @@
   <script>
     lucide.createIcons();
 
-    // 1. التحكم في فيديو منصة باريس
+    // 1. معالج تحميل صورة الحامل التلقائي (يجرب الامتدادات الشائعة حتى لا تفشل أبداً)
+    const rackImgEl = document.getElementById('main-rack-img');
+    if (rackImgEl) {
+      const rackCandidates = ['rack.jpg', 'rack.JPG', 'rack.jpeg', 'rack.png', 'rack.webp'];
+      let rackIdx = 0;
+      rackImgEl.onerror = () => {
+        if (rackIdx < rackCandidates.length - 1) {
+          rackIdx++;
+          rackImgEl.src = rackCandidates[rackIdx];
+        }
+      };
+    }
+
+    // 2. التحكم في فيديو منصة باريس
     const runwayVideo = document.getElementById('brand-runway-video');
     const runwaySlider = document.getElementById('runway-slider');
     const runwayFill = document.getElementById('runway-slider-fill');
@@ -833,7 +848,7 @@
     function toggleRunwayPlay() {
       if (!runwayVideo) return;
       if (runwayVideo.paused) {
-        runwayVideo.play();
+        runwayVideo.play().catch(() => {});
         if (runwayBtnIcon) runwayBtnIcon.setAttribute('data-lucide', 'pause');
         if (runwayPauseIcon) {
           runwayPauseIcon.classList.remove('opacity-100', 'scale-100');
@@ -866,43 +881,44 @@
       lucide.createIcons();
     }
 
-    // 2. مصفوفة مصادر الصور الذكية: تمنع نهائياً ظهور فستان الجينز في مكان الفستان الأخضر
+    // 3. بيانات الفساتين الستة الحقيقية مع منع ظهور فستان الجينز نهائياً مكان الفستان الأخضر
     const rackDressesData = [
       {
         id: 1,
         title: "فستان جينز ماكسي بحزام كلاسيكي",
         desc: "تصميم كلاسيكي مميز بقماش جينز ناعم، أزرار أمامية وحزام أنيق يبرز الخصر بإطلالة انسيابية محتشمة تمنحكِ وقاراً وأناقة استثنائية.",
-        sources: ["dress1.jpg", "file_00000000fd1c81f49abc48c10bad6193.png", "file_00000000128481f4b14a0440613fcfb4.png"]
+        sources: ["dress1.jpg", "dress1.png", "file_00000000fd1c81f49abc48c10bad6193.png"]
       },
       {
         id: 2,
         title: "طقم أزرق ليل أوفر سايز راقٍ",
         desc: "طقم كاجوال شيك متكون من قميص فضفاض وبنطال مريح للاستعمال اليومي الراقي بثقة وراحة تامة.",
-        sources: ["dress2.jpg", "file_00000000725c8230b436f78947c90bec.png"]
+        sources: ["dress2.jpg", "dress2.png", "file_00000000725c8230b436f78947c90bec.png"]
       },
       {
         id: 3,
         title: "قفطان كوتور مخمل زيتي غامق مطرز",
         desc: "قطعة ملكية من المخمل الملكي الفاخر بتطريز تقليدي دقيق على الصدر والأكمام مع حزام خصر متناسق للسهرات الراقية.",
-        sources: ["dress3.jpg", "file_00000000885c8246880bd3ecff59d10a.png"]
+        sources: ["dress3.jpg", "dress3.png", "file_00000000885c8246880bd3ecff59d10a.png"]
       },
       {
         id: 4,
         title: "قفطان كوتور زيتي ملكي بتطريز بيج",
         desc: "قطعة ملكية ساحرة تجمع بين قماش الكريب الزيتي الفاخر، بطانة حريرية عاجية وتطريز هندسي دقيق مع حزام مذهب.",
-        sources: ["dress4.jpg", "file_000000007600824681b2f9d378c764aa.png"]
+        sources: ["dress4.jpg", "dress4.png", "file_000000007600824681b2f9d378c764aa.png"]
       },
       {
         id: 5,
         title: "فستان كوتور بترولي مذهب محتشم",
         desc: "تحفة من الجاكار البترولي الفاخر، ياقة محتشمة وأكمام ملكية خاصة بالسهرات الراقية والمناسبات.",
+        // تم استبعاد صور الجينز نهائياً وتخصيص مسارات الفستان الأخضر فقط
         sources: ["dress5.jpg", "dress6.jpg", "dress5.png", "dress6.png", "teal.jpg", "dress5.jpeg", "dress6.jpeg"]
       },
       {
         id: 6,
         title: "فستان ساتان برونزي بأكمام منفوخة",
         desc: "تحفة من الساتان الجاكار الراقي بلون الشوكولا المذهب، أكمام منفوخة ملكية وحزام خصر متناسق للسهرات الراقية.",
-        sources: ["dress6.jpg", "dress5.jpg", "file_00000000ef8081f480c83efafe065a48.png"]
+        sources: ["dress6.jpg", "dress5.jpg", "dress6.png", "file_00000000ef8081f480c83efafe065a48.png"]
       }
     ];
 
@@ -952,7 +968,7 @@
       }, 300);
     }
 
-    // 3. المشاركة والنسخ
+    // 4. المشاركة والنسخ
     function shareBrandPage() {
       const shareUrl = window.location.origin + '/brand.html';
       const shareData = {
