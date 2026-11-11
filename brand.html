@@ -91,13 +91,15 @@
       background: linear-gradient(135deg, #E6C264 0%, #C99E2A 100%);
       transform: translateY(-1px);
     }
-    /* مناطق التفاعل على الحامل */
-    .rack-touch-zone {
-      transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    /* تأثير التحديد الدقيق لكل فستان */
+    .dress-clickable-zone {
+      transition: all 0.25s ease-out;
+      border: 1px solid transparent;
     }
-    .rack-touch-zone:hover, .rack-touch-zone:active {
-      background: linear-gradient(180deg, rgba(212, 175, 55, 0.08) 0%, rgba(212, 175, 55, 0.32) 100%);
-      box-shadow: 0 0 25px rgba(212, 175, 55, 0.45);
+    .dress-clickable-zone:hover, .dress-clickable-zone:active {
+      background: linear-gradient(180deg, rgba(212, 175, 55, 0.12) 0%, rgba(212, 175, 55, 0.38) 100%);
+      border-color: rgba(212, 175, 55, 0.65);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
     }
     .timeline-track { background: rgba(255, 255, 255, 0.25); }
     .timeline-progress { background: linear-gradient(90deg, #AA771C, #D4AF37, #F9E7B9); }
@@ -143,7 +145,7 @@
     </button>
   </div>
 
-  <!-- الشريط العلوي الهادئ مع أيقونات السوشيال ميديا الأصلية المضمونة -->
+  <!-- الشريط العلوي الهادئ مع الأيقونات المضمونة -->
   <div class="bg-brand-surface/70 border-b border-brand-border/60 py-2.5 px-6 text-[11px] font-bold text-brand-muted flex justify-between items-center">
     <div class="flex items-center gap-5">
       <a href="https://www.instagram.com/la_perla2027?exln=MXc3MXhnaTZmZmF5Ng==" target="_blank" class="hover:text-brand-dark transition flex items-center gap-1.5">
@@ -195,7 +197,7 @@
     </div>
   </header>
 
-  <!-- 1. واجهة الـ Hero الكلاسيكية (الصورة الأصلية محفوظة 100%) -->
+  <!-- 1. واجهة الـ Hero الكلاسيكية (الصورة الأصلية 100%) -->
   <section class="py-12 sm:py-20 max-w-7xl mx-auto px-6 border-b border-brand-border/60">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
       
@@ -341,7 +343,7 @@
 
   </section>
 
-  <!-- ================= 3. الحامل الملكي الحقيقي الجديد مع خروج وتكبير الفستان النقي (rack.jpg) ================= -->
+  <!-- ================= 3. الحامل الملكي العريض مع إحداثيات لمس دقيقة 100% لكل فستان (rack.jpg) ================= -->
   <section id="interactive-rack" class="py-20 bg-brand-surface/70 border-b border-brand-border/80 relative overflow-hidden select-none">
     
     <div class="max-w-5xl mx-auto px-6 text-center mb-8">
@@ -355,58 +357,76 @@
       </p>
     </div>
 
-    <div class="relative max-w-4xl mx-auto px-4">
+    <div class="relative max-w-5xl mx-auto px-4">
       <div class="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-brand-gold/50 bg-white">
         
-        <!-- صورة الحامل الملكي الحقيقي -->
+        <!-- صورة الحامل الملكي العريضة الجديدة -->
         <img 
           src="rack.jpg" 
           alt="حامل فساتين دار la Pérla الملكي" 
           class="w-full h-auto block object-cover"
         >
 
-        <!-- شبكة اللمس من اليسار إلى اليمين LTR لتتطابق بدقة 100% مع ترتيب الفساتين المعلقة -->
-        <div style="direction: ltr !important;" class="absolute inset-0 top-[18%] bottom-[6%] px-[7%] flex items-stretch z-20">
+        <!-- طبقة اللمس المطلقة (Absolute Mapped Zones LTR) المحسوبة بدقة بالغة فوق كل فستان -->
+        <div style="direction: ltr !important;" class="absolute inset-0 z-20 pointer-events-none">
           
-          <!-- 1. فستان الجينز الماكسي (أقصى اليسار) -> dress1.jpg -->
-          <div onclick="openRackInspect(0)" class="rack-touch-zone flex-1 rounded-2xl cursor-pointer relative group flex flex-col items-center justify-end pb-3" title="فستان جينز ماكسي بحزام كلاسيكي">
-            <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-brand-dark/95 border border-brand-gold text-white text-[9px] font-bold px-2.5 py-1 rounded-full shadow-lg whitespace-nowrap mb-2">
-              تفحص الفستان 🔍
+          <!-- 1. فستان الجينز الماكسي (اليسار الأول: من 7.5% إلى 21.5%) -->
+          <div onclick="openRackInspect(0)" 
+               style="left: 7.5%; width: 14%; top: 15%; bottom: 8%;" 
+               class="dress-clickable-zone absolute rounded-2xl cursor-pointer pointer-events-auto flex flex-col items-center justify-end pb-3 group" 
+               title="فستان جينز ماكسي بحزام كلاسيكي">
+            <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-brand-dark/95 border border-brand-gold text-white text-[9px] font-bold px-2 py-0.5 rounded-full shadow-lg whitespace-nowrap mb-2">
+              فستان الجينز 🔍
             </span>
           </div>
 
-          <!-- 2. طقم أزرق ليل كاجوال شيك -> dress2.jpg -->
-          <div onclick="openRackInspect(1)" class="rack-touch-zone flex-1 rounded-2xl cursor-pointer relative group flex flex-col items-center justify-end pb-3" title="طقم أزرق ليل أوفر سايز راقٍ">
-            <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-brand-dark/95 border border-brand-gold text-white text-[9px] font-bold px-2.5 py-1 rounded-full shadow-lg whitespace-nowrap mb-2">
-              تفحص الطقم 🔍
+          <!-- 2. طقم أزرق ليل كاجوال شيك (الثاني: من 22% إلى 35.5%) -->
+          <div onclick="openRackInspect(1)" 
+               style="left: 22%; width: 13.5%; top: 15%; bottom: 8%;" 
+               class="dress-clickable-zone absolute rounded-2xl cursor-pointer pointer-events-auto flex flex-col items-center justify-end pb-3 group" 
+               title="طقم أزرق ليل أوفر سايز راقٍ">
+            <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-brand-dark/95 border border-brand-gold text-white text-[9px] font-bold px-2 py-0.5 rounded-full shadow-lg whitespace-nowrap mb-2">
+              طقم أزرق ليل 🔍
             </span>
           </div>
 
-          <!-- 3. قفطان كوتور مخمل زيتي غامق مطرز -> dress3.jpg -->
-          <div onclick="openRackInspect(2)" class="rack-touch-zone flex-1 rounded-2xl cursor-pointer relative group flex flex-col items-center justify-end pb-3" title="قفطان كوتور مخمل زيتي غامق">
-            <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-brand-dark/95 border border-brand-gold text-white text-[9px] font-bold px-2.5 py-1 rounded-full shadow-lg whitespace-nowrap mb-2">
-              تفحص القفطان 🔍
+          <!-- 3. قفطان كوتور مخمل زيتي غامق (الثالث: من 36% إلى 49.5%) -->
+          <div onclick="openRackInspect(2)" 
+               style="left: 36%; width: 13.5%; top: 15%; bottom: 8%;" 
+               class="dress-clickable-zone absolute rounded-2xl cursor-pointer pointer-events-auto flex flex-col items-center justify-end pb-3 group" 
+               title="قفطان كوتور مخمل زيتي غامق مطرز">
+            <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-brand-dark/95 border border-brand-gold text-white text-[9px] font-bold px-2 py-0.5 rounded-full shadow-lg whitespace-nowrap mb-2">
+              قفطان المخمل 🔍
             </span>
           </div>
 
-          <!-- 4. قفطان كوتور زيتي ملكي بتطريز بيج -> dress4.jpg -->
-          <div onclick="openRackInspect(3)" class="rack-touch-zone flex-1 rounded-2xl cursor-pointer relative group flex flex-col items-center justify-end pb-3" title="قفطان كوتور زيتي بتطريز بيج">
-            <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-brand-dark/95 border border-brand-gold text-white text-[9px] font-bold px-2.5 py-1 rounded-full shadow-lg whitespace-nowrap mb-2">
-              تفحص القفطان 🔍
+          <!-- 4. قفطان كوتور زيتي بتطريز بيج (الرابع: من 50% إلى 63.5%) -->
+          <div onclick="openRackInspect(3)" 
+               style="left: 50%; width: 13.5%; top: 15%; bottom: 8%;" 
+               class="dress-clickable-zone absolute rounded-2xl cursor-pointer pointer-events-auto flex flex-col items-center justify-end pb-3 group" 
+               title="قفطان كوتور زيتي ملكي بتطريز بيج">
+            <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-brand-dark/95 border border-brand-gold text-white text-[9px] font-bold px-2 py-0.5 rounded-full shadow-lg whitespace-nowrap mb-2">
+              قفطان زيتي بيج 🔍
             </span>
           </div>
 
-          <!-- 5. فستان كوتور بترولي مذهب -> dress5.jpg -->
-          <div onclick="openRackInspect(4)" class="rack-touch-zone flex-1 rounded-2xl cursor-pointer relative group flex flex-col items-center justify-end pb-3" title="فستان كوتور بترولي مذهب">
-            <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-brand-dark/95 border border-brand-gold text-white text-[9px] font-bold px-2.5 py-1 rounded-full shadow-lg whitespace-nowrap mb-2">
-              تفحص الفستان 🔍
+          <!-- 5. فستان كوتور بترولي مذهب (الخامس: من 64% إلى 77.5%) -->
+          <div onclick="openRackInspect(4)" 
+               style="left: 64%; width: 13.5%; top: 15%; bottom: 8%;" 
+               class="dress-clickable-zone absolute rounded-2xl cursor-pointer pointer-events-auto flex flex-col items-center justify-end pb-3 group" 
+               title="فستان كوتور بترولي مذهب محتشم">
+            <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-brand-dark/95 border border-brand-gold text-white text-[9px] font-bold px-2 py-0.5 rounded-full shadow-lg whitespace-nowrap mb-2">
+              فستان بترولي 🔍
             </span>
           </div>
 
-          <!-- 6. فستان ساتان برونزي ملكي (أقصى اليمين) -> dress6.jpg -->
-          <div onclick="openRackInspect(5)" class="rack-touch-zone flex-1 rounded-2xl cursor-pointer relative group flex flex-col items-center justify-end pb-3" title="فستان ساتان برونزي بأكمام منفوخة">
-            <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-brand-dark/95 border border-brand-gold text-white text-[9px] font-bold px-2.5 py-1 rounded-full shadow-lg whitespace-nowrap mb-2">
-              تفحص الفستان 🔍
+          <!-- 6. فستان ساتان برونزي ملكي (اليمين الأخير: من 78% إلى 92%) -->
+          <div onclick="openRackInspect(5)" 
+               style="left: 78%; width: 14%; top: 15%; bottom: 8%;" 
+               class="dress-clickable-zone absolute rounded-2xl cursor-pointer pointer-events-auto flex flex-col items-center justify-end pb-3 group" 
+               title="فستان ساتان برونزي بأكمام منفوخة">
+            <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-brand-dark/95 border border-brand-gold text-white text-[9px] font-bold px-2 py-0.5 rounded-full shadow-lg whitespace-nowrap mb-2">
+              فستان الساتان 🔍
             </span>
           </div>
 
@@ -422,7 +442,7 @@
       </div>
     </div>
 
-    <!-- نافذة خروج الفستان وتكبيره وتفحصه بدون أي عارضة (Pure Studio Garment Inspection) -->
+    <!-- نافذة خروج الفستان وتكبيره وتفحصه بدون عارضة -->
     <div id="rack-inspect-overlay" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4 transition-all duration-300" onclick="closeRackInspect()">
       <div id="rack-inspect-card" class="bg-white border-2 border-brand-gold rounded-3xl max-w-sm sm:max-w-md w-full p-5 sm:p-6 text-center shadow-2xl relative transform transition-all duration-400 scale-90 opacity-0 text-right" onclick="event.stopPropagation()">
         
@@ -751,7 +771,7 @@
     </div>
   </section>
 
-  <!-- الفوتر الكلاسيكي مع الأيقونات الأصلية المضمونة الظهور -->
+  <!-- الفوتر الكلاسيكي مع الأيقونات الأصلية المضمونة -->
   <footer class="bg-brand-surface border-t border-brand-border/60 py-16 px-6 text-center text-xs text-brand-muted">
     <div class="max-w-4xl mx-auto space-y-6">
       
@@ -765,7 +785,6 @@
         <p class="text-[11px] font-serif italic text-brand-gold tracking-wider">Rejoignez notre univers & découvrez nos nouveautés</p>
       </div>
 
-      <!-- أيقونات الفوتر المحدثة والمثبتة 100% -->
       <div class="flex items-center justify-center gap-4 pt-2">
         <a href="https://www.instagram.com/la_perla2027?exln=MXc3MXhnaTZmZmF5Ng==" target="_blank" class="w-10 h-10 rounded-full border border-brand-border bg-white flex items-center justify-center text-brand-dark hover:border-brand-gold hover:text-brand-gold hover:scale-105 transition shadow-xs" title="Instagram">
           <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
@@ -846,7 +865,7 @@
       lucide.createIcons();
     }
 
-    // 2. بيانات الفساتين الستة الحقيقية مع دعم روابط صور الاستوديو والروابط الاحتياطية
+    // 2. بيانات الفساتين الستة الحقيقية مع دعم روابط صور الاستوديو والروابط البديلة
     const rackDressesData = [
       {
         id: 1,
