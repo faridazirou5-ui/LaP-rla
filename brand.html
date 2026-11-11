@@ -91,10 +91,15 @@
       background: linear-gradient(135deg, #E6C264 0%, #C99E2A 100%);
       transform: translateY(-1px);
     }
-    .hanger-card {
-      transform-origin: top center;
-      transition: all 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+    /* مناطق التفاعل فوق الحامل الذهبي */
+    .rack-dress-zone {
+      transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     }
+    .rack-dress-zone:hover, .rack-dress-zone:active {
+      background: linear-gradient(180deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.35) 100%);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.45);
+    }
+    /* شريط التمرير الزمني للفيديو */
     .timeline-track { background: rgba(255, 255, 255, 0.25); }
     .timeline-progress { background: linear-gradient(90deg, #AA771C, #D4AF37, #F9E7B9); }
     input[type=range] { -webkit-appearance: none; background: transparent; }
@@ -164,7 +169,7 @@
     <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
       <nav class="hidden md:flex items-center gap-8 text-xs uppercase tracking-widest text-brand-dark font-bold font-serif">
         <a href="#runway-showcase" class="hover:text-brand-gold transition text-brand-gold">عرض باريس • Runway</a>
-        <a href="#interactive-rack" class="hover:text-brand-gold transition">الحامل التفاعلي 3D</a>
+        <a href="#interactive-rack" class="hover:text-brand-gold transition">الحامل الملكي • Le Portant</a>
         <a href="#about" class="hover:text-brand-gold transition">ورشة الدار • L'Atelier</a>
         <a href="#lookbook" class="hover:text-brand-gold transition">التشكيلة • Lookbook</a>
         <a href="#wholesale" class="hover:text-brand-gold transition">طلبات الجملة • Vente en Gros</a>
@@ -254,7 +259,7 @@
     </div>
   </section>
 
-  <!-- ================= 2. منصة أسبوع الموضة بباريس: إطلالة العام الحصرية (Paris Haute Couture Runway) ================= -->
+  <!-- ================= 2. منصة أسبوع الموضة بباريس: إطلالة العام الحصرية (تم حذف جملة التحكم بالخطوات) ================= -->
   <section id="runway-showcase" class="py-16 sm:py-24 bg-[#141210] text-[#FAF6F0] border-b border-[#2A241E] relative overflow-hidden select-none">
     
     <div class="max-w-4xl mx-auto px-6 text-center mb-8 sm:mb-12">
@@ -265,8 +270,9 @@
       <h3 class="text-3xl sm:text-5xl font-serif font-black text-white tracking-wide">
         إطلالة العام الحصرية على منصة باريس
       </h3>
+      <!-- النص المحدث بدقة بعد حذف الجملة المطلوبة -->
       <p class="text-xs sm:text-sm text-neutral-400 font-bold mt-2 max-w-xl mx-auto leading-relaxed">
-        شاهدي فستان الجينز الماكسي الكلاسيكي في استعراض حي يعكس وقار وفخامة تصاميم دار la Pérla، وتحكمي بخطوات العارضة مباشرة من هاتفك
+        شاهدي فستان الجينز الماكسي الكلاسيكي في استعراض حي يعكس وقار وفخامة تصاميم دار la Pérla
       </p>
     </div>
 
@@ -342,68 +348,114 @@
 
   </section>
 
-  <!-- ================= 3. قسم حامل الملابس الملكي التفاعلي ثلاثي الأبعاد (3D Interactive Clothes Rail) ================= -->
-  <section id="interactive-rack" class="py-20 bg-brand-surface/60 border-b border-brand-border/80 relative overflow-hidden select-none">
+  <!-- ================= 3. الحامل الملكي الحقيقي الجديد (Boutique Golden Rack - rack.jpg) ================= -->
+  <section id="interactive-rack" class="py-20 bg-brand-surface/70 border-b border-brand-border/80 relative overflow-hidden select-none">
     
     <div class="max-w-5xl mx-auto px-6 text-center mb-8">
       <div class="inline-flex items-center gap-2 border border-brand-gold bg-white px-4 py-1.5 rounded-full text-xs font-serif text-brand-dark font-bold mb-2 shadow-xs">
         <span class="w-2 h-2 rounded-full bg-brand-gold animate-ping"></span>
-        <span>تجربة البوتيك التفاعلية • 3D Interactive Rail</span>
+        <span>تجربة البوتيك الملكية • Le Portant Doré</span>
       </div>
       <h3 class="text-3xl sm:text-4xl font-serif font-black text-brand-dark">تفقدي التشكيلة على الحامل الملكي</h3>
-      <p class="text-xs text-brand-muted font-bold mt-2 max-w-lg mx-auto">
-        اسحبي بإصبعكِ يميناً ويساراً لتصفح الفساتين المعلقة، واضغطي على أي قطعة لتنفصل عن العلاقة وتقترب لتفحصها عن قرب
+      <p class="text-xs text-brand-muted font-bold mt-2 max-w-lg mx-auto leading-relaxed">
+        انقري مباشرة على أي فستان معلق على الحامل لتكبيره وتفحص أدق تفاصيل القماش والخياطة عن قرب
       </p>
     </div>
 
-    <div class="relative max-w-4xl mx-auto px-4 py-8">
-      
-      <!-- قضيب التعليق الذهبي الفاخر -->
-      <div class="w-full h-3.5 bg-gradient-to-r from-brand-gold via-brand-goldLight to-brand-gold rounded-full shadow-md relative z-10 mx-auto">
-        <div class="absolute -top-16 left-14 w-1.5 h-16 bg-gradient-to-b from-neutral-400 to-brand-gold shadow-sm"></div>
-        <div class="absolute -top-16 right-14 w-1.5 h-16 bg-gradient-to-b from-neutral-400 to-brand-gold shadow-sm"></div>
+    <!-- صورة الحامل الذهبي الملكي مع المسارات التفاعلية الدقيقة فوق كل فستان -->
+    <div class="relative max-w-4xl mx-auto px-4">
+      <div class="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-brand-gold/50 bg-white">
+        
+        <!-- صورة الحامل الحقيقية التي قمت برفعها -->
+        <img 
+          src="rack.jpg" 
+          alt="حامل فساتين دار la Pérla الملكي" 
+          class="w-full h-auto block object-cover"
+        >
+
+        <!-- شبكة مناطق اللمس التفاعلية فوق كل فستان معلق (من اليسار إلى اليمين) -->
+        <div class="absolute inset-0 top-[18%] bottom-[6%] px-[7%] flex items-stretch z-20">
+          
+          <!-- 1. فستان الجينز الماكسي بحزام (أقصى اليسار) -->
+          <div onclick="openRackInspect(0)" class="rack-dress-zone flex-1 rounded-2xl cursor-pointer relative group flex flex-col items-center justify-end pb-3" title="فستان جينز ماكسي بحزام">
+            <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-brand-dark/90 border border-brand-gold text-white text-[9px] font-bold px-2.5 py-1 rounded-full shadow-lg whitespace-nowrap mb-2">
+              تفحص الفستان 🔍
+            </span>
+          </div>
+
+          <!-- 2. طقم أزرق ليل كاجوال شيك -->
+          <div onclick="openRackInspect(1)" class="rack-dress-zone flex-1 rounded-2xl cursor-pointer relative group flex flex-col items-center justify-end pb-3" title="طقم أزرق ليل راقٍ">
+            <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-brand-dark/90 border border-brand-gold text-white text-[9px] font-bold px-2.5 py-1 rounded-full shadow-lg whitespace-nowrap mb-2">
+              تفحص الطقم 🔍
+            </span>
+          </div>
+
+          <!-- 3. قفطان كوتور مخمل زيتي غامق -->
+          <div onclick="openRackInspect(2)" class="rack-dress-zone flex-1 rounded-2xl cursor-pointer relative group flex flex-col items-center justify-end pb-3" title="قفطان كوتور مخمل زيتي">
+            <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-brand-dark/90 border border-brand-gold text-white text-[9px] font-bold px-2.5 py-1 rounded-full shadow-lg whitespace-nowrap mb-2">
+              تفحص القفطان 🔍
+            </span>
+          </div>
+
+          <!-- 4. قفطان كوتور زيتي ملكي بتطريز بيج -->
+          <div onclick="openRackInspect(3)" class="rack-dress-zone flex-1 rounded-2xl cursor-pointer relative group flex flex-col items-center justify-end pb-3" title="قفطان كوتور زيتي بتطريز بيج">
+            <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-brand-dark/90 border border-brand-gold text-white text-[9px] font-bold px-2.5 py-1 rounded-full shadow-lg whitespace-nowrap mb-2">
+              تفحص القفطان 🔍
+            </span>
+          </div>
+
+          <!-- 5. فستان كوتور بترولي مذهب -->
+          <div onclick="openRackInspect(4)" class="rack-dress-zone flex-1 rounded-2xl cursor-pointer relative group flex flex-col items-center justify-end pb-3" title="فستان كوتور بترولي مذهب">
+            <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-brand-dark/90 border border-brand-gold text-white text-[9px] font-bold px-2.5 py-1 rounded-full shadow-lg whitespace-nowrap mb-2">
+              تفحص الفستان 🔍
+            </span>
+          </div>
+
+          <!-- 6. فستان ساتان برونزي ملكي (أقصى اليمين) -->
+          <div onclick="openRackInspect(5)" class="rack-dress-zone flex-1 rounded-2xl cursor-pointer relative group flex flex-col items-center justify-end pb-3" title="فستان ساتان برونزي بأكمام منفوخة">
+            <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-brand-dark/90 border border-brand-gold text-white text-[9px] font-bold px-2.5 py-1 rounded-full shadow-lg whitespace-nowrap mb-2">
+              تفحص الفستان 🔍
+            </span>
+          </div>
+
+        </div>
+
       </div>
 
-      <!-- مسرح حركة الفساتين المعلقة -->
-      <div id="rack-stage" class="relative min-h-[460px] flex items-center justify-center pt-2 overflow-visible"></div>
-
-      <!-- أزرار التحكم ومؤشر التصفح -->
-      <div class="flex items-center justify-center gap-4 mt-8">
-        <button onclick="rotateRack(-1)" class="w-11 h-11 rounded-full border border-brand-gold bg-white text-brand-dark hover:bg-brand-gold hover:text-white transition flex items-center justify-center shadow-md cursor-pointer" title="السابق">
-          <i data-lucide="chevron-right" class="w-5 h-5"></i>
-        </button>
-        <span class="text-xs font-black text-brand-dark font-serif px-3 py-1 bg-white border border-brand-border rounded-full" id="rack-indicator">1 / 6</span>
-        <button onclick="rotateRack(1)" class="w-11 h-11 rounded-full border border-brand-gold bg-white text-brand-dark hover:bg-brand-gold hover:text-white transition flex items-center justify-center shadow-md cursor-pointer" title="التالي">
-          <i data-lucide="chevron-left" class="w-5 h-5"></i>
-        </button>
+      <!-- إرشاد تفاعلي أسفل الحامل -->
+      <div class="mt-4 text-center">
+        <span class="inline-flex items-center gap-1.5 text-xs text-brand-dark font-bold bg-white/90 border border-brand-border px-4 py-1.5 rounded-full shadow-xs">
+          <i data-lucide="hand" class="w-3.5 h-3.5 text-brand-gold animate-bounce"></i>
+          <span>المسي أي فستان معلق بأصبعكِ لمعاينته بحجم كبير</span>
+        </span>
       </div>
-
     </div>
 
-    <!-- نافذة المعاينة المقربة عند اختيار فستان -->
-    <div id="inspection-overlay" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4 transition-all duration-500">
-      <div id="inspected-card" class="bg-white border-2 border-brand-gold rounded-3xl max-w-md w-full p-6 text-center shadow-2xl relative transform transition-all duration-500 scale-95 opacity-0">
+    <!-- نافذة المعاينة المقربة والتكبير عند النقر على أي فستان معلق -->
+    <div id="rack-inspect-overlay" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4 transition-all duration-300" onclick="closeRackInspect()">
+      <div id="rack-inspect-card" class="bg-white border-2 border-brand-gold rounded-3xl max-w-md w-full p-6 text-center shadow-2xl relative transform transition-all duration-300 scale-95 opacity-0 text-right" onclick="event.stopPropagation()">
         
-        <button onclick="returnToRack()" class="absolute top-4 left-4 bg-brand-surface hover:bg-brand-border text-brand-dark px-3.5 py-1.5 rounded-full text-xs font-black flex items-center gap-1.5 shadow transition">
-          <span>إعادة للعلاقة</span> ↩️
+        <button onclick="closeRackInspect()" class="absolute top-4 left-4 bg-brand-surface hover:bg-brand-border text-brand-dark px-3 py-1.5 rounded-full text-xs font-black flex items-center gap-1 shadow">
+          <span>إغلاق</span> ✕
         </button>
 
         <div class="w-9 h-9 bg-brand-surface border border-brand-gold rounded-full flex items-center justify-center mx-auto mb-3 text-sm">
           👑
         </div>
 
-        <div class="aspect-[3/4] max-h-[340px] rounded-2xl overflow-hidden border border-brand-border mb-4 mx-auto shadow-inner bg-brand-surface">
-          <img id="inspect-img" src="" alt="معاينة الفستان" class="w-full h-full object-cover">
+        <!-- صورة الفستان المكبرة عالية الدقة -->
+        <div class="aspect-[3/4] max-h-[360px] rounded-2xl overflow-hidden border border-brand-border mb-4 mx-auto shadow-inner bg-brand-surface">
+          <img id="rack-detail-img" src="" alt="معاينة الفستان عن قرب" class="w-full h-full object-cover">
         </div>
 
-        <h4 id="inspect-title" class="text-xl font-serif font-black text-brand-dark mb-1"></h4>
-        <p id="inspect-desc" class="text-xs text-brand-muted font-bold mb-5 leading-relaxed"></p>
+        <h4 id="rack-detail-title" class="text-xl font-serif font-black text-brand-dark mb-1"></h4>
+        <p id="rack-detail-desc" class="text-xs text-brand-muted font-bold mb-5 leading-relaxed"></p>
 
         <div class="flex gap-2">
-          <a id="inspect-buy-btn" href="index.html" class="flex-1 btn-dark py-3 rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-1.5 shadow">
+          <a id="rack-buy-btn" href="index.html" class="flex-1 btn-dark py-3 rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-1.5 shadow">
             <span>طلب القطعة من البوتيك 🛍️</span>
           </a>
-          <button onclick="returnToRack()" class="bg-neutral-100 hover:bg-neutral-200 text-neutral-800 px-4 py-3 rounded-xl text-xs font-bold transition">
+          <button onclick="closeRackInspect()" class="bg-neutral-100 hover:bg-neutral-200 text-neutral-800 px-4 py-3 rounded-xl text-xs font-bold transition">
             إغلاق
           </button>
         </div>
@@ -430,7 +482,7 @@
       </div>
     </div>
 
-    <!-- شبكة صور الورشة -->
+    <!-- شبكة صور الورشة الحقيقية -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
       
       <div class="group bg-white p-3.5 rounded-3xl border border-brand-border/80 shadow-md">
@@ -746,7 +798,7 @@
   <script>
     lucide.createIcons();
 
-    // 1. تشغيل والتحكم في فيديو منصة أسبوع الموضة بباريس
+    // 1. التحكم في فيديو منصة باريس
     const runwayVideo = document.getElementById('brand-runway-video');
     const runwaySlider = document.getElementById('runway-slider');
     const runwayFill = document.getElementById('runway-slider-fill');
@@ -804,36 +856,36 @@
       lucide.createIcons();
     }
 
-    // 2. تشغيل حامل الملابس الملكي 3D
-    const rackItems = [
+    // 2. تشغيل الحامل الذهبي الجديد وتكبير الفساتين عند النقر
+    const rackDressesData = [
       {
         id: 1,
         title: "فستان جينز ماكسي بحزام كلاسيكي",
-        desc: "تصميم كلاسيكي مميز بقماش جينز ناعم، أزرار أمامية وحزام أنيق يبرز الخصر بإطلالة انسيابية محتشمة.",
+        desc: "تصميم كلاسيكي مميز بقماش جينز ناعم، أزرار أمامية وحزام أنيق يبرز الخصر بإطلالة انسيابية محتشمة تمنحكِ وقاراً وأناقة استثنائية.",
         img: "file_00000000128481f4b14a0440613fcfb4.png"
       },
       {
         id: 2,
-        title: "طقم كاجوال شيك بقصة فضفاضة ومريحة",
-        desc: "تناغم مثالي بين الراحة والفخامة اليومية، يتميز بقصة انسيابية متناسقة تمنحكِ وقاراً وثقة تامة.",
+        title: "طقم أزرق ليل أوفر سايز راقٍ",
+        desc: "طقم كاجوال شيك متكون من قميص فضفاض وبنطال مريح بقماش ناعم للاستعمال اليومي الراقي بثقة وراحة تامة.",
         img: "file_00000000725c8230b436f78947c90bec.png"
       },
       {
         id: 3,
-        title: "قفطان كوتور زيتي ملكي مطرز بالذهب",
-        desc: "قطعة ملكية ساحرة تجمع بين قماش الكريب الزيتي الفاخر وبطانة حريرية عاجية وتطريز هندسي دقيق مع حزام مذهب.",
-        img: "file_000000007600824681b2f9d378c764aa.png"
-      },
-      {
-        id: 4,
-        title: "قفطان كوتور بأدق تفاصيل التطريز اليدوي",
-        desc: "إبداع حرفي يعكس فخامة التطريز على الأكمام والصدر وحزام الخصر لإطلالة تقليدية بهية في أرقى المناسبات.",
+        title: "قفطان كوتور مخمل زيتي غامق مطرز",
+        desc: "قطعة ملكية من المخمل الملكي الفاخر بتطريز تقليدي دقيق على الصدر والأكمام مع حزام خصر متناسق للسهرات الراقية.",
         img: "file_00000000885c8246880bd3ecff59d10a.png"
       },
       {
+        id: 4,
+        title: "قفطان كوتور زيتي ملكي بتطريز بيج",
+        desc: "قطعة ملكية ساحرة تجمع بين قماش الكريب الزيتي الفاخر، بطانة حريرية عاجية وتطريز هندسي دقيق مع حزام مذهب.",
+        img: "file_000000007600824681b2f9d378c764aa.png"
+      },
+      {
         id: 5,
-        title: "فستان جينز طويل بقصة قميص كوتور",
-        desc: "تصميم كلاسيكي مميز بقماش جينز ناعم، أزرار أمامية وحزام كلاسيكي يبرز الخصر بإطلالة انسيابية محتشمة.",
+        title: "فستان كوتور بترولي مذهب محتشم",
+        desc: "تصميم راقٍ بلون أزرق بترولي جاكار مذهب بنقوش ناعمة، ياقة محتشمة وأكمام ملكية خاصة بالمناسبات الفاخرة.",
         img: "file_00000000b21081f4865ccd4e9992526d.png"
       },
       {
@@ -844,95 +896,21 @@
       }
     ];
 
-    let currentCenterIndex = 0;
-    let touchStartX = 0;
-    let touchEndX = 0;
+    function openRackInspect(index) {
+      const item = rackDressesData[index];
+      if (!item) return;
 
-    function renderClothesRack() {
-      const stage = document.getElementById('rack-stage');
-      if (!stage) return;
-      stage.innerHTML = '';
+      const overlay = document.getElementById('rack-inspect-overlay');
+      const card = document.getElementById('rack-inspect-card');
+      const img = document.getElementById('rack-detail-img');
+      const title = document.getElementById('rack-detail-title');
+      const desc = document.getElementById('rack-detail-desc');
+      const buyBtn = document.getElementById('rack-buy-btn');
 
-      rackItems.forEach((item, index) => {
-        const offset = index - currentCenterIndex;
-        const isCenter = offset === 0;
-
-        const translateX = offset * 145;
-        const scale = isCenter ? 1.08 : 0.82;
-        const opacity = Math.abs(offset) > 2 ? 0 : isCenter ? 1 : 0.65;
-        const zIndex = 20 - Math.abs(offset);
-        const rotateZ = offset * -3.5;
-
-        const hangerEl = document.createElement('div');
-        hangerEl.className = 'hanger-card absolute top-0 cursor-pointer flex flex-col items-center';
-        hangerEl.style.transform = `translateX(${translateX}px) scale(${scale}) rotate(${rotateZ}deg)`;
-        hangerEl.style.zIndex = zIndex;
-        hangerEl.style.opacity = opacity;
-
-        hangerEl.onclick = () => {
-          if (isCenter) {
-            inspectGarment(item);
-          } else {
-            currentCenterIndex = index;
-            renderClothesRack();
-          }
-        };
-
-        hangerEl.innerHTML = `
-          <div class="flex flex-col items-center pointer-events-none">
-            <div class="w-6 h-7 border-2 border-brand-gold border-b-0 rounded-t-full -mb-1 shadow-xs"></div>
-            <div class="w-40 sm:w-44 h-3 bg-gradient-to-r from-[#4A2E18] via-[#7B4D29] to-[#4A2E18] rounded-md shadow-xs flex items-center justify-center">
-              <span class="text-[7px] text-brand-goldLight font-serif font-black tracking-widest">la Pérla</span>
-            </div>
-          </div>
-          <div class="w-36 sm:w-40 aspect-[3/4.2] rounded-2xl overflow-hidden border border-brand-border shadow-md mt-1.5 bg-white group hover:border-brand-gold transition duration-300">
-            <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover">
-          </div>
-          ${isCenter ? `
-            <span class="mt-2.5 bg-white border border-brand-gold text-brand-dark text-[9px] font-bold px-3 py-1 rounded-full shadow-xs">
-              انقري للتفحص 🔍
-            </span>
-          ` : ''}
-        `;
-        stage.appendChild(hangerEl);
-      });
-
-      const indicator = document.getElementById('rack-indicator');
-      if (indicator) indicator.innerText = `${currentCenterIndex + 1} / ${rackItems.length}`;
-      lucide.createIcons();
-    }
-
-    function rotateRack(direction) {
-      currentCenterIndex += direction;
-      if (currentCenterIndex < 0) currentCenterIndex = rackItems.length - 1;
-      if (currentCenterIndex >= rackItems.length) currentCenterIndex = 0;
-      renderClothesRack();
-    }
-
-    const rackStage = document.getElementById('rack-stage');
-    if (rackStage) {
-      rackStage.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-      }, { passive: true });
-
-      rackStage.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        if (touchStartX - touchEndX > 45) {
-          rotateRack(1);
-        } else if (touchEndX - touchStartX > 45) {
-          rotateRack(-1);
-        }
-      }, { passive: true });
-    }
-
-    function inspectGarment(item) {
-      const overlay = document.getElementById('inspection-overlay');
-      const card = document.getElementById('inspected-card');
-
-      document.getElementById('inspect-img').src = item.img;
-      document.getElementById('inspect-title').innerText = item.title;
-      document.getElementById('inspect-desc').innerText = item.desc;
-      document.getElementById('inspect-buy-btn').href = `index.html`;
+      img.src = item.img;
+      title.innerText = item.title;
+      desc.innerText = item.desc;
+      buyBtn.href = `index.html`;
 
       overlay.classList.remove('hidden');
       overlay.classList.add('flex');
@@ -943,9 +921,9 @@
       }, 10);
     }
 
-    function returnToRack() {
-      const overlay = document.getElementById('inspection-overlay');
-      const card = document.getElementById('inspected-card');
+    function closeRackInspect() {
+      const overlay = document.getElementById('rack-inspect-overlay');
+      const card = document.getElementById('rack-inspect-card');
 
       card.classList.remove('scale-100', 'opacity-100');
       card.classList.add('scale-95', 'opacity-0');
@@ -1010,10 +988,6 @@
       const adminSwitch = document.getElementById('admin-floating-switch');
       if (adminSwitch) adminSwitch.classList.add('hidden');
     }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      renderClothesRack();
-    });
   </script>
 </body>
 </html>
