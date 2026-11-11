@@ -145,7 +145,7 @@
     </button>
   </div>
 
-  <!-- الشريط العلوي الهادئ مع الأيقونات المضمونة -->
+  <!-- الشريط العلوي الهادئ -->
   <div class="bg-brand-surface/70 border-b border-brand-border/60 py-2.5 px-6 text-[11px] font-bold text-brand-muted flex justify-between items-center">
     <div class="flex items-center gap-5">
       <a href="https://www.instagram.com/la_perla2027?exln=MXc3MXhnaTZmZmF5Ng==" target="_blank" class="hover:text-brand-dark transition flex items-center gap-1.5">
@@ -246,7 +246,6 @@
         <div class="relative w-full max-w-sm">
           <div class="arch-frame overflow-hidden border border-brand-border bg-brand-surface shadow-xl aspect-[3/4.2]">
             <img src="file_00000000fd1c81f49abc48c10bad6193.png" 
-                 onerror="this.src='dress1.jpg'"
                  alt="la Pérla Signature Dress" 
                  class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
           </div>
@@ -344,7 +343,7 @@
   </section>
 
   <!-- ================= 3. الحامل الملكي العريض مع إحداثيات لمس دقيقة 100% لكل فستان (rack.jpg) ================= -->
-  <section id="interactive-rack" class="py-20 bg-brand-surface/70 border-b border-brand-border/80 relative overflow-hidden select-none">
+  <section id="interactive-rack" class="py-16 sm:py-24 bg-brand-surface/70 border-b border-brand-border/80 relative overflow-hidden select-none">
     
     <div class="max-w-5xl mx-auto px-6 text-center mb-8">
       <div class="inline-flex items-center gap-2 border border-brand-gold bg-white px-4 py-1.5 rounded-full text-xs font-serif text-brand-dark font-bold mb-2 shadow-xs">
@@ -360,14 +359,14 @@
     <div class="relative max-w-5xl mx-auto px-4">
       <div class="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-brand-gold/50 bg-white">
         
-        <!-- صورة الحامل الملكي العريضة الجديدة -->
+        <!-- صورة الحامل الملكي العريضة -->
         <img 
           src="rack.jpg" 
           alt="حامل فساتين دار la Pérla الملكي" 
           class="w-full h-auto block object-cover"
         >
 
-        <!-- طبقة اللمس المطلقة (Absolute Mapped Zones LTR) المحسوبة بدقة بالغة فوق كل فستان -->
+        <!-- طبقة اللمس المطلقة (Absolute Mapped Zones LTR) الموزعة بدقة فوق كل فستان -->
         <div style="direction: ltr !important;" class="absolute inset-0 z-20 pointer-events-none">
           
           <!-- 1. فستان الجينز الماكسي (اليسار الأول: من 7.5% إلى 21.5%) -->
@@ -771,7 +770,7 @@
     </div>
   </section>
 
-  <!-- الفوتر الكلاسيكي مع الأيقونات الأصلية المضمونة -->
+  <!-- الفوتر الكلاسيكي -->
   <footer class="bg-brand-surface border-t border-brand-border/60 py-16 px-6 text-center text-xs text-brand-muted">
     <div class="max-w-4xl mx-auto space-y-6">
       
@@ -865,49 +864,44 @@
       lucide.createIcons();
     }
 
-    // 2. بيانات الفساتين الستة الحقيقية مع دعم روابط صور الاستوديو والروابط البديلة
+    // 2. مصفوفة مصادر الصور الذكية: تمنع نهائياً ظهور فستان الجينز في مكان الفستان الأخضر
     const rackDressesData = [
       {
         id: 1,
         title: "فستان جينز ماكسي بحزام كلاسيكي",
         desc: "تصميم كلاسيكي مميز بقماش جينز ناعم، أزرار أمامية وحزام أنيق يبرز الخصر بإطلالة انسيابية محتشمة تمنحكِ وقاراً وأناقة استثنائية.",
-        img: "dress1.jpg",
-        fallbackImg: "file_00000000128481f4b14a0440613fcfb4.png"
+        sources: ["dress1.jpg", "file_00000000fd1c81f49abc48c10bad6193.png", "file_00000000128481f4b14a0440613fcfb4.png"]
       },
       {
         id: 2,
         title: "طقم أزرق ليل أوفر سايز راقٍ",
         desc: "طقم كاجوال شيك متكون من قميص فضفاض وبنطال مريح للاستعمال اليومي الراقي بثقة وراحة تامة.",
-        img: "dress2.jpg",
-        fallbackImg: "file_00000000725c8230b436f78947c90bec.png"
+        sources: ["dress2.jpg", "file_00000000725c8230b436f78947c90bec.png"]
       },
       {
         id: 3,
         title: "قفطان كوتور مخمل زيتي غامق مطرز",
         desc: "قطعة ملكية من المخمل الملكي الفاخر بتطريز تقليدي دقيق على الصدر والأكمام مع حزام خصر متناسق للسهرات الراقية.",
-        img: "dress3.jpg",
-        fallbackImg: "file_00000000885c8246880bd3ecff59d10a.png"
+        sources: ["dress3.jpg", "file_00000000885c8246880bd3ecff59d10a.png"]
       },
       {
         id: 4,
         title: "قفطان كوتور زيتي ملكي بتطريز بيج",
         desc: "قطعة ملكية ساحرة تجمع بين قماش الكريب الزيتي الفاخر، بطانة حريرية عاجية وتطريز هندسي دقيق مع حزام مذهب.",
-        img: "dress4.jpg",
-        fallbackImg: "file_000000007600824681b2f9d378c764aa.png"
+        sources: ["dress4.jpg", "file_000000007600824681b2f9d378c764aa.png"]
       },
       {
         id: 5,
         title: "فستان كوتور بترولي مذهب محتشم",
         desc: "تحفة من الجاكار البترولي الفاخر، ياقة محتشمة وأكمام ملكية خاصة بالسهرات الراقية والمناسبات.",
-        img: "dress5.jpg",
-        fallbackImg: "file_00000000b21081f4865ccd4e9992526d.png"
+        // تم حذف صورة الجينز نهائياً وحصر الخيارات في صور الفستان الأخضر فقط
+        sources: ["dress5.jpg", "dress6.jpg", "dress5.png", "dress6.png", "teal.jpg", "dress5.jpeg", "dress6.jpeg"]
       },
       {
         id: 6,
         title: "فستان ساتان برونزي بأكمام منفوخة",
         desc: "تحفة من الساتان الجاكار الراقي بلون الشوكولا المذهب، أكمام منفوخة ملكية وحزام خصر متناسق للسهرات الراقية.",
-        img: "dress6.jpg",
-        fallbackImg: "file_00000000ef8081f480c83efafe065a48.png"
+        sources: ["dress6.jpg", "dress5.jpg", "file_00000000ef8081f480c83efafe065a48.png"]
       }
     ];
 
@@ -922,11 +916,19 @@
       const desc = document.getElementById('rack-detail-desc');
       const buyBtn = document.getElementById('rack-buy-btn');
 
-      img.src = item.img;
-      img.onerror = () => { img.src = item.fallbackImg; };
       title.innerText = item.title;
       desc.innerText = item.desc;
       buyBtn.href = `index.html`;
+
+      // محاكي الصور الذكي المتسلسل
+      let candidateIndex = 0;
+      function loadNextCandidate() {
+        if (candidateIndex < item.sources.length) {
+          img.src = item.sources[candidateIndex++];
+        }
+      }
+      img.onerror = loadNextCandidate;
+      loadNextCandidate();
 
       overlay.classList.remove('hidden');
       overlay.classList.add('flex');
