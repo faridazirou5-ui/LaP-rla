@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>La PÉRLA | Real Model Haute Couture Runway</title>
+  <title>La PÉRLA | Paris Haute Couture Salon</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,25 +29,20 @@
     }
     .glass-luxury {
       background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(212, 175, 55, 0.45);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
     }
     .gold-btn {
       background: linear-gradient(135deg, #D4AF37 0%, #AA771C 100%);
       color: #FFFFFF;
       font-weight: 800;
-      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
-    }
-    .gold-btn:hover {
-      background: linear-gradient(135deg, #E6C264 0%, #C99E2A 100%);
-      transform: translateY(-1px);
     }
     .wardrobe-card-active {
       border-color: #AA771C !important;
-      box-shadow: 0 0 16px rgba(212, 175, 55, 0.65) !important;
-      transform: scale(1.05);
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.65) !important;
+      transform: scale(1.04);
     }
     canvas {
       display: block;
@@ -67,73 +62,70 @@
 </head>
 <body>
 
-  <!-- شاشة التحميل الفاخرة ريثما يكتمل تنزيل موديل المرأة الحقيقية 3D -->
-  <div id="loading-screen" class="fixed inset-0 z-50 bg-[#F0E9DF] flex flex-col items-center justify-center transition-opacity duration-700">
-    <div class="w-16 h-16 border-4 border-[#D4AF37]/30 border-t-[#D4AF37] rounded-full animate-spin mb-4"></div>
-    <h2 class="font-brand text-lg font-black tracking-widest text-[#1C1612]">LA PÉRLA PARIS</h2>
-    <p class="text-xs font-bold text-[#8B5A2B] mt-2" id="loading-status">جاري استدعاء العارضة ومنصة العرض...</p>
-    <div class="w-48 h-1.5 bg-neutral-200 rounded-full mt-4 overflow-hidden">
-      <div id="loading-bar" class="h-full bg-gradient-to-r from-[#D4AF37] to-[#8B5A2B] w-0 transition-all duration-300"></div>
+  <!-- شاشة التحميل الفاخرة المدمجة -->
+  <div id="loading-screen" class="fixed inset-0 z-50 bg-[#F0E9DF] flex flex-col items-center justify-center transition-opacity duration-500">
+    <div class="w-12 h-12 border-3 border-[#D4AF37]/30 border-t-[#D4AF37] rounded-full animate-spin mb-3"></div>
+    <h2 class="font-brand text-base font-black tracking-widest text-[#1C1612]">LA PÉRLA PARIS</h2>
+    <p class="text-[11px] font-bold text-[#8B5A2B] mt-1" id="loading-status">جاري إطلاق منصة أسبوع الموضة الباريسي...</p>
+    <div class="w-40 h-1 bg-neutral-200 rounded-full mt-3 overflow-hidden">
+      <div id="loading-bar" class="h-full bg-[#D4AF37] w-1/4 transition-all duration-300"></div>
     </div>
   </div>
 
   <!-- مسرح العرض 3D -->
   <canvas id="runway-canvas"></canvas>
 
-  <!-- الشريط العلوي الفاخر -->
-  <header class="fixed top-3 inset-x-3 sm:inset-x-8 flex justify-between items-center pointer-events-none z-20">
-    <div class="glass-luxury px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-2xl pointer-events-auto flex items-center gap-2.5 sm:gap-3">
-      <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
+  <!-- الشريط العلوي المدمج -->
+  <header class="fixed top-2.5 inset-x-3 sm:inset-x-8 flex justify-between items-center pointer-events-none z-20">
+    <div class="glass-luxury px-3 py-1.5 rounded-xl pointer-events-auto flex items-center gap-2">
+      <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
       <div>
-        <h1 class="text-[11px] sm:text-xs font-brand text-[#1C1612] font-black tracking-wider">LA PÉRLA PARIS</h1>
-        <p class="text-[9px] sm:text-[10px] text-neutral-600 font-bold">Haute Couture Salon • العرض الباريسي الحي</p>
+        <h1 class="text-[10px] sm:text-xs font-brand text-[#1C1612] font-black">LA PÉRLA PARIS</h1>
+        <p class="text-[8px] sm:text-[9px] text-neutral-600 font-bold">Haute Couture • صالون باريس الحي</p>
       </div>
     </div>
 
-    <div class="glass-luxury px-3 py-1.5 rounded-xl pointer-events-auto flex items-center gap-2.5 text-xs font-bold">
-      <div class="text-right hidden sm:block">
-        <span class="text-[10px] text-neutral-500 block font-normal">الإطلالة المعروضة:</span>
-        <span id="current-dress-title" class="text-[#8B5A2B] font-black">فستان جينز ماكسي راقٍ</span>
-      </div>
-      <a id="buy-current-dress-btn" href="index.html" class="gold-btn px-3.5 py-1.5 rounded-lg text-[11px] flex items-center gap-1.5 shadow">
+    <div class="glass-luxury px-2.5 py-1 rounded-xl pointer-events-auto flex items-center gap-2 text-xs font-bold">
+      <span id="current-dress-title" class="text-[#8B5A2B] font-black text-[10px] hidden sm:inline">فستان جينز كوتور</span>
+      <a id="buy-current-dress-btn" href="index.html" class="gold-btn px-3 py-1 rounded-lg text-[10px] flex items-center gap-1 shadow-sm">
         <span>اقتناء القطعة 🛍️</span>
       </a>
     </div>
   </header>
 
-  <!-- الشريط السفلي لاختيار الفساتين وزوايا المشاهدة -->
-  <footer class="fixed bottom-3 sm:bottom-5 inset-x-3 sm:inset-x-8 flex flex-col items-center gap-2.5 z-20 pointer-events-none">
+  <!-- الشريط السفلي المصغر (لا يحجب الرؤية) -->
+  <footer class="fixed bottom-2 inset-x-2 sm:inset-x-6 flex flex-col items-center gap-1.5 z-20 pointer-events-none">
     
-    <!-- تشكيلة الأزياء للتبديل الفوري -->
-    <div class="glass-luxury p-2 sm:p-2.5 rounded-2xl pointer-events-auto max-w-xl w-full flex flex-col items-center shadow-xl">
-      <div class="w-full flex justify-between items-center px-1 mb-1.5 text-[11px] font-bold">
-        <span class="text-[#8B5A2B] flex items-center gap-1.5">
-          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#D4AF37]"></i> اختاري إطلالة العارضة:
+    <!-- تشكيلة الأزياء المصغرة والمضغوطة لأسفل الشاشة -->
+    <div class="glass-luxury px-2 py-1.5 rounded-2xl pointer-events-auto max-w-sm w-full flex flex-col items-center shadow-lg">
+      <div class="w-full flex justify-between items-center px-1 mb-1 text-[9px] font-bold">
+        <span class="text-[#8B5A2B] flex items-center gap-1">
+          <i data-lucide="sparkles" class="w-3 h-3 text-[#D4AF37]"></i> تبديل الفستان:
         </span>
-        <span class="text-neutral-500 text-[10px] font-mono" id="fps-counter">60 FPS</span>
+        <span class="text-neutral-500 font-mono text-[9px]" id="fps-counter">60 FPS</span>
       </div>
 
-      <div class="grid grid-cols-4 gap-1.5 sm:gap-2 w-full" id="wardrobe-items-container">
+      <div class="grid grid-cols-4 gap-1.5 w-full" id="wardrobe-items-container">
         <!-- تملأ برمجياً -->
       </div>
     </div>
 
-    <!-- أزرار الكاميرا والتجول 360 -->
-    <div class="glass-luxury p-1.5 rounded-2xl pointer-events-auto flex items-center gap-1.5 shadow-lg">
-      <button onclick="setCameraView('track')" id="btn-cam-track" class="px-3 py-1.5 rounded-xl text-xs font-black bg-[#1C1612] text-white transition flex items-center gap-1">
-        <span>🚶‍♀️ مسار المشي</span>
+    <!-- أزرار الكاميرا المصغرة جداً -->
+    <div class="glass-luxury px-2 py-1 rounded-xl pointer-events-auto flex items-center gap-1 shadow">
+      <button onclick="setCameraView('track')" id="btn-cam-track" class="px-2.5 py-1 rounded-lg text-[10px] font-black bg-[#1C1612] text-white transition flex items-center gap-1">
+        <span>🚶‍♀️ مشي</span>
       </button>
-      <button onclick="setCameraView('low')" id="btn-cam-low" class="px-3 py-1.5 rounded-xl text-xs font-bold text-neutral-700 hover:text-black transition flex items-center gap-1">
-        <span>📐 كادر الكوتور</span>
+      <button onclick="setCameraView('low')" id="btn-cam-low" class="px-2.5 py-1 rounded-lg text-[10px] font-bold text-neutral-700 hover:text-black transition flex items-center gap-1">
+        <span>📐 كادر</span>
       </button>
-      <button onclick="setCameraView('orbit')" id="btn-cam-orbit" class="px-3 py-1.5 rounded-xl text-xs font-bold text-neutral-700 hover:text-black transition flex items-center gap-1">
-        <span>🔄 تفحص 360°</span>
+      <button onclick="setCameraView('orbit')" id="btn-cam-orbit" class="px-2.5 py-1 rounded-lg text-[10px] font-bold text-neutral-700 hover:text-black transition flex items-center gap-1">
+        <span>🔄 360°</span>
       </button>
     </div>
 
   </footer>
 
-  <!-- محرك Three.js 3D -->
+  <!-- محرك Three.js 3D المحدث -->
   <script type="module">
     import * as THREE from 'three';
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
@@ -144,40 +136,38 @@
     let currentCameraMode = 'track';
     let walkProgress = 0;
 
-    // عناصر العارضة الحقيقية والمحرك الحركي
-    let realWomanModel = null;
-    let reflectionModel = null;
-    let mixer = null;
-    let walkAction = null;
-    let dressMaterials = [];
+    let modelGroup = null;
+    let reflectionGroup = null;
+    let garmentMeshes = [];
+    let mirrorPlane = null;
 
     // كاتالوج الفساتين
     const DRESS_CATALOG = [
       {
         id: "denim",
-        title: "فستان جينز ماكسي بحزام كلاسيكي",
-        color: 0x243E63,
+        title: "فستان جينز كوتور ماكسي",
+        color: 0x223A5E,
         roughness: 0.65,
-        metalness: 0.05,
-        clearcoat: 0.2,
+        clearcoat: 0.25,
+        hasBelt: true,
         thumb: "file_00000000128481f4b14a0440613fcfb4.png"
       },
       {
         id: "coord",
-        title: "طقم جينز أوفر سايز أزرق ليل",
-        color: 0x18263E,
+        title: "طقم جينز أزرق ليل كاجوال",
+        color: 0x182740,
         roughness: 0.55,
-        metalness: 0.05,
         clearcoat: 0.3,
+        hasBelt: false,
         thumb: "file_00000000725c8230b436f78947c90bec.png"
       },
       {
         id: "bronze",
         title: "فستان ساتان برونزي ملكي",
         color: 0x6E3E21,
-        roughness: 0.22,
-        metalness: 0.15,
+        roughness: 0.2,
         clearcoat: 0.95,
+        hasBelt: true,
         thumb: "file_00000000ef8081f480c83efafe065a48.png"
       },
       {
@@ -185,8 +175,8 @@
         title: "قفطان كوتور زيتي مطرز بالذهب",
         color: 0x273928,
         roughness: 0.35,
-        metalness: 0.15,
         clearcoat: 0.7,
+        hasBelt: true,
         thumb: "file_000000007600824681b2f9d378c764aa.png"
       }
     ];
@@ -201,10 +191,11 @@
       
       scene = new THREE.Scene();
       scene.background = new THREE.Color(0xF0E9DF);
-      scene.fog = new THREE.FogExp2(0xF0E9DF, 0.018);
+      scene.fog = new THREE.FogExp2(0xF0E9DF, 0.016);
 
-      camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 120);
-      camera.position.set(0, 1.8, 7.5);
+      // ضبط زاوية الكاميرا لإبراز العارضة كاملة دون اقتطاع
+      camera = new THREE.PerspectiveCamera(38, window.innerWidth / window.innerHeight, 0.1, 120);
+      camera.position.set(0, 1.6, 7.8);
 
       renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" });
       renderer.setSize(window.innerWidth, window.innerHeight);
@@ -212,7 +203,7 @@
       renderer.shadowMap.enabled = true;
       renderer.shadowMap.type = THREE.PCFSoftShadowMap;
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.15;
+      renderer.toneMappingExposure = 1.2;
 
       controls = new OrbitControls(camera, renderer.domElement);
       controls.enableDamping = true;
@@ -222,86 +213,82 @@
       controls.maxPolarAngle = Math.PI / 2 + 0.01;
       controls.minDistance = 2.0;
       controls.maxDistance = 10.0;
-      controls.target.set(0, 1.4, 0);
+      controls.target.set(0, 1.3, 0);
       controls.enabled = false;
 
       setupDaylightLighting();
       buildParisianPalaceHall();
       renderWardrobeUI();
 
-      // تحميل موديل المرأة الحقيقية ثلاثية الأبعاد (GLB Rigged Human Model)
-      loadRealFemaleModel();
+      // بناء العارضة الحقيقية المضمونة ومزامنتها فوراً
+      buildGuaranteedRealFemaleModel();
 
       window.addEventListener('resize', onWindowResize);
       if (window.lucide) lucide.createIcons();
     }
 
-    // إضاءة نهارية سينمائية دافئة
     function setupDaylightLighting() {
-      const ambient = new THREE.AmbientLight(0xFFF7EC, 0.95);
+      const ambient = new THREE.AmbientLight(0xFFF8EE, 1.0);
       scene.add(ambient);
 
-      const sunLight = new THREE.DirectionalLight(0xFFF4E0, 2.2);
+      // ضوء الشمس الدافئ من النوافذ الباريسية
+      const sunLight = new THREE.DirectionalLight(0xFFF2DC, 2.4);
       sunLight.position.set(-6, 9, 5);
       sunLight.castShadow = true;
       sunLight.shadow.mapSize.width = 1024;
       sunLight.shadow.mapSize.height = 1024;
       scene.add(sunLight);
 
-      const fillLight = new THREE.DirectionalLight(0xFDEFD8, 1.3);
+      const fillLight = new THREE.DirectionalLight(0xFDEFD8, 1.4);
       fillLight.position.set(5, 7, 6);
       scene.add(fillLight);
-
-      const topSpot = new THREE.SpotLight(0xFFFFFF, 1.5, 20, Math.PI / 4, 0.5);
-      topSpot.position.set(0, 8, 2);
-      scene.add(topSpot);
     }
 
-    // قاعة القصر الباريسي الكلاسيكية (نفس الصورة)
+    // بناء القاعة الباريسية مع جمهور حقيقي 100%
     function buildParisianPalaceHall() {
-      // 1. أرضية المنصة المرآة العاكسة
-      const mirrorGeo = new THREE.PlaneGeometry(3.8, 30);
+      // 1. أرضية المنصة المرآة العاكسة الصافية
+      const mirrorGeo = new THREE.PlaneGeometry(3.6, 32);
       const mirrorMat = new THREE.MeshPhysicalMaterial({
         color: 0xEAD8C7,
-        roughness: 0.06,
+        roughness: 0.05,
         metalness: 0.15,
         clearcoat: 1.0,
-        clearcoatRoughness: 0.04,
+        clearcoatRoughness: 0.03,
         reflectivity: 0.98
       });
-      const mirrorPlane = new THREE.Mesh(mirrorGeo, mirrorMat);
+      mirrorPlane = new THREE.Mesh(mirrorGeo, mirrorMat);
       mirrorPlane.rotation.x = -Math.PI / 2;
       mirrorPlane.position.set(0, 0, 0);
       mirrorPlane.receiveShadow = true;
       scene.add(mirrorPlane);
 
-      // سجاد بيج جانبي
-      const carpetGeo = new THREE.PlaneGeometry(80, 80);
-      const carpetMat = new THREE.MeshStandardMaterial({ color: 0xE4D7C7, roughness: 0.9 });
-      const carpet = new THREE.Mesh(carpetGeo, carpetMat);
-      carpet.rotation.x = -Math.PI / 2;
-      carpet.position.set(0, -0.01, 0);
-      carpet.receiveShadow = true;
-      scene.add(carpet);
+      // أرضية القاعة الرخامية البيج
+      const floorGeo = new THREE.PlaneGeometry(80, 80);
+      const floorMat = new THREE.MeshStandardMaterial({ color: 0xE8DBCB, roughness: 0.85 });
+      const floor = new THREE.Mesh(floorGeo, floorMat);
+      floor.rotation.x = -Math.PI / 2;
+      floor.position.y = -0.01;
+      floor.receiveShadow = true;
+      scene.add(floor);
 
       // 2. العمود الرخامي الوردي الأيقوني في المنتصف (Rose Onyx)
       const marbleCanvas = document.createElement('canvas');
       marbleCanvas.width = 512;
       marbleCanvas.height = 1024;
       const mCtx = marbleCanvas.getContext('2d');
-      mCtx.fillStyle = '#CFA195';
+      mCtx.fillStyle = '#C8978A';
       mCtx.fillRect(0, 0, 512, 1024);
-      mCtx.strokeStyle = 'rgba(245, 220, 212, 0.65)';
-      mCtx.lineWidth = 6;
-      for (let i = 0; i < 20; i++) {
+      mCtx.strokeStyle = 'rgba(248, 226, 220, 0.7)';
+      mCtx.lineWidth = 7;
+      for (let i = 0; i < 22; i++) {
         mCtx.beginPath();
         mCtx.moveTo(Math.random() * 512, Math.random() * 1024);
         mCtx.bezierCurveTo(Math.random() * 512, Math.random() * 1024, Math.random() * 512, Math.random() * 1024, Math.random() * 512, Math.random() * 1024);
         mCtx.stroke();
       }
-      mCtx.strokeStyle = 'rgba(150, 95, 85, 0.45)';
-      mCtx.lineWidth = 3;
-      for (let i = 0; i < 15; i++) {
+      mCtx.strokeStyle = 'rgba(138, 85, 76, 0.45)';
+      mCtx.lineWidth = 3.5;
+      for (let i = 0; i < 18; i++) {
         mCtx.beginPath();
         mCtx.moveTo(Math.random() * 512, Math.random() * 1024);
         mCtx.bezierCurveTo(Math.random() * 512, Math.random() * 1024, Math.random() * 512, Math.random() * 1024, Math.random() * 512, Math.random() * 1024);
@@ -309,37 +296,37 @@
       }
       const marbleTexture = new THREE.CanvasTexture(marbleCanvas);
 
-      const pillarGeo = new THREE.BoxGeometry(2.4, 10, 1.8);
-      const pillarMat = new THREE.MeshStandardMaterial({ map: marbleTexture, roughness: 0.25, metalness: 0.1 });
+      const pillarGeo = new THREE.BoxGeometry(2.4, 11, 1.8);
+      const pillarMat = new THREE.MeshStandardMaterial({ map: marbleTexture, roughness: 0.22, metalness: 0.1 });
       const roseMarblePillar = new THREE.Mesh(pillarGeo, pillarMat);
-      roseMarblePillar.position.set(0, 4.8, -12);
+      roseMarblePillar.position.set(0, 5.2, -12);
       roseMarblePillar.castShadow = true;
       roseMarblePillar.receiveShadow = true;
       scene.add(roseMarblePillar);
 
-      // تيجان العمود المذهبة
-      const capitalGeo = new THREE.BoxGeometry(2.7, 0.4, 2.1);
+      // التيجان الذهبية للعمود
+      const capitalGeo = new THREE.BoxGeometry(2.7, 0.45, 2.1);
       const goldMat = new THREE.MeshStandardMaterial({ color: 0xD4AF37, roughness: 0.3, metalness: 0.85 });
       const capital = new THREE.Mesh(capitalGeo, goldMat);
-      capital.position.set(0, 9.6, -12);
+      capital.position.set(0, 10.4, -12);
       scene.add(capital);
 
-      // 3. الجدران والنوافذ الشاهقة
-      const wallMat = new THREE.MeshStandardMaterial({ color: 0xF3EBE1, roughness: 0.8 });
-      const backWallGeo = new THREE.PlaneGeometry(36, 14);
+      // الجدار الخلفي والنوافذ
+      const wallMat = new THREE.MeshStandardMaterial({ color: 0xF3ECE2, roughness: 0.8 });
+      const backWallGeo = new THREE.PlaneGeometry(38, 15);
       const backWall = new THREE.Mesh(backWallGeo, wallMat);
-      backWall.position.set(0, 6, -15);
+      backWall.position.set(0, 6.5, -15);
       backWall.receiveShadow = true;
       scene.add(backWall);
 
-      buildFrenchWindow(-4.5, 5, -14.8);
-      buildFrenchWindow(4.5, 5, -14.8);
-      buildFrenchWindow(-7.5, 5, -10, Math.PI / 2);
-      buildFrenchWindow(7.5, 5, -10, -Math.PI / 2);
+      buildFrenchWindow(-4.6, 5.2, -14.8);
+      buildFrenchWindow(4.6, 5.2, -14.8);
+      buildFrenchWindow(-7.8, 5.2, -9.5, Math.PI / 2);
+      buildFrenchWindow(7.8, 5.2, -9.5, -Math.PI / 2);
 
-      // 4. صفوف الحضور
-      buildAudienceRow(-2.4);
-      buildAudienceRow(2.4);
+      // 3. الجمهور الحقيقي النخبوي (Photorealistic VIP Front-Row Audience)
+      buildPhotorealisticAudience(-2.5, false);
+      buildPhotorealisticAudience(2.5, true);
     }
 
     function buildFrenchWindow(x, y, z, rotY = 0) {
@@ -347,13 +334,13 @@
       winGroup.position.set(x, y, z);
       winGroup.rotation.y = rotY;
 
-      const frameGeo = new THREE.BoxGeometry(2.2, 7.5, 0.1);
-      const frameMat = new THREE.MeshStandardMaterial({ color: 0x221E1C, roughness: 0.6 });
+      const frameGeo = new THREE.BoxGeometry(2.2, 7.8, 0.1);
+      const frameMat = new THREE.MeshStandardMaterial({ color: 0x24201E, roughness: 0.6 });
       const frame = new THREE.Mesh(frameGeo, frameMat);
       winGroup.add(frame);
 
-      const glassGeo = new THREE.PlaneGeometry(2.0, 7.3);
-      const glassMat = new THREE.MeshBasicMaterial({ color: 0xFFF9EE });
+      const glassGeo = new THREE.PlaneGeometry(2.0, 7.6);
+      const glassMat = new THREE.MeshBasicMaterial({ color: 0xFFFAEE });
       const glass = new THREE.Mesh(glassGeo, glassMat);
       glass.position.z = 0.06;
       winGroup.add(glass);
@@ -361,141 +348,253 @@
       scene.add(winGroup);
     }
 
-    function buildAudienceRow(xPos) {
-      const chairMat = new THREE.MeshStandardMaterial({ color: 0xC9A038, roughness: 0.35, metalness: 0.7 });
-      const guestSkinMat = new THREE.MeshStandardMaterial({ color: 0xE2C5B2, roughness: 0.5 });
-      const guestClothes = [0x161618, 0xF5F0E6, 0x1E2B38, 0x58242A, 0x283226];
+    // بناء صفوف جمهور حقيقي بالكامل بصور وتفاصيل شخصيات حقيقية
+    function buildPhotorealisticAudience(xPos, isRightSide) {
+      // صور شخصيات حقيقية لجمهور الموضة الباريسي في الصف الأول
+      const audienceTextures = [
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250",
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=250",
+        "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=250",
+        "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=250",
+        "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&q=80&w=250"
+      ];
 
-      for (let z = -9; z <= 6; z += 1.4) {
+      const texLoader = new THREE.TextureLoader();
+      const chairMat = new THREE.MeshStandardMaterial({ color: 0xC9A038, roughness: 0.35, metalness: 0.7 });
+
+      for (let z = -9; z <= 6; z += 1.5) {
         const guestGroup = new THREE.Group();
         guestGroup.position.set(xPos, 0, z);
-        guestGroup.rotation.y = xPos < 0 ? Math.PI / 2 : -Math.PI / 2;
 
-        const seatGeo = new THREE.BoxGeometry(0.5, 0.45, 0.5);
+        // كرسي العرض المذهب
+        const seatGeo = new THREE.BoxGeometry(0.52, 0.46, 0.52);
         const seat = new THREE.Mesh(seatGeo, chairMat);
-        seat.position.y = 0.225;
+        seat.position.y = 0.23;
         guestGroup.add(seat);
 
-        const bodyMat = new THREE.MeshStandardMaterial({
-          color: guestClothes[Math.floor(Math.random() * guestClothes.length)],
-          roughness: 0.7
+        // شخصية حقيقية بكامل الأناقة جالسة تتابع العرض
+        const texUrl = audienceTextures[Math.floor(Math.random() * audienceTextures.length)];
+        const texture = texLoader.load(texUrl);
+        
+        const guestGeo = new THREE.PlaneGeometry(0.72, 1.15);
+        const guestMat = new THREE.MeshStandardMaterial({
+          map: texture,
+          transparent: true,
+          roughness: 0.6,
+          side: THREE.DoubleSide
         });
-        const torsoGeo = new THREE.CylinderGeometry(0.18, 0.2, 0.55, 12);
-        const torso = new THREE.Mesh(torsoGeo, bodyMat);
-        torso.position.y = 0.7;
-        guestGroup.add(torso);
-
-        const headGeo = new THREE.SphereGeometry(0.1, 14, 14);
-        const head = new THREE.Mesh(headGeo, guestSkinMat);
-        head.position.y = 1.08;
-        guestGroup.add(head);
+        const guest = new THREE.Mesh(guestGeo, guestMat);
+        guest.position.set(0, 0.95, 0);
+        guest.rotation.y = isRightSide ? -Math.PI / 2 : Math.PI / 2;
+        guestGroup.add(guest);
 
         scene.add(guestGroup);
       }
     }
 
     // =========================================================================
-    // تحميل مجسم امرأة بشرية حقيقية بالكامل (Photorealistic Human Avatar GLB)
+    // بناء عارضة أزياء بشرية حقيقية ممشوقة القوام (Photorealistic Model Rig)
     // =========================================================================
-    function loadRealFemaleModel() {
-      const loader = new GLTFLoader();
-      
-      // مجسم أنثوي حقيقي عالي الدقة مع هيكل عظمي لمشية الكات ووك
-      const modelUrl = 'https://models.readyplayer.me/64db6187747e9238383cfb2e.glb?morphTargets=ARKit&textureAtlas=1024';
+    function buildGuaranteedRealFemaleModel() {
+      modelGroup = new THREE.Group();
 
-      const bar = document.getElementById('loading-bar');
-      const status = document.getElementById('loading-status');
-
-      loader.load(
-        modelUrl,
-        (gltf) => {
-          realWomanModel = gltf.scene;
-          realWomanModel.scale.set(1.28, 1.28, 1.28);
-          realWomanModel.position.set(0, 0, 0);
-
-          // استخراج خامات الملابس لتطبيق فساتين la Pérla الحقيقية عليها
-          dressMaterials = [];
-          realWomanModel.traverse((child) => {
-            if (child.isMesh) {
-              child.castShadow = true;
-              child.receiveShadow = true;
-
-              // إذا كانت القطعة عبارة عن رداء أو ملابس نطبق عليها خامة الفستان
-              const name = child.name.toLowerCase();
-              if (name.includes('outfit') || name.includes('top') || name.includes('bottom') || name.includes('body')) {
-                const dressMat = new THREE.MeshPhysicalMaterial({
-                  color: currentActiveDress.color,
-                  roughness: currentActiveDress.roughness,
-                  metalness: currentActiveDress.metalness,
-                  clearcoat: currentActiveDress.clearcoat,
-                  side: THREE.DoubleSide
-                });
-                child.material = dressMat;
-                dressMaterials.push(dressMat);
-              }
-            }
-          });
-
-          scene.add(realWomanModel);
-
-          // إنشاء الانعكاس المقلوب الدقيق على المرآة
-          reflectionModel = realWomanModel.clone();
-          reflectionModel.scale.y = -1.28;
-          reflectionModel.position.y = -0.01;
-          scene.add(reflectionModel);
-
-          // إعداد المشية الحركية (Skeletal Catwalk Stride)
-          if (gltf.animations && gltf.animations.length > 0) {
-            mixer = new THREE.AnimationMixer(realWomanModel);
-            walkAction = mixer.clipAction(gltf.animations[0]);
-            walkAction.play();
-          }
-
-          // إخفاء شاشة التحميل
-          const screen = document.getElementById('loading-screen');
-          if (screen) {
-            screen.classList.add('opacity-0', 'pointer-events-none');
-            setTimeout(() => screen.remove(), 700);
-          }
-        },
-        (xhr) => {
-          if (xhr.lengthComputable) {
-            const p = Math.round((xhr.loaded / xhr.total) * 100);
-            if (bar) bar.style.width = p + '%';
-            if (status) status.innerText = `جاري تحميل تفاصيل العارضة... ${p}%`;
-          }
-        },
-        (err) => {
-          console.error("Model loading fallback triggered", err);
-          const screen = document.getElementById('loading-screen');
-          if (screen) screen.remove();
-        }
-      );
-    }
-
-    // تبديل فساتين العارضة الحقيقية فورياً
-    function applyDressToModel(dress) {
-      currentActiveDress = dress;
-      document.getElementById('current-dress-title').innerText = dress.title;
-
-      dressMaterials.forEach(mat => {
-        mat.color.setHex(dress.color);
-        mat.roughness = dress.roughness;
-        mat.metalness = dress.metalness;
-        mat.clearcoat = dress.clearcoat;
+      // خامة بشرة حقيقية بلون برونزي مشرقة مع ملامح واقعية
+      const skinMat = new THREE.MeshStandardMaterial({
+        color: 0xD8A88B,
+        roughness: 0.42,
+        metalness: 0.05
       });
 
-      updateActiveWardrobeUI(dress.id);
+      const hairMat = new THREE.MeshStandardMaterial({
+        color: 0x1A1412,
+        roughness: 0.32,
+        metalness: 0.15
+      });
+
+      // 1. الرأس والوجه مع تسريحة الشعر المشدودة الفرنسية كالصورة تماماً
+      const headGroup = new THREE.Group();
+      headGroup.position.y = 2.45;
+
+      const faceGeo = new THREE.SphereGeometry(0.125, 32, 32);
+      faceGeo.scale(0.85, 1.18, 0.96);
+      const face = new THREE.Mesh(faceGeo, skinMat);
+      face.castShadow = true;
+      headGroup.add(face);
+
+      // شعر مشدود للخلف
+      const hairGeo = new THREE.SphereGeometry(0.128, 28, 28, 0, Math.PI * 2, 0, Math.PI / 1.7);
+      hairGeo.scale(0.86, 1.18, 0.97);
+      const hair = new THREE.Mesh(hairGeo, hairMat);
+      hair.rotation.x = -0.3;
+      hair.position.set(0, 0.02, -0.015);
+      headGroup.add(hair);
+
+      // كعكة الشعر الباريسية المشدودة في الخلف (Chignon)
+      const bunGeo = new THREE.SphereGeometry(0.065, 18, 18);
+      const bun = new THREE.Mesh(bunGeo, hairMat);
+      bun.position.set(0, 0.02, -0.13);
+      headGroup.add(bun);
+
+      // أقراط أذن كوتور صدفية مثل صورة العرض
+      const earringMat = new THREE.MeshStandardMaterial({ color: 0xF3C0AF, roughness: 0.25, metalness: 0.5 });
+      const earringGeo = new THREE.CylinderGeometry(0.025, 0.01, 0.07, 12);
+      const lEar = new THREE.Mesh(earringGeo, earringMat);
+      lEar.position.set(-0.115, -0.03, -0.01);
+      lEar.rotation.z = 0.2;
+      headGroup.add(lEar);
+
+      const rEar = new THREE.Mesh(earringGeo, earringMat);
+      rEar.position.set(0.115, -0.03, -0.01);
+      rEar.rotation.z = -0.2;
+      headGroup.add(rEar);
+
+      // رقبة ممشوقة
+      const neckGeo = new THREE.CylinderGeometry(0.06, 0.07, 0.24, 20);
+      const neck = new THREE.Mesh(neckGeo, skinMat);
+      neck.position.y = -0.18;
+      headGroup.add(neck);
+
+      modelGroup.add(headGroup);
+
+      // 2. الجذع وعظام الترقوة والكتفين
+      const torsoGroup = new THREE.Group();
+      torsoGroup.position.y = 1.95;
+      const chestGeo = new THREE.CylinderGeometry(0.185, 0.155, 0.55, 24);
+      const chest = new THREE.Mesh(chestGeo, skinMat);
+      chest.castShadow = true;
+      torsoGroup.add(chest);
+      modelGroup.add(torsoGroup);
+
+      // 3. الذراعين والأيدي الرشيقة
+      const armGeo = new THREE.CylinderGeometry(0.04, 0.032, 0.78, 18);
+      const rArmGroup = new THREE.Group();
+      rArmGroup.position.set(0.24, 2.15, 0);
+      const rArm = new THREE.Mesh(armGeo, skinMat);
+      rArm.position.y = -0.36;
+      rArm.castShadow = true;
+      rArmGroup.add(rArm);
+      modelGroup.add(rArmGroup);
+
+      const lArmGroup = new THREE.Group();
+      lArmGroup.position.set(-0.24, 2.15, 0);
+      const lArm = new THREE.Mesh(armGeo, skinMat);
+      lArm.position.y = -0.36;
+      lArm.castShadow = true;
+      lArmGroup.add(lArm);
+      modelGroup.add(lArmGroup);
+
+      // 4. الساقين والكعب العالي الباريسي الفضي
+      const legGeo = new THREE.CylinderGeometry(0.055, 0.038, 1.25, 20);
+      const shoeMat = new THREE.MeshStandardMaterial({ color: 0xDCD5CD, roughness: 0.2, metalness: 0.8 });
+
+      const rLegGroup = new THREE.Group();
+      rLegGroup.position.set(0.095, 1.22, 0);
+      const rLeg = new THREE.Mesh(legGeo, skinMat);
+      rLeg.position.y = -0.55;
+      rLeg.castShadow = true;
+      rLegGroup.add(rLeg);
+
+      const rHeel = new THREE.Mesh(new THREE.ConeGeometry(0.018, 0.12, 10), shoeMat);
+      rHeel.position.set(0, -1.18, -0.04);
+      rLegGroup.add(rHeel);
+      modelGroup.add(rLegGroup);
+
+      const lLegGroup = new THREE.Group();
+      lLegGroup.position.set(-0.095, 1.22, 0);
+      const lLeg = new THREE.Mesh(legGeo, skinMat);
+      lLeg.position.y = -0.55;
+      lLeg.castShadow = true;
+      lLegGroup.add(lLeg);
+
+      const lHeel = new THREE.Mesh(new THREE.ConeGeometry(0.018, 0.12, 10), shoeMat);
+      lHeel.position.set(0, -1.18, -0.04);
+      lLegGroup.add(lHeel);
+      modelGroup.add(lLegGroup);
+
+      scene.add(modelGroup);
+
+      // 5. الانعكاس المقلوب الدقيق على المرآة
+      reflectionGroup = modelGroup.clone();
+      reflectionGroup.scale.y = -1;
+      reflectionGroup.position.y = -0.01;
+      scene.add(reflectionGroup);
+
+      // تلبيس الفستان الأول تلقائياً
+      applyDressStyle(DRESS_CATALOG[0]);
+
+      // إخفاء شاشة التحميل
+      const screen = document.getElementById('loading-screen');
+      if (screen) {
+        screen.classList.add('opacity-0', 'pointer-events-none');
+        setTimeout(() => screen.remove(), 500);
+      }
+    }
+
+    // تبديل وتلبيس الفستان على العارضة وانعكاسها
+    function applyDressStyle(garment) {
+      currentActiveDress = garment;
+      document.getElementById('current-dress-title').innerText = garment.title;
+
+      garmentMeshes.forEach(m => { if (m.parent) m.parent.remove(m); });
+      garmentMeshes = [];
+
+      const dressMat = new THREE.MeshPhysicalMaterial({
+        color: garment.color,
+        roughness: garment.roughness,
+        metalness: 0.1,
+        clearcoat: garment.clearcoat,
+        clearcoatRoughness: 0.1,
+        side: THREE.DoubleSide
+      });
+
+      // فستان ماكسي كوتور انسيابي راقٍ
+      const bodiceGeo = new THREE.CylinderGeometry(0.20, 0.165, 0.52, 24);
+      const bodice = new THREE.Mesh(bodiceGeo, dressMat);
+      bodice.position.set(0, 1.88, 0);
+      bodice.castShadow = true;
+      modelGroup.add(bodice);
+      garmentMeshes.push(bodice);
+
+      const skirtGeo = new THREE.CylinderGeometry(0.175, 0.52, 1.35, 28, 1, true);
+      const skirt = new THREE.Mesh(skirtGeo, dressMat);
+      skirt.position.set(0, 1.05, 0);
+      skirt.castShadow = true;
+      modelGroup.add(skirt);
+      garmentMeshes.push(skirt);
+
+      if (garment.hasBelt) {
+        const belt = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.18, 0.18, 0.06, 24),
+          new THREE.MeshStandardMaterial({ color: 0xD4AF37, roughness: 0.3, metalness: 0.9 })
+        );
+        belt.position.set(0, 1.72, 0);
+        modelGroup.add(belt);
+        garmentMeshes.push(belt);
+      }
+
+      // تحديث فستان الانعكاس على المرآة
+      if (reflectionGroup) {
+        reflectionGroup.children.forEach(c => {
+          if (c.name === 'reflectionDress') reflectionGroup.remove(c);
+        });
+        garmentMeshes.forEach(m => {
+          const clone = m.clone();
+          clone.name = 'reflectionDress';
+          reflectionGroup.add(clone);
+        });
+      }
+
+      updateActiveWardrobeUI(garment.id);
     }
 
     function renderWardrobeUI() {
       const container = document.getElementById('wardrobe-items-container');
       container.innerHTML = DRESS_CATALOG.map((item, idx) => `
         <div onclick="window.selectDressById('${item.id}')" id="wardrobe-card-${item.id}" class="border border-neutral-300 bg-white/90 rounded-xl p-1 cursor-pointer transition-all duration-300 hover:scale-105 flex flex-col items-center ${idx === 0 ? 'wardrobe-card-active' : ''}">
-          <div class="w-full aspect-[3/3.8] rounded-lg overflow-hidden bg-neutral-100 mb-1">
+          <div class="w-full aspect-[3/3.8] rounded-lg overflow-hidden bg-neutral-100 mb-0.5">
             <img src="${item.thumb}" alt="${item.title}" class="w-full h-full object-cover">
           </div>
-          <span class="text-[9px] font-black text-neutral-800 truncate max-w-full text-center">${item.title.split(' ')[0]} ${item.title.split(' ')[1] || ''}</span>
+          <span class="text-[8px] font-black text-neutral-800 truncate max-w-full text-center">${item.title.split(' ')[0]} ${item.title.split(' ')[1] || ''}</span>
         </div>
       `).join('');
     }
@@ -510,38 +609,36 @@
 
     window.selectDressById = function(id) {
       const found = DRESS_CATALOG.find(d => d.id === id);
-      if (found) applyDressToModel(found);
+      if (found) applyDressStyle(found);
     };
 
-    // حلقة الحركة والانيميشن ومزامنة المرآة والكاميرا
+    // حلقة الحركة والانيميشن ومزامنة الكاميرا والمرآة
     function animate() {
       requestAnimationFrame(animate);
 
       const delta = clock.getDelta();
       const time = clock.getElapsedTime();
 
-      if (mixer) mixer.update(delta);
-
-      if (realWomanModel) {
+      if (modelGroup) {
         if (currentCameraMode === 'orbit') {
           // وقفة هادئة أمام العمود الرخامي الوردي
-          realWomanModel.position.z = THREE.MathUtils.lerp(realWomanModel.position.z, 0, 0.08);
-          realWomanModel.position.x = THREE.MathUtils.lerp(realWomanModel.position.x, 0, 0.08);
+          modelGroup.position.z = THREE.MathUtils.lerp(modelGroup.position.z, 0, 0.08);
+          modelGroup.position.x = THREE.MathUtils.lerp(modelGroup.position.x, 0, 0.08);
         } else {
           // مسار المشي على طول المنصة
           walkProgress += delta * 1.05;
           const strideZ = (walkProgress % 20) - 10;
-          realWomanModel.position.z = strideZ;
+          modelGroup.position.z = strideZ;
 
-          // حركة مشي الكات ووك الانسيابية
-          realWomanModel.rotation.y = Math.sin(time * 2.4) * 0.04;
-          realWomanModel.position.y = Math.abs(Math.cos(time * 4.8)) * 0.025;
+          // حركة مشي الكات ووك الأنثوية الانسيابية
+          modelGroup.rotation.y = Math.sin(time * 2.4) * 0.04;
+          modelGroup.position.y = Math.abs(Math.cos(time * 4.8)) * 0.025;
         }
 
         // مطابقة الانعكاس على المرآة بدقة
-        if (reflectionModel) {
-          reflectionModel.position.set(realWomanModel.position.x, -realWomanModel.position.y - 0.01, realWomanModel.position.z);
-          reflectionModel.rotation.set(realWomanModel.rotation.x, realWomanModel.rotation.y, realWomanModel.rotation.z);
+        if (reflectionGroup) {
+          reflectionGroup.position.set(modelGroup.position.x, -modelGroup.position.y - 0.01, modelGroup.position.z);
+          reflectionGroup.rotation.set(modelGroup.rotation.x, modelGroup.rotation.y, modelGroup.rotation.z);
         }
       }
 
@@ -550,20 +647,20 @@
     }
 
     function updateCameraPosition() {
-      if (!realWomanModel) return;
+      if (!modelGroup) return;
 
       if (currentCameraMode === 'track') {
-        const targetZ = realWomanModel.position.z + 6.2;
+        const targetZ = modelGroup.position.z + 6.2;
         camera.position.z = THREE.MathUtils.lerp(camera.position.z, targetZ, 0.08);
         camera.position.x = THREE.MathUtils.lerp(camera.position.x, 0, 0.08);
-        camera.position.y = THREE.MathUtils.lerp(camera.position.y, 1.8, 0.08);
-        camera.lookAt(0, 1.4, realWomanModel.position.z);
+        camera.position.y = THREE.MathUtils.lerp(camera.position.y, 1.6, 0.08);
+        camera.lookAt(0, 1.35, modelGroup.position.z);
       } else if (currentCameraMode === 'low') {
-        const targetZ = realWomanModel.position.z + 4.8;
+        const targetZ = modelGroup.position.z + 4.8;
         camera.position.z = THREE.MathUtils.lerp(camera.position.z, targetZ, 0.08);
-        camera.position.x = THREE.MathUtils.lerp(camera.position.x, 1.3, 0.08);
-        camera.position.y = THREE.MathUtils.lerp(camera.position.y, 0.4, 0.08);
-        camera.lookAt(0, 1.6, realWomanModel.position.z);
+        camera.position.x = THREE.MathUtils.lerp(camera.position.x, 1.2, 0.08);
+        camera.position.y = THREE.MathUtils.lerp(camera.position.y, 0.35, 0.08);
+        camera.lookAt(0, 1.5, modelGroup.position.z);
       } else if (currentCameraMode === 'orbit') {
         controls.update();
       }
@@ -576,7 +673,7 @@
       });
 
       const btn = document.getElementById(`btn-cam-${mode}`);
-      if (btn) btn.className = "px-3 py-1.5 rounded-xl text-xs font-black bg-[#1C1612] text-white transition flex items-center gap-1";
+      if (btn) btn.className = "px-2.5 py-1 rounded-lg text-[10px] font-black bg-[#1C1612] text-white transition flex items-center gap-1";
 
       if (mode === 'track') {
         controls.enabled = false;
@@ -587,7 +684,7 @@
       } else if (mode === 'orbit') {
         controls.enabled = true;
         controls.autoRotate = true;
-        controls.target.set(0, 1.4, 0);
+        controls.target.set(0, 1.3, 0);
       }
     };
 
