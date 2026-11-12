@@ -17,7 +17,7 @@
   </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Cairo:wght@600;700;800;900&display=swap" rel="stylesheet">
   
   <script src="https://cdn.tailwindcss.com"></script>
@@ -88,7 +88,7 @@
 </head>
 <body class="selection:bg-laperla-gold selection:text-white">
 
-  <!-- إعدادات المتجر الأساسية -->
+  <!-- إعدادات المتجر وقاعدة Supabase -->
   <script>
     const CONFIG = {
       MANAGER_PHONE: "213542634573",
@@ -100,6 +100,44 @@
       SUPABASE_KEY: "sb_publishable_OXs_iWjYnTZW6mSI7LeN8Q_jQQ7r5aC"
     };
     const db = supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_KEY);
+
+    /* ================= كود التتبع التلقائي وحماية التكرار ================= */
+    (function trackStoreVisit() {
+      try {
+        const hasTrackedSession = sessionStorage.getItem('laperla_session_logged');
+        if (hasTrackedSession) return; // تم احتساب الزائر مسبقاً في هذه الجلسة
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const ref = document.referrer.toLowerCase();
+        let source = 'Direct';
+
+        if (urlParams.get('utm_source')) {
+          source = urlParams.get('utm_source');
+        } else if (urlParams.get('ttclid') || ref.includes('tiktok.com')) {
+          source = 'TikTok';
+        } else if (urlParams.get('fbclid') || ref.includes('facebook.com') || ref.includes('fb.com')) {
+          source = 'Facebook';
+        } else if (urlParams.get('igshid') || ref.includes('instagram.com')) {
+          source = 'Instagram';
+        } else if (urlParams.get('gclid') || ref.includes('google.')) {
+          source = 'Google';
+        }
+
+        let sessionId = localStorage.getItem('laperla_vid');
+        if (!sessionId) {
+          sessionId = 'v_' + Math.random().toString(36).substring(2, 10);
+          localStorage.setItem('laperla_vid', sessionId);
+        }
+
+        db.from('store_visits').insert([{
+          source: source,
+          session_id: sessionId,
+          page: window.location.pathname || '/'
+        }]).then(() => {
+          sessionStorage.setItem('laperla_session_logged', 'true');
+        }).catch(() => {});
+      } catch (e) {}
+    })();
   </script>
 
   <!-- شريط التحكم العائم الخاص بالمدير -->
@@ -142,6 +180,7 @@
       <nav class="hidden md:flex items-center gap-8 text-sm uppercase tracking-wider text-laperla-darkText font-extrabold">
         <a href="#categories" class="hover:text-laperla-goldDark transition">التصنيفات • Catégories</a>
         <a href="#collection" class="hover:text-laperla-goldDark transition">التشكيلة • Collection</a>
+        <a href="brand.html" class="text-laperla-goldDark hover:underline transition">عرض باريس • Runway</a>
         <a href="#reviews" class="hover:text-laperla-goldDark transition">آراء الزبائن • Avis</a>
       </nav>
 
@@ -170,7 +209,7 @@
       </div>
     </section>
 
-    <!-- أقسام التصنيفات الأربعة -->
+    <!-- أقسام التصنيفات -->
     <section id="categories" class="max-w-7xl mx-auto px-6 pt-12 pb-6">
       <div class="text-center mb-6">
         <h2 class="text-2xl md:text-3xl font-extrabold text-laperla-brown">أقسام التشكيلة الفاخرة • Catégories</h2>
@@ -196,7 +235,7 @@
       </div>
     </section>
 
-    <!-- كتالوج المنتجات السحابي المركزي -->
+    <!-- كتالوج المنتجات السحابي -->
     <section id="collection" class="max-w-7xl mx-auto px-6 py-8">
       <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
     </section>
@@ -361,114 +400,25 @@
           </button>
         </form>
       </div>
-
-      <!-- شهادات وتجارب الزبونات الموثقة -->
-      <div class="bg-white border-2 border-amber-300 rounded-3xl p-4 sm:p-5 mb-5 shadow-xs space-y-3">
-        <div class="flex items-center justify-between border-b border-neutral-100 pb-2">
-          <div class="flex items-center gap-2">
-            <i data-lucide="badge-check" class="w-5 h-5 text-emerald-600"></i>
-            <h4 class="text-xs sm:text-sm font-black text-neutral-900">شهادات زبونات دار La PÉRLA الموثقة (Avis Certifiés)</h4>
-          </div>
-          <span class="text-amber-500 text-xs font-black">★★★★★ 4.9/5</span>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-          <div class="bg-laperla-silk/40 p-3 rounded-2xl border border-laperla-border">
-            <div class="flex justify-between items-center mb-1">
-              <span class="font-black text-laperla-brown">أمينة ب. (الجزائر العاصمة)</span>
-              <span class="text-emerald-700 text-[10px] font-bold">✓ شراء مؤكد</span>
-            </div>
-            <p class="text-[11px] text-neutral-700 leading-relaxed">
-              "فستان الجينز تحفة في اللبس، القماش بارد ومريح جداً والخياطة متقونة 100%. شكراً على المعاملة الراقية."
-            </p>
-          </div>
-
-          <div class="bg-laperla-silk/40 p-3 rounded-2xl border border-laperla-border">
-            <div class="flex justify-between items-center mb-1">
-              <span class="font-black text-laperla-brown">دليلة م. (وهران)</span>
-              <span class="text-emerald-700 text-[10px] font-bold">✓ شراء مؤكد</span>
-            </div>
-            <p class="text-[11px] text-neutral-700 leading-relaxed">
-              "أعجبتني ميزة المعاينة قبل الدفع، فتحت الطرد وتأكدت من المقاس مع ليفروور. خدمة وتغليف يستاهل 5 نجوم."
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- الشرح الملكي الشامل للتوصيل والمعاينة -->
-      <div class="bg-laperla-silk/70 border border-laperla-border rounded-3xl p-5 text-xs font-bold text-neutral-800 space-y-3 shadow-xs">
-        <div class="text-center pb-2.5 border-b border-laperla-border">
-          <span class="text-base font-black text-laperla-brown block">🤍 مرحباً بكِ في La PÉRLA</span>
-          <p class="text-xs text-neutral-600 mt-1 leading-relaxed">
-            تسوقكِ معنا ليس مجرد طلب منتج، بل تجربة نهتم فيها بأدق التفاصيل لنكسب رضاكِ وثقتكِ.
-          </p>
-        </div>
-
-        <div class="space-y-2.5 text-xs pt-1">
-          <div class="flex items-start gap-2.5">
-            <span class="text-base">🛍️</span>
-            <div><strong class="text-neutral-900">1. تأكيد الطلب:</strong> املئي معلوماتكِ واختاري المقاس واللون المناسب، وسنتكفل بالباقي.</div>
-          </div>
-          <div class="flex items-start gap-2.5">
-            <span class="text-base">🎁</span>
-            <div><strong class="text-neutral-900">2. تغليف احترافي:</strong> نحضّر طلبكِ بعناية ونغلفه بطريقة أنيقة تليق بكِ وبعلامتنا التجارية.</div>
-          </div>
-          <div class="flex items-start gap-2.5">
-            <span class="text-base">🚚</span>
-            <div><strong class="text-neutral-900">3. شحن سريع:</strong> نعمل على إرسال طلبكِ في أسرع وقت، مع مدة توصيل تتراوح عادةً بين 24 و48 ساعة، وقد تختلف بالنسبة للولايات البعيدة.</div>
-          </div>
-          <div class="flex items-start gap-2.5">
-            <span class="text-base">👗</span>
-            <div><strong class="text-neutral-900">4. معاينة قبل الدفع:</strong> من حقكِ معاينة المنتج مع عامل التوصيل قبل الدفع، حتى تتأكدي من طلبكِ بكل راحة واطمئنان.</div>
-          </div>
-          <div class="flex items-start gap-2.5">
-            <span class="text-base">💵</span>
-            <div><strong class="text-neutral-900">5. الدفع عند الاستلام:</strong> لا حاجة للدفع مسبقاً، ادفعي فقط عند وصول طلبكِ.</div>
-          </div>
-        </div>
-
-        <div class="pt-3 border-t border-laperla-border text-xs text-neutral-700 text-center space-y-1">
-          <span class="text-rose-700 font-black block text-sm">❤️ وعد La PÉRLA لكِ</span>
-          <p>هدفنا الأول ليس مجرد بيع قطعة ملابس، بل إرضاؤكِ وبناء علاقة ثقة تدوم طويلاً.</p>
-          <p>ثقتكِ هي أجمل ما يمكن أن نحصل عليه، ورضاكِ هو نجاحنا الحقيقي.</p>
-          <span class="text-laperla-goldDark font-black block pt-1">شكراً لاختياركِ La PÉRLA.</span>
-        </div>
-      </div>
-
     </div>
   </div>
 
-  <!-- نافذة الشكر والتقدير الملكية الفاخرة (Thank You Modal) -->
+  <!-- نافذة الشكر والتقدير الملكية -->
   <div id="thank-you-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
     <div class="fixed inset-0 bg-black/75 backdrop-blur-md"></div>
-
     <div class="relative bg-white border-2 border-laperla-gold rounded-3xl max-w-md w-full p-8 text-center shadow-2xl z-10 my-auto">
       <div class="w-20 h-20 bg-laperla-silk border-2 border-laperla-gold rounded-full flex items-center justify-center mx-auto mb-5 shadow-inner">
         <i data-lucide="crown" class="w-10 h-10 text-laperla-goldDark"></i>
       </div>
-
       <span class="text-xs uppercase tracking-widest text-laperla-goldDark font-black block mb-1">Confirmation Royale</span>
       <h3 class="text-2xl font-serif font-black text-laperla-brown mb-2">شكراً لثقتكِ بدار la Pérla</h3>
-      
       <div class="bg-laperla-silk/70 border border-laperla-border rounded-2xl p-4 my-4 space-y-2 text-xs font-bold text-neutral-700">
-        <p class="text-sm font-black text-neutral-900">
-          سيدتي الفاضلة <span id="thank-cust-name" class="text-laperla-brown"></span>،
-        </p>
-        <p class="leading-relaxed">
-          يسعد كامل طاقم دار <strong class="text-laperla-brown">la Pérla</strong> إعلامكِ بأنه تم تسجيل حجزكِ بنجاح تحت رقم الطلب:
-        </p>
+        <p class="text-sm font-black text-neutral-900">سيدتي الفاضلة <span id="thank-cust-name" class="text-laperla-brown"></span>،</p>
+        <p class="leading-relaxed">تم تسجيل حجزكِ بنجاح تحت رقم الطلب:</p>
         <div class="inline-block bg-white border border-laperla-gold px-4 py-1.5 rounded-full font-mono text-sm font-black text-laperla-darkText">
           <span id="thank-order-id"></span>
         </div>
-        <p class="text-emerald-700 pt-1 text-[11px] font-extrabold flex items-center justify-center gap-1">
-          <i data-lucide="phone-call" class="w-3.5 h-3.5"></i> سيتصل بكِ فريقنا هاتفياً خلال وقت وجيز لتأكيد الطلبية وموعد التسليم.
-        </p>
       </div>
-
-      <p class="text-[11px] text-neutral-500 font-bold mb-6">
-        تذكير: الدفع نقداً عند استلام ومعاينة الفستان مع مندوب التوصيل.
-      </p>
-
       <button onclick="closeThankYouModal()" class="gold-btn w-full py-3.5 rounded-2xl text-xs font-black uppercase tracking-wider shadow-lg flex items-center justify-center gap-2">
         <i data-lucide="sparkles" class="w-4 h-4"></i> متابعة تصفح التشكيلة الملكية
       </button>
@@ -493,7 +443,7 @@
     </div>
   </div>
 
-  <!-- لوحة تحكم المدير المتكاملة مع الحذف السحابي الدائم من Supabase -->
+  <!-- لوحة تحكم المدير المتكاملة مع نظام الإحصائيات الجديد -->
   <div id="admin-dashboard-view" class="hidden min-h-screen bg-[#F7F2EC] p-6 lg:p-12 font-bold">
     <div class="max-w-7xl mx-auto space-y-8">
       
@@ -512,16 +462,120 @@
         </div>
       </div>
 
-      <div class="flex gap-4 border-b border-neutral-200 pb-3">
-        <button onclick="switchAdminTab('orders')" id="btn-tab-orders" class="px-5 py-2.5 rounded-xl gold-btn text-xs font-black">
-          📦 إدارة الطلبيات الواردة
+      <!-- تبويبات لوحة التحكم الثلاثة -->
+      <div class="flex flex-wrap gap-3 border-b border-neutral-200 pb-3">
+        <button onclick="switchAdminTab('analytics')" id="btn-tab-analytics" class="px-5 py-2.5 rounded-xl gold-btn text-xs font-black shadow-sm flex items-center gap-1.5">
+          <i data-lucide="bar-chart-2" class="w-4 h-4"></i> 📊 إحصائيات وزوار المتجر
         </button>
-        <button onclick="switchAdminTab('products')" id="btn-tab-products" class="px-5 py-2.5 rounded-xl bg-white border border-neutral-300 text-neutral-700 text-xs font-black">
-          👗 إضافة وتعديل المنتجات (حتى 8 صور + جميع التصنيفات)
+        <button onclick="switchAdminTab('orders')" id="btn-tab-orders" class="px-5 py-2.5 rounded-xl bg-white border border-neutral-300 text-neutral-700 text-xs font-black flex items-center gap-1.5">
+          <i data-lucide="package" class="w-4 h-4"></i> 📦 إدارة الطلبيات الواردة
+        </button>
+        <button onclick="switchAdminTab('products')" id="btn-tab-products" class="px-5 py-2.5 rounded-xl bg-white border border-neutral-300 text-neutral-700 text-xs font-black flex items-center gap-1.5">
+          <i data-lucide="shirt" class="w-4 h-4"></i> 👗 المنتجات والتصنيفات
         </button>
       </div>
 
-      <!-- قسم إدارة المنتجات -->
+      <!-- ================= 1. قسم الإحصائيات وزوار المتجر الجديد ================= -->
+      <div id="admin-analytics-tab" class="space-y-6">
+        
+        <!-- البطاقات الأربع لفرز التواريخ -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div class="bg-white p-5 rounded-2xl border-2 border-emerald-400 shadow-sm relative overflow-hidden">
+            <span class="text-xs text-neutral-500 font-bold block mb-1">🟢 زوار اليوم (Aujourd'hui)</span>
+            <h3 id="stat-visits-today" class="text-3xl font-black text-emerald-600">0</h3>
+            <span class="text-[10px] text-neutral-400 font-bold mt-1 block">زيارات حقيقية بدون تكرار</span>
+          </div>
+
+          <div class="bg-white p-5 rounded-2xl border border-neutral-300 shadow-sm">
+            <span class="text-xs text-neutral-500 font-bold block mb-1">⚪ زوار الأمس (Hier)</span>
+            <h3 id="stat-visits-yesterday" class="text-3xl font-black text-neutral-700">0</h3>
+            <span class="text-[10px] text-neutral-400 font-bold mt-1 block">إجمالي اليوم السابق</span>
+          </div>
+
+          <div class="bg-white p-5 rounded-2xl border-2 border-amber-400 shadow-sm">
+            <span class="text-xs text-neutral-500 font-bold block mb-1">🟡 زوار هذا الأسبوع (7 أيام)</span>
+            <h3 id="stat-visits-week" class="text-3xl font-black text-amber-600">0</h3>
+            <span class="text-[10px] text-neutral-400 font-bold mt-1 block">آخر 7 أيام</span>
+          </div>
+
+          <div class="bg-white p-5 rounded-2xl border-2 border-laperla-gold shadow-sm">
+            <span class="text-xs text-neutral-500 font-bold block mb-1">👑 إجمالي الزيارات الكلي</span>
+            <h3 id="stat-visits-total" class="text-3xl font-black text-laperla-brown">0</h3>
+            <span class="text-[10px] text-neutral-400 font-bold mt-1 block">منذ انطلاق المتجر</span>
+          </div>
+        </div>
+
+        <!-- جدول تفصيلي لمصادر الزوار -->
+        <div class="bg-white border border-neutral-200 rounded-2xl p-6 shadow-sm space-y-4">
+          <div class="flex justify-between items-center border-b border-neutral-200 pb-3">
+            <div>
+              <h4 class="text-base font-black text-neutral-900">جدول تفصيلي لمصادر الزوار (من أين جاءت الزبونات؟)</h4>
+              <p class="text-xs text-neutral-500">يعرفك بالمنصة أو الإعلان الذي حقق لك أعلى تفاعل وزيارات</p>
+            </div>
+            <button onclick="loadAnalyticsData()" class="bg-neutral-100 hover:bg-neutral-200 text-neutral-800 px-3 py-1.5 rounded-lg text-xs font-black flex items-center gap-1.5">
+              <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> تحديث الإحصائيات
+            </button>
+          </div>
+
+          <div id="analytics-sources-list" class="space-y-3 pt-2">
+            <p class="text-xs text-neutral-400 text-center py-6">جاري جلب إحصائيات الزوار من Supabase...</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= 2. قسم إدارة الطلبيات ================= -->
+      <div id="admin-orders-tab" class="hidden space-y-6">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
+            <span class="text-neutral-500 text-xs block mb-1">إجمالي الطلبيات المسجلة</span>
+            <h3 id="stat-total-orders" class="text-3xl font-black text-laperla-darkText">0</h3>
+          </div>
+          <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
+            <span class="text-neutral-500 text-xs block mb-1">المبيعات الإجمالية</span>
+            <h3 id="stat-total-revenue" class="text-3xl font-black text-laperla-brown">0 دج</h3>
+          </div>
+          <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
+            <span class="text-neutral-500 text-xs block mb-1">نظام الإشعارات المباشر</span>
+            <h3 class="text-sm font-bold text-emerald-600 mt-2 flex items-center gap-2">
+              <i data-lucide="check-circle" class="w-4 h-4"></i>
+              <span>بوت تيليجرام نشط ومربوط</span>
+            </h3>
+          </div>
+        </div>
+
+        <div class="bg-white border border-neutral-200 rounded-2xl overflow-hidden shadow-sm">
+          <div class="p-5 border-b border-neutral-200 flex justify-between items-center">
+            <h4 class="text-base text-neutral-800 font-black">سجل الطلبيات المسجلة الحية (Supabase + Local)</h4>
+            <div class="flex gap-2">
+              <button onclick="loadOrders()" class="bg-neutral-100 hover:bg-neutral-200 text-neutral-800 px-3 py-1.5 rounded-lg text-xs font-extrabold flex items-center gap-1">
+                <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> تحديث السجل
+              </button>
+              <button onclick="clearAllOrders()" class="text-xs text-rose-600 hover:underline font-extrabold">مسح السجل بالكامل</button>
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-right text-xs font-bold">
+              <thead class="bg-neutral-50 text-neutral-700 uppercase tracking-wider border-b border-neutral-200">
+                <tr>
+                  <th class="p-4">رقم الطلب</th>
+                  <th class="p-4">الزبونة</th>
+                  <th class="p-4">التواصل السريع</th>
+                  <th class="p-4">القطعة والخيارات</th>
+                  <th class="p-4">الولاية والبلدية</th>
+                  <th class="p-4">المبلغ الكلي</th>
+                  <th class="p-4">حالة الطلبية</th>
+                  <th class="p-4">الإجراء</th>
+                </tr>
+              </thead>
+              <tbody id="orders-table-body" class="divide-y divide-neutral-200">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 3. قسم إدارة المنتجات ================= -->
       <div id="admin-products-tab" class="hidden space-y-6">
         <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
           <div class="flex justify-between items-center mb-4">
@@ -636,59 +690,8 @@
         </div>
 
         <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
-          <h4 class="text-base text-neutral-800 font-black mb-4">القطع المعروضة حالياً (تعديل، حذف، ونسخ روابط الإعلانات لـ Meta)</h4>
+          <h4 class="text-base text-neutral-800 font-black mb-4">القطع المعروضة حالياً</h4>
           <div id="admin-products-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-        </div>
-      </div>
-
-      <!-- قسم إدارة الطلبيات المحدث بالحذف الدائم من Supabase -->
-      <div id="admin-orders-tab" class="space-y-6">
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
-            <span class="text-neutral-500 text-xs block mb-1">إجمالي الطلبيات المسجلة</span>
-            <h3 id="stat-total-orders" class="text-3xl font-black text-laperla-darkText">0</h3>
-          </div>
-          <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
-            <span class="text-neutral-500 text-xs block mb-1">المبيعات الإجمالية</span>
-            <h3 id="stat-total-revenue" class="text-3xl font-black text-laperla-brown">0 دج</h3>
-          </div>
-          <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
-            <span class="text-neutral-500 text-xs block mb-1">نظام الإشعارات المباشر</span>
-            <h3 class="text-sm font-bold text-emerald-600 mt-2 flex items-center gap-2">
-              <i data-lucide="check-circle" class="w-4 h-4"></i>
-              <span>بوت تيليجرام نشط ومربوط</span>
-            </h3>
-          </div>
-        </div>
-
-        <div class="bg-white border border-neutral-200 rounded-2xl overflow-hidden shadow-sm">
-          <div class="p-5 border-b border-neutral-200 flex justify-between items-center">
-            <h4 class="text-base text-neutral-800 font-black">سجل الطلبيات المسجلة الحية (Supabase + Local)</h4>
-            <div class="flex gap-2">
-              <button onclick="loadOrders()" class="bg-neutral-100 hover:bg-neutral-200 text-neutral-800 px-3 py-1.5 rounded-lg text-xs font-extrabold flex items-center gap-1">
-                <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> تحديث السجل
-              </button>
-              <button onclick="clearAllOrders()" class="text-xs text-rose-600 hover:underline font-extrabold">مسح السجل بالكامل</button>
-            </div>
-          </div>
-          <div class="overflow-x-auto">
-            <table class="w-full text-right text-xs font-bold">
-              <thead class="bg-neutral-50 text-neutral-700 uppercase tracking-wider border-b border-neutral-200">
-                <tr>
-                  <th class="p-4">رقم الطلب</th>
-                  <th class="p-4">الزبونة</th>
-                  <th class="p-4">التواصل السريع</th>
-                  <th class="p-4">القطعة والخيارات</th>
-                  <th class="p-4">الولاية والبلدية</th>
-                  <th class="p-4">المبلغ الكلي</th>
-                  <th class="p-4">حالة الطلبية</th>
-                  <th class="p-4">الإجراء</th>
-                </tr>
-              </thead>
-              <tbody id="orders-table-body" class="divide-y divide-neutral-200">
-              </tbody>
-            </table>
-          </div>
         </div>
       </div>
 
@@ -717,7 +720,7 @@
     </div>
   </footer>
 
-  <!-- سكريبت العمليات -->
+  <!-- سكريبت العمليات والإحصائيات المكتمل -->
   <script>
     const shippingRatesByWilaya = {
       "01": { home: 1300, desk: 900 }, "02": { home: 750, desk: 450 }, "03": { home: 900, desk: 550 }, "04": { home: 800, desk: 450 },
@@ -793,18 +796,15 @@
       const urlParams = new URLSearchParams(window.location.search);
       const prodId = urlParams.get('p') || urlParams.get('product');
       if (prodId) {
-        setTimeout(() => {
-          openProductModal(prodId);
-        }, 350);
+        setTimeout(() => { openProductModal(prodId); }, 350);
       }
     }
 
     function copyProductAdLink(id) {
       const currentUrl = window.location.origin + window.location.pathname;
       const adUrl = `${currentUrl}?p=${id}`;
-      
       navigator.clipboard.writeText(adUrl).then(() => {
-        alert("✅ تم نسخ رابط المنتج المباشر بنجاح!\n\n" + adUrl + "\n\nالصق هذا الرابط في خانة (Website URL) داخل Meta Ads Manager، وسيدخل الزبائن من الإعلان مباشرة إلى صفحة حجز هذه القطعة!");
+        alert("✅ تم نسخ رابط المنتج المباشر بنجاح!\n\n" + adUrl);
       }).catch(() => {
         prompt("انسخ رابط إعلان المنتج المباشر:", adUrl);
       });
@@ -825,7 +825,6 @@
       logoClicks++;
       clearTimeout(logoTimer);
       logoTimer = setTimeout(() => { logoClicks = 0; }, 1500);
-
       if (logoClicks >= 5) {
         logoClicks = 0;
         openAdminModal();
@@ -1094,7 +1093,6 @@
       document.getElementById('price-total-summary').textContent = `${total.toLocaleString('ar-DZ')} دج`;
     }
 
-    // إتمام الطلب وحفظه في بيانات المتجر وسحابياً + إرسال تيليجرام
     async function handleCustomerOrder(e) {
       e.preventDefault();
 
@@ -1175,9 +1173,7 @@
           address: `${shippingType} - ${commune}`,
           status: 'قيد الانتظار'
         }]);
-      } catch (err) {
-        console.error("Supabase Save Warning:", err);
-      }
+      } catch (err) {}
 
       const telegramMessage = 
         `👑 *طلب جديد فاخر - دار la Pérla* 👑\n\n` +
@@ -1197,7 +1193,6 @@
         `🕒 التاريخ: ${orderDate}`;
 
       const telegramUrl = `https://api.telegram.org/bot${CONFIG.TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${CONFIG.TELEGRAM_CHAT_ID}&text=${encodeURIComponent(telegramMessage)}&parse_mode=Markdown`;
-
       fetch(telegramUrl, { method: 'GET', mode: 'no-cors' }).catch(e => console.log(e));
 
       closeProductModal();
@@ -1316,7 +1311,6 @@
             </select>
           </td>
           <td class="p-4">
-            <!-- زر الحذف السحابي الدائم الذي يمنع عودة الطلبية -->
             <button onclick="deleteSingleOrder('${o.id}', ${idx})" class="text-rose-600 hover:text-rose-800 p-1.5 rounded-lg hover:bg-rose-50 transition" title="حذف نهائي من السيرفر">
               <i data-lucide="trash-2" class="w-4 h-4"></i>
             </button>
@@ -1333,53 +1327,142 @@
       renderOrdersInDashboard();
     }
 
-    // الدالة المحدثة: حذف الطلبية نهائياً من Supabase السحابي ومن الهاتف معاً
     async function deleteSingleOrder(orderId, index) {
       if (confirm('هل ترغبين في حذف هذه الطلبية نهائياً من قاعدة البيانات والسيرفر؟')) {
-        // 1. الحذف الدائم من Supabase
         try {
           await db.from('orders').delete().eq('order_number', orderId);
-        } catch (err) {
-          console.error("Supabase Delete Error:", err);
-        }
+        } catch (err) {}
 
-        // 2. الحذف من ذاكرة الهاتف
         let orders = JSON.parse(localStorage.getItem('laperla_orders') || '[]');
         orders.splice(index, 1);
         localStorage.setItem('laperla_orders', JSON.stringify(orders));
-        
-        // 3. إعادة رسم الجدول فارغاً دون عودة الطلبية
         renderOrdersInDashboard();
       }
     }
 
-    // الدالة المحدثة: مسح كل السجل نهائياً من Supabase السحابي ومن الهاتف معاً
     async function clearAllOrders() {
-      if (confirm('هل أنت متأكد من مسح جميع الطلبيات المسجلة نهائياً من السيرفر السحابي؟ لن تعود بعد اليوم.')) {
-        // 1. مسح كل الطلبات من Supabase
+      if (confirm('هل أنت متأكد من مسح جميع الطلبيات المسجلة نهائياً من السيرفر السحابي؟')) {
         try {
           await db.from('orders').delete().gt('created_at', '1970-01-01');
-        } catch (err) {
-          console.error("Supabase Clear Error:", err);
-        }
+        } catch (err) {}
 
-        // 2. مسح ذاكرة الهاتف
         localStorage.removeItem('laperla_orders');
         renderOrdersInDashboard();
       }
     }
 
+    /* ================= تبديل أقسام لوحة الإدارة (إحصائيات / طلبيات / منتجات) ================= */
     function switchAdminTab(tab) {
-      if (tab === 'orders') {
-        document.getElementById('admin-orders-tab').classList.remove('hidden');
-        document.getElementById('admin-products-tab').classList.add('hidden');
-        document.getElementById('btn-tab-orders').className = 'px-5 py-2.5 rounded-xl gold-btn text-xs font-black';
-        document.getElementById('btn-tab-products').className = 'px-5 py-2.5 rounded-xl bg-white border border-neutral-300 text-neutral-700 text-xs font-black';
+      const tabAnalytics = document.getElementById('admin-analytics-tab');
+      const tabOrders = document.getElementById('admin-orders-tab');
+      const tabProducts = document.getElementById('admin-products-tab');
+
+      const btnAnalytics = document.getElementById('btn-tab-analytics');
+      const btnOrders = document.getElementById('btn-tab-orders');
+      const btnProducts = document.getElementById('btn-tab-products');
+
+      tabAnalytics.classList.add('hidden');
+      tabOrders.classList.add('hidden');
+      tabProducts.classList.add('hidden');
+
+      btnAnalytics.className = 'px-5 py-2.5 rounded-xl bg-white border border-neutral-300 text-neutral-700 text-xs font-black flex items-center gap-1.5';
+      btnOrders.className = 'px-5 py-2.5 rounded-xl bg-white border border-neutral-300 text-neutral-700 text-xs font-black flex items-center gap-1.5';
+      btnProducts.className = 'px-5 py-2.5 rounded-xl bg-white border border-neutral-300 text-neutral-700 text-xs font-black flex items-center gap-1.5';
+
+      if (tab === 'analytics') {
+        tabAnalytics.classList.remove('hidden');
+        btnAnalytics.className = 'px-5 py-2.5 rounded-xl gold-btn text-xs font-black shadow-sm flex items-center gap-1.5';
+        loadAnalyticsData();
+      } else if (tab === 'orders') {
+        tabOrders.classList.remove('hidden');
+        btnOrders.className = 'px-5 py-2.5 rounded-xl gold-btn text-xs font-black shadow-sm flex items-center gap-1.5';
       } else {
-        document.getElementById('admin-orders-tab').classList.add('hidden');
-        document.getElementById('admin-products-tab').classList.remove('hidden');
-        document.getElementById('btn-tab-products').className = 'px-5 py-2.5 rounded-xl gold-btn text-xs font-black';
-        document.getElementById('btn-tab-orders').className = 'px-5 py-2.5 rounded-xl bg-white border border-neutral-300 text-neutral-700 text-xs font-black';
+        tabProducts.classList.remove('hidden');
+        btnProducts.className = 'px-5 py-2.5 rounded-xl gold-btn text-xs font-black shadow-sm flex items-center gap-1.5';
+      }
+      lucide.createIcons();
+    }
+
+    /* ================= جلب وفرز إحصائيات زوار المتجر بدقة من Supabase ================= */
+    async function loadAnalyticsData() {
+      const container = document.getElementById('analytics-sources-list');
+      try {
+        const { data, error } = await db.from('store_visits').select('*').order('created_at', { ascending: false });
+
+        if (error || !data) {
+          container.innerHTML = `<p class="text-xs text-rose-500 text-center py-4">⚠️ تعذر جلب الإحصائيات، تأكد من إنشاء جدول store_visits في Supabase.</p>`;
+          return;
+        }
+
+        const now = new Date();
+        const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0).getTime();
+        const startOfYesterday = startOfToday - (24 * 60 * 60 * 1000);
+        const endOfYesterday = startOfToday - 1;
+        const startOfWeek = startOfToday - (6 * 24 * 60 * 60 * 1000);
+
+        let countToday = 0;
+        let countYesterday = 0;
+        let countWeek = 0;
+        let countTotal = data.length;
+
+        const sourcesMap = {
+          'TikTok': { count: 0, label: 'تيك توك (TikTok)', color: 'bg-neutral-900', icon: '📱' },
+          'Facebook': { count: 0, label: 'فيسبوك (Facebook)', color: 'bg-blue-600', icon: '🌐' },
+          'Instagram': { count: 0, label: 'إنستغرام (Instagram)', color: 'bg-pink-600', icon: '📷' },
+          'Google': { count: 0, label: 'جوجل (Google Search)', color: 'bg-emerald-600', icon: '🔍' },
+          'Direct': { count: 0, label: 'دخول مباشر / المفضلة (Direct)', color: 'bg-amber-600', icon: '🔗' }
+        };
+
+        data.forEach(v => {
+          const vTime = new Date(v.created_at).getTime();
+
+          if (vTime >= startOfToday) countToday++;
+          if (vTime >= startOfYesterday && vTime <= endOfYesterday) countYesterday++;
+          if (vTime >= startOfWeek) countWeek++;
+
+          const srcKey = v.source || 'Direct';
+          if (!sourcesMap[srcKey]) {
+            sourcesMap[srcKey] = { count: 0, label: srcKey, color: 'bg-purple-600', icon: '📍' };
+          }
+          sourcesMap[srcKey].count++;
+        });
+
+        document.getElementById('stat-visits-today').textContent = countToday;
+        document.getElementById('stat-visits-yesterday').textContent = countYesterday;
+        document.getElementById('stat-visits-week').textContent = countWeek;
+        document.getElementById('stat-visits-total').textContent = countTotal;
+
+        const sortedSources = Object.keys(sourcesMap)
+          .map(k => ({ key: k, ...sourcesMap[k] }))
+          .sort((a, b) => b.count - a.count);
+
+        if (countTotal === 0) {
+          container.innerHTML = `<p class="text-xs text-neutral-400 text-center py-6">لم يتم تسجيل أي زيارة حتى الآن، بمجرد دخول أول زبونة ستظهر هنا مباشرة.</p>`;
+          return;
+        }
+
+        container.innerHTML = sortedSources.map(s => {
+          const percent = countTotal > 0 ? Math.round((s.count / countTotal) * 100) : 0;
+          return `
+            <div class="bg-neutral-50 border border-neutral-200 p-3.5 rounded-xl space-y-2">
+              <div class="flex justify-between items-center text-xs">
+                <span class="font-black text-neutral-900 flex items-center gap-2">
+                  <span>${s.icon}</span>
+                  <span>${s.label}</span>
+                </span>
+                <span class="font-extrabold text-neutral-700 font-mono">
+                  ${s.count} زائر (${percent}%)
+                </span>
+              </div>
+              <div class="w-full bg-neutral-200 h-2 rounded-full overflow-hidden">
+                <div class="${s.color} h-full rounded-full transition-all duration-500" style="width: ${percent}%;"></div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+      } catch (err) {
+        container.innerHTML = `<p class="text-xs text-rose-500 text-center py-4">حدث خطأ في تحميل البيانات.</p>`;
       }
     }
 
@@ -1703,6 +1786,7 @@
       document.getElementById('admin-dashboard-view').classList.remove('hidden');
       document.getElementById('current-mode-label').textContent = 'وضع الإدارة: نشط';
       document.getElementById('switch-btn-text').textContent = 'معاينة المتجر كزبون';
+      loadAnalyticsData();
       loadOrders();
       renderAdminProductsList();
       window.scrollTo({ top: 0, behavior: 'smooth' });
