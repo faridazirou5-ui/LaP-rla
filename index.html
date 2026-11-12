@@ -88,10 +88,10 @@
 </head>
 <body class="selection:bg-laperla-gold selection:text-white">
 
-  <!-- إعدادات المتجر الأساسية ورقم هاتفك الجديد -->
+  <!-- إعدادات المتجر الأساسية -->
   <script>
     const CONFIG = {
-      MANAGER_PHONE: "213542634573", // تم التحديث إلى رقمك الجديد
+      MANAGER_PHONE: "213542634573",
       ADMIN_PIN: "Farid1994#",
       ADMIN_EMAIL: "faridazirou5@gmail.com",
       TELEGRAM_BOT_TOKEN: "9009060298:AAEulcwm3lNKSia0QSsxvlI9bHH1cg0b3qI",
@@ -145,7 +145,6 @@
         <a href="#reviews" class="hover:text-laperla-goldDark transition">آراء الزبائن • Avis</a>
       </nav>
 
-      <!-- شعار المتجر (5 نقرات سريعة تفتح الدخول السري للمدير) -->
       <div class="text-center cursor-pointer select-none py-1" onclick="handleSecretLogoClicks()">
         <h1 class="text-3xl md:text-4xl font-serif font-black text-laperla-brown tracking-wider">
           la Pérla
@@ -163,8 +162,6 @@
 
   <!-- الواجهة الرئيسية للمتجر -->
   <main id="storefront-view">
-    
-    <!-- صورة البانر الفاخرة -->
     <section class="relative w-full overflow-hidden bg-laperla-silk border-b-2 border-laperla-border">
       <div class="max-w-7xl mx-auto">
         <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=85&w=1600" 
@@ -250,16 +247,13 @@
     </section>
   </main>
 
-  <!-- ================= نافذة الحجز الفاخرة ================= -->
+  <!-- نافذة الحجز الفاخرة -->
   <div id="product-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black/80 backdrop-blur-sm p-2 sm:p-5">
     <div class="relative bg-white border-2 border-laperla-gold rounded-3xl w-full max-w-2xl mx-auto my-4 p-4 sm:p-7 shadow-2xl">
-      
-      <!-- زر إغلاق النافذة -->
       <button onclick="closeProductModal()" class="absolute top-4 left-4 z-20 text-neutral-500 hover:text-black bg-white/90 p-2 rounded-full shadow border border-neutral-200">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
-      <!-- 1. رأس النافذة: اسم القطعة وسعرها المخفض -->
       <div class="text-center pb-3 border-b border-neutral-200 pr-6">
         <span class="text-xs font-bold text-laperla-goldDark block mb-0.5">طلب حجز القطعة الحصرية</span>
         <h2 id="modal-title" class="text-2xl sm:text-3xl font-black text-laperla-darkText"></h2>
@@ -270,13 +264,11 @@
         </div>
       </div>
 
-      <!-- 2. الصورة الكبيرة ومعرض الصور الـ 8 كاملة -->
       <div class="mt-4">
         <div class="aspect-[3/4] sm:aspect-[16/11] max-h-[380px] w-full overflow-hidden rounded-2xl border-2 border-laperla-border relative bg-neutral-100 shadow-md mx-auto">
           <img id="modal-main-image" src="" alt="صورة الفستان" class="w-full h-full object-cover object-top transition-all duration-300">
           <span id="modal-photo-counter" class="absolute bottom-3 left-3 bg-black/75 text-white text-[11px] font-bold px-3 py-1 rounded-full backdrop-blur-xs"></span>
         </div>
-
         <div class="text-[11px] font-black text-neutral-700 mt-3 mb-1.5 flex items-center justify-between">
           <span>معرض صور القطعة (اضغطي على أي صورة لتكبيرها):</span>
           <span class="text-neutral-400 font-normal text-[10px]">حتى 8 صور</span>
@@ -284,13 +276,11 @@
         <div id="modal-thumbnails" class="grid grid-cols-4 sm:grid-cols-8 gap-2"></div>
       </div>
 
-      <!-- 3. وصف وخامة القطعة -->
       <div class="bg-laperla-silk/60 p-3.5 rounded-2xl border border-laperla-border my-4">
         <h5 class="text-xs font-black text-laperla-goldDark mb-1">وصف وخامة القطعة:</h5>
         <p id="modal-description" class="text-xs text-neutral-800 leading-relaxed font-bold"></p>
       </div>
 
-      <!-- 4. استمارة تأكيد حجز الطلبية -->
       <div class="bg-white border-2 border-laperla-gold/60 p-4 sm:p-5 rounded-3xl shadow-sm mb-5">
         <div class="border-b border-neutral-200 pb-2 mb-4 text-center">
           <h3 class="text-lg font-black text-laperla-brown">استمارة الحجز الفوري • Commande</h3>
@@ -300,14 +290,12 @@
         <form id="order-form" onsubmit="handleCustomerOrder(event)" class="space-y-4 text-xs font-bold">
           <input type="text" id="bot-trap-field" name="website_url_check" style="display:none !important; position:absolute; left:-9999px;" tabindex="-1" autocomplete="off">
 
-          <!-- اختيار اللون بأزرار واضحة -->
           <div>
             <label class="block text-neutral-800 mb-1.5 font-black">اللون المحدد (Couleur) *</label>
             <div id="modal-colors-container" class="flex flex-wrap gap-2"></div>
             <input type="hidden" id="order-color" required>
           </div>
 
-          <!-- اختيار المقاس بالأرقام (38 إلى 50) -->
           <div>
             <label class="block text-neutral-800 mb-1.5 font-black">المقاس المطلوب (Taille) *</label>
             <div id="modal-sizes-container" class="flex flex-wrap gap-2"></div>
@@ -353,7 +341,6 @@
             </div>
           </div>
 
-          <!-- ملخص الفاتورة التلقائي -->
           <div class="bg-laperla-silk p-3.5 rounded-xl border border-laperla-border space-y-1.5 font-bold">
             <div class="flex justify-between text-neutral-600">
               <span>سعر القطعة (Prix):</span>
@@ -369,14 +356,13 @@
             </div>
           </div>
 
-          <!-- زر التأكيد البارز -->
           <button type="submit" id="submit-order-btn" class="gold-btn w-full py-4 text-base font-black uppercase tracking-wider rounded-2xl transition shadow-xl flex items-center justify-center gap-2">
             <i data-lucide="check-circle" class="w-5 h-5"></i> تأكيد حجز الطلبية الآن (الدفع عند الاستلام)
           </button>
         </form>
       </div>
 
-      <!-- 5. شهادات وتجارب الزبونات الموثقة داخل قائمة الطلب -->
+      <!-- شهادات وتجارب الزبونات الموثقة -->
       <div class="bg-white border-2 border-amber-300 rounded-3xl p-4 sm:p-5 mb-5 shadow-xs space-y-3">
         <div class="flex items-center justify-between border-b border-neutral-100 pb-2">
           <div class="flex items-center gap-2">
@@ -387,7 +373,6 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-          <!-- شهادة 1 -->
           <div class="bg-laperla-silk/40 p-3 rounded-2xl border border-laperla-border">
             <div class="flex justify-between items-center mb-1">
               <span class="font-black text-laperla-brown">أمينة ب. (الجزائر العاصمة)</span>
@@ -398,7 +383,6 @@
             </p>
           </div>
 
-          <!-- شهادة 2 -->
           <div class="bg-laperla-silk/40 p-3 rounded-2xl border border-laperla-border">
             <div class="flex justify-between items-center mb-1">
               <span class="font-black text-laperla-brown">دليلة م. (وهران)</span>
@@ -411,7 +395,7 @@
         </div>
       </div>
 
-      <!-- 6. الشرح الملكي الشامل للتوصيل والمعاينة ووعد La PÉRLA -->
+      <!-- الشرح الملكي الشامل للتوصيل والمعاينة -->
       <div class="bg-laperla-silk/70 border border-laperla-border rounded-3xl p-5 text-xs font-bold text-neutral-800 space-y-3 shadow-xs">
         <div class="text-center pb-2.5 border-b border-laperla-border">
           <span class="text-base font-black text-laperla-brown block">🤍 مرحباً بكِ في La PÉRLA</span>
@@ -509,7 +493,7 @@
     </div>
   </div>
 
-  <!-- ================= لوحة تحكم المدير: إضافة وتعديل بالصور والألوان المستقلة ================= -->
+  <!-- لوحة تحكم المدير المتكاملة مع الحذف السحابي الدائم من Supabase -->
   <div id="admin-dashboard-view" class="hidden min-h-screen bg-[#F7F2EC] p-6 lg:p-12 font-bold">
     <div class="max-w-7xl mx-auto space-y-8">
       
@@ -568,7 +552,6 @@
               <input type="text" id="new-prod-old-price" placeholder="مثال: 5,500 دج" class="w-full bg-laperla-cream border border-laperla-border p-2.5 rounded-xl outline-none font-bold">
             </div>
 
-            <!-- قائمة التصنيفات الكاملة -->
             <div>
               <label class="block text-neutral-700 mb-1">التصنيف الأساسي للمنتج *</label>
               <select id="new-prod-category" class="w-full bg-laperla-cream border border-laperla-border p-2.5 rounded-xl outline-none font-bold">
@@ -590,7 +573,6 @@
               </label>
             </div>
 
-            <!-- المقاسات بالأرقام فقط (38 إلى 50) -->
             <div class="md:col-span-3">
               <label class="block text-neutral-700 mb-1.5 font-black">اختيار المقاسات المتوفرة للقطعة (بالأرقام) *</label>
               <div class="flex flex-wrap gap-2" id="admin-size-options">
@@ -605,10 +587,8 @@
               <input type="hidden" id="new-prod-sizes" value="38, 40, 42, 44">
             </div>
 
-            <!-- نظام إضافة الألوان المستقلة في الإدارة -->
             <div class="md:col-span-3 space-y-2">
-              <label class="block text-neutral-800 font-black">إضافة الألوان المتوفرة (اكتب كل لون واضغط إضافة ليظهر كزر مستقل) *</label>
-              
+              <label class="block text-neutral-800 font-black">إضافة الألوان المتوفرة *</label>
               <div class="flex gap-2">
                 <input type="text" id="custom-color-input" placeholder="اكتب اسم اللون (مثال: أزرق جينز)..." class="flex-1 bg-laperla-cream border border-laperla-border p-2.5 rounded-xl outline-none font-bold text-xs">
                 <button type="button" onclick="addCustomColorFromInput()" class="gold-btn px-4 py-2 rounded-xl text-xs font-black flex items-center gap-1">
@@ -616,7 +596,6 @@
                 </button>
               </div>
 
-              <!-- أزرار ألوان سريعة الإضافة -->
               <div class="flex flex-wrap gap-1.5 pt-1">
                 <button type="button" onclick="addAdminColor('أزرق جينز')" class="bg-white border border-neutral-300 hover:border-laperla-gold px-2.5 py-1 rounded-lg text-[11px] font-bold">+ أزرق جينز</button>
                 <button type="button" onclick="addAdminColor('أزرق ليل')" class="bg-white border border-neutral-300 hover:border-laperla-gold px-2.5 py-1 rounded-lg text-[11px] font-bold">+ أزرق ليل</button>
@@ -626,12 +605,10 @@
                 <button type="button" onclick="addAdminColor('أبيض عاجي')" class="bg-white border border-neutral-300 hover:border-laperla-gold px-2.5 py-1 rounded-lg text-[11px] font-bold">+ أبيض عاجي</button>
               </div>
 
-              <!-- قائمة الألوان المستقلة المضافة مع زر الحذف -->
               <div id="admin-colors-tags-list" class="flex flex-wrap gap-1.5 min-h-[36px] p-2 bg-laperla-silk/50 rounded-xl border border-laperla-border"></div>
               <input type="hidden" id="new-prod-colors" value="أزرق جينز, أزرق ليل">
             </div>
 
-            <!-- تحميل حتى 8 صور من الهاتف -->
             <div class="md:col-span-3 border-2 border-dashed border-laperla-border p-4 rounded-2xl bg-laperla-silk/30 space-y-3">
               <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                 <div>
@@ -664,7 +641,7 @@
         </div>
       </div>
 
-      <!-- قسم إدارة الطلبيات -->
+      <!-- قسم إدارة الطلبيات المحدث بالحذف الدائم من Supabase -->
       <div id="admin-orders-tab" class="space-y-6">
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
           <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
@@ -691,7 +668,7 @@
               <button onclick="loadOrders()" class="bg-neutral-100 hover:bg-neutral-200 text-neutral-800 px-3 py-1.5 rounded-lg text-xs font-extrabold flex items-center gap-1">
                 <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> تحديث السجل
               </button>
-              <button onclick="clearAllOrders()" class="text-xs text-rose-600 hover:underline font-extrabold">مسح السجل</button>
+              <button onclick="clearAllOrders()" class="text-xs text-rose-600 hover:underline font-extrabold">مسح السجل بالكامل</button>
             </div>
           </div>
           <div class="overflow-x-auto">
@@ -740,7 +717,7 @@
     </div>
   </footer>
 
-  <!-- ================= سكريبت العمليات وبوت تيليجرام والربط السحابي ================= -->
+  <!-- سكريبت العمليات -->
   <script>
     const shippingRatesByWilaya = {
       "01": { home: 1300, desk: 900 }, "02": { home: 750, desk: 450 }, "03": { home: 900, desk: 550 }, "04": { home: 800, desk: 450 },
@@ -1010,7 +987,6 @@
       document.getElementById('modal-old-price').textContent = currentProduct.oldPrice || '';
       document.getElementById('modal-description').textContent = currentProduct.description || '';
 
-      // المقاسات الرقمية كأزرار ذهبية سهلة اللمس
       const prodSizes = (currentProduct.sizes || '38, 40, 42, 44').split(',').map(s => s.trim()).filter(s => s.length > 0);
       const sizesBox = document.getElementById('modal-sizes-container');
       document.getElementById('order-size').value = prodSizes[0] || '38';
@@ -1020,7 +996,6 @@
         </button>
       `).join('');
 
-      // 1. تفكيك الألوان وتوزيعها كأزرار منفصلة ومستقلة تماماً
       let rawColors = currentProduct.colors || 'أزرق جينز, أزرق ليل';
       rawColors = rawColors.replace(/[+\/\n|]/g, ',');
       const prodColors = rawColors.split(',').map(c => c.trim()).filter(c => c.length > 0);
@@ -1034,7 +1009,6 @@
         </button>
       `).join('');
 
-      // تجهيز الصور الـ 8
       const imagesList = (currentProduct.images && currentProduct.images.length > 0) ? currentProduct.images : [
         'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=800'
       ];
@@ -1053,7 +1027,7 @@
 
       const modal = document.getElementById('product-modal');
       modal.classList.remove('hidden');
-      modal.scrollTop = 0; // يفتح دائماً من أعلى نقطة في الشاشة
+      modal.scrollTop = 0;
       lucide.createIcons();
     }
 
@@ -1342,7 +1316,8 @@
             </select>
           </td>
           <td class="p-4">
-            <button onclick="deleteSingleOrder(${idx})" class="text-rose-600 hover:text-rose-800 p-1 rounded transition" title="حذف">
+            <!-- زر الحذف السحابي الدائم الذي يمنع عودة الطلبية -->
+            <button onclick="deleteSingleOrder('${o.id}', ${idx})" class="text-rose-600 hover:text-rose-800 p-1.5 rounded-lg hover:bg-rose-50 transition" title="حذف نهائي من السيرفر">
               <i data-lucide="trash-2" class="w-4 h-4"></i>
             </button>
           </td>
@@ -1358,17 +1333,37 @@
       renderOrdersInDashboard();
     }
 
-    function deleteSingleOrder(index) {
-      if (confirm('هل ترغبين في حذف هذه الطلبية نهائياً؟')) {
+    // الدالة المحدثة: حذف الطلبية نهائياً من Supabase السحابي ومن الهاتف معاً
+    async function deleteSingleOrder(orderId, index) {
+      if (confirm('هل ترغبين في حذف هذه الطلبية نهائياً من قاعدة البيانات والسيرفر؟')) {
+        // 1. الحذف الدائم من Supabase
+        try {
+          await db.from('orders').delete().eq('order_number', orderId);
+        } catch (err) {
+          console.error("Supabase Delete Error:", err);
+        }
+
+        // 2. الحذف من ذاكرة الهاتف
         let orders = JSON.parse(localStorage.getItem('laperla_orders') || '[]');
         orders.splice(index, 1);
         localStorage.setItem('laperla_orders', JSON.stringify(orders));
+        
+        // 3. إعادة رسم الجدول فارغاً دون عودة الطلبية
         renderOrdersInDashboard();
       }
     }
 
-    function clearAllOrders() {
-      if (confirm('هل أنت متأكد من مسح جميع الطلبيات المسجلة؟')) {
+    // الدالة المحدثة: مسح كل السجل نهائياً من Supabase السحابي ومن الهاتف معاً
+    async function clearAllOrders() {
+      if (confirm('هل أنت متأكد من مسح جميع الطلبيات المسجلة نهائياً من السيرفر السحابي؟ لن تعود بعد اليوم.')) {
+        // 1. مسح كل الطلبات من Supabase
+        try {
+          await db.from('orders').delete().gt('created_at', '1970-01-01');
+        } catch (err) {
+          console.error("Supabase Clear Error:", err);
+        }
+
+        // 2. مسح ذاكرة الهاتف
         localStorage.removeItem('laperla_orders');
         renderOrdersInDashboard();
       }
@@ -1460,7 +1455,6 @@
       document.getElementById('new-prod-sizes').value = activeSizes.join(', ');
     }
 
-    // 1. نظام إدارة الألوان كبطاقات مستقلة تماماً
     function renderAdminColorTags() {
       const container = document.getElementById('admin-colors-tags-list');
       const hiddenInput = document.getElementById('new-prod-colors');
@@ -1503,7 +1497,6 @@
       }
     }
 
-    // حفظ المنتج سحابياً في Supabase
     async function handleSaveProduct(e) {
       e.preventDefault();
       const saveBtn = document.getElementById('save-product-submit-btn');
@@ -1577,7 +1570,6 @@
       document.getElementById('new-prod-is-best').checked = prod.isBest || false;
       document.getElementById('new-prod-desc').value = prod.description || '';
 
-      // المقاسات
       document.getElementById('new-prod-sizes').value = prod.sizes || '';
       const prodSizesArr = (prod.sizes || '').split(',').map(s => s.trim());
       document.querySelectorAll('#admin-size-options .size-badge').forEach(b => {
@@ -1588,13 +1580,11 @@
         }
       });
 
-      // تفكيك الألوان وتعبئتها في بطاقات مستقلة
       let rawColors = prod.colors || 'أزرق جينز, أزرق ليل';
       rawColors = rawColors.replace(/[+\/\n|]/g, ',');
       currentAdminColors = rawColors.split(',').map(c => c.trim()).filter(c => c.length > 0);
       renderAdminColorTags();
 
-      // الصور الـ 8
       currentUploadedImages = prod.images ? [...prod.images] : [];
       renderUploadedImagesGrid();
 
