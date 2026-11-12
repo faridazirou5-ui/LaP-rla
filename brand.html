@@ -1,26 +1,22 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>la Pérla | Maison de Couture</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>la Pérla | Maison de Couture • Official Brand</title>
   
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#FBF9F5">
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js').catch(() => {});
-      });
-    }
-  </script>
 
+  <!-- التحميل المسبق لأول عارضة لفتح الصفحة في جزء من الثانية -->
+  <link rel="preload" as="image" href="1.png">
+
+  <!-- الخطوط الرسمية -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Cairo:wght@400;600;700;800;900&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
   
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
 
   <script>
     tailwind.config = {
@@ -33,7 +29,7 @@
               surface: '#F4EFEA',
               border: '#E8DFD3',
               gold: '#9E804D',
-              goldLight: '#E8DCBF',
+              goldBright: '#D4AF37',
               dark: '#1C1612',
               muted: '#6B5F55'
             }
@@ -41,7 +37,8 @@
           fontFamily: {
             sans: ['Cairo', 'sans-serif'],
             serif: ['"Playfair Display"', 'serif'],
-            cinzel: ['Cinzel', 'serif']
+            cinzel: ['Cinzel', 'serif'],
+            nav: ['Montserrat', 'sans-serif']
           }
         }
       }
@@ -49,48 +46,353 @@
   </script>
 
   <style>
+    :root {
+      --bg-stage: radial-gradient(circle at 50% 40%, #FFFFFF 0%, #FAF7F2 60%, #EFE7DB 100%);
+      --brand-dark: #1C1612;
+      --brand-gold: #9E804D;
+      --brand-gold-bright: #D4AF37;
+      --brand-border: #E8DFD3;
+      --brand-muted: #6B5F55;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
     body {
       background-color: #FBF9F5;
       color: #1C1612;
       font-family: 'Cairo', sans-serif;
       overflow-x: hidden;
     }
-    .arch-frame {
-      border-top-left-radius: 240px;
-      border-top-right-radius: 240px;
-      border-bottom-left-radius: 24px;
-      border-bottom-right-radius: 24px;
+
+    /* ================= واجهة العرض التفاعلية ثلاثية الأبعاد ================= */
+    .runway-viewport {
+      width: 100vw;
+      height: 94vh;
+      min-height: 640px;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      user-select: none;
+      border-bottom: 1px solid var(--brand-border);
     }
-    .btn-dark {
-      background-color: #1C1612;
+
+    .stage {
+      position: relative;
+      height: 100%;
+      background: var(--bg-stage);
+      overflow: hidden;
+      cursor: grab;
+      touch-action: pan-y;
+      direction: ltr;
+    }
+
+    .stage:active {
+      cursor: grabbing;
+    }
+
+    /* نصوص الواجهة العلوية */
+    .stage-texts {
+      position: absolute;
+      top: 18px;
+      right: 36px;
+      z-index: 30;
+      pointer-events: none;
+      max-width: 320px;
+      text-align: right;
+      direction: rtl;
+    }
+
+    .black-friday-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #1C1612;
       color: #FBF9F5;
-      transition: all 0.3s ease;
-    }
-    .btn-dark:hover {
-      background-color: #9E804D;
-      color: #FFFFFF;
-      transform: translateY(-1px);
-    }
-    .btn-outline {
-      border: 1px solid #1C1612;
-      color: #1C1612;
-      transition: all 0.3s ease;
-    }
-    .btn-outline:hover {
-      border-color: #9E804D;
-      color: #9E804D;
-      background-color: #FFFFFF;
-    }
-    .gold-btn {
-      background: linear-gradient(135deg, #D4AF37 0%, #AA771C 100%);
-      color: #FFFFFF;
+      border: 1px solid #D4AF37;
+      padding: 3px 12px;
+      border-radius: 9999px;
+      font-size: 10px;
       font-weight: 800;
-      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
+      margin-bottom: 6px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
-    .gold-btn:hover {
-      background: linear-gradient(135deg, #E6C264 0%, #C99E2A 100%);
-      transform: translateY(-1px);
+
+    .stage-texts h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 900;
+      line-height: 1.2;
+      color: var(--brand-dark);
+      margin-bottom: 4px;
     }
+
+    .stage-texts p {
+      font-size: 11px;
+      line-height: 1.6;
+      color: var(--brand-muted);
+      font-weight: 600;
+    }
+
+    /* تموضع العارضات المرتفع للأعلى */
+    .runway-line {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .model-node {
+      position: absolute;
+      bottom: 24%;
+      left: 0;
+      width: 440px;
+      height: 72vh;
+      transform-origin: 50% 90%;
+      will-change: transform, opacity, filter;
+      pointer-events: auto;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .model-node img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 14px 22px rgba(28, 22, 18, 0.12));
+      pointer-events: none;
+    }
+
+    /* نصوص وأزرار الإطلالة أسفل العارضة */
+    .look-info-panel {
+      position: absolute;
+      bottom: 18px;
+      right: 36px;
+      left: 36px;
+      z-index: 40;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      direction: rtl;
+      pointer-events: none;
+    }
+
+    .look-details {
+      background: rgba(251, 249, 245, 0.94);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--brand-border);
+      padding: 12px 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+      max-width: 480px;
+    }
+
+    .look-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 900;
+      line-height: 1;
+      color: var(--brand-dark);
+      margin-bottom: 2px;
+    }
+
+    .look-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--brand-gold);
+      margin-bottom: 10px;
+    }
+
+    .look-actions-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      pointer-events: auto;
+    }
+
+    .order-action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, #D4AF37 0%, #AA771C 100%);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 8px 18px;
+      border-radius: 9999px;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+      transition: transform 0.2s;
+    }
+
+    .order-action-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .order-action-btn.disabled {
+      background: #756D66 !important;
+      color: #EDE7E1 !important;
+      box-shadow: none !important;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .rack-jump-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #FFFFFF;
+      border: 1px solid var(--brand-border);
+      color: var(--brand-dark);
+      font-size: 11px;
+      font-weight: 800;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .rack-jump-btn:hover {
+      border-color: var(--brand-gold);
+      color: var(--brand-gold);
+      background: #FAF8F5;
+    }
+
+    /* أزرار الأسهم الدائرية */
+    .nav-controls {
+      display: flex;
+      gap: 10px;
+      pointer-events: auto;
+      direction: ltr;
+    }
+
+    .nav-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 1px solid var(--brand-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--brand-dark);
+      font-size: 15px;
+      font-weight: 800;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: var(--brand-dark);
+      color: #fff;
+    }
+
+    /* شريط الأسعار الجانبي */
+    .rail {
+      background: #FFFFFF;
+      border-right: 1px solid var(--brand-border);
+      padding: 80px 20px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+      z-index: 35;
+      text-align: right;
+    }
+
+    .rail-header {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--brand-gold);
+      border-bottom: 1px solid var(--brand-border);
+      padding-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .product-box {
+      width: 100%;
+      height: 180px;
+      background: #FAF8F5;
+      border: 1px solid var(--brand-border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 8px;
+    }
+
+    .product-box img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+
+    .product-name {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--brand-dark);
+      margin-top: 6px;
+    }
+
+    .pricing-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-top: 3px;
+    }
+
+    .current-price {
+      font-size: 17px;
+      font-weight: 900;
+      color: var(--brand-gold);
+    }
+
+    .old-price {
+      font-size: 11px;
+      color: #9C948B;
+      text-decoration: line-through;
+      font-weight: 600;
+    }
+
+    .discount-pill {
+      background: #E84545;
+      color: #FFFFFF;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 5px;
+    }
+
+    .out-of-stock-pill {
+      background: #5A524C;
+      color: #FFFFFF;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 5px;
+      display: inline-block;
+    }
+
+    /* التجاوب مع الهواتف */
+    @media (max-width: 860px) {
+      .runway-viewport { grid-template-columns: 1fr; height: 90vh; }
+      .rail { display: none; }
+      .stage-texts { top: 12px; right: 16px; max-width: 280px; }
+      .stage-texts h2 { font-size: 21px; }
+      .model-node { width: 310px; height: 62vh; bottom: 30%; }
+      .look-info-panel { bottom: 12px; right: 12px; left: 12px; flex-direction: column; gap: 8px; align-items: stretch; }
+      .nav-controls { justify-content: flex-end; }
+    }
+
     .dress-clickable-zone {
       transition: all 0.25s ease-out;
       border: 1px solid transparent;
@@ -99,6 +401,22 @@
       background: linear-gradient(180deg, rgba(212, 175, 55, 0.12) 0%, rgba(212, 175, 55, 0.38) 100%);
       border-color: rgba(212, 175, 55, 0.65);
       box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+    }
+    .btn-dark {
+      background-color: #1C1612;
+      color: #FBF9F5;
+      transition: all 0.25s ease;
+    }
+    .btn-dark:hover {
+      background-color: #9E804D;
+      color: #FFFFFF;
+      transform: translateY(-1px);
+    }
+    .gold-btn {
+      background: linear-gradient(135deg, #D4AF37 0%, #AA771C 100%);
+      color: #FFFFFF;
+      font-weight: 800;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
     }
     .timeline-track { background: rgba(255, 255, 255, 0.25); }
     .timeline-progress { background: linear-gradient(90deg, #AA771C, #D4AF37, #F9E7B9); }
@@ -110,7 +428,6 @@
       border-radius: 50%;
       background: #D4AF37;
       border: 2px solid #FFFFFF;
-      box-shadow: 0 0 6px rgba(212, 175, 55, 0.8);
       cursor: pointer;
     }
   </style>
@@ -119,61 +436,55 @@
 
   <!-- إشعار نسخ الرابط -->
   <div id="share-toast" class="hidden fixed bottom-8 inset-x-0 mx-auto w-max max-w-sm z-50 bg-brand-dark/95 text-brand-bg px-5 py-3 rounded-2xl border border-brand-gold/60 shadow-2xl transition-all duration-300 flex items-center gap-3 backdrop-blur-md opacity-0">
-    <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
+    <span class="text-emerald-400 font-bold">✓</span>
     <span id="share-toast-text" class="text-xs font-bold">تم نسخ رابط دار la Pérla بنجاح!</span>
   </div>
 
-  <!-- زر مشاركة الرابط العائم -->
-  <button onclick="shareBrandPage()" class="fixed bottom-6 right-6 z-40 bg-white/95 backdrop-blur-md border border-brand-gold/60 text-brand-dark px-4 py-2.5 rounded-full shadow-lg hover:bg-brand-surface hover:scale-105 transition flex items-center gap-2 text-xs font-bold" title="مشاركة أو حفظ الرابط">
-    <i data-lucide="share-2" class="w-4 h-4 text-brand-gold"></i>
-    <span class="hidden sm:inline">مشاركة الرابط</span>
-  </button>
-
-  <!-- شريط الإدارة العائم -->
-  <div id="admin-floating-switch" class="hidden fixed bottom-6 left-6 z-50 bg-white border-2 border-brand-gold p-3 shadow-2xl flex items-center gap-3 rounded-2xl">
-    <div class="flex items-center gap-2 px-2 border-l border-neutral-200">
-      <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
-      <span id="current-mode-label" class="text-xs font-black text-neutral-800">وضع المدير: نشط</span>
-    </div>
-    <button onclick="toggleAdminVisitorView()" class="gold-btn text-xs px-3 py-1.5 rounded-xl flex items-center gap-1.5">
-      <i data-lucide="repeat" class="w-4 h-4"></i>
-      <span id="switch-btn-text">التبديل إلى واجهة الزائر</span>
-    </button>
-    <button onclick="logoutAdmin()" title="خروج نهائي" class="text-neutral-400 hover:text-rose-600 p-1">
-      <i data-lucide="log-out" class="w-4 h-4"></i>
-    </button>
-  </div>
-
-  <!-- الشريط العلوي الهادئ -->
-  <div class="bg-brand-surface/70 border-b border-brand-border/60 py-2.5 px-6 text-[11px] font-bold text-brand-muted flex justify-between items-center">
-    <div class="flex items-center gap-5">
-      <a href="https://www.instagram.com/la_perla2027?exln=MXc3MXhnaTZmZmF5Ng==" target="_blank" class="hover:text-brand-dark transition flex items-center gap-1.5">
-        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+  <!-- الشريط العلوي مع أيقونات التواصل الاجتماعي -->
+  <div class="bg-brand-surface/90 border-b border-brand-border/60 py-2 px-6 text-[11px] font-bold text-brand-muted flex justify-between items-center">
+    <div class="flex items-center gap-4">
+      
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/la_perla2027?exln=MXc3MXhnaTZmZmF5Ng==" target="_blank" class="hover:text-brand-dark transition flex items-center gap-1.5" title="Instagram">
+        <svg class="w-3.5 h-3.5 fill-current text-pink-600" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
         <span>Instagram</span>
       </a>
-      <a href="https://www.facebook.com/share/1E3YfXJyKX/" target="_blank" class="hover:text-brand-dark transition flex items-center gap-1.5">
-        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.5 5H18V0h-3.808C10.595 0 9 1.583 9 4.615V8z"/></svg>
+
+      <!-- Facebook -->
+      <a href="https://www.facebook.com/share/1E3YfXJyKX/" target="_blank" class="hover:text-brand-dark transition flex items-center gap-1.5" title="Facebook">
+        <svg class="w-3.5 h-3.5 fill-current text-blue-600" viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.5 5H18V0h-3.808C10.595 0 9 1.583 9 4.615V8z"/></svg>
         <span>Facebook</span>
       </a>
-      <a href="https://www.tiktok.com/@_perla102" target="_blank" class="hover:text-brand-dark transition flex items-center gap-1.5">
+
+      <!-- TikTok -->
+      <a href="https://www.tiktok.com/@_perla102" target="_blank" class="hover:text-brand-dark transition flex items-center gap-1.5" title="TikTok">
         <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.24 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg> 
         <span>TikTok</span>
       </a>
+
+      <!-- WhatsApp -->
+      <a href="https://wa.me/213542634573" target="_blank" class="hover:text-brand-dark transition flex items-center gap-1.5 text-emerald-600 font-bold" title="WhatsApp">
+        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        <span>WhatsApp</span>
+      </a>
+
     </div>
     <div class="tracking-widest uppercase font-serif text-[10px] hidden sm:block">
-      Maison de Couture • Vente en Gros & Détail
+      Maison de Couture • 58 Wilayas • Vente en Gros & Détail
     </div>
   </div>
 
-  <!-- الهيدر الكلاسيكي الفاخر -->
+  <!-- الهيدر الفاخر الموحد -->
   <header class="sticky top-0 z-40 bg-brand-bg/95 backdrop-blur-md border-b border-brand-border/70">
-    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-      <nav class="hidden md:flex items-center gap-8 text-xs uppercase tracking-widest text-brand-dark font-bold font-serif">
-        <a href="#runway-showcase" class="hover:text-brand-gold transition text-brand-gold">عرض باريس • Runway</a>
-        <a href="#interactive-rack" class="hover:text-brand-gold transition">الحامل الملكي • Le Portant</a>
-        <a href="#about" class="hover:text-brand-gold transition">ورشة الدار • L'Atelier</a>
-        <a href="#lookbook" class="hover:text-brand-gold transition">التشكيلة • Lookbook</a>
-        <a href="#wholesale" class="hover:text-brand-gold transition">طلبات الجملة • Vente en Gros</a>
+    <div class="max-w-7xl mx-auto px-6 h-18 py-3 flex items-center justify-between">
+      
+      <nav class="hidden md:flex items-center gap-7 text-xs uppercase tracking-widest text-brand-dark font-bold font-nav">
+        <a href="#runway-experience" class="text-brand-gold hover:text-brand-dark transition">Runway</a>
+        <a href="#interactive-rack" class="hover:text-brand-gold transition">Collections • الحامل</a>
+        <a href="#paris-showcase" class="hover:text-brand-gold transition">منصة باريس</a>
+        <a href="#about" class="hover:text-brand-gold transition">Maison • الورشة</a>
+        <a href="#lookbook" class="hover:text-brand-gold transition">Lookbook</a>
+        <a href="#wholesale" class="hover:text-brand-gold transition">الجملة</a>
       </nav>
 
       <a href="brand.html" class="text-center group">
@@ -185,167 +496,72 @@
 
       <div class="flex items-center gap-2.5">
         <button onclick="shareBrandPage()" class="w-9 h-9 rounded-full border border-brand-border bg-white flex items-center justify-center text-brand-dark hover:border-brand-gold hover:text-brand-gold transition" title="مشاركة أو حفظ الرابط">
-          <i data-lucide="share-2" class="w-4 h-4"></i>
+          <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
         </button>
 
-        <a href="index.html" class="btn-dark px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-2">
+        <a href="index.html" class="btn-dark px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
           <span>دخول البوتيك</span>
-          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+          <span>←</span>
         </a>
       </div>
     </div>
   </header>
 
-  <!-- 1. واجهة الـ Hero الكلاسيكية -->
-  <section class="py-12 sm:py-20 max-w-7xl mx-auto px-6 border-b border-brand-border/60">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-      
-      <div class="lg:col-span-7 space-y-6 text-right">
-        <div class="inline-flex items-center gap-2 text-brand-gold text-xs font-serif tracking-widest uppercase font-bold">
-          <span class="w-6 h-[1px] bg-brand-gold"></span>
-          <span>Édition Limitée 2026</span>
-        </div>
-
-        <h2 class="text-4xl sm:text-6xl font-serif font-black text-brand-dark leading-[1.15] tracking-tight">
-          Timeless Elegance <br>
-          <span class="italic font-normal font-serif text-brand-gold">Redefined.</span>
-        </h2>
-
-        <p class="text-brand-muted text-sm sm:text-base font-normal leading-relaxed max-w-xl">
-          نبتكر أزياء راقية تحاكي الأنوثة الوقورة بتناغم فريد بين جودة الأقمشة ونعومة القصات العصرية، صُممت لتمنحكِ إطلالة مريحة واستثنائية تدوم مواسم طويلة.
-        </p>
-
-        <div class="pt-2 flex flex-wrap items-center gap-4">
-          <a href="index.html" class="btn-dark px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest">
-            اقتناء القطع من البوتيك
-          </a>
-          <a href="#wholesale" class="btn-outline px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest">
-            فضاء طلبات الجملة 📦
-          </a>
-          <button onclick="copyBrandLink()" class="px-5 py-3 rounded-full text-xs font-bold text-brand-muted hover:text-brand-dark transition flex items-center gap-1.5 border border-dashed border-brand-border">
-            <i data-lucide="bookmark" class="w-3.5 h-3.5 text-brand-gold"></i>
-            <span>حفظ الرابط للعودة</span>
-          </button>
-        </div>
-
-        <div class="pt-6 border-t border-brand-border/60 flex items-center gap-8 text-xs text-brand-muted">
-          <div>
-            <span class="block font-serif text-lg font-bold text-brand-dark">58</span>
-            <span>ولاية مشمولة بالتوصيل</span>
-          </div>
-          <div class="w-[1px] h-8 bg-brand-border"></div>
-          <div>
-            <span class="block font-serif text-lg font-bold text-brand-dark">100%</span>
-            <span>معاينة قبل الدفع عند الاستلام</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="lg:col-span-5 flex justify-center">
-        <div class="relative w-full max-w-sm">
-          <div class="arch-frame overflow-hidden border border-brand-border bg-brand-surface shadow-xl aspect-[3/4.2]">
-            <img src="file_00000000fd1c81f49abc48c10bad6193.png" 
-                 alt="la Pérla Signature Dress" 
-                 class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
-          </div>
-          <div class="absolute -bottom-4 -right-4 bg-white/95 backdrop-blur-md border border-brand-border/80 px-4 py-2.5 rounded-2xl shadow-lg text-right">
-            <span class="text-[9px] font-serif uppercase tracking-widest text-brand-gold block font-bold">Signature Piece</span>
-            <p class="font-serif text-xs font-bold text-brand-dark">فستان جينز ماكسي كلاسيكي</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ================= 2. منصة أسبوع الموضة بباريس: مدعومة للآيفون 100% ================= -->
-  <section id="runway-showcase" class="py-16 sm:py-24 bg-[#141210] text-[#FAF6F0] border-b border-[#2A241E] relative overflow-hidden select-none">
+  <!-- ================= 1. واجهة الاستقبال: RUNWAY LOOKBOOK التفاعلي الجديد ================= -->
+  <section id="runway-experience" class="runway-viewport">
     
-    <div class="max-w-4xl mx-auto px-6 text-center mb-8 sm:mb-12">
-      <div class="inline-flex items-center gap-2 border border-[#D4AF37]/50 bg-white/5 px-4 py-1.5 rounded-full text-xs font-serif text-amber-300 font-bold mb-3 shadow-sm backdrop-blur-md">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span>✦ أسبوع الموضة في باريس • PARIS FASHION WEEK ✦</span>
-      </div>
-      <h3 class="text-3xl sm:text-5xl font-serif font-black text-white tracking-wide">
-        إطلالة العام الحصرية على منصة باريس
-      </h3>
-      <p class="text-xs sm:text-sm text-neutral-400 font-bold mt-2 max-w-xl mx-auto leading-relaxed">
-        شاهدي فستان الجينز الماكسي الكلاسيكي في استعراض حي يعكس وقار وفخامة تصاميم دار la Pérla
-      </p>
-    </div>
-
-    <div class="max-w-md sm:max-w-lg mx-auto px-4">
-      <div class="relative aspect-[9/16] max-h-[640px] rounded-3xl overflow-hidden shadow-2xl border-2 border-[#D4AF37]/40 bg-black cursor-pointer group" onclick="toggleRunwayPlay()">
-        
-        <!-- تشغيل الفيديو مع خاصية webkit-playsinline لدعم سفاري والآيفون والماسنجر -->
-        <video 
-          id="brand-runway-video" 
-          playsinline 
-          webkit-playsinline 
-          muted 
-          loop 
-          autoplay 
-          preload="auto"
-          class="w-full h-full object-cover pointer-events-none transition-transform duration-300"
-        >
-          <source src="runway.mp4" type="video/mp4">
-          <source src="runway.MP4" type="video/mp4">
-        </video>
-
-        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/85 pointer-events-none"></div>
-
-        <div id="runway-pause-icon" class="absolute inset-0 m-auto w-14 h-14 rounded-full bg-black/60 border border-[#D4AF37] flex items-center justify-center text-amber-300 pointer-events-none opacity-0 scale-75 transition-all duration-300 z-20">
-          <i data-lucide="play" class="w-6 h-6 ml-0.5"></i>
+    <div class="stage" id="stage">
+      
+      <!-- النصوص وشارة Black Friday والعنوان الجديد -->
+      <div class="stage-texts">
+        <div class="black-friday-badge">
+          <span>✦ تخفيضات BLACK FRIDAY الحصرية ✦</span>
         </div>
+        <h2>سحر الأنوثة والفخامة الراقية</h2>
+        <p>تشكيلة أسبوع الموضة الحصرية من دار la Pérla. اسحبي لتمرير الإطلالات واستكشاف الفساتين بحرية تامة.</p>
+      </div>
 
-        <div class="absolute inset-x-3 bottom-3 z-20 bg-black/80 backdrop-blur-md border border-[#D4AF37]/35 rounded-2xl p-3 text-right shadow-2xl" onclick="event.stopPropagation()">
+      <!-- صف عارضات متجر la Pérla المفرغات (1.png إلى 7.png) -->
+      <div class="runway-line" id="runwayLine"></div>
+
+      <!-- تفاصيل الإطلالة الحالية وأزرار الشراء والتصفح (أسفل العارضة) -->
+      <div class="look-info-panel">
+        <div class="look-details">
+          <div class="look-number" id="lookNumber">LOOK 01</div>
+          <div class="look-title" id="lookTitle">فستان جينز ماكسي بحزام كلاسيكي</div>
           
-          <div class="flex items-center justify-between mb-1.5">
-            <div>
-              <span class="text-[8px] font-brand tracking-widest text-amber-300 uppercase block font-bold">Signature Piece 2026</span>
-              <h4 class="text-xs sm:text-sm font-serif font-black text-white">فستان جينز ماكسي بحزام كلاسيكي</h4>
-            </div>
-            <a href="index.html" class="gold-btn px-3 py-1.5 rounded-xl text-[10px] font-black flex items-center gap-1 shadow">
-              <span>طلب القطعة 🛍️</span>
+          <div class="look-actions-group">
+            <a id="orderBtn" href="index.html" class="order-action-btn">
+              <span>طلب القطعة من البوتيك 🛍️</span>
             </a>
-          </div>
-
-          <div class="flex items-center gap-1.5 text-[8px] sm:text-[9px] text-neutral-300 font-bold mb-2">
-            <span class="bg-white/10 px-2 py-0.5 rounded-md whitespace-nowrap">قماش جينز ناعم</span>
-            <span class="bg-white/10 px-2 py-0.5 rounded-md whitespace-nowrap">حزام عسلي كلاسيكي</span>
-            <span class="bg-white/10 px-2 py-0.5 rounded-md whitespace-nowrap">قصة ماكسي محتشمة</span>
-          </div>
-
-          <div class="flex items-center gap-2 pt-1 border-t border-white/10">
-            <button onclick="toggleRunwayPlay()" id="runway-btn-toggle" class="w-6 h-6 rounded-full bg-[#D4AF37] text-black flex items-center justify-center shrink-0">
-              <i data-lucide="pause" id="runway-btn-icon" class="w-3 h-3"></i>
+            <button id="rackJumpBtn" onclick="jumpToRackFromRunway()" class="rack-jump-btn" title="تصفح هذه القطعة على الحامل الملكي">
+              <span>معاينة على الحامل الملكي 👗</span>
+              <span>↓</span>
             </button>
-
-            <div class="relative flex-1 flex items-center">
-              <input 
-                type="range" 
-                id="runway-slider" 
-                min="0" 
-                max="100" 
-                value="0" 
-                step="0.1"
-                class="w-full h-1 rounded-full cursor-pointer timeline-track relative z-10"
-                oninput="onScrubRunway(this.value)"
-              >
-              <div id="runway-slider-fill" class="absolute left-0 top-0 h-1 rounded-full timeline-progress pointer-events-none w-0"></div>
-            </div>
-
-            <span class="text-[8px] font-mono text-neutral-400 shrink-0" id="runway-time">00:00</span>
           </div>
-
         </div>
 
+        <!-- أزرار الأسهم الدائرية -->
+        <div class="nav-controls">
+          <button class="nav-btn" id="prevBtn" title="السابق">→</button>
+          <button class="nav-btn" id="nextBtn" title="التالي">←</button>
+        </div>
       </div>
+
     </div>
+
+    <!-- شريط تفاصيل التصميم والأسعار الجانبي -->
+    <aside class="rail">
+      <div class="rail-header">
+        <span>تفاصيل التصميم والسعر</span>
+        <span class="text-neutral-400 font-normal">58 ولاية</span>
+      </div>
+      <div id="productRail" style="display:flex; flex-direction:column; gap:12px;"></div>
+    </aside>
 
   </section>
 
-  <!-- ================= 3. الحامل الملكي العريض مع محاكي الصور الذكي لمنع أي خطأ 404 ================= -->
+  <!-- ================= 2. الحامل الملكي (مكتبة التصفح التفصيلية) ================= -->
   <section id="interactive-rack" class="py-16 sm:py-24 bg-brand-surface/70 border-b border-brand-border/80 relative overflow-hidden select-none">
     
     <div class="max-w-5xl mx-auto px-6 text-center mb-8">
@@ -362,7 +578,6 @@
     <div class="relative max-w-5xl mx-auto px-4">
       <div class="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-brand-gold/50 bg-white">
         
-        <!-- صورة الحامل العريضة مع دعم بدائل الامتدادات التلقائي -->
         <img 
           id="main-rack-img"
           src="rack.jpg" 
@@ -370,7 +585,7 @@
           class="w-full h-auto block object-cover"
         >
 
-        <!-- طبقة اللمس المطلقة LTR من اليسار لليمين -->
+        <!-- طبقة اللمس المطلقة LTR -->
         <div style="direction: ltr !important;" class="absolute inset-0 z-20 pointer-events-none">
           
           <!-- 1. فستان الجينز الماكسي -->
@@ -439,13 +654,12 @@
 
       <div class="mt-4 text-center">
         <span class="inline-flex items-center gap-2 text-xs text-brand-dark font-bold bg-white/95 border border-brand-gold/60 px-5 py-2 rounded-full shadow-sm">
-          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-gold"></i>
-          <span>اختاري أي إطلالة للمعاينة والتفحص عن قرب</span>
+          <span>✨ انقري على أي تصميم للمعاينة والتفحص عن قرب</span>
         </span>
       </div>
     </div>
 
-    <!-- نافذة المعاينة الراقية -->
+    <!-- نافذة المعاينة الراقية للحامل -->
     <div id="rack-inspect-overlay" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4 transition-all duration-300" onclick="closeRackInspect()">
       <div id="rack-inspect-card" class="bg-white border-2 border-brand-gold rounded-3xl max-w-sm sm:max-w-md w-full p-5 sm:p-6 text-center shadow-2xl relative transform transition-all duration-400 scale-90 opacity-0 text-right" onclick="event.stopPropagation()">
         
@@ -478,9 +692,94 @@
 
   </section>
 
-  <!-- 4. ورشة الخياطة والحرفية (L'Atelier) -->
-  <section id="about" class="py-20 max-w-6xl mx-auto px-6 border-b border-brand-border/60">
+  <!-- ================= 3. منصة باريس: (✦ القطعة التي تُباع حالياً في متجرنا ✦) ================= -->
+  <section id="paris-showcase" class="py-16 sm:py-24 bg-[#141210] text-[#FAF6F0] border-b border-[#2A241E] relative overflow-hidden select-none">
     
+    <div class="max-w-4xl mx-auto px-6 text-center mb-8 sm:mb-12">
+      <div class="inline-flex items-center gap-2 border border-[#D4AF37]/50 bg-white/5 px-5 py-2 rounded-full text-xs font-serif text-amber-300 font-bold mb-3 shadow-sm backdrop-blur-md">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>✦ القطعة التي تُباع حالياً في متجرنا • PARIS RUNWAY ✦</span>
+      </div>
+      <h3 class="text-3xl sm:text-5xl font-serif font-black text-white tracking-wide">
+        إطلالة العام الحصرية على منصة باريس
+      </h3>
+      <p class="text-xs sm:text-sm text-neutral-400 font-bold mt-2 max-w-xl mx-auto leading-relaxed">
+        شاهدي فستان الجينز الماكسي الكلاسيكي في استعراض حي يعكس وقار وفخامة تصاميم دار la Pérla
+      </p>
+    </div>
+
+    <div class="max-w-md sm:max-w-lg mx-auto px-4">
+      <div class="relative aspect-[9/16] max-h-[640px] rounded-3xl overflow-hidden shadow-2xl border-2 border-[#D4AF37]/40 bg-black cursor-pointer group" onclick="toggleRunwayPlay()">
+        
+        <video 
+          id="brand-runway-video" 
+          playsinline 
+          webkit-playsinline 
+          muted 
+          loop 
+          autoplay 
+          preload="metadata"
+          class="w-full h-full object-cover pointer-events-none transition-transform duration-300"
+        >
+          <source src="runway.mp4" type="video/mp4">
+          <source src="runway.MP4" type="video/mp4">
+        </video>
+
+        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/85 pointer-events-none"></div>
+
+        <div id="runway-pause-icon" class="absolute inset-0 m-auto w-14 h-14 rounded-full bg-black/60 border border-[#D4AF37] flex items-center justify-center text-amber-300 pointer-events-none opacity-0 scale-75 transition-all duration-300 z-20">
+          ▶
+        </div>
+
+        <div class="absolute inset-x-3 bottom-3 z-20 bg-black/80 backdrop-blur-md border border-[#D4AF37]/35 rounded-2xl p-3 text-right shadow-2xl" onclick="event.stopPropagation()">
+          
+          <div class="flex items-center justify-between mb-1.5">
+            <div>
+              <span class="text-[8px] font-brand tracking-widest text-amber-300 uppercase block font-bold">Signature Piece 2026</span>
+              <h4 class="text-xs sm:text-sm font-serif font-black text-white">فستان جينز ماكسي بحزام كلاسيكي</h4>
+            </div>
+            <a href="index.html" class="gold-btn px-3 py-1.5 rounded-xl text-[10px] font-black flex items-center gap-1 shadow">
+              <span>طلب القطعة 🛍️</span>
+            </a>
+          </div>
+
+          <div class="flex items-center gap-1.5 text-[8px] sm:text-[9px] text-neutral-300 font-bold mb-2">
+            <span class="bg-white/10 px-2 py-0.5 rounded-md whitespace-nowrap">قماش جينز ناعم</span>
+            <span class="bg-white/10 px-2 py-0.5 rounded-md whitespace-nowrap">حزام عسلي كلاسيكي</span>
+            <span class="bg-white/10 px-2 py-0.5 rounded-md whitespace-nowrap">قصة ماكسي محتشمة</span>
+          </div>
+
+          <div class="flex items-center gap-2 pt-1 border-t border-white/10">
+            <button onclick="toggleRunwayPlay()" id="runway-btn-toggle" class="w-6 h-6 rounded-full bg-[#D4AF37] text-black flex items-center justify-center shrink-0 font-bold text-xs">
+              ⏸
+            </button>
+
+            <div class="relative flex-1 flex items-center">
+              <input 
+                type="range" 
+                id="runway-slider" 
+                min="0" 
+                max="100" 
+                value="0" 
+                step="0.1"
+                class="w-full h-1 rounded-full cursor-pointer timeline-track relative z-10"
+                oninput="onScrubRunway(this.value)"
+              >
+              <div id="runway-slider-fill" class="absolute left-0 top-0 h-1 rounded-full timeline-progress pointer-events-none w-0"></div>
+            </div>
+
+            <span class="text-[8px] font-mono text-neutral-400 shrink-0" id="runway-time">00:00</span>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ================= 4. ورشة الخياطة والحرفية (L'Atelier) ================= -->
+  <section id="about" class="py-20 max-w-6xl mx-auto px-6 border-b border-brand-border/60">
     <div class="text-center max-w-3xl mx-auto mb-14 space-y-4">
       <div class="w-12 h-[1.5px] bg-brand-gold mx-auto"></div>
       <span class="text-xs font-serif uppercase tracking-widest text-brand-gold font-bold">L'Atelier & Savoir-Faire</span>
@@ -488,37 +787,32 @@
         ورشة دار la Pérla • حكاية إتقان وشغف
       </h3>
       <p class="text-brand-muted text-sm sm:text-base leading-relaxed font-normal">
-        دار <strong class="text-brand-dark font-bold">la Pérla</strong> هي علامة جزائرية مستقلة متخصصة في تصميم وصناعة الأزياء النسائية الفاخرة، تجمع بين فخامة الحياكة الكلاسيكية والقصات العصرية المحتشمة. نحرص في ورشاتنا على انتقاء أرقى خامات الجينز، الكريب، والساتان، وتفصيلها بأيدي حرفيات محترفات يتقنّ أدق تفاصيل الخياطة والفينيسيون، لنقدم قطعاً راقية جاهزة للارتداء بالتجزئة وبأسعار تفضيلية بالجملة للمحلات عبر كامل التراب الوطني.
+        دار <strong class="text-brand-dark font-bold">la Pérla</strong> هي علامة جزائرية مستقلة متخصصة في تصميم وصناعة الأزياء النسائية الفاخرة، تجمع بين فخامة الحياكة الكلاسيكية والقصات العصرية المحتشمة. نحرص في ورشاتنا على تفصيل أرقى خامات الجينز، الكريب، والساتان بأيدي حرفيات محترفات يتقنّ أدق تفاصيل الفينيسيون للتجزئة والجملة لـ 58 ولاية.
       </p>
-      <div class="pt-1 text-xs font-serif italic text-brand-gold tracking-widest">
-        "Votre style, notre passion — L'élégance au féminin"
-      </div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-      
       <div class="group bg-white p-3.5 rounded-3xl border border-brand-border/80 shadow-md">
         <div class="aspect-[4/3] rounded-2xl overflow-hidden relative bg-brand-surface">
           <img src="https://images.unsplash.com/photo-1634626857321-deb416dcdb00?auto=format&fit=crop&q=80&w=1000" 
-               alt="حياكة فستان جينز راقٍ على ماكينة الخياطة" 
+               alt="حياكة فستان راقٍ" 
+               loading="lazy"
                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
           <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-5">
             <div class="text-white text-right">
               <span class="text-[10px] font-serif uppercase tracking-widest text-brand-goldLight block font-bold">Travail Artisanal</span>
-              <h4 class="font-serif text-sm font-bold">دقة خياطة فساتين الجينز الفاخرة بغرزات متقنة</h4>
+              <h4 class="font-serif text-sm font-bold">دقة خياطة الفساتين الفاخرة بغرزات متقنة</h4>
             </div>
           </div>
         </div>
-        <p class="text-xs text-brand-muted font-bold text-right pt-3 px-1">
-          نولي عناية قصوى لكل درزة وتفصيلة في فساتين وأطقم الجينز لتضمن لكِ عمراً طويلاً وفينيسيون نقية.
-        </p>
       </div>
 
       <div class="group bg-white p-3.5 rounded-3xl border border-brand-border/80 shadow-md">
         <div class="aspect-[4/3] rounded-2xl overflow-hidden relative bg-brand-surface">
           <img src="Atelier.jpg" 
                onerror="this.onerror=null; this.src='atelier.jpg';" 
-               alt="ورشة الإنتاج وقسم الخياطة لدار la Pérla الجزائرية" 
+               alt="ورشة الإنتاج" 
+               loading="lazy"
                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
           <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-5">
             <div class="text-white text-right">
@@ -527,16 +821,11 @@
             </div>
           </div>
         </div>
-        <p class="text-xs text-brand-muted font-bold text-right pt-3 px-1">
-          ورشة متكاملة وخطوط إنتاج مجهزة تتيح لنا تلبية طلبيات البوتيكات والمحلات بخياطة نقية ومتقونة 100%.
-        </p>
       </div>
-
     </div>
-
   </section>
 
-  <!-- 5. الكتالوج الكلاسيكي (Lookbook) -->
+  <!-- ================= 5. الكتالوج الكلاسيكي (Lookbook) ================= -->
   <section id="lookbook" class="py-20 max-w-7xl mx-auto px-6 border-b border-brand-border/60">
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-12 gap-4 text-right">
       <div>
@@ -545,7 +834,7 @@
       </div>
       <a href="index.html" class="gold-btn px-6 py-2.5 rounded-full text-xs font-black flex items-center gap-2">
         <span>الانتقال للبوتيك</span>
-        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+        <span>←</span>
       </a>
     </div>
 
@@ -553,8 +842,27 @@
       
       <!-- القطعة 1 -->
       <div class="group bg-white border border-brand-border/80 rounded-2xl overflow-hidden hover:shadow-lg transition duration-300 flex flex-col justify-between">
-        <div class="aspect-[3/4] overflow-hidden bg-brand-surface relative">
-          <img src="file_00000000128481f4b14a0440613fcfb4.png" alt="طقم أزرق ليل كاجوال" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+        <div class="aspect-[3/4] overflow-hidden bg-brand-surface relative flex items-center justify-center p-4">
+          <img src="1.png" alt="فستان جينز ماكسي" loading="lazy" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700">
+        </div>
+        <div class="p-6 text-right flex-1 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] font-serif uppercase tracking-widest text-brand-gold font-bold">Robe Denim Longue</span>
+            <h4 class="font-serif text-lg font-bold text-brand-dark mt-1">فستان جينز ماكسي بحزام كلاسيكي</h4>
+            <p class="text-xs text-brand-muted mt-2 leading-relaxed">تصميم كلاسيكي مميز بقماش جينز ناعم، أزرار أمامية وحزام كلاسيكي يبرز الخصر بإطلالة انسيابية محتشمة.</p>
+          </div>
+          <div class="mt-5 pt-3 border-t border-brand-border/50">
+            <a href="index.html" class="btn-dark w-full py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5">
+              <span>طلب القطعة من البوتيك</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- القطعة 2 -->
+      <div class="group bg-white border border-brand-border/80 rounded-2xl overflow-hidden hover:shadow-lg transition duration-300 flex flex-col justify-between">
+        <div class="aspect-[3/4] overflow-hidden bg-brand-surface relative flex items-center justify-center p-4">
+          <img src="6.png" alt="طقم أزرق ليل كاجوال" loading="lazy" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700">
         </div>
         <div class="p-6 text-right flex-1 flex flex-col justify-between">
           <div>
@@ -570,92 +878,16 @@
         </div>
       </div>
 
-      <!-- القطعة 2 -->
-      <div class="group bg-white border border-brand-border/80 rounded-2xl overflow-hidden hover:shadow-lg transition duration-300 flex flex-col justify-between">
-        <div class="aspect-[3/4] overflow-hidden bg-brand-surface relative">
-          <img src="file_00000000725c8230b436f78947c90bec.png" alt="طقم كاجوال شيك فضفاض" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-        </div>
-        <div class="p-6 text-right flex-1 flex flex-col justify-between">
-          <div>
-            <span class="text-[10px] font-serif uppercase tracking-widest text-brand-gold font-bold">Ensemble Bleu Nuit</span>
-            <h4 class="font-serif text-lg font-bold text-brand-dark mt-1">طقم كاجوال شيك بقصة فضفاضة ومريحة</h4>
-            <p class="text-xs text-brand-muted mt-2 leading-relaxed">تناغم مثالي بين الراحة والفخامة اليومية، يتميز بقصة انسيابية متناسقة تمنحكِ وقاراً وثقة تامة.</p>
-          </div>
-          <div class="mt-5 pt-3 border-t border-brand-border/50">
-            <a href="index.html" class="btn-dark w-full py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5">
-              <span>طلب القطعة من البوتيك</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
       <!-- القطعة 3 -->
       <div class="group bg-white border border-brand-border/80 rounded-2xl overflow-hidden hover:shadow-lg transition duration-300 flex flex-col justify-between">
-        <div class="aspect-[3/4] overflow-hidden bg-brand-surface relative">
-          <img src="file_000000007600824681b2f9d378c764aa.png" alt="قفطان كوتور زيتي مطرز بالذهب" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-        </div>
-        <div class="p-6 text-right flex-1 flex flex-col justify-between">
-          <div>
-            <span class="text-[10px] font-serif uppercase tracking-widest text-brand-gold font-bold">Caftan d'Apparat</span>
-            <h4 class="font-serif text-lg font-bold text-brand-dark mt-1">قفطان كوتور زيتي ملكي مطرز بالذهب</h4>
-            <p class="text-xs text-brand-muted mt-2 leading-relaxed">قطعة ملكية ساحرة تجمع بين قماش الكريب الزيتي الفاخر، بطانة حريرية عاجية وتطريز هندسي دقيق مع حزام مذهب.</p>
-          </div>
-          <div class="mt-5 pt-3 border-t border-brand-border/50">
-            <a href="index.html" class="btn-dark w-full py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5">
-              <span>طلب القطعة من البوتيك</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- القطعة 4 -->
-      <div class="group bg-white border border-brand-border/80 rounded-2xl overflow-hidden hover:shadow-lg transition duration-300 flex flex-col justify-between">
-        <div class="aspect-[3/4] overflow-hidden bg-brand-surface relative">
-          <img src="file_00000000885c8246880bd3ecff59d10a.png" alt="قفطان كوتور زيتي بتفاصيل دقيقة" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-        </div>
-        <div class="p-6 text-right flex-1 flex flex-col justify-between">
-          <div>
-            <span class="text-[10px] font-serif uppercase tracking-widest text-brand-gold font-bold">Haute Couture & Qualité</span>
-            <h4 class="font-serif text-lg font-bold text-brand-dark mt-1">قفطان كوتور بأدق تفاصيل التطريز اليدوي</h4>
-            <p class="text-xs text-brand-muted mt-2 leading-relaxed">إبداع حرفي يعكس فخامة التطريز على الأكمام والصدر وحزام الخصر لإطلالة تقليدية بهية في أرقى المناسبات.</p>
-          </div>
-          <div class="mt-5 pt-3 border-t border-brand-border/50">
-            <a href="index.html" class="btn-dark w-full py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5">
-              <span>طلب القطعة من البوتيك</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- القطعة 5 -->
-      <div class="group bg-white border border-brand-border/80 rounded-2xl overflow-hidden hover:shadow-lg transition duration-300 flex flex-col justify-between">
-        <div class="aspect-[3/4] overflow-hidden bg-brand-surface relative">
-          <img src="file_00000000b21081f4865ccd4e9992526d.png" alt="فستان جينز كوتور محتشم" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-        </div>
-        <div class="p-6 text-right flex-1 flex flex-col justify-between">
-          <div>
-            <span class="text-[10px] font-serif uppercase tracking-widest text-brand-gold font-bold">Robe Denim Longue</span>
-            <h4 class="font-serif text-lg font-bold text-brand-dark mt-1">فستان جينز طويل بقصة قميص كوتور</h4>
-            <p class="text-xs text-brand-muted mt-2 leading-relaxed">تصميم كلاسيكي مميز بقماش جينز ناعم، أزرار أمامية وحزام كلاسيكي يبرز الخصر بإطلالة انسيابية محتشمة.</p>
-          </div>
-          <div class="mt-5 pt-3 border-t border-brand-border/50">
-            <a href="index.html" class="btn-dark w-full py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5">
-              <span>طلب القطعة من البوتيك</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- القطعة 6 -->
-      <div class="group bg-white border border-brand-border/80 rounded-2xl overflow-hidden hover:shadow-lg transition duration-300 flex flex-col justify-between">
-        <div class="aspect-[3/4] overflow-hidden bg-brand-surface relative">
-          <img src="file_00000000ef8081f480c83efafe065a48.png" alt="فستان ساتان برونزي ملكي" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+        <div class="aspect-[3/4] overflow-hidden bg-brand-surface relative flex items-center justify-center p-4">
+          <img src="4.png" alt="فستان ساتان برونزي" loading="lazy" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700">
         </div>
         <div class="p-6 text-right flex-1 flex flex-col justify-between">
           <div>
             <span class="text-[10px] font-serif uppercase tracking-widest text-brand-gold font-bold">Robe Satin Bronze</span>
             <h4 class="font-serif text-lg font-bold text-brand-dark mt-1">فستان ساتان برونزي بأكمام منفوخة</h4>
-            <p class="text-xs text-brand-muted mt-2 leading-relaxed">تحفة من الساتان الجاكار الراقي بلون الشوكولا المذهب، أكمام منفوخة ملكية وحزام خصر متناسق للسهرات الراقية.</p>
+            <p class="text-xs text-brand-muted mt-2 leading-relaxed">تحفة من الساتان الجاكار الراقي بلون الشوكولا المذهب، أكمام منفوخة ملكية وحزام خصر متناسق للسهرات.</p>
           </div>
           <div class="mt-5 pt-3 border-t border-brand-border/50">
             <a href="index.html" class="btn-dark w-full py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5">
@@ -668,108 +900,19 @@
     </div>
   </section>
 
-  <!-- بطاقة دعوة مشاركة وحفظ الرابط -->
-  <section class="py-14 max-w-4xl mx-auto px-6 text-center">
-    <div class="bg-white border border-brand-border/80 p-8 sm:p-10 rounded-3xl shadow-sm space-y-4">
-      <div class="w-12 h-12 bg-brand-surface rounded-full flex items-center justify-center mx-auto text-brand-gold">
-        <i data-lucide="share-2" class="w-5 h-5"></i>
-      </div>
-      <h4 class="font-serif text-xl sm:text-2xl font-bold text-brand-dark">أعجبكِ عالم دار la Pérla؟</h4>
-      <p class="text-xs sm:text-sm text-brand-muted max-w-md mx-auto leading-relaxed">
-        شاركي هذا الرابط مع صديقاتكِ وقريباتكِ، أو احفظيه في مفضلتكِ لتجدي تشكيلاتنا الجديدة فور صدورها.
-      </p>
-      <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
-        <button onclick="shareBrandPage()" class="btn-dark px-7 py-3 rounded-full text-xs font-bold flex items-center gap-2 shadow-sm">
-          <i data-lucide="send" class="w-4 h-4"></i>
-          <span>مشاركة الرابط (واتساب، فيسبوك...)</span>
-        </button>
-        <button onclick="copyBrandLink()" class="btn-outline px-7 py-3 rounded-full text-xs font-bold flex items-center gap-2">
-          <i data-lucide="copy" class="w-4 h-4"></i>
-          <span>نسخ الرابط وحفظه</span>
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- 6. فضاء البيع بالجملة والتجزئة -->
+  <!-- ================= 6. فضاء البيع بالجملة ================= -->
   <section id="wholesale" class="py-20 max-w-4xl mx-auto px-6 text-center">
     <div class="bg-brand-surface border border-brand-border p-8 sm:p-14 rounded-3xl shadow-sm space-y-6">
-      
-      <div class="w-12 h-12 bg-white border border-brand-border rounded-full flex items-center justify-center mx-auto text-brand-gold shadow-xs">
-        <i data-lucide="package" class="w-6 h-6"></i>
-      </div>
-
       <span class="text-xs uppercase tracking-widest text-brand-gold font-bold font-serif">Vente en Gros</span>
       <h3 class="text-2xl sm:text-3xl font-serif font-black text-brand-dark">فضاء طلبات الجملة لأصحاب المحلات والبوتيكات</h3>
       <p class="text-brand-muted text-xs sm:text-sm font-normal max-w-xl mx-auto leading-relaxed">
         يسر دار <strong class="text-brand-dark font-bold">la Pérla</strong> تلبية طلبيات الجملة للتجار والصفحات التجارية عبر الـ 58 ولاية، بأسعار تفضيلية وفينيسيون نقية تليق بزبائنكم.
       </p>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto pt-2 text-xs text-right">
-        <div class="bg-white p-4 rounded-xl border border-brand-border/60">
-          <strong class="text-brand-dark block mb-1">📦 أسعار جملة تفضيلية</strong>
-          <span class="text-brand-muted">تخفيضات خاصة بالكميات المتنوعة للمحلات.</span>
-        </div>
-        <div class="bg-white p-4 rounded-xl border border-brand-border/60">
-          <strong class="text-brand-dark block mb-1">🚚 شحن سريع ومضمون</strong>
-          <span class="text-brand-muted">توصيل آمن لجميع ولايات الوطن في وقت قياسي.</span>
-        </div>
-      </div>
-
       <div class="pt-4 flex justify-center">
-        <a href="https://wa.me/213542634573?text=مرحباً%20دار%20la%20Pérla،%20أنا%20تاجر%20/%20صاحب%20محل%20وأود%20الاستفسار%20عن%20أسعار%20وطلبات%20الجملة" target="_blank" class="btn-dark px-10 py-4 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-2.5 shadow-md">
-          <i data-lucide="message-circle" class="w-4 h-4 text-emerald-400"></i>
+        <a href="https://wa.me/213542634573?text=مرحباً%20دار%20la%20Pérla،%20أنا%20تاجر%20/%20صاحب%20محل%20وأود%20الاستفسار%20عن%20أسعار%20وطلبات%20الجملة" target="_blank" class="btn-dark px-10 py-4 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-md">
           <span>تواصل لطلبات الجملة عبر واتساب</span>
         </a>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- 7. آراء وانطباعات زبونات الدار -->
-  <section id="reviews" class="py-20 border-t border-brand-border/60 bg-white">
-    <div class="max-w-6xl mx-auto px-6">
-      
-      <div class="text-center max-w-md mx-auto mb-14">
-        <span class="text-xs uppercase tracking-widest text-brand-gold font-bold block mb-1 font-serif">Avis Clients</span>
-        <h3 class="text-2xl sm:text-3xl font-serif font-black text-brand-dark">انطباعات زبونات la Pérla</h3>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
-        <div class="p-6 bg-brand-bg rounded-2xl border border-brand-border/60 space-y-3 text-right">
-          <div class="flex text-amber-500 text-xs">★★★★★</div>
-          <p class="text-brand-dark text-xs sm:text-sm leading-relaxed">
-            "فستان الجينز تحفة في اللبس، القماش بارد ومريح جداً والخياطة متقونة 100%. التغليف فخم ووصلني في 24 ساعة للجزائر العاصمة."
-          </p>
-          <div class="border-t border-brand-border/50 pt-3 text-[11px] text-brand-muted">
-            <strong class="text-brand-dark block">أمينة ب.</strong>
-            <span>الجزائر العاصمة • حيدرة</span>
-          </div>
-        </div>
-
-        <div class="p-6 bg-brand-bg rounded-2xl border border-brand-border/60 space-y-3 text-right">
-          <div class="flex text-amber-500 text-xs">★★★★★</div>
-          <p class="text-brand-dark text-xs sm:text-sm leading-relaxed">
-            "تعاملت مع دار la Pérla كصاحبة بوتيك في وهران لطلبيات الجملة، المصداقية في المواعيد والفينيسيون النقية في الفساتين والقفطان نالت إعجاب زبوناتي."
-          </p>
-          <div class="border-t border-brand-border/50 pt-3 text-[11px] text-brand-muted">
-            <strong class="text-brand-dark block">السيدة دليلة م.</strong>
-            <span>وهران • صاحبة متجر أزياء</span>
-          </div>
-        </div>
-
-        <div class="p-6 bg-brand-bg rounded-2xl border border-brand-border/60 space-y-3 text-right">
-          <div class="flex text-amber-500 text-xs">★★★★★</div>
-          <p class="text-brand-dark text-xs sm:text-sm leading-relaxed">
-            "أعجبتني جداً ميزة المعاينة قبل تسليم المبلغ لمندوب التوصيل. فتحت الطرد وتأكدت من مقاس الطقم وخامته الراقية ثم دفعت. خدمة ممتازة."
-          </p>
-          <div class="border-t border-brand-border/50 pt-3 text-[11px] text-brand-muted">
-            <strong class="text-brand-dark block">ليلى ح.</strong>
-            <span>قسنطينة • بوالصوف</span>
-          </div>
-        </div>
-
       </div>
     </div>
   </section>
@@ -777,26 +920,27 @@
   <!-- الفوتر الكلاسيكي -->
   <footer class="bg-brand-surface border-t border-brand-border/60 py-16 px-6 text-center text-xs text-brand-muted">
     <div class="max-w-4xl mx-auto space-y-6">
-      
       <div>
         <h4 class="text-3xl font-serif font-black text-brand-dark tracking-wider">la Pérla</h4>
         <p class="text-[11px] font-serif italic text-brand-gold tracking-widest mt-1">L'ÉLÉGANCE AU FÉMININ</p>
       </div>
 
-      <div class="space-y-1 pt-2">
-        <p class="text-sm sm:text-base font-bold text-brand-dark">تابعونا على مواقع التواصل الاجتماعي لتكونوا من عائلة la Pérla</p>
-        <p class="text-[11px] font-serif italic text-brand-gold tracking-wider">Rejoignez notre univers & découvrez nos nouveautés</p>
-      </div>
-
-      <div class="flex items-center justify-center gap-4 pt-2">
-        <a href="https://www.instagram.com/la_perla2027?exln=MXc3MXhnaTZmZmF5Ng==" target="_blank" class="w-10 h-10 rounded-full border border-brand-border bg-white flex items-center justify-center text-brand-dark hover:border-brand-gold hover:text-brand-gold hover:scale-105 transition shadow-xs" title="Instagram">
+      <div class="flex items-center justify-center gap-5 pt-2">
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/la_perla2027?exln=MXc3MXhnaTZmZmF5Ng==" target="_blank" class="w-10 h-10 rounded-full border border-brand-border bg-white flex items-center justify-center text-pink-600 hover:scale-110 transition shadow-xs" title="Instagram">
           <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
         </a>
-        <a href="https://www.facebook.com/share/1E3YfXJyKX/" target="_blank" class="w-10 h-10 rounded-full border border-brand-border bg-white flex items-center justify-center text-brand-dark hover:border-brand-gold hover:text-brand-gold hover:scale-105 transition shadow-xs" title="Facebook">
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/share/1E3YfXJyKX/" target="_blank" class="w-10 h-10 rounded-full border border-brand-border bg-white flex items-center justify-center text-blue-600 hover:scale-110 transition shadow-xs" title="Facebook">
           <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.5 5H18V0h-3.808C10.595 0 9 1.583 9 4.615V8z"/></svg>
         </a>
-        <a href="https://www.tiktok.com/@_perla102" target="_blank" class="w-10 h-10 rounded-full border border-brand-border bg-white flex items-center justify-center text-brand-dark hover:border-brand-gold hover:text-brand-gold hover:scale-105 transition shadow-xs" title="TikTok">
+        <!-- TikTok -->
+        <a href="https://www.tiktok.com/@_perla102" target="_blank" class="w-10 h-10 rounded-full border border-brand-border bg-white flex items-center justify-center text-neutral-900 hover:scale-110 transition shadow-xs" title="TikTok">
           <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.24 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg> 
+        </a>
+        <!-- WhatsApp -->
+        <a href="https://wa.me/213542634573" target="_blank" class="w-10 h-10 rounded-full border border-brand-border bg-white flex items-center justify-center text-emerald-600 hover:scale-110 transition shadow-xs" title="WhatsApp">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
         </a>
       </div>
 
@@ -806,29 +950,288 @@
     </div>
   </footer>
 
-  <!-- الأكواد البرمجية التفاعلية -->
+  <!-- ================= الأكواد البرمجية والتفاعلية الخفيفة ================= -->
   <script>
-    lucide.createIcons();
+    /* بيانات العارضات السبع وتفاصيل Black Friday */
+    const LAPERLA_LOOKS = [
+      {
+        id: "LOOK 01",
+        title: "فستان جينز ماكسي بحزام كلاسيكي",
+        currentPrice: "3,900 د.ج",
+        oldPrice: "4,875 د.ج",
+        discount: "-20%",
+        available: true,
+        desc: "تصميم كلاسيكي مميز بقماش جينز ناعم، أزرار أمامية وحزام أنيق يبرز الخصر بإطلالة انسيابية محتشمة.",
+        img: "1.png",
+        rackIndex: 0
+      },
+      {
+        id: "LOOK 02",
+        title: "قفطان كوتور زيتي ملكي بتطريز بيج",
+        currentPrice: "",
+        oldPrice: "",
+        discount: "",
+        available: false,
+        desc: "قطعة ملكية ساحرة تجمع بين قماش الكريب الزيتي الفاخر، بطانة حريرية عاجية وتطريز هندسي دقيق مع حزام مذهب.",
+        img: "2.png",
+        rackIndex: 3
+      },
+      {
+        id: "LOOK 03",
+        title: "فستان كوتور بترولي مذهب محتشم",
+        currentPrice: "4,500 د.ج",
+        oldPrice: "6,500 د.ج",
+        discount: "-30%",
+        available: true,
+        desc: "تحفة من الجاكار البترولي الفاخر، ياقة محتشمة وأكمام ملكية خاصة بالسهرات الراقية والمناسبات.",
+        img: "3.png",
+        rackIndex: 4
+      },
+      {
+        id: "LOOK 04",
+        title: "فستان ساتان برونزي بأكمام منفوخة",
+        currentPrice: "4,500 د.ج",
+        oldPrice: "6,500 د.ج",
+        discount: "-30%",
+        available: true,
+        desc: "تحفة من الساتان الجاكار الراقي بلون الشوكولا المذهب، أكمام منفوخة ملكية وحزام خصر متناسق للسهرات.",
+        img: "4.png",
+        rackIndex: 5
+      },
+      {
+        id: "LOOK 05",
+        title: "قفطان كوتور مخمل زيتي غامق مطرز",
+        currentPrice: "",
+        oldPrice: "",
+        discount: "",
+        available: false,
+        desc: "قطعة ملكية من المخمل الملكي الفاخر بتطريز تقليدي دقيق على الصدر والأكمام مع حزام خصر متناسق للسهرات.",
+        img: "5.png",
+        rackIndex: 2
+      },
+      {
+        id: "LOOK 06",
+        title: "طقم أزرق ليل كاجوال شيك (كعب وحقيبة)",
+        currentPrice: "2,500 د.ج",
+        oldPrice: "5,000 د.ج",
+        discount: "-50%",
+        available: true,
+        desc: "طقم مريح وعصري متكون من قميص بأكمام واسعة وبنطال فضفاض بقماش جينز صيفي خفيف وأزرار أنيقة.",
+        img: "6.png",
+        rackIndex: 1
+      },
+      {
+        id: "LOOK 07",
+        title: "طقم أزرق ليل كاجوال شيك (كاب وسنيكرز)",
+        currentPrice: "2,500 د.ج",
+        oldPrice: "5,000 د.ج",
+        discount: "-50%",
+        available: true,
+        desc: "تناغم مثالي بين الراحة والفخامة اليومية، يتميز بقصة انسيابية متناسقة تمنحكِ وقاراً وثقة تامة.",
+        img: "7.png",
+        rackIndex: 1
+      }
+    ];
 
-    // 1. معالج تحميل صورة الحامل التلقائي (يجرب الامتدادات الشائعة حتى لا تفشل أبداً)
-    const rackImgEl = document.getElementById('main-rack-img');
-    if (rackImgEl) {
-      const rackCandidates = ['rack.jpg', 'rack.JPG', 'rack.jpeg', 'rack.png', 'rack.webp'];
-      let rackIdx = 0;
-      rackImgEl.onerror = () => {
-        if (rackIdx < rackCandidates.length - 1) {
-          rackIdx++;
-          rackImgEl.src = rackCandidates[rackIdx];
-        }
-      };
+    /* مصفوفات التموضع الرياضي للعمق ثلاثي الأبعاد */
+    const KX = [1.25, 0.52, 0.32, 0.18, 0.08, 0.02, -0.05];
+    const KF = [0.94, 0.88, 0.74, 0.63, 0.54, 0.48, 0.44];
+    const KH = [1.10, 0.94, 0.62, 0.38, 0.24, 0.16, 0.10];
+    const KB = [0,    0,    3.0,  7.0,  12.0, 16.0, 20.0];
+    const KO = [0,    1.0,  0.85, 0.45, 0,    0,    0   ];
+
+    const runwayLine = document.getElementById('runwayLine');
+    const productRail = document.getElementById('productRail');
+    const lookNumber = document.getElementById('lookNumber');
+    const lookTitle = document.getElementById('lookTitle');
+    const orderBtn = document.getElementById('orderBtn');
+    const stage = document.getElementById('stage');
+    const N = LAPERLA_LOOKS.length;
+
+    const modelElements = [];
+    LAPERLA_LOOKS.forEach((look, i) => {
+      const el = document.createElement('div');
+      el.className = 'model-node';
+      el.innerHTML = `<img src="${look.img}" alt="${look.title}" />`;
+      
+      el.addEventListener('click', () => {
+        let d = (i - currentPos) % N;
+        while (d < -1) d += N;
+        while (d > N - 1) d -= N;
+        if (Math.abs(d) > 0.2) targetPos = Math.round(targetPos + d);
+      });
+      runwayLine.appendChild(el);
+      modelElements.push(el);
+    });
+
+    let currentPos = 0;
+    let targetPos = 0;
+    let isDragging = false;
+    let startX = 0;
+    let startTarget = 0;
+    let lastRenderedLook = -1;
+
+    const lerp = (a, b, t) => a + (b - a) * t;
+
+    function getInterpolated(table, idx, t) {
+      const i0 = Math.max(0, Math.min(table.length - 2, idx));
+      return lerp(table[i0], table[i0 + 1], t);
     }
 
-    // 2. التحكم في فيديو منصة باريس
+    function renderRunway() {
+      currentPos += (targetPos - currentPos) * 0.09;
+
+      const stageW = stage.clientWidth;
+      const stageH = stage.clientHeight;
+      const isMobile = stageW < 860;
+
+      modelElements.forEach((el, i) => {
+        let d = (i - currentPos) % N;
+        while (d < -1) d += N;
+        while (d > N - 1) d -= N;
+
+        const tableIdx = Math.floor(d + 1);
+        const t = (d + 1) - tableIdx;
+
+        let xNorm = getInterpolated(KX, tableIdx, t);
+        if (isMobile) xNorm = xNorm * 0.88 + 0.06;
+
+        const yNorm = getInterpolated(KF, tableIdx, t);
+        const scale = getInterpolated(KH, tableIdx, t);
+        const blur = getInterpolated(KB, tableIdx, t);
+        const opacity = getInterpolated(KO, tableIdx, t);
+
+        const xPos = stageW * xNorm - (isMobile ? 155 : 210);
+        const yPos = -(yNorm - 0.75) * (stageH * 0.16);
+
+        el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0) scale(${scale})`;
+        el.style.filter = `blur(${blur}px)`;
+        el.style.opacity = opacity;
+        el.style.zIndex = Math.round((N - d) * 15);
+      });
+
+      let activeIndex = Math.round(currentPos) % N;
+      if (activeIndex < 0) activeIndex += N;
+
+      if (activeIndex !== lastRenderedLook) {
+        lastRenderedLook = activeIndex;
+        const currentData = LAPERLA_LOOKS[activeIndex];
+        lookNumber.textContent = currentData.id;
+        lookTitle.textContent = currentData.title;
+
+        if (currentData.available) {
+          orderBtn.classList.remove('disabled');
+          orderBtn.innerHTML = `<span>طلب القطعة من البوتيك 🛍️</span>`;
+          orderBtn.href = "index.html";
+        } else {
+          orderBtn.classList.add('disabled');
+          orderBtn.innerHTML = `<span>نفدت الكمية حالياً ❌</span>`;
+          orderBtn.removeAttribute('href');
+        }
+
+        updateRail(currentData);
+      }
+
+      requestAnimationFrame(renderRunway);
+    }
+
+    function updateRail(data) {
+      if (data.available) {
+        productRail.innerHTML = `
+          <div class="product-box">
+            <img src="${data.img}" alt="${data.title}" />
+          </div>
+          <div class="product-name">${data.title}</div>
+          <div class="pricing-row">
+            <span class="current-price">${data.currentPrice}</span>
+            <span class="old-price">${data.oldPrice}</span>
+            <span class="discount-pill">${data.discount}</span>
+          </div>
+          <p style="font-size:11px; color:var(--brand-muted); line-height:1.5; margin-top:4px;">${data.desc}</p>
+          <div style="font-size:10px; color:var(--brand-gold); font-weight:bold; margin-top:4px;">
+            ✦ متوفر للطلب بالتجزئة وبالجملة
+          </div>
+        `;
+      } else {
+        productRail.innerHTML = `
+          <div class="product-box" style="filter:grayscale(0.5);">
+            <img src="${data.img}" alt="${data.title}" />
+          </div>
+          <div class="product-name">${data.title}</div>
+          <div style="margin-top:4px;">
+            <span class="out-of-stock-pill">نفدت الكمية • Épuisé</span>
+          </div>
+          <p style="font-size:11px; color:var(--brand-muted); line-height:1.5; margin-top:6px;">${data.desc}</p>
+        `;
+      }
+    }
+
+    /* الانتقال السلس إلى الحامل الملكي */
+    function jumpToRackFromRunway() {
+      let activeIndex = Math.round(currentPos) % N;
+      if (activeIndex < 0) activeIndex += N;
+      const targetLook = LAPERLA_LOOKS[activeIndex];
+
+      const rackSection = document.getElementById('interactive-rack');
+      if (rackSection) {
+        rackSection.scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => {
+          openRackInspect(targetLook.rackIndex);
+        }, 650);
+      }
+    }
+
+    /* دعم السحب السريع بنعومة 60fps */
+    stage.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startX = e.clientX;
+      startTarget = targetPos;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      targetPos = startTarget + (startX - e.clientX) / 220;
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      targetPos = Math.round(targetPos);
+    });
+
+    stage.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      startX = e.touches[0].clientX;
+      startTarget = targetPos;
+    }, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      targetPos = startTarget + (startX - e.touches[0].clientX) / 180;
+    }, { passive: true });
+
+    window.addEventListener('touchend', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      targetPos = Math.round(targetPos);
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', () => { targetPos = Math.round(targetPos) + 1; });
+    document.getElementById('prevBtn').addEventListener('click', () => { targetPos = Math.round(targetPos) - 1; });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') targetPos = Math.round(targetPos) - 1;
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') targetPos = Math.round(targetPos) + 1;
+    });
+
+    renderRunway();
+
+    /* معالج فيديو منصة باريس */
     const runwayVideo = document.getElementById('brand-runway-video');
     const runwaySlider = document.getElementById('runway-slider');
     const runwayFill = document.getElementById('runway-slider-fill');
     const runwayTime = document.getElementById('runway-time');
-    const runwayBtnIcon = document.getElementById('runway-btn-icon');
+    const runwayBtnToggle = document.getElementById('runway-btn-toggle');
     const runwayPauseIcon = document.getElementById('runway-pause-icon');
     let isRunwaySeeking = false;
 
@@ -849,76 +1252,68 @@
       if (!runwayVideo) return;
       if (runwayVideo.paused) {
         runwayVideo.play().catch(() => {});
-        if (runwayBtnIcon) runwayBtnIcon.setAttribute('data-lucide', 'pause');
+        if (runwayBtnToggle) runwayBtnToggle.innerText = '⏸';
         if (runwayPauseIcon) {
           runwayPauseIcon.classList.remove('opacity-100', 'scale-100');
           runwayPauseIcon.classList.add('opacity-0', 'scale-75');
         }
       } else {
         runwayVideo.pause();
-        if (runwayBtnIcon) runwayBtnIcon.setAttribute('data-lucide', 'play');
+        if (runwayBtnToggle) runwayBtnToggle.innerText = '▶';
         if (runwayPauseIcon) {
           runwayPauseIcon.classList.remove('opacity-0', 'scale-75');
           runwayPauseIcon.classList.add('opacity-100', 'scale-100');
         }
       }
-      lucide.createIcons();
     }
 
     function onScrubRunway(val) {
       if (!runwayVideo || !runwayVideo.duration) return;
       isRunwaySeeking = true;
       runwayVideo.pause();
-      if (runwayBtnIcon) runwayBtnIcon.setAttribute('data-lucide', 'play');
-      const target = (val / 100) * runwayVideo.duration;
-      runwayVideo.currentTime = target;
+      if (runwayBtnToggle) runwayBtnToggle.innerText = '▶';
+      runwayVideo.currentTime = (val / 100) * runwayVideo.duration;
       if (runwayFill) runwayFill.style.width = val + '%';
-      if (runwayTime) {
-        const s = Math.floor(target);
-        runwayTime.innerText = `00:0${s}`;
-      }
       setTimeout(() => { isRunwaySeeking = false; }, 80);
-      lucide.createIcons();
     }
 
-    // 3. بيانات الفساتين الستة الحقيقية مع منع ظهور فستان الجينز نهائياً مكان الفستان الأخضر
+    /* معالج الحامل الملكي */
     const rackDressesData = [
       {
         id: 1,
         title: "فستان جينز ماكسي بحزام كلاسيكي",
-        desc: "تصميم كلاسيكي مميز بقماش جينز ناعم، أزرار أمامية وحزام أنيق يبرز الخصر بإطلالة انسيابية محتشمة تمنحكِ وقاراً وأناقة استثنائية.",
-        sources: ["dress1.jpg", "dress1.png", "file_00000000fd1c81f49abc48c10bad6193.png"]
+        desc: "تصميم كلاسيكي مميز بقماش جينز ناعم، أزرار أمامية وحزام أنيق يبرز الخصر بإطلالة انسيابية محتشمة.",
+        sources: ["1.png", "dress1.jpg", "rack.jpg"]
       },
       {
         id: 2,
         title: "طقم أزرق ليل أوفر سايز راقٍ",
         desc: "طقم كاجوال شيك متكون من قميص فضفاض وبنطال مريح للاستعمال اليومي الراقي بثقة وراحة تامة.",
-        sources: ["dress2.jpg", "dress2.png", "file_00000000725c8230b436f78947c90bec.png"]
+        sources: ["6.png", "7.png", "dress2.jpg"]
       },
       {
         id: 3,
         title: "قفطان كوتور مخمل زيتي غامق مطرز",
-        desc: "قطعة ملكية من المخمل الملكي الفاخر بتطريز تقليدي دقيق على الصدر والأكمام مع حزام خصر متناسق للسهرات الراقية.",
-        sources: ["dress3.jpg", "dress3.png", "file_00000000885c8246880bd3ecff59d10a.png"]
+        desc: "قطعة ملكية من المخمل الملكي الفاخر بتطريز تقليدي دقيق على الصدر والأكمام مع حزام خصر متناسق للسهرات.",
+        sources: ["5.png", "dress3.jpg"]
       },
       {
         id: 4,
         title: "قفطان كوتور زيتي ملكي بتطريز بيج",
         desc: "قطعة ملكية ساحرة تجمع بين قماش الكريب الزيتي الفاخر، بطانة حريرية عاجية وتطريز هندسي دقيق مع حزام مذهب.",
-        sources: ["dress4.jpg", "dress4.png", "file_000000007600824681b2f9d378c764aa.png"]
+        sources: ["2.png", "dress4.jpg"]
       },
       {
         id: 5,
         title: "فستان كوتور بترولي مذهب محتشم",
         desc: "تحفة من الجاكار البترولي الفاخر، ياقة محتشمة وأكمام ملكية خاصة بالسهرات الراقية والمناسبات.",
-        // تم استبعاد صور الجينز نهائياً وتخصيص مسارات الفستان الأخضر فقط
-        sources: ["dress5.jpg", "dress6.jpg", "dress5.png", "dress6.png", "teal.jpg", "dress5.jpeg", "dress6.jpeg"]
+        sources: ["3.png", "dress5.jpg"]
       },
       {
         id: 6,
         title: "فستان ساتان برونزي بأكمام منفوخة",
-        desc: "تحفة من الساتان الجاكار الراقي بلون الشوكولا المذهب، أكمام منفوخة ملكية وحزام خصر متناسق للسهرات الراقية.",
-        sources: ["dress6.jpg", "dress5.jpg", "dress6.png", "file_00000000ef8081f480c83efafe065a48.png"]
+        desc: "تحفة من الساتان الجاكار الراقي بلون الشوكولا المذهب، أكمام منفوخة ملكية وحزام خصر متناسق للسهرات.",
+        sources: ["4.png", "dress6.jpg"]
       }
     ];
 
@@ -968,12 +1363,12 @@
       }, 300);
     }
 
-    // 4. المشاركة والنسخ
+    /* دوال المشاركة الرسمية لصفحة brand.html */
     function shareBrandPage() {
       const shareUrl = window.location.origin + '/brand.html';
       const shareData = {
         title: "la Pérla | Maison de Couture",
-        text: "اكتشفي فخامة الأزياء النسائية الراقية لدى دار la Pérla (بيع بالجملة والتجزئة):",
+        text: "اكتشفي فخامة الأزياء النسائية الراقية لدى دار la Pérla:",
         url: shareUrl
       };
       if (navigator.share) {
@@ -986,7 +1381,7 @@
     function copyBrandLink() {
       const shareUrl = window.location.origin + '/brand.html';
       navigator.clipboard.writeText(shareUrl).then(() => {
-        showShareToast("✨ تم نسخ رابط دار la Pérla بنجاح لمشاركته أو حفظه!");
+        showShareToast("✨ تم نسخ رابط دار la Pérla بنجاح!");
       }).catch(() => {
         prompt("انسخي رابط دار la Pérla:", shareUrl);
       });
@@ -1003,24 +1398,7 @@
           toast.classList.add('opacity-0');
           setTimeout(() => toast.classList.add('hidden'), 300);
         }, 3200);
-      } else {
-        alert(msg);
       }
-    }
-
-    if (localStorage.getItem('laperla_admin_auth') === 'true') {
-      const adminSwitch = document.getElementById('admin-floating-switch');
-      if (adminSwitch) adminSwitch.classList.remove('hidden');
-    }
-
-    function toggleAdminVisitorView() {
-      window.location.href = 'index.html#admin';
-    }
-
-    function logoutAdmin() {
-      localStorage.removeItem('laperla_admin_auth');
-      const adminSwitch = document.getElementById('admin-floating-switch');
-      if (adminSwitch) adminSwitch.classList.add('hidden');
     }
   </script>
 </body>
