@@ -167,11 +167,12 @@
       pointer-events: none;
     }
 
-    /* ================= بطاقة السعر المعلقة الصغيرة في الفراغ الجانبي ================= */
+    /* ================= بطاقة السعر الميني المعلقة في أقصى اليمين ================= */
     .hanging-tag-wrapper {
       position: absolute;
-      top: 18%;
-      right: calc(50% + 140px); /* موضوعة في الفضاء الفارغ بجانب العارضة تماماً */
+      top: 22%;
+      right: 18px; /* موضوعة في أقصى اليمين في الفراغ الصافي */
+      left: auto;
       z-index: 55;
       pointer-events: none;
       transition: all 0.35s ease;
@@ -180,60 +181,60 @@
       align-items: center;
     }
 
-    /* خيط تعليق مائل يصل نحو الفستان دون حجب القماش */
+    /* خيط تعليق مائل ناعم */
     .tag-thread {
-      width: 40px;
-      height: 20px;
+      width: 25px;
+      height: 16px;
       border-bottom: 1.5px dashed rgba(212, 175, 55, 0.7);
-      border-right: 1.5px dashed rgba(212, 175, 55, 0.7);
-      border-bottom-right-radius: 12px;
+      border-left: 1.5px dashed rgba(212, 175, 55, 0.7);
+      border-bottom-left-radius: 10px;
       margin-bottom: -2px;
-      transform: translateX(18px);
+      transform: translateX(-8px);
     }
 
-    /* بطاقة صغيرة أنيقة وفاخرة */
+    /* بطاقة مصغرة جداً وناعمة (Mini Tag) */
     .tag-body {
-      width: 98px;
+      width: 82px;
       background: #111113;
       border: 1.5px solid #D4AF37;
-      border-radius: 9px;
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28);
-      padding: 6px 5px 8px;
+      border-radius: 8px;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.28);
+      padding: 5px 4px 6px;
       text-align: center;
       color: #FFFFFF;
-      transform: rotate(-3deg);
+      transform: rotate(3deg);
     }
 
     .tag-hole {
-      width: 8px;
-      height: 8px;
+      width: 6px;
+      height: 6px;
       background: var(--bg-stage);
-      border: 1.5px solid #D4AF37;
+      border: 1px solid #D4AF37;
       border-radius: 50%;
-      margin: -2px auto 4px;
+      margin: -2px auto 3px;
     }
 
     .tag-brand {
       font-family: 'Cinzel', serif;
-      font-size: 9px;
+      font-size: 7.5px;
       font-weight: 900;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       color: #FAF6F0;
-      border-bottom: 1px dashed rgba(212, 175, 55, 0.4);
-      padding-bottom: 3px;
-      margin-bottom: 4px;
+      border-bottom: 1px dashed rgba(212, 175, 55, 0.35);
+      padding-bottom: 2px;
+      margin-bottom: 3px;
     }
 
     .tag-discount-banner {
       background: #FFFBF5;
       border: 1px solid #D4AF37;
-      border-radius: 4px;
-      padding: 2px 3px;
-      margin-bottom: 3px;
+      border-radius: 3px;
+      padding: 1px 2px;
+      margin-bottom: 2px;
     }
 
     .tag-discount-label {
-      font-size: 8px;
+      font-size: 7px;
       font-weight: 800;
       color: #1C1612;
       display: block;
@@ -241,7 +242,7 @@
     }
 
     .tag-discount-percent {
-      font-size: 13px;
+      font-size: 11px;
       font-weight: 900;
       color: #E60000;
       line-height: 1.1;
@@ -251,23 +252,23 @@
     .tag-script {
       font-family: 'Playfair Display', serif;
       font-style: italic;
-      font-size: 9px;
+      font-size: 7.5px;
       font-weight: 700;
       color: #E8C872;
-      margin-bottom: 4px;
-      letter-spacing: 0.04em;
+      margin-bottom: 3px;
+      letter-spacing: 0.02em;
     }
 
     .tag-white-card {
       background: #FFFFFF;
       border: 1px solid #1C1612;
-      border-radius: 6px;
-      padding: 3px 2px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.12);
+      border-radius: 5px;
+      padding: 2px 2px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
     .tag-old-price {
-      font-size: 8.5px;
+      font-size: 7.5px;
       color: #7A726A;
       text-decoration: line-through;
       display: block;
@@ -277,7 +278,7 @@
     }
 
     .tag-price-main {
-      font-size: 13px;
+      font-size: 11px;
       font-weight: 900;
       color: #111113;
       line-height: 1;
@@ -285,7 +286,7 @@
     }
 
     .tag-price-sub {
-      font-size: 8px;
+      font-size: 7px;
       font-weight: 900;
       color: #E60000;
       display: block;
@@ -296,10 +297,10 @@
     .tag-out-stock {
       background: #383431;
       border: 1px solid #7D7570;
-      border-radius: 6px;
-      padding: 8px 3px;
+      border-radius: 5px;
+      padding: 6px 2px;
       color: #E5DFD9;
-      font-size: 10px;
+      font-size: 8.5px;
       font-weight: 800;
       line-height: 1.2;
     }
@@ -526,15 +527,12 @@
       .stage-texts { top: 12px; right: 16px; max-width: 280px; }
       .stage-texts h2 { font-size: 21px; }
       .model-node { width: 310px; height: 62vh; bottom: 30%; }
-      /* ضبط موضع البطاقة على الهاتف في الفراغ الجانبي بدون لمس الفستان */
+      /* تثبيت البطاقة بأقصى يمين شاشة الهاتف في الفراغ الأبيض الصافي */
       .hanging-tag-wrapper {
-        top: 22%;
-        right: auto;
-        left: 12px; /* على الهاتف توضع في أقصى اليسار الفارغ */
-        transform: scale(0.92);
-      }
-      .tag-thread {
-        transform: translateX(-14px) rotate(18deg);
+        top: 24%;
+        right: 12px;
+        left: auto;
+        transform: scale(0.9);
       }
       .look-info-panel { bottom: 12px; right: 12px; left: 12px; flex-direction: column; gap: 8px; align-items: stretch; }
       .nav-controls { justify-content: flex-end; }
@@ -671,7 +669,7 @@
       <!-- صف عارضات متجر la Pérla المفرغات (1.png إلى 7.png) -->
       <div class="runway-line" id="runwayLine"></div>
 
-      <!-- بطاقة السعر المعلقة الصغيرة في الفراغ الجانبي (دون ملامسة الفستان) -->
+      <!-- بطاقة السعر الميني المعلقة في أقصى اليمين الصافي -->
       <div class="hanging-tag-wrapper" id="hangingTagWrapper">
         <div class="tag-thread"></div>
         <div class="tag-body">
@@ -1284,7 +1282,7 @@
         lookNumber.textContent = currentData.id;
         lookTitle.textContent = currentData.title;
 
-        // تحديث محتوى بطاقة السعر المعلقة الصغيرة في الجانب مع السعر قبل وبعد التخفيض
+        // تحديث محتوى بطاقة السعر الميني المعلقة في أقصى اليمين
         if (currentData.available) {
           tagContent.innerHTML = `
             <div class="tag-discount-banner">
@@ -1306,7 +1304,7 @@
           tagContent.innerHTML = `
             <div class="tag-out-stock">
               <span>نفدت الكمية</span>
-              <span style="font-size:8px; color:#A89F96; display:block; margin-top:2px;">Épuisé</span>
+              <span style="font-size:7px; color:#A89F96; display:block; margin-top:2px;">Épuisé</span>
             </div>
           `;
 
