@@ -8,7 +8,7 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#FBF9F5">
 
-  <!-- التحميل المسبق لأول عارضة لفتح الصفحة في جزء من الثانية -->
+  <!-- التحميل المسبق لأول عارضة لفتح الصفحة فوراً -->
   <link rel="preload" as="image" href="1.png">
 
   <!-- الخطوط الرسمية -->
@@ -47,7 +47,7 @@
 
   <style>
     :root {
-      --bg-stage: radial-gradient(circle at 50% 40%, #FFFFFF 0%, #FAF7F2 60%, #EFE7DB 100%);
+      --bg-stage: radial-gradient(circle at 50% 40%, #FFFFFF 0%, #FAF6F0 60%, #EFE7DB 100%);
       --brand-dark: #1C1612;
       --brand-gold: #9E804D;
       --brand-gold-bright: #D4AF37;
@@ -137,7 +137,7 @@
       font-weight: 600;
     }
 
-    /* تموضع العارضات المرتفع للأعلى */
+    /* صف العارضات المرتفع للأعلى */
     .runway-line {
       position: absolute;
       inset: 0;
@@ -167,77 +167,81 @@
       pointer-events: none;
     }
 
-    /* ================= بطاقة السعر المعلقة الملكية (Hanging Tag) ================= */
+    /* ================= بطاقة السعر المعلقة الصغيرة في الفراغ الجانبي ================= */
     .hanging-tag-wrapper {
       position: absolute;
-      top: 14%;
-      right: 28%;
-      z-index: 45;
+      top: 18%;
+      right: calc(50% + 140px); /* موضوعة في الفضاء الفارغ بجانب العارضة تماماً */
+      z-index: 55;
       pointer-events: none;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      transform-origin: top center;
+      transition: all 0.35s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
+    /* خيط تعليق مائل يصل نحو الفستان دون حجب القماش */
     .tag-thread {
-      width: 2px;
-      height: 48px;
-      background: linear-gradient(180deg, #FFFFFF 0%, #D4AF37 100%);
-      margin: 0 auto;
-      box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+      width: 40px;
+      height: 20px;
+      border-bottom: 1.5px dashed rgba(212, 175, 55, 0.7);
+      border-right: 1.5px dashed rgba(212, 175, 55, 0.7);
+      border-bottom-right-radius: 12px;
+      margin-bottom: -2px;
+      transform: translateX(18px);
     }
 
+    /* بطاقة صغيرة أنيقة وفاخرة */
     .tag-body {
-      width: 130px;
+      width: 98px;
       background: #111113;
-      border: 2px solid #D4AF37;
-      border-radius: 12px;
-      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.35);
-      position: relative;
-      padding: 10px 8px 12px;
+      border: 1.5px solid #D4AF37;
+      border-radius: 9px;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28);
+      padding: 6px 5px 8px;
       text-align: center;
       color: #FFFFFF;
-      overflow: hidden;
+      transform: rotate(-3deg);
     }
 
-    /* حلقة التعليق في أعلى البطاقة */
     .tag-hole {
-      width: 12px;
-      height: 12px;
+      width: 8px;
+      height: 8px;
       background: var(--bg-stage);
-      border: 2px solid #D4AF37;
+      border: 1.5px solid #D4AF37;
       border-radius: 50%;
-      margin: -4px auto 6px;
+      margin: -2px auto 4px;
     }
 
     .tag-brand {
       font-family: 'Cinzel', serif;
-      font-size: 11px;
+      font-size: 9px;
       font-weight: 900;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.1em;
       color: #FAF6F0;
       border-bottom: 1px dashed rgba(212, 175, 55, 0.4);
-      padding-bottom: 4px;
-      margin-bottom: 6px;
-    }
-
-    .tag-discount-banner {
-      background: #FDFBF7;
-      border: 1px solid #D4AF37;
-      border-radius: 6px;
-      padding: 3px 4px;
+      padding-bottom: 3px;
       margin-bottom: 4px;
     }
 
+    .tag-discount-banner {
+      background: #FFFBF5;
+      border: 1px solid #D4AF37;
+      border-radius: 4px;
+      padding: 2px 3px;
+      margin-bottom: 3px;
+    }
+
     .tag-discount-label {
-      font-size: 10px;
+      font-size: 8px;
       font-weight: 800;
       color: #1C1612;
       display: block;
-      line-height: 1.1;
+      line-height: 1;
     }
 
     .tag-discount-percent {
-      font-size: 18px;
+      font-size: 13px;
       font-weight: 900;
       color: #E60000;
       line-height: 1.1;
@@ -247,45 +251,57 @@
     .tag-script {
       font-family: 'Playfair Display', serif;
       font-style: italic;
-      font-size: 13px;
+      font-size: 9px;
       font-weight: 700;
       color: #E8C872;
-      margin-bottom: 6px;
-      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+      letter-spacing: 0.04em;
     }
 
     .tag-white-card {
       background: #FFFFFF;
-      border: 1.5px solid #1C1612;
-      border-radius: 8px;
-      padding: 4px 6px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      border: 1px solid #1C1612;
+      border-radius: 6px;
+      padding: 3px 2px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.12);
+    }
+
+    .tag-old-price {
+      font-size: 8.5px;
+      color: #7A726A;
+      text-decoration: line-through;
+      display: block;
+      font-weight: 600;
+      line-height: 1;
+      margin-bottom: 1px;
     }
 
     .tag-price-main {
-      font-size: 17px;
+      font-size: 13px;
       font-weight: 900;
       color: #111113;
-      line-height: 1.1;
+      line-height: 1;
       direction: rtl;
     }
 
     .tag-price-sub {
-      font-size: 10px;
+      font-size: 8px;
       font-weight: 900;
       color: #E60000;
       display: block;
       margin-top: 1px;
+      line-height: 1;
     }
 
     .tag-out-stock {
       background: #383431;
       border: 1px solid #7D7570;
-      border-radius: 8px;
-      padding: 12px 6px;
+      border-radius: 6px;
+      padding: 8px 3px;
       color: #E5DFD9;
-      font-size: 12px;
+      font-size: 10px;
       font-weight: 800;
+      line-height: 1.2;
     }
 
     /* نصوص وأزرار الإطلالة أسفل العارضة */
@@ -503,14 +519,23 @@
       display: inline-block;
     }
 
-    /* التجاوب مع الهواتف المحمولة */
+    /* التجاوب الدقيق مع الهواتف المحمولة */
     @media (max-width: 860px) {
       .runway-viewport { grid-template-columns: 1fr; height: 90vh; }
       .rail { display: none; }
       .stage-texts { top: 12px; right: 16px; max-width: 280px; }
       .stage-texts h2 { font-size: 21px; }
       .model-node { width: 310px; height: 62vh; bottom: 30%; }
-      .hanging-tag-wrapper { top: 18%; right: 10%; transform: scale(0.9); }
+      /* ضبط موضع البطاقة على الهاتف في الفراغ الجانبي بدون لمس الفستان */
+      .hanging-tag-wrapper {
+        top: 22%;
+        right: auto;
+        left: 12px; /* على الهاتف توضع في أقصى اليسار الفارغ */
+        transform: scale(0.92);
+      }
+      .tag-thread {
+        transform: translateX(-14px) rotate(18deg);
+      }
       .look-info-panel { bottom: 12px; right: 12px; left: 12px; flex-direction: column; gap: 8px; align-items: stretch; }
       .nav-controls { justify-content: flex-end; }
     }
@@ -646,7 +671,7 @@
       <!-- صف عارضات متجر la Pérla المفرغات (1.png إلى 7.png) -->
       <div class="runway-line" id="runwayLine"></div>
 
-      <!-- بطاقة السعر المعلقة الملكية (تتغير ديناميكياً مع كل فستان) -->
+      <!-- بطاقة السعر المعلقة الصغيرة في الفراغ الجانبي (دون ملامسة الفستان) -->
       <div class="hanging-tag-wrapper" id="hangingTagWrapper">
         <div class="tag-thread"></div>
         <div class="tag-body">
@@ -1091,7 +1116,7 @@
         title: "فستان جينز ماكسي بحزام كلاسيكي",
         currentPrice: "3,900 د.ج",
         priceNumber: "3900 دج",
-        oldPrice: "4,875 د.ج",
+        oldPriceText: "4,875 دج",
         discount: "20%",
         available: true,
         desc: "تصميم كلاسيكي مميز بقماش جينز ناعم، أزرار أمامية وحزام أنيق يبرز الخصر بإطلالة انسيابية محتشمة.",
@@ -1103,7 +1128,7 @@
         title: "قفطان كوتور زيتي ملكي بتطريز بيج",
         currentPrice: "",
         priceNumber: "",
-        oldPrice: "",
+        oldPriceText: "",
         discount: "",
         available: false,
         desc: "قطعة ملكية ساحرة تجمع بين قماش الكريب الزيتي الفاخر، بطانة حريرية عاجية وتطريز هندسي دقيق مع حزام مذهب.",
@@ -1115,7 +1140,7 @@
         title: "فستان كوتور بترولي مذهب محتشم",
         currentPrice: "4,500 د.ج",
         priceNumber: "4500 دج",
-        oldPrice: "6,500 د.ج",
+        oldPriceText: "6,500 دج",
         discount: "30%",
         available: true,
         desc: "تحفة من الجاكار البترولي الفاخر، ياقة محتشمة وأكمام ملكية خاصة بالسهرات الراقية والمناسبات.",
@@ -1127,7 +1152,7 @@
         title: "فستان ساتان برونزي بأكمام منفوخة",
         currentPrice: "4,500 د.ج",
         priceNumber: "4500 دج",
-        oldPrice: "6,500 د.ج",
+        oldPriceText: "6,500 دج",
         discount: "30%",
         available: true,
         desc: "تحفة من الساتان الجاكار الراقي بلون الشوكولا المذهب، أكمام منفوخة ملكية وحزام خصر متناسق للسهرات.",
@@ -1139,7 +1164,7 @@
         title: "قفطان كوتور مخمل زيتي غامق مطرز",
         currentPrice: "",
         priceNumber: "",
-        oldPrice: "",
+        oldPriceText: "",
         discount: "",
         available: false,
         desc: "قطعة ملكية من المخمل الملكي الفاخر بتطريز تقليدي دقيق على الصدر والأكمام مع حزام خصر متناسق للسهرات.",
@@ -1151,7 +1176,7 @@
         title: "طقم أزرق ليل كاجوال شيك (ستايل كعب)",
         currentPrice: "2,500 د.ج",
         priceNumber: "2500 دج",
-        oldPrice: "5,000 د.ج",
+        oldPriceText: "5,000 دج",
         discount: "50%",
         available: true,
         desc: "طقم مريح وعصري متكون من قميص بأكمام واسعة وبنطال فضفاض بقماش جينز صيفي خفيف وأزرار أنيقة.",
@@ -1163,7 +1188,7 @@
         title: "طقم أزرق ليل كاجوال شيك (ستايل كاب)",
         currentPrice: "2,500 د.ج",
         priceNumber: "2500 دج",
-        oldPrice: "5,000 د.ج",
+        oldPriceText: "5,000 دج",
         discount: "50%",
         available: true,
         desc: "تناغم مثالي بين الراحة والفخامة اليومية، يتميز بقصة انسيابية متناسقة تمنحكِ وقاراً وثقة تامة.",
@@ -1259,7 +1284,7 @@
         lookNumber.textContent = currentData.id;
         lookTitle.textContent = currentData.title;
 
-        // تحديث محتوى بطاقة السعر المعلقة الملكية (Étiquette)
+        // تحديث محتوى بطاقة السعر المعلقة الصغيرة في الجانب مع السعر قبل وبعد التخفيض
         if (currentData.available) {
           tagContent.innerHTML = `
             <div class="tag-discount-banner">
@@ -1268,6 +1293,7 @@
             </div>
             <div class="tag-script">Black Friday</div>
             <div class="tag-white-card">
+              <span class="tag-old-price">${currentData.oldPriceText}</span>
               <div class="tag-price-main">${currentData.priceNumber}</div>
               <span class="tag-price-sub">— فقط —</span>
             </div>
@@ -1280,7 +1306,7 @@
           tagContent.innerHTML = `
             <div class="tag-out-stock">
               <span>نفدت الكمية</span>
-              <span style="font-size:9px; color:#A89F96; display:block; margin-top:2px;">Épuisé</span>
+              <span style="font-size:8px; color:#A89F96; display:block; margin-top:2px;">Épuisé</span>
             </div>
           `;
 
@@ -1304,7 +1330,7 @@
           <div class="product-name">${data.title}</div>
           <div class="pricing-row">
             <span class="current-price">${data.currentPrice}</span>
-            <span class="old-price">${data.oldPrice}</span>
+            <span class="old-price">${data.oldPriceText}</span>
             <span class="discount-pill">-${data.discount}</span>
           </div>
           <p style="font-size:11px; color:var(--brand-muted); line-height:1.5; margin-top:4px;">${data.desc}</p>
