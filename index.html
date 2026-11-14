@@ -2,8 +2,59 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>la Pérla | L'élégance au féminin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>la Pérla | فساتين نسائية راقية وملابس أطفال – توصيل لـ 58 ولاية</title>
+  <meta name="description" content="متجر la Pérla الجزائري لفساتين نسائية وطقم أطفال بأقمشة فاخرة. توصيل لـ 58 ولاية والدفع عند الاستلام مع المعاينة قبل الدفع. اطلبي قطعتك الآن.">
+  <link rel="canonical" href="https://lap-rla.vercel.app/">
+
+  <!-- Open Graph / بطاقات المشاركة لفيسبوك وواتساب -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="la Pérla">
+  <meta property="og:locale" content="ar_DZ">
+  <meta property="og:title" content="la Pérla | فساتين نسائية راقية وملابس أطفال – توصيل لـ 58 ولاية">
+  <meta property="og:description" content="تشكيلة فساتين وأطقم بأقمشة فاخرة. توصيل لـ 58 ولاية والدفع عند الاستلام مع المعاينة قبل الدفع.">
+  <meta property="og:url" content="https://lap-rla.vercel.app/">
+  <meta property="og:image" content="https://lap-rla.vercel.app/1.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- بيانات منظمة Google Schema JSON-LD للمتجر -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ClothingStore",
+        "@id": "https://lap-rla.vercel.app/#store",
+        "name": "la Pérla",
+        "slogan": "L'élégance au féminin",
+        "url": "https://lap-rla.vercel.app/",
+        "image": "https://lap-rla.vercel.app/1.png",
+        "telephone": "+213542634573",
+        "areaServed": { "@type": "Country", "name": "Algeria" },
+        "address": { "@type": "PostalAddress", "addressCountry": "DZ" },
+        "sameAs": [
+          "https://www.instagram.com/la_perla2027",
+          "https://www.facebook.com/share/1E3YfXJyKX/",
+          "https://www.tiktok.com/@_perla102"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+213542634573",
+          "contactType": "sales",
+          "availableLanguage": ["ar", "fr"]
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://lap-rla.vercel.app/#website",
+        "url": "https://lap-rla.vercel.app/",
+        "name": "la Pérla",
+        "inLanguage": "ar",
+        "publisher": { "@id": "https://lap-rla.vercel.app/#store" }
+      }
+    ]
+  }
+  </script>
   
   <!-- إعدادات تطبيق الهاتف PWA -->
   <link rel="manifest" href="manifest.json">
@@ -16,6 +67,7 @@
     }
   </script>
 
+  <link rel="preconnect" href="https://images.unsplash.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Cairo:wght@600;700;800;900&display=swap" rel="stylesheet">
@@ -67,7 +119,7 @@
   </script>
 
   <style>
-    body { background-color: #FAF6F0; color: #1A1410; font-family: 'Cairo', sans-serif; font-weight: 600; }
+    body { background-color: #FAF6F0; color: #1A1410; font-family: 'Cairo', sans-serif; font-weight: 600; touch-action: manipulation; }
     .gold-btn {
       background: linear-gradient(135deg, #E6C264 0%, #C99E2A 100%);
       color: #261605;
@@ -78,6 +130,7 @@
       background: linear-gradient(135deg, #F0D07C 0%, #D4AF37 100%);
       transform: translateY(-1px);
     }
+    .sr-only-seo { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
     .size-badge-active {
       background: #D4AF37 !important;
       color: #000 !important;
@@ -105,7 +158,7 @@
     (function trackStoreVisit() {
       try {
         const hasTrackedSession = sessionStorage.getItem('laperla_session_logged');
-        if (hasTrackedSession) return; // تم احتساب الزائر مسبقاً في هذه الجلسة
+        if (hasTrackedSession) return;
 
         const urlParams = new URLSearchParams(window.location.search);
         const ref = document.referrer.toLowerCase();
@@ -158,13 +211,13 @@
   <!-- الشريط الإعلاني العلوي + التواصل الاجتماعي -->
   <div class="bg-laperla-silk border-b border-laperla-border py-2 px-6 text-xs flex flex-wrap justify-between items-center text-laperla-darkText font-bold gap-3">
     <div class="flex items-center gap-4">
-      <a href="https://www.instagram.com/la_perla2027?exln=MXc3MXhnaTZmZmF5Ng==" target="_blank" class="hover:text-laperla-goldDark transition flex items-center gap-1.5 font-bold">
+      <a href="https://www.instagram.com/la_perla2027?exln=MXc3MXhnaTZmZmF5Ng==" target="_blank" rel="noopener noreferrer" class="hover:text-laperla-goldDark transition flex items-center gap-1.5 font-bold">
         <svg class="w-4 h-4 fill-current text-laperla-goldDark" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
       </a>
-      <a href="https://www.facebook.com/share/1E3YfXJyKX/" target="_blank" class="hover:text-laperla-goldDark transition flex items-center gap-1.5 font-bold">
+      <a href="https://www.facebook.com/share/1E3YfXJyKX/" target="_blank" rel="noopener noreferrer" class="hover:text-laperla-goldDark transition flex items-center gap-1.5 font-bold">
         <svg class="w-4 h-4 fill-current text-laperla-goldDark" viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.5 5H18V0h-3.808C10.595 0 9 1.583 9 4.615V8z"/></svg>
       </a>
-      <a href="https://www.tiktok.com/@_perla102" target="_blank" class="hover:text-laperla-goldDark transition flex items-center gap-1.5 font-bold">
+      <a href="https://www.tiktok.com/@_perla102" target="_blank" rel="noopener noreferrer" class="hover:text-laperla-goldDark transition flex items-center gap-1.5 font-bold">
         <svg class="w-4 h-4 fill-current text-laperla-goldDark" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.24 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg> 
       </a>
     </div>
@@ -177,7 +230,7 @@
   <!-- الهيدر الرسمي للمتجر -->
   <header class="sticky top-0 z-40 bg-laperla-cream/95 backdrop-blur-md border-b border-laperla-border shadow-sm">
     <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
-      <nav class="hidden md:flex items-center gap-8 text-sm uppercase tracking-wider text-laperla-darkText font-extrabold">
+      <nav aria-label="التنقل الرئيسي" class="hidden md:flex items-center gap-8 text-sm uppercase tracking-wider text-laperla-darkText font-extrabold">
         <a href="#categories" class="hover:text-laperla-goldDark transition">التصنيفات • Catégories</a>
         <a href="#collection" class="hover:text-laperla-goldDark transition">التشكيلة • Collection</a>
         <a href="brand.html" class="text-laperla-goldDark hover:underline transition">عرض باريس • Runway</a>
@@ -185,9 +238,9 @@
       </nav>
 
       <div class="text-center cursor-pointer select-none py-1" onclick="handleSecretLogoClicks()">
-        <h1 class="text-3xl md:text-4xl font-serif font-black text-laperla-brown tracking-wider">
+        <p class="text-3xl md:text-4xl font-serif font-black text-laperla-brown tracking-wider">
           la Pérla
-        </h1>
+        </p>
         <p class="text-[11px] font-serif italic text-laperla-goldDark tracking-widest font-bold">L'élégance au féminin</p>
       </div>
 
@@ -204,9 +257,21 @@
     <section class="relative w-full overflow-hidden bg-laperla-silk border-b-2 border-laperla-border">
       <div class="max-w-7xl mx-auto">
         <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=85&w=1600" 
-             alt="la Pérla Haute Couture" 
+             alt="تشكيلة فساتين نسائية راقية من la Pérla"
+             width="1600" height="480" fetchpriority="high" decoding="async"
              class="w-full h-[320px] md:h-[480px] object-cover object-center shadow-inner">
       </div>
+    </section>
+
+    <!-- تعريف المتجر (H1 + نص للمحتوى) -->
+    <section class="max-w-4xl mx-auto px-6 pt-10 text-center">
+      <h1 class="text-2xl md:text-3xl font-black text-laperla-brown leading-snug">
+        فساتين نسائية راقية وملابس أطفال – توصيل لـ 58 ولاية
+      </h1>
+      <p class="text-sm md:text-base text-neutral-700 font-bold leading-loose mt-3">
+        دار <strong>la Pérla</strong> علامة جزائرية للأزياء النسائية الفاخرة: فساتين جينز وساتان وأطقم عصرية محتشمة وملابس أطفال بأقمشة مختارة.
+        اطلبي قطعتك من الموقع وسيتصل بكِ فريقنا لتأكيد الطلب، والتوصيل لجميع الولايات مع الدفع عند الاستلام والمعاينة قبل الدفع.
+      </p>
     </section>
 
     <!-- أقسام التصنيفات -->
@@ -237,6 +302,8 @@
 
     <!-- كتالوج المنتجات السحابي -->
     <section id="collection" class="max-w-7xl mx-auto px-6 py-8">
+      <h2 class="sr-only-seo">تشكيلة فساتين وملابس la Pérla</h2>
+      <noscript><p class="text-center text-neutral-600 font-bold py-8">فعّلي JavaScript لعرض التشكيلة، أو اطلبي مباشرة عبر <a class="underline" href="https://wa.me/213542634573">واتساب</a>.</p></noscript>
       <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
     </section>
 
@@ -245,7 +312,7 @@
       <div class="max-w-6xl mx-auto px-6">
         <div class="text-center max-w-lg mx-auto mb-10">
           <span class="text-xs uppercase tracking-widest text-laperla-goldDark font-black block mb-1">Témoignages Clients</span>
-          <h3 class="text-3xl font-extrabold text-laperla-darkText">آراء وانطباعات سيدات la Pérla</h3>
+          <h2 class="text-3xl font-extrabold text-laperla-darkText">آراء وانطباعات سيدات la Pérla</h2>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
@@ -282,6 +349,29 @@
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- أسئلة شائعة (FAQ) -->
+    <section id="faq" class="max-w-3xl mx-auto px-6 py-14">
+      <h2 class="text-2xl md:text-3xl font-extrabold text-laperla-brown text-center mb-6">أسئلة شائعة</h2>
+      <div class="space-y-3 text-sm font-bold text-neutral-800">
+        <details class="bg-white border-2 border-laperla-border rounded-2xl p-4">
+          <summary class="cursor-pointer font-black">هل التوصيل متوفر لجميع الولايات؟</summary>
+          <p class="mt-2 leading-relaxed text-neutral-700">نعم، نوصل إلى 58 ولاية. تظهر تكلفة التوصيل (للمنزل أو للمكتب) في استمارة الطلب بعد اختيار الولاية.</p>
+        </details>
+        <details class="bg-white border-2 border-laperla-border rounded-2xl p-4">
+          <summary class="cursor-pointer font-black">كيف يتم الدفع؟</summary>
+          <p class="mt-2 leading-relaxed text-neutral-700">الدفع عند الاستلام مع إمكانية معاينة القطعة قبل الدفع.</p>
+        </details>
+        <details class="bg-white border-2 border-laperla-border rounded-2xl p-4">
+          <summary class="cursor-pointer font-black">كيف أطلب قطعة؟</summary>
+          <p class="mt-2 leading-relaxed text-neutral-700">اختاري القطعة من التشكيلة، واضغطي «طلب اقتناء القطعة»، ثم املئي الاستمارة وسيتصل بكِ فريقنا لتأكيد الطلب.</p>
+        </details>
+        <details class="bg-white border-2 border-laperla-border rounded-2xl p-4">
+          <summary class="cursor-pointer font-black">هل تتوفر طلبيات الجملة للتجار؟</summary>
+          <p class="mt-2 leading-relaxed text-neutral-700">نعم، تواصلي معنا عبر <a class="underline text-laperla-goldDark" rel="noopener noreferrer" href="https://wa.me/213542634573?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%AF%D8%A7%D8%B1%20la%20P%C3%A9rla%D8%8C%20%D8%A3%D9%86%D8%A7%20%D8%AA%D8%A7%D8%AC%D8%B1%20%D9%88%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%A3%D8%B3%D8%B9%D8%A7%D8%B1%20%D8%A7%D9%84%D8%AC%D9%85%D9%84%D8%A9">واتساب</a> للاستفسار عن الأسعار والكميات.</p>
+        </details>
       </div>
     </section>
   </main>
@@ -475,7 +565,7 @@
         </button>
       </div>
 
-      <!-- ================= 1. قسم الإحصائيات وزوار المتجر الجديد ================= -->
+      <!-- ================= 1. قسم الإحصائيات وزوار المتجر ================= -->
       <div id="admin-analytics-tab" class="space-y-6">
         
         <!-- البطاقات الأربع لفرز التواريخ -->
@@ -702,16 +792,18 @@
   <footer class="bg-laperla-silk border-t-2 border-laperla-border py-8 px-6 text-center text-xs text-neutral-700 font-bold">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
       <div>
-        <h4 class="text-2xl font-serif font-black text-laperla-brown">la Pérla</h4>
+        <p class="text-2xl font-serif font-black text-laperla-brown">la Pérla</p>
         <p class="text-[11px] text-laperla-goldDark font-extrabold">L'élégance au féminin • الجزائر</p>
       </div>
 
       <div class="flex items-center gap-4 text-xs">
-        <a href="https://www.instagram.com/la_perla2027?exln=MXc3MXhnaTZmZmF5Ng==" target="_blank" class="hover:text-laperla-brown">Instagram</a>
+        <a href="https://www.instagram.com/la_perla2027?exln=MXc3MXhnaTZmZmF5Ng==" target="_blank" rel="noopener noreferrer" class="hover:text-laperla-brown">Instagram</a>
         <span>•</span>
-        <a href="https://www.facebook.com/share/1E3YfXJyKX/" target="_blank" class="hover:text-laperla-brown">Facebook</a>
+        <a href="https://www.facebook.com/share/1E3YfXJyKX/" target="_blank" rel="noopener noreferrer" class="hover:text-laperla-brown">Facebook</a>
         <span>•</span>
-        <a href="https://www.tiktok.com/@_perla102" target="_blank" class="hover:text-laperla-brown">TikTok</a>
+        <a href="https://www.tiktok.com/@_perla102" target="_blank" rel="noopener noreferrer" class="hover:text-laperla-brown">TikTok</a>
+        <span>•</span>
+        <a href="brand.html" class="hover:text-laperla-brown">عن الدار وعرض باريس</a>
       </div>
 
       <div class="text-neutral-500">
@@ -858,7 +950,46 @@
       }
 
       renderProducts(liveProducts);
+      updateProductsSchema(liveProducts);
       renderAdminProductsList();
+    }
+
+    function updateProductsSchema(list) {
+      try {
+        const items = (list || []).slice(0, 30).map((p, i) => {
+          const imgs = (p.images || []).filter(u => typeof u === 'string' && /^https?:\/\//.test(u));
+          const price = parseInt(p.price);
+          if (!p.title || !price) return null;
+          return {
+            "@type": "ListItem",
+            "position": i + 1,
+            "item": {
+              "@type": "Product",
+              "name": p.title + (p.titleFr ? ' - ' + p.titleFr : ''),
+              "image": imgs.slice(0, 4),
+              "description": (p.description || p.title).toString().slice(0, 300),
+              "brand": { "@type": "Brand", "name": "la Pérla" },
+              "offers": {
+                "@type": "Offer",
+                "url": "https://lap-rla.vercel.app/#collection",
+                "priceCurrency": "DZD",
+                "price": String(price),
+                "availability": "https://schema.org/InStock",
+                "itemCondition": "https://schema.org/NewCondition"
+              }
+            }
+          };
+        }).filter(Boolean);
+        if (!items.length) return;
+        let tag = document.getElementById('products-jsonld');
+        if (!tag) {
+          tag = document.createElement('script');
+          tag.type = 'application/ld+json';
+          tag.id = 'products-jsonld';
+          document.head.appendChild(tag);
+        }
+        tag.textContent = JSON.stringify({ "@context": "https://schema.org", "@type": "ItemList", "itemListElement": items });
+      } catch (e) {}
     }
 
     function filterCategory(cat) {
@@ -876,20 +1007,22 @@
       else if (cat === 'bestsellers') renderProducts(liveProducts.filter(p => p.isBest || p.category === 'bestsellers'));
     }
 
+    const escAttr = (v) => String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+
     function renderProducts(list) {
       const container = document.getElementById('products-grid');
       if (list.length === 0) {
         container.innerHTML = `<p class="col-span-full text-center text-neutral-400 py-12">لا توجد قطع معروضة في هذا القسم حالياً.</p>`;
         return;
       }
-      container.innerHTML = list.map(prod => {
+      container.innerHTML = list.map((prod, idx) => {
         const coverImg = (prod.images && prod.images.length > 0) ? prod.images[0] : 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=800';
         const imgCount = (prod.images && prod.images.length > 0) ? prod.images.length : 1;
 
         return `
         <div class="bg-white border-2 border-laperla-border rounded-2xl group hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden">
           <div class="relative aspect-[3/4] overflow-hidden bg-neutral-100 cursor-pointer" onclick="openProductModal('${prod.id}')">
-            <img src="${coverImg}" alt="${prod.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+            <img src="${coverImg}" alt="${escAttr(prod.title)}${prod.titleFr ? ' - ' + escAttr(prod.titleFr) : ''} | la Pérla" loading="${idx < 3 ? 'eager' : 'lazy'}" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
             <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-5">
               <span class="text-xs text-white font-extrabold tracking-wider flex items-center gap-2">
                 <i data-lucide="eye" class="w-4 h-4 text-laperla-gold"></i> معاينة الـ (${imgCount}) صور وتثبيت الحجز
@@ -903,7 +1036,7 @@
           <div class="p-5 flex flex-col flex-1 justify-between">
             <div>
               <span class="text-[11px] text-neutral-500 font-bold block mb-1">${prod.titleFr || ''}</span>
-              <h4 class="text-base text-neutral-900 font-black leading-snug">${prod.title}</h4>
+              <h3 class="text-base text-neutral-900 font-black leading-snug">${prod.title}</h3>
               <p class="text-[11px] text-neutral-400 mt-1">المقاسات: ${prod.sizes || '38, 40, 42'}</p>
             </div>
             <div class="flex items-center justify-between mt-4 pt-3 border-t border-neutral-100">
@@ -1061,7 +1194,7 @@
       const thumbsContainer = document.getElementById('modal-thumbnails');
       thumbsContainer.innerHTML = images.map((imgSrc, idx) => `
         <div onclick="switchModalGalleryImage(${idx})" class="aspect-square rounded-xl border-2 cursor-pointer overflow-hidden transition ${idx === activeIndex ? 'border-laperla-gold ring-2 ring-amber-300' : 'border-neutral-200 opacity-60 hover:opacity-100'}">
-          <img src="${imgSrc}" class="w-full h-full object-cover">
+          <img src="${imgSrc}" alt="صورة مصغرة للقطعة" loading="lazy" class="w-full h-full object-cover">
         </div>
       `).join('');
     }
@@ -1288,7 +1421,7 @@
               <a href="tel:${cleanPhone}" class="bg-neutral-100 hover:bg-neutral-200 text-neutral-800 px-2.5 py-1 rounded-lg text-xs flex items-center gap-1 transition" title="اتصال مباشر">
                 <i data-lucide="phone" class="w-3.5 h-3.5"></i> ${cleanPhone}
               </a>
-              <a href="https://wa.me/${waPhone}" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white p-1.5 rounded-lg transition" title="محادثة واتساب">
+              <a href="https://wa.me/${waPhone}" target="_blank" rel="noopener noreferrer" class="bg-emerald-600 hover:bg-emerald-700 text-white p-1.5 rounded-lg transition" title="محادثة واتساب">
                 <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
               </a>
             </div>
@@ -1351,7 +1484,7 @@
       }
     }
 
-    /* ================= تبديل أقسام لوحة الإدارة (إحصائيات / طلبيات / منتجات) ================= */
+    /* ================= تبديل أقسام لوحة الإدارة ================= */
     function switchAdminTab(tab) {
       const tabAnalytics = document.getElementById('admin-analytics-tab');
       const tabOrders = document.getElementById('admin-orders-tab');
@@ -1518,7 +1651,7 @@
 
       grid.innerHTML = currentUploadedImages.map((src, idx) => `
         <div class="relative aspect-[3/4] rounded-xl overflow-hidden border border-neutral-300 group shadow-xs">
-          <img src="${src}" class="w-full h-full object-cover">
+          <img src="${src}" alt="صورة المنتج" loading="lazy" class="w-full h-full object-cover">
           <button type="button" onclick="removeUploadedImage(${idx})" class="absolute top-1 right-1 bg-rose-600 text-white rounded-full p-1 text-[10px] shadow hover:bg-rose-700" title="حذف الصورة">
             ✕
           </button>
@@ -1708,7 +1841,7 @@
         <div class="border border-neutral-200 rounded-2xl p-3.5 bg-white shadow-xs flex flex-col justify-between">
           <div class="flex gap-3 items-center">
             <div class="relative w-16 h-20 rounded-xl overflow-hidden border border-neutral-300 flex-shrink-0">
-              <img src="${coverImg}" class="w-full h-full object-cover">
+              <img src="${coverImg}" alt="${escAttr(p.title)}" loading="lazy" class="w-full h-full object-cover">
               <span class="absolute bottom-0 inset-x-0 bg-black/60 text-[9px] text-white text-center">${imgCount} صور</span>
             </div>
             <div class="flex-1 text-xs space-y-1">
