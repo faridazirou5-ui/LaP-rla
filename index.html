@@ -7,6 +7,7 @@
   <meta name="description" content="متجر la Pérla الجزائري لفساتين نسائية وطقم أطفال بأقمشة فاخرة. توصيل لـ 58 ولاية والدفع عند الاستلام مع المعاينة قبل الدفع. اطلبي قطعتك الآن.">
   <link rel="canonical" href="https://lap-rla.vercel.app/">
 
+  <!-- Open Graph / بطاقات المشاركة لفيسبوك وواتساب -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="la Pérla">
   <meta property="og:locale" content="ar_DZ">
@@ -16,6 +17,7 @@
   <meta property="og:image" content="https://lap-rla.vercel.app/1.png">
   <meta name="twitter:card" content="summary_large_image">
 
+  <!-- بيانات منظمة Google Schema JSON-LD للمتجر -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -53,7 +55,8 @@
     ]
   }
   </script>
-
+  
+  <!-- إعدادات تطبيق الهاتف PWA -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#FAF6F0">
   <script>
@@ -64,18 +67,16 @@
     }
   </script>
 
-  <link rel="preconnect" href="https://duwazuxedzussasjphqe.supabase.co" crossorigin>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="preconnect" href="https://images.unsplash.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=75&w=1000" fetchpriority="high">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Cairo:wght@600;700;800;900&display=swap" rel="stylesheet">
-
+  
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js" defer></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+  <!-- فيسبوك بيكسل الرسمي -->
   <script>
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -140,6 +141,7 @@
 </head>
 <body class="selection:bg-laperla-gold selection:text-white">
 
+  <!-- إعدادات المتجر وقاعدة Supabase -->
   <script>
     const CONFIG = {
       MANAGER_PHONE: "213542634573",
@@ -152,6 +154,7 @@
     };
     const db = supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_KEY);
 
+    /* ================= كود التتبع التلقائي وحماية التكرار ================= */
     (function trackStoreVisit() {
       try {
         const hasTrackedSession = sessionStorage.getItem('laperla_session_logged');
@@ -190,6 +193,7 @@
     })();
   </script>
 
+  <!-- شريط التحكم العائم الخاص بالمدير -->
   <div id="admin-floating-switch" class="hidden fixed bottom-6 left-6 z-50 bg-white border-2 border-laperla-gold p-3 shadow-2xl flex items-center gap-3 rounded-2xl">
     <div class="flex items-center gap-2 px-2 border-l border-neutral-200">
       <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -204,6 +208,7 @@
     </button>
   </div>
 
+  <!-- الشريط الإعلاني العلوي + التواصل الاجتماعي -->
   <div class="bg-laperla-silk border-b border-laperla-border py-2 px-6 text-xs flex flex-wrap justify-between items-center text-laperla-darkText font-bold gap-3">
     <div class="flex items-center gap-4">
       <a href="https://www.instagram.com/la_perla2027?exln=MXc3MXhnaTZmZmF5Ng==" target="_blank" rel="noopener noreferrer" class="hover:text-laperla-goldDark transition flex items-center gap-1.5 font-bold">
@@ -222,6 +227,7 @@
     </div>
   </div>
 
+  <!-- الهيدر الرسمي للمتجر -->
   <header class="sticky top-0 z-40 bg-laperla-cream/95 backdrop-blur-md border-b border-laperla-border shadow-sm">
     <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
       <nav aria-label="التنقل الرئيسي" class="hidden md:flex items-center gap-8 text-sm uppercase tracking-wider text-laperla-darkText font-extrabold">
@@ -246,16 +252,18 @@
     </div>
   </header>
 
+  <!-- الواجهة الرئيسية للمتجر -->
   <main id="storefront-view">
     <section class="relative w-full overflow-hidden bg-laperla-silk border-b-2 border-laperla-border">
       <div class="max-w-7xl mx-auto">
-        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=75&w=1000" 
+        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=85&w=1600" 
              alt="تشكيلة فساتين نسائية راقية من la Pérla"
-             width="1000" height="480" fetchpriority="high" decoding="async"
+             width="1600" height="480" fetchpriority="high" decoding="async"
              class="w-full h-[320px] md:h-[480px] object-cover object-center shadow-inner">
       </div>
     </section>
 
+    <!-- تعريف المتجر (H1 + نص للمحتوى) -->
     <section class="max-w-4xl mx-auto px-6 pt-10 text-center">
       <h1 class="text-2xl md:text-3xl font-black text-laperla-brown leading-snug">
         فساتين نسائية راقية وملابس أطفال – توصيل لـ 58 ولاية
@@ -266,6 +274,7 @@
       </p>
     </section>
 
+    <!-- أقسام التصنيفات -->
     <section id="categories" class="max-w-7xl mx-auto px-6 pt-12 pb-6">
       <div class="text-center mb-6">
         <h2 class="text-2xl md:text-3xl font-extrabold text-laperla-brown">أقسام التشكيلة الفاخرة • Catégories</h2>
@@ -291,25 +300,14 @@
       </div>
     </section>
 
+    <!-- كتالوج المنتجات السحابي -->
     <section id="collection" class="max-w-7xl mx-auto px-6 py-8">
       <h2 class="sr-only-seo">تشكيلة فساتين وملابس la Pérla</h2>
       <noscript><p class="text-center text-neutral-600 font-bold py-8">فعّلي JavaScript لعرض التشكيلة، أو اطلبي مباشرة عبر <a class="underline" href="https://wa.me/213542634573">واتساب</a>.</p></noscript>
-      <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-white border-2 border-laperla-border rounded-2xl overflow-hidden animate-pulse">
-          <div class="aspect-[3/4] bg-neutral-200"></div>
-          <div class="p-5 space-y-3"><div class="h-4 bg-neutral-200 rounded w-3/4"></div><div class="h-4 bg-neutral-200 rounded w-1/2"></div></div>
-        </div>
-        <div class="bg-white border-2 border-laperla-border rounded-2xl overflow-hidden animate-pulse hidden sm:block">
-          <div class="aspect-[3/4] bg-neutral-200"></div>
-          <div class="p-5 space-y-3"><div class="h-4 bg-neutral-200 rounded w-3/4"></div><div class="h-4 bg-neutral-200 rounded w-1/2"></div></div>
-        </div>
-        <div class="bg-white border-2 border-laperla-border rounded-2xl overflow-hidden animate-pulse hidden lg:block">
-          <div class="aspect-[3/4] bg-neutral-200"></div>
-          <div class="p-5 space-y-3"><div class="h-4 bg-neutral-200 rounded w-3/4"></div><div class="h-4 bg-neutral-200 rounded w-1/2"></div></div>
-        </div>
-      </div>
+      <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
     </section>
 
+    <!-- قسم آراء الزبائن العام -->
     <section id="reviews" class="py-16 bg-laperla-silk/60 border-y-2 border-laperla-border">
       <div class="max-w-6xl mx-auto px-6">
         <div class="text-center max-w-lg mx-auto mb-10">
@@ -354,6 +352,7 @@
       </div>
     </section>
 
+    <!-- أسئلة شائعة (FAQ) -->
     <section id="faq" class="max-w-3xl mx-auto px-6 py-14">
       <h2 class="text-2xl md:text-3xl font-extrabold text-laperla-brown text-center mb-6">أسئلة شائعة</h2>
       <div class="space-y-3 text-sm font-bold text-neutral-800">
@@ -377,6 +376,7 @@
     </section>
   </main>
 
+  <!-- نافذة الحجز الفاخرة -->
   <div id="product-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black/80 backdrop-blur-sm p-2 sm:p-5">
     <div class="relative bg-white border-2 border-laperla-gold rounded-3xl w-full max-w-2xl mx-auto my-4 p-4 sm:p-7 shadow-2xl">
       <button onclick="closeProductModal()" class="absolute top-4 left-4 z-20 text-neutral-500 hover:text-black bg-white/90 p-2 rounded-full shadow border border-neutral-200">
@@ -493,6 +493,7 @@
     </div>
   </div>
 
+  <!-- نافذة الشكر والتقدير الملكية -->
   <div id="thank-you-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
     <div class="fixed inset-0 bg-black/75 backdrop-blur-md"></div>
     <div class="relative bg-white border-2 border-laperla-gold rounded-3xl max-w-md w-full p-8 text-center shadow-2xl z-10 my-auto">
@@ -514,6 +515,7 @@
     </div>
   </div>
 
+  <!-- نافذة تسجيل دخول المدير السرية -->
   <div id="admin-login-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-white border-2 border-laperla-gold rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl">
       <div class="w-12 h-12 bg-laperla-silk border border-laperla-gold rounded-full flex items-center justify-center mx-auto mb-3">
@@ -531,6 +533,7 @@
     </div>
   </div>
 
+  <!-- لوحة تحكم المدير المتكاملة مع نظام الإحصائيات الجديد -->
   <div id="admin-dashboard-view" class="hidden min-h-screen bg-[#F7F2EC] p-6 lg:p-12 font-bold">
     <div class="max-w-7xl mx-auto space-y-8">
       
@@ -549,6 +552,7 @@
         </div>
       </div>
 
+      <!-- تبويبات لوحة التحكم الثلاثة -->
       <div class="flex flex-wrap gap-3 border-b border-neutral-200 pb-3">
         <button onclick="switchAdminTab('analytics')" id="btn-tab-analytics" class="px-5 py-2.5 rounded-xl gold-btn text-xs font-black shadow-sm flex items-center gap-1.5">
           <i data-lucide="bar-chart-2" class="w-4 h-4"></i> 📊 إحصائيات وزوار المتجر
@@ -561,7 +565,10 @@
         </button>
       </div>
 
+      <!-- ================= 1. قسم الإحصائيات وزوار المتجر ================= -->
       <div id="admin-analytics-tab" class="space-y-6">
+        
+        <!-- البطاقات الأربع لفرز التواريخ -->
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           <div class="bg-white p-5 rounded-2xl border-2 border-emerald-400 shadow-sm relative overflow-hidden">
             <span class="text-xs text-neutral-500 font-bold block mb-1">🟢 زوار اليوم (Aujourd'hui)</span>
@@ -588,6 +595,7 @@
           </div>
         </div>
 
+        <!-- جدول تفصيلي لمصادر الزوار -->
         <div class="bg-white border border-neutral-200 rounded-2xl p-6 shadow-sm space-y-4">
           <div class="flex justify-between items-center border-b border-neutral-200 pb-3">
             <div>
@@ -603,8 +611,10 @@
             <p class="text-xs text-neutral-400 text-center py-6">جاري جلب إحصائيات الزوار من Supabase...</p>
           </div>
         </div>
+
       </div>
 
+      <!-- ================= 2. قسم إدارة الطلبيات ================= -->
       <div id="admin-orders-tab" class="hidden space-y-6">
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
           <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
@@ -655,6 +665,7 @@
         </div>
       </div>
 
+      <!-- ================= 3. قسم إدارة المنتجات ================= -->
       <div id="admin-products-tab" class="hidden space-y-6">
         <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
           <div class="flex justify-between items-center mb-4">
@@ -777,6 +788,7 @@
     </div>
   </div>
 
+  <!-- الفوتر الرسمي -->
   <footer class="bg-laperla-silk border-t-2 border-laperla-border py-8 px-6 text-center text-xs text-neutral-700 font-bold">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
       <div>
@@ -800,6 +812,7 @@
     </div>
   </footer>
 
+  <!-- سكريبت العمليات والإحصائيات المكتمل -->
   <script>
     const shippingRatesByWilaya = {
       "01": { home: 1300, desk: 900 }, "02": { home: 750, desk: 450 }, "03": { home: 900, desk: 550 }, "04": { home: 800, desk: 450 },
@@ -853,97 +866,30 @@
     let currentProduct = null;
     let selectedImageIndex = 0;
     let allCommunesData = [];
-    let communesLoading = null;
     let isAdminLoggedIn = false;
     let logoClicks = 0;
     let logoTimer = null;
     let editingProductId = null;
     let currentUploadedImages = [];
     let currentAdminColors = ['أزرق جينز', 'أزرق ليل'];
-    let directOpened = false;
-    let checkoutTracked = false;
 
-    function refreshIcons() {
-      try { if (window.lucide) window.lucide.createIcons(); } catch (e) {}
-    }
-
-    function readCachedProducts() {
-      try { return JSON.parse(localStorage.getItem('laperla_custom_products') || '[]'); } catch (e) { return []; }
-    }
-
-    function mapProduct(p) {
-      return {
-        id: p.id,
-        title: p.name,
-        titleFr: p.title_fr || '',
-        price: p.price,
-        oldPrice: p.old_price || '',
-        category: p.category || 'women',
-        isSale: p.is_sale || false,
-        isBest: p.is_best || false,
-        sizes: p.sizes || '38, 40, 42',
-        colors: p.colors || 'أزرق جينز, أزرق ليل',
-        description: p.description || '',
-        images: Array.isArray(p.images) && p.images.length > 0 ? p.images : (p.image_url ? [p.image_url] : [])
-      };
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('DOMContentLoaded', async () => {
       populateWilayas();
-      renderAdminColorTags();
+      fetchCommunesData();
+      await loadLiveProducts();
+      await loadOrders();
       checkAdminParam();
-
-      const cached = readCachedProducts();
-      if (cached.length > 0) {
-        liveProducts = cached;
-        renderProducts(liveProducts);
-      }
-
-      openDirectProductFast();
-      loadLiveProducts();
-
-      if (isAdminLoggedIn) loadOrders();
-
-      const orderForm = document.getElementById('order-form');
-      if (orderForm) {
-        orderForm.addEventListener('focusin', () => {
-          if (checkoutTracked || !currentProduct) return;
-          checkoutTracked = true;
-          if (typeof fbq === 'function') {
-            fbq('track', 'InitiateCheckout', {
-              content_name: currentProduct.title,
-              content_ids: [String(currentProduct.id)],
-              content_type: 'product',
-              value: parseInt(currentProduct.price) || 0,
-              currency: 'DZD'
-            });
-          }
-        });
-      }
-
-      refreshIcons();
+      checkDirectProductLink();
+      renderAdminColorTags();
+      lucide.createIcons();
     });
 
-    async function openDirectProductFast() {
+    function checkDirectProductLink() {
       const urlParams = new URLSearchParams(window.location.search);
       const prodId = urlParams.get('p') || urlParams.get('product');
-      if (!prodId) return;
-
-      const cachedProd = liveProducts.find(p => p.id == prodId);
-      if (cachedProd) {
-        directOpened = true;
-        openProductModal(prodId);
-        return;
+      if (prodId) {
+        setTimeout(() => { openProductModal(prodId); }, 350);
       }
-
-      try {
-        const { data: p, error } = await db.from('products').select('*').eq('id', prodId).single();
-        if (error || !p || directOpened) return;
-        directOpened = true;
-        const prod = mapProduct(p);
-        if (!liveProducts.find(x => x.id == prod.id)) liveProducts.push(prod);
-        openProductModal(prod.id);
-      } catch (e) {}
     }
 
     function copyProductAdLink(id) {
@@ -981,20 +927,31 @@
       try {
         const { data, error } = await db.from('products').select('*').order('created_at', { ascending: false });
         if (!error && data && data.length > 0) {
-          liveProducts = data.map(mapProduct);
-          try {
-            localStorage.setItem('laperla_custom_products', JSON.stringify(liveProducts));
-          } catch (storageErr) {}
-        } else if (liveProducts.length === 0) {
-          liveProducts = readCachedProducts();
+          liveProducts = data.map(p => ({
+            id: p.id,
+            title: p.name,
+            titleFr: p.title_fr || '',
+            price: p.price,
+            oldPrice: p.old_price || '',
+            category: p.category || 'women',
+            isSale: p.is_sale || false,
+            isBest: p.is_best || false,
+            sizes: p.sizes || '38, 40, 42',
+            colors: p.colors || 'أزرق جينز, أزرق ليل',
+            description: p.description || '',
+            images: Array.isArray(p.images) && p.images.length > 0 ? p.images : (p.image_url ? [p.image_url] : [])
+          }));
+          localStorage.setItem('laperla_custom_products', JSON.stringify(liveProducts));
+        } else {
+          liveProducts = JSON.parse(localStorage.getItem('laperla_custom_products') || '[]');
         }
       } catch (e) {
-        if (liveProducts.length === 0) liveProducts = readCachedProducts();
+        liveProducts = JSON.parse(localStorage.getItem('laperla_custom_products') || '[]');
       }
 
       renderProducts(liveProducts);
       updateProductsSchema(liveProducts);
-      if (isAdminLoggedIn) renderAdminProductsList();
+      renderAdminProductsList();
     }
 
     function updateProductsSchema(list) {
@@ -1094,7 +1051,7 @@
           </div>
         </div>
       `}).join('');
-      refreshIcons();
+      lucide.createIcons();
     }
 
     function populateWilayas() {
@@ -1108,21 +1065,14 @@
       });
     }
 
-    function fetchCommunesData() {
-      if (allCommunesData.length > 0) return Promise.resolve();
-      if (communesLoading) return communesLoading;
-      communesLoading = (async () => {
-        try {
-          const res = await fetch('https://cdn.jsdelivr.net/gh/AbderrahmeneDZ/Wilaya-Of-Algeria@master/Commune_Of_Algeria.json');
-          allCommunesData = await res.json();
-        } catch (e) {
-          communesLoading = null;
-        }
-      })();
-      return communesLoading;
+    async function fetchCommunesData() {
+      try {
+        const res = await fetch('https://cdn.jsdelivr.net/gh/AbderrahmeneDZ/Wilaya-Of-Algeria@master/Commune_Of_Algeria.json');
+        allCommunesData = await res.json();
+      } catch (e) {}
     }
 
-    async function onWilayaChange() {
+    function onWilayaChange() {
       const wilayaCode = document.getElementById('order-wilaya').value;
       const communeSelect = document.getElementById('order-commune');
       communeSelect.innerHTML = '<option value="">-- اختاري البلدية --</option>';
@@ -1137,10 +1087,6 @@
           communeSelect.appendChild(opt);
         });
       } else {
-        if (allCommunesData.length === 0) await fetchCommunesData();
-
-        if (document.getElementById('order-wilaya').value !== wilayaCode) return;
-
         const codeNum = parseInt(wilayaCode);
         const filtered = allCommunesData.filter(c => parseInt(c.wilaya_id) === codeNum);
 
@@ -1166,9 +1112,6 @@
     function openProductModal(productId) {
       currentProduct = liveProducts.find(p => p.id == productId);
       if (!currentProduct) return;
-
-      checkoutTracked = false;
-      fetchCommunesData();
 
       selectedImageIndex = 0;
       document.getElementById('modal-title').textContent = currentProduct.title;
@@ -1208,9 +1151,8 @@
       if (typeof fbq === 'function') {
         fbq('track', 'ViewContent', {
           content_name: currentProduct.title,
-          content_ids: [String(currentProduct.id)],
-          content_type: 'product',
-          value: parseInt(currentProduct.price) || 0,
+          content_ids: [currentProduct.id],
+          value: currentProduct.price,
           currency: 'DZD'
         });
       }
@@ -1218,7 +1160,7 @@
       const modal = document.getElementById('product-modal');
       modal.classList.remove('hidden');
       modal.scrollTop = 0;
-      refreshIcons();
+      lucide.createIcons();
     }
 
     function selectModalSize(size, btn) {
@@ -1354,19 +1296,6 @@
       saveOrder(orderData);
 
       try {
-        if (typeof fbq === 'function') {
-          fbq('track', 'Purchase', {
-            value: totalAmount,
-            currency: 'DZD',
-            content_ids: [String(currentProduct.id)],
-            content_type: 'product',
-            content_name: currentProduct.title,
-            num_items: 1
-          }, { eventID: orderId });
-        }
-      } catch (pixelErr) {}
-
-      try {
         await db.from('orders').insert([{
           order_number: orderId,
           customer_name: `${name} (مقاس: ${size} | لون: ${color})`,
@@ -1410,7 +1339,7 @@
       const thankModal = document.getElementById('thank-you-modal');
       thankModal.classList.remove('hidden');
       thankModal.classList.add('flex');
-      refreshIcons();
+      lucide.createIcons();
     }
 
     function closeThankYouModal() {
@@ -1521,7 +1450,7 @@
           </td>
         </tr>
       `}).join('');
-      refreshIcons();
+      lucide.createIcons();
     }
 
     function updateOrderStatus(index, newStatus) {
@@ -1555,6 +1484,7 @@
       }
     }
 
+    /* ================= تبديل أقسام لوحة الإدارة ================= */
     function switchAdminTab(tab) {
       const tabAnalytics = document.getElementById('admin-analytics-tab');
       const tabOrders = document.getElementById('admin-orders-tab');
@@ -1583,9 +1513,10 @@
         tabProducts.classList.remove('hidden');
         btnProducts.className = 'px-5 py-2.5 rounded-xl gold-btn text-xs font-black shadow-sm flex items-center gap-1.5';
       }
-      refreshIcons();
+      lucide.createIcons();
     }
 
+    /* ================= جلب وفرز إحصائيات زوار المتجر بدقة من Supabase ================= */
     async function loadAnalyticsData() {
       const container = document.getElementById('analytics-sources-list');
       try {
@@ -1857,4 +1788,150 @@
 
       document.getElementById('new-prod-sizes').value = prod.sizes || '';
       const prodSizesArr = (prod.sizes || '').split(',').map(s => s.trim());
-      document.querySelectorAll('#adm
+      document.querySelectorAll('#admin-size-options .size-badge').forEach(b => {
+        if (prodSizesArr.includes(b.innerText.trim())) {
+          b.classList.add('size-badge-active');
+        } else {
+          b.classList.remove('size-badge-active');
+        }
+      });
+
+      let rawColors = prod.colors || 'أزرق جينز, أزرق ليل';
+      rawColors = rawColors.replace(/[+\/\n|]/g, ',');
+      currentAdminColors = rawColors.split(',').map(c => c.trim()).filter(c => c.length > 0);
+      renderAdminColorTags();
+
+      currentUploadedImages = prod.images ? [...prod.images] : [];
+      renderUploadedImagesGrid();
+
+      document.getElementById('form-product-mode-title').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function resetProductForm() {
+      editingProductId = null;
+      document.getElementById('form-product-mode-title').innerText = "إضافة قطعة جديدة للتشكيلة الفاخرة";
+      document.getElementById('cancel-edit-btn').classList.add('hidden');
+      document.getElementById('save-product-submit-btn').innerText = "+ نشر القطعة سحابياً لجميع الزبائن";
+
+      document.getElementById('new-prod-title').value = '';
+      document.getElementById('new-prod-title-fr').value = '';
+      document.getElementById('new-prod-price').value = '';
+      document.getElementById('new-prod-old-price').value = '';
+      document.getElementById('new-prod-desc').value = '';
+      document.getElementById('new-prod-files').value = '';
+      document.getElementById('new-prod-is-sale').checked = false;
+      document.getElementById('new-prod-is-best').checked = false;
+      currentUploadedImages = [];
+      renderUploadedImagesGrid();
+
+      currentAdminColors = ['أزرق جينز', 'أزرق ليل'];
+      renderAdminColorTags();
+
+      document.querySelectorAll('#admin-size-options .size-badge').forEach(b => b.classList.remove('size-badge-active'));
+      document.getElementById('new-prod-sizes').value = '';
+    }
+
+    function renderAdminProductsList() {
+      const container = document.getElementById('admin-products-list');
+      container.innerHTML = liveProducts.map((p) => {
+        const coverImg = (p.images && p.images.length > 0) ? p.images[0] : '';
+        const imgCount = p.images ? p.images.length : 1;
+
+        return `
+        <div class="border border-neutral-200 rounded-2xl p-3.5 bg-white shadow-xs flex flex-col justify-between">
+          <div class="flex gap-3 items-center">
+            <div class="relative w-16 h-20 rounded-xl overflow-hidden border border-neutral-300 flex-shrink-0">
+              <img src="${coverImg}" alt="${escAttr(p.title)}" loading="lazy" class="w-full h-full object-cover">
+              <span class="absolute bottom-0 inset-x-0 bg-black/60 text-[9px] text-white text-center">${imgCount} صور</span>
+            </div>
+            <div class="flex-1 text-xs space-y-1">
+              <h5 class="font-black text-neutral-900">${p.title}</h5>
+              <span class="text-laperla-brown font-black block">${parseInt(p.price).toLocaleString('ar-DZ')} دج</span>
+              <p class="text-[10px] text-neutral-400">المقاسات: ${p.sizes || '38, 40, 42'}</p>
+            </div>
+          </div>
+
+          <div class="mt-3 pt-2.5 border-t border-neutral-100 flex flex-col gap-1.5">
+            <button onclick="copyProductAdLink('${p.id}')" class="w-full bg-laperla-silk border border-laperla-gold hover:bg-laperla-cream text-laperla-brown py-1.5 px-2 rounded-lg text-[11px] font-black flex items-center justify-center gap-1.5 transition">
+              <i data-lucide="link" class="w-3.5 h-3.5 text-laperla-goldDark"></i> نسخ رابط الإعلان لـ Meta Ads
+            </button>
+            <div class="flex gap-2">
+              <button onclick="editProduct('${p.id}')" class="flex-1 text-emerald-700 hover:text-emerald-900 font-extrabold flex items-center justify-center gap-1 bg-emerald-50 py-1.5 rounded-lg text-xs">
+                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i> تعديل
+              </button>
+              <button onclick="deleteProduct('${p.id}')" class="flex-1 text-rose-600 hover:text-rose-800 font-extrabold flex items-center justify-center gap-1 bg-rose-50 py-1.5 rounded-lg text-xs">
+                <i data-lucide="trash" class="w-3.5 h-3.5"></i> حذف
+              </button>
+            </div>
+          </div>
+        </div>
+      `}).join('');
+      lucide.createIcons();
+    }
+
+    async function deleteProduct(id) {
+      if (confirm('هل ترغب في إزالة هذه القطعة نهائياً من المتجر السحابي؟')) {
+        try {
+          await db.from('products').delete().eq('id', id);
+        } catch (e) {}
+        await loadLiveProducts();
+      }
+    }
+
+    function openAdminModal() {
+      document.getElementById('admin-login-modal').classList.remove('hidden');
+      document.getElementById('secret-pin').focus();
+    }
+
+    function closeAdminModal() {
+      document.getElementById('admin-login-modal').classList.add('hidden');
+      document.getElementById('pin-error').classList.add('hidden');
+    }
+
+    function verifyAdminSecret(e) {
+      e.preventDefault();
+      const pin = document.getElementById('secret-pin').value;
+      if (pin === CONFIG.ADMIN_PIN) {
+        isAdminLoggedIn = true;
+        closeAdminModal();
+        document.getElementById('admin-floating-switch').classList.remove('hidden');
+        switchToAdminDashboard();
+      } else {
+        document.getElementById('pin-error').classList.remove('hidden');
+      }
+    }
+
+    function toggleAdminVisitorView() {
+      const isStoreVisible = !document.getElementById('storefront-view').classList.contains('hidden');
+      if (isStoreVisible) {
+        switchToAdminDashboard();
+      } else {
+        document.getElementById('admin-dashboard-view').classList.add('hidden');
+        document.getElementById('storefront-view').classList.remove('hidden');
+        document.getElementById('current-mode-label').textContent = 'الوضع الحالي: زائر';
+        document.getElementById('switch-btn-text').textContent = 'العودة للوحة الإدارة';
+      }
+      lucide.createIcons();
+    }
+
+    function switchToAdminDashboard() {
+      document.getElementById('storefront-view').classList.add('hidden');
+      document.getElementById('admin-dashboard-view').classList.remove('hidden');
+      document.getElementById('current-mode-label').textContent = 'وضع الإدارة: نشط';
+      document.getElementById('switch-btn-text').textContent = 'معاينة المتجر كزبون';
+      loadAnalyticsData();
+      loadOrders();
+      renderAdminProductsList();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      lucide.createIcons();
+    }
+
+    function logoutAdmin() {
+      isAdminLoggedIn = false;
+      document.getElementById('admin-floating-switch').classList.add('hidden');
+      document.getElementById('admin-dashboard-view').classList.add('hidden');
+      document.getElementById('storefront-view').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
