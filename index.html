@@ -67,9 +67,13 @@
     }
   </script>
 
+  <!-- تسريع الاتصال بالخوادم (Preconnect) -->
+  <link rel="preconnect" href="https://duwazuxedzussasjphqe.supabase.co" crossorigin>
+  <link rel="preconnect" href="https://connect.facebook.net">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="preconnect" href="https://images.unsplash.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Cairo:wght@600;700;800;900&display=swap" rel="stylesheet">
   
   <script src="https://cdn.tailwindcss.com"></script>
@@ -141,7 +145,7 @@
 </head>
 <body class="selection:bg-laperla-gold selection:text-white">
 
-  <!-- إعدادات المتجر وقاعدة Supabase -->
+  <!-- إعدادات المتجر وقاعدة Supabase + الجلب الفوري للمنتج المباشر -->
   <script>
     const CONFIG = {
       MANAGER_PHONE: "213542634573",
@@ -153,6 +157,19 @@
       SUPABASE_KEY: "sb_publishable_OXs_iWjYnTZW6mSI7LeN8Q_jQQ7r5aC"
     };
     const db = supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_KEY);
+
+    // جلب المنتج المطلوب في رابط الإعلان فوراً قبل اكتمال تحميل الصفحة
+    const __initialParams = new URLSearchParams(window.location.search);
+    const __directProdId = __initialParams.get('p') || __initialParams.get('product');
+    const __directProdPromise = __directProdId
+      ? (async () => {
+          try {
+            return await db.from('products').select('*').eq('id', __directProdId).maybeSingle();
+          } catch (e) {
+            return null;
+          }
+        })()
+      : null;
 
     /* ================= كود التتبع التلقائي وحماية التكرار ================= */
     (function trackStoreVisit() {
@@ -258,7 +275,7 @@
       <div class="max-w-7xl mx-auto">
         <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=85&w=1600" 
              alt="تشكيلة فساتين نسائية راقية من la Pérla"
-             width="1600" height="480" fetchpriority="high" decoding="async"
+             width="1600" height="480" decoding="async"
              class="w-full h-[320px] md:h-[480px] object-cover object-center shadow-inner">
       </div>
     </section>
@@ -383,112 +400,120 @@
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
-      <div class="text-center pb-3 border-b border-neutral-200 pr-6">
-        <span class="text-xs font-bold text-laperla-goldDark block mb-0.5">طلب حجز القطعة الحصرية</span>
-        <h2 id="modal-title" class="text-2xl sm:text-3xl font-black text-laperla-darkText"></h2>
-        <div class="flex items-center justify-center gap-3 mt-1.5">
-          <span class="text-xs text-neutral-500 font-bold">السعر المخفض:</span>
-          <span id="modal-price" class="text-2xl font-black text-laperla-brown"></span>
-          <span id="modal-old-price" class="text-sm text-neutral-400 line-through font-bold"></span>
-        </div>
+      <!-- شاشة التحميل السريعة لروابط الإعلان -->
+      <div id="modal-loading-state" class="hidden py-16 text-center space-y-4">
+        <div class="w-12 h-12 border-4 border-laperla-border border-t-laperla-gold rounded-full animate-spin mx-auto"></div>
+        <p class="text-sm font-black text-laperla-brown">جاري تحضير تفاصيل وصور القطعة...</p>
       </div>
 
-      <div class="mt-4">
-        <div class="aspect-[3/4] sm:aspect-[16/11] max-h-[380px] w-full overflow-hidden rounded-2xl border-2 border-laperla-border relative bg-neutral-100 shadow-md mx-auto">
-          <img id="modal-main-image" src="" alt="صورة الفستان" class="w-full h-full object-cover object-top transition-all duration-300">
-          <span id="modal-photo-counter" class="absolute bottom-3 left-3 bg-black/75 text-white text-[11px] font-bold px-3 py-1 rounded-full backdrop-blur-xs"></span>
-        </div>
-        <div class="text-[11px] font-black text-neutral-700 mt-3 mb-1.5 flex items-center justify-between">
-          <span>معرض صور القطعة (اضغطي على أي صورة لتكبيرها):</span>
-          <span class="text-neutral-400 font-normal text-[10px]">حتى 8 صور</span>
-        </div>
-        <div id="modal-thumbnails" class="grid grid-cols-4 sm:grid-cols-8 gap-2"></div>
-      </div>
-
-      <div class="bg-laperla-silk/60 p-3.5 rounded-2xl border border-laperla-border my-4">
-        <h5 class="text-xs font-black text-laperla-goldDark mb-1">وصف وخامة القطعة:</h5>
-        <p id="modal-description" class="text-xs text-neutral-800 leading-relaxed font-bold"></p>
-      </div>
-
-      <div class="bg-white border-2 border-laperla-gold/60 p-4 sm:p-5 rounded-3xl shadow-sm mb-5">
-        <div class="border-b border-neutral-200 pb-2 mb-4 text-center">
-          <h3 class="text-lg font-black text-laperla-brown">استمارة الحجز الفوري • Commande</h3>
-          <p class="text-xs text-neutral-500 font-bold">املئي معلوماتكِ وسيتصل بكِ فريقنا لتأكيد التوصيل</p>
+      <div id="modal-product-content">
+        <div class="text-center pb-3 border-b border-neutral-200 pr-6">
+          <span class="text-xs font-bold text-laperla-goldDark block mb-0.5">طلب حجز القطعة الحصرية</span>
+          <h2 id="modal-title" class="text-2xl sm:text-3xl font-black text-laperla-darkText"></h2>
+          <div class="flex items-center justify-center gap-3 mt-1.5">
+            <span class="text-xs text-neutral-500 font-bold">السعر المخفض:</span>
+            <span id="modal-price" class="text-2xl font-black text-laperla-brown"></span>
+            <span id="modal-old-price" class="text-sm text-neutral-400 line-through font-bold"></span>
+          </div>
         </div>
 
-        <form id="order-form" onsubmit="handleCustomerOrder(event)" class="space-y-4 text-xs font-bold">
-          <input type="text" id="bot-trap-field" name="website_url_check" style="display:none !important; position:absolute; left:-9999px;" tabindex="-1" autocomplete="off">
+        <div class="mt-4">
+          <div class="aspect-[3/4] sm:aspect-[16/11] max-h-[380px] w-full overflow-hidden rounded-2xl border-2 border-laperla-border relative bg-neutral-100 shadow-md mx-auto">
+            <img id="modal-main-image" src="" alt="صورة الفستان" class="w-full h-full object-cover object-top transition-all duration-300">
+            <span id="modal-photo-counter" class="absolute bottom-3 left-3 bg-black/75 text-white text-[11px] font-bold px-3 py-1 rounded-full backdrop-blur-xs"></span>
+          </div>
+          <div class="text-[11px] font-black text-neutral-700 mt-3 mb-1.5 flex items-center justify-between">
+            <span>معرض صور القطعة (اضغطي على أي صورة لتكبيرها):</span>
+            <span class="text-neutral-400 font-normal text-[10px]">حتى 8 صور</span>
+          </div>
+          <div id="modal-thumbnails" class="grid grid-cols-4 sm:grid-cols-8 gap-2"></div>
+        </div>
 
-          <div>
-            <label class="block text-neutral-800 mb-1.5 font-black">اللون المحدد (Couleur) *</label>
-            <div id="modal-colors-container" class="flex flex-wrap gap-2"></div>
-            <input type="hidden" id="order-color" required>
+        <div class="bg-laperla-silk/60 p-3.5 rounded-2xl border border-laperla-border my-4">
+          <h5 class="text-xs font-black text-laperla-goldDark mb-1">وصف وخامة القطعة:</h5>
+          <p id="modal-description" class="text-xs text-neutral-800 leading-relaxed font-bold"></p>
+        </div>
+
+        <div class="bg-white border-2 border-laperla-gold/60 p-4 sm:p-5 rounded-3xl shadow-sm mb-5">
+          <div class="border-b border-neutral-200 pb-2 mb-4 text-center">
+            <h3 class="text-lg font-black text-laperla-brown">استمارة الحجز الفوري • Commande</h3>
+            <p class="text-xs text-neutral-500 font-bold">املئي معلوماتكِ وسيتصل بكِ فريقنا لتأكيد التوصيل</p>
           </div>
 
-          <div>
-            <label class="block text-neutral-800 mb-1.5 font-black">المقاس المطلوب (Taille) *</label>
-            <div id="modal-sizes-container" class="flex flex-wrap gap-2"></div>
-            <input type="hidden" id="order-size" required>
-          </div>
+          <form id="order-form" onfocusin="trackInitiateCheckoutOnce()" onsubmit="handleCustomerOrder(event)" class="space-y-4 text-xs font-bold">
+            <input type="text" id="bot-trap-field" name="website_url_check" style="display:none !important; position:absolute; left:-9999px;" tabindex="-1" autocomplete="off">
 
-          <div>
-            <label class="block text-neutral-800 mb-1">الاسم واللقب الكامل *</label>
-            <input type="text" id="order-name" required placeholder="مثال: مريم بوجمعة" class="w-full bg-laperla-cream border-2 border-laperla-border rounded-xl px-3 py-2.5 text-neutral-900 focus:border-laperla-gold outline-none font-bold">
-          </div>
-
-          <div>
-            <label class="block text-neutral-800 mb-1">رقم الهاتف (10 أرقام ويبدأ بـ 05 / 06 / 07) *</label>
-            <input type="tel" id="order-phone" maxlength="10" required placeholder="06XXXXXXXX" class="w-full bg-laperla-cream border-2 border-laperla-border rounded-xl px-3 py-2.5 text-neutral-900 focus:border-laperla-gold outline-none font-bold text-left tracking-wider" dir="ltr">
-          </div>
-
-          <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="block text-neutral-800 mb-1">الولاية (58 ولاية) *</label>
-              <select id="order-wilaya" required onchange="onWilayaChange()" class="w-full bg-laperla-cream border-2 border-laperla-border rounded-xl px-3 py-2.5 text-neutral-900 focus:border-laperla-gold outline-none font-bold">
-                <option value="">اختر الولاية...</option>
-              </select>
+              <label class="block text-neutral-800 mb-1.5 font-black">اللون المحدد (Couleur) *</label>
+              <div id="modal-colors-container" class="flex flex-wrap gap-2"></div>
+              <input type="hidden" id="order-color" required>
             </div>
+
             <div>
-              <label class="block text-neutral-800 mb-1">البلدية *</label>
-              <select id="order-commune" required class="w-full bg-laperla-cream border-2 border-laperla-border rounded-xl px-3 py-2.5 text-neutral-900 focus:border-laperla-gold outline-none font-bold">
-                <option value="">اختر الولاية أولاً</option>
-              </select>
+              <label class="block text-neutral-800 mb-1.5 font-black">المقاس المطلوب (Taille) *</label>
+              <div id="modal-sizes-container" class="flex flex-wrap gap-2"></div>
+              <input type="hidden" id="order-size" required>
             </div>
-          </div>
 
-          <div>
-            <label class="block text-neutral-800 mb-1">نوع التوصيل (Mode de livraison) *</label>
-            <div class="grid grid-cols-2 gap-2 text-xs">
-              <label class="border-2 border-laperla-border p-2.5 rounded-xl flex items-center gap-2 cursor-pointer has-[:checked]:border-laperla-gold has-[:checked]:bg-laperla-silk/50 font-extrabold">
-                <input type="radio" name="order-shipping-type" value="home" checked onchange="calculateShippingCost()" class="accent-laperla-gold">
-                <span>🏠 توصيل للمنزل</span>
-              </label>
-              <label class="border-2 border-laperla-border p-2.5 rounded-xl flex items-center gap-2 cursor-pointer has-[:checked]:border-laperla-gold has-[:checked]:bg-laperla-silk/50 font-extrabold">
-                <input type="radio" name="order-shipping-type" value="desk" onchange="calculateShippingCost()" class="accent-laperla-gold">
-                <span>🏢 استلام من المكتب</span>
-              </label>
+            <div>
+              <label class="block text-neutral-800 mb-1">الاسم واللقب الكامل *</label>
+              <input type="text" id="order-name" required placeholder="مثال: مريم بوجمعة" class="w-full bg-laperla-cream border-2 border-laperla-border rounded-xl px-3 py-2.5 text-neutral-900 focus:border-laperla-gold outline-none font-bold">
             </div>
-          </div>
 
-          <div class="bg-laperla-silk p-3.5 rounded-xl border border-laperla-border space-y-1.5 font-bold">
-            <div class="flex justify-between text-neutral-600">
-              <span>سعر القطعة (Prix):</span>
-              <span id="price-item-summary">0 دج</span>
+            <div>
+              <label class="block text-neutral-800 mb-1">رقم الهاتف (10 أرقام ويبدأ بـ 05 / 06 / 07) *</label>
+              <input type="tel" id="order-phone" maxlength="10" required placeholder="06XXXXXXXX" class="w-full bg-laperla-cream border-2 border-laperla-border rounded-xl px-3 py-2.5 text-neutral-900 focus:border-laperla-gold outline-none font-bold text-left tracking-wider" dir="ltr">
             </div>
-            <div class="flex justify-between text-neutral-600">
-              <span>تكلفة الشحن (Livraison):</span>
-              <span id="price-shipping-summary">0 دج</span>
-            </div>
-            <div class="flex justify-between text-laperla-brown font-black text-base pt-2 border-t border-laperla-border">
-              <span>المجموع الكلي الواجب دفعه:</span>
-              <span id="price-total-summary">0 دج</span>
-            </div>
-          </div>
 
-          <button type="submit" id="submit-order-btn" class="gold-btn w-full py-4 text-base font-black uppercase tracking-wider rounded-2xl transition shadow-xl flex items-center justify-center gap-2">
-            <i data-lucide="check-circle" class="w-5 h-5"></i> تأكيد حجز الطلبية الآن (الدفع عند الاستلام)
-          </button>
-        </form>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-neutral-800 mb-1">الولاية (58 ولاية) *</label>
+                <select id="order-wilaya" required onchange="onWilayaChange()" class="w-full bg-laperla-cream border-2 border-laperla-border rounded-xl px-3 py-2.5 text-neutral-900 focus:border-laperla-gold outline-none font-bold">
+                  <option value="">اختر الولاية...</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-neutral-800 mb-1">البلدية *</label>
+                <select id="order-commune" required class="w-full bg-laperla-cream border-2 border-laperla-border rounded-xl px-3 py-2.5 text-neutral-900 focus:border-laperla-gold outline-none font-bold">
+                  <option value="">اختر الولاية أولاً</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-neutral-800 mb-1">نوع التوصيل (Mode de livraison) *</label>
+              <div class="grid grid-cols-2 gap-2 text-xs">
+                <label class="border-2 border-laperla-border p-2.5 rounded-xl flex items-center gap-2 cursor-pointer has-[:checked]:border-laperla-gold has-[:checked]:bg-laperla-silk/50 font-extrabold">
+                  <input type="radio" name="order-shipping-type" value="home" checked onchange="calculateShippingCost()" class="accent-laperla-gold">
+                  <span>🏠 توصيل للمنزل</span>
+                </label>
+                <label class="border-2 border-laperla-border p-2.5 rounded-xl flex items-center gap-2 cursor-pointer has-[:checked]:border-laperla-gold has-[:checked]:bg-laperla-silk/50 font-extrabold">
+                  <input type="radio" name="order-shipping-type" value="desk" onchange="calculateShippingCost()" class="accent-laperla-gold">
+                  <span>🏢 استلام من المكتب</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="bg-laperla-silk p-3.5 rounded-xl border border-laperla-border space-y-1.5 font-bold">
+              <div class="flex justify-between text-neutral-600">
+                <span>سعر القطعة (Prix):</span>
+                <span id="price-item-summary">0 دج</span>
+              </div>
+              <div class="flex justify-between text-neutral-600">
+                <span>تكلفة الشحن (Livraison):</span>
+                <span id="price-shipping-summary">0 دج</span>
+              </div>
+              <div class="flex justify-between text-laperla-brown font-black text-base pt-2 border-t border-laperla-border">
+                <span>المجموع الكلي الواجب دفعه:</span>
+                <span id="price-total-summary">0 دج</span>
+              </div>
+            </div>
+
+            <button type="submit" id="submit-order-btn" class="gold-btn w-full py-4 text-base font-black uppercase tracking-wider rounded-2xl transition shadow-xl flex items-center justify-center gap-2">
+              <i data-lucide="check-circle" class="w-5 h-5"></i> تأكيد حجز الطلبية الآن (الدفع عند الاستلام)
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -812,7 +837,7 @@
     </div>
   </footer>
 
-  <!-- سكريبت العمليات والإحصائيات المكتمل -->
+  <!-- سكريبت العمليات والإحصائيات المحسّن -->
   <script>
     const shippingRatesByWilaya = {
       "01": { home: 1300, desk: 900 }, "02": { home: 750, desk: 450 }, "03": { home: 900, desk: 550 }, "04": { home: 800, desk: 450 },
@@ -872,25 +897,107 @@
     let editingProductId = null;
     let currentUploadedImages = [];
     let currentAdminColors = ['أزرق جينز', 'أزرق ليل'];
+    let hasTrackedCheckoutForModal = false;
+
+    function mapSupabaseProduct(p) {
+      return {
+        id: p.id,
+        title: p.name,
+        titleFr: p.title_fr || '',
+        price: p.price,
+        oldPrice: p.old_price || '',
+        category: p.category || 'women',
+        isSale: p.is_sale || false,
+        isBest: p.is_best || false,
+        sizes: p.sizes || '38, 40, 42',
+        colors: p.colors || 'أزرق جينز, أزرق ليل',
+        description: p.description || '',
+        images: Array.isArray(p.images) && p.images.length > 0 ? p.images : (p.image_url ? [p.image_url] : [])
+      };
+    }
+
+    function renderCachedProductsFirst() {
+      try {
+        const cached = JSON.parse(localStorage.getItem('laperla_custom_products') || '[]');
+        if (cached.length > 0) {
+          liveProducts = cached;
+          renderProducts(liveProducts);
+        }
+      } catch (e) {}
+    }
+
+    async function openDirectProductFast(prodId) {
+      let openedFromCache = false;
+      try {
+        const singleRaw = localStorage.getItem(`laperla_prod_${prodId}`);
+        let cachedProd = singleRaw ? JSON.parse(singleRaw) : null;
+        if (!cachedProd) {
+          const allCache = JSON.parse(localStorage.getItem('laperla_custom_products') || '[]');
+          cachedProd = allCache.find(p => p.id == prodId) || null;
+        }
+        if (cachedProd) {
+          if (!liveProducts.some(p => p.id == cachedProd.id)) {
+            liveProducts.unshift(cachedProd);
+          }
+          openProductModal(prodId);
+          openedFromCache = true;
+        }
+      } catch (e) {}
+
+      if (!openedFromCache) {
+        const modal = document.getElementById('product-modal');
+        document.getElementById('modal-loading-state').classList.remove('hidden');
+        document.getElementById('modal-product-content').classList.add('hidden');
+        modal.classList.remove('hidden');
+      }
+
+      const res = await __directProdPromise;
+      if (res && res.data) {
+        const freshProd = mapSupabaseProduct(res.data);
+        try { localStorage.setItem(`laperla_prod_${freshProd.id}`, JSON.stringify(freshProd)); } catch (e) {}
+        const idx = liveProducts.findIndex(p => p.id == freshProd.id);
+        if (idx >= 0) liveProducts[idx] = freshProd;
+        else liveProducts.unshift(freshProd);
+
+        if (!openedFromCache) {
+          openProductModal(freshProd.id);
+        } else if (currentProduct && currentProduct.id == freshProd.id && parseInt(currentProduct.price) !== parseInt(freshProd.price)) {
+          currentProduct = freshProd;
+          document.getElementById('modal-price').textContent = `${parseInt(freshProd.price).toLocaleString('ar-DZ')} دج`;
+          calculateShippingCost();
+        }
+        return;
+      }
+
+      if (!openedFromCache) {
+        await loadLiveProducts();
+        if (liveProducts.some(p => p.id == prodId)) {
+          openProductModal(prodId);
+        } else {
+          closeProductModal();
+        }
+      }
+    }
 
     window.addEventListener('DOMContentLoaded', async () => {
       populateWilayas();
       fetchCommunesData();
-      await loadLiveProducts();
-      await loadOrders();
       checkAdminParam();
-      checkDirectProductLink();
       renderAdminColorTags();
+
+      if (__directProdId) {
+        await openDirectProductFast(__directProdId);
+        loadLiveProducts();
+      } else {
+        renderCachedProductsFirst();
+        await loadLiveProducts();
+      }
+
+      if (isAdminLoggedIn) {
+        loadOrders();
+      }
       lucide.createIcons();
     });
-
-    function checkDirectProductLink() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const prodId = urlParams.get('p') || urlParams.get('product');
-      if (prodId) {
-        setTimeout(() => { openProductModal(prodId); }, 350);
-      }
-    }
 
     function copyProductAdLink(id) {
       const currentUrl = window.location.origin + window.location.pathname;
@@ -927,31 +1034,20 @@
       try {
         const { data, error } = await db.from('products').select('*').order('created_at', { ascending: false });
         if (!error && data && data.length > 0) {
-          liveProducts = data.map(p => ({
-            id: p.id,
-            title: p.name,
-            titleFr: p.title_fr || '',
-            price: p.price,
-            oldPrice: p.old_price || '',
-            category: p.category || 'women',
-            isSale: p.is_sale || false,
-            isBest: p.is_best || false,
-            sizes: p.sizes || '38, 40, 42',
-            colors: p.colors || 'أزرق جينز, أزرق ليل',
-            description: p.description || '',
-            images: Array.isArray(p.images) && p.images.length > 0 ? p.images : (p.image_url ? [p.image_url] : [])
-          }));
-          localStorage.setItem('laperla_custom_products', JSON.stringify(liveProducts));
-        } else {
+          liveProducts = data.map(mapSupabaseProduct);
+          try { localStorage.setItem('laperla_custom_products', JSON.stringify(liveProducts)); } catch (e) {}
+        } else if (liveProducts.length === 0) {
           liveProducts = JSON.parse(localStorage.getItem('laperla_custom_products') || '[]');
         }
       } catch (e) {
-        liveProducts = JSON.parse(localStorage.getItem('laperla_custom_products') || '[]');
+        if (liveProducts.length === 0) {
+          liveProducts = JSON.parse(localStorage.getItem('laperla_custom_products') || '[]');
+        }
       }
 
       renderProducts(liveProducts);
       updateProductsSchema(liveProducts);
-      renderAdminProductsList();
+      if (isAdminLoggedIn) renderAdminProductsList();
     }
 
     function updateProductsSchema(list) {
@@ -1067,8 +1163,14 @@
 
     async function fetchCommunesData() {
       try {
+        const cached = localStorage.getItem('laperla_communes_cache');
+        if (cached) {
+          allCommunesData = JSON.parse(cached);
+          return;
+        }
         const res = await fetch('https://cdn.jsdelivr.net/gh/AbderrahmeneDZ/Wilaya-Of-Algeria@master/Commune_Of_Algeria.json');
         allCommunesData = await res.json();
+        try { localStorage.setItem('laperla_communes_cache', JSON.stringify(allCommunesData)); } catch (e) {}
       } catch (e) {}
     }
 
@@ -1109,11 +1211,33 @@
       calculateShippingCost();
     }
 
+    function trackInitiateCheckoutOnce() {
+      if (hasTrackedCheckoutForModal || !currentProduct) return;
+      hasTrackedCheckoutForModal = true;
+      if (typeof fbq === 'function') {
+        fbq('track', 'InitiateCheckout', {
+          content_name: currentProduct.title,
+          content_ids: [String(currentProduct.id)],
+          content_type: 'product',
+          num_items: 1,
+          value: parseInt(currentProduct.price) || 0,
+          currency: 'DZD'
+        });
+      }
+    }
+
     function openProductModal(productId) {
       currentProduct = liveProducts.find(p => p.id == productId);
       if (!currentProduct) return;
 
+      try { localStorage.setItem(`laperla_prod_${currentProduct.id}`, JSON.stringify(currentProduct)); } catch (e) {}
+
+      hasTrackedCheckoutForModal = false;
       selectedImageIndex = 0;
+
+      document.getElementById('modal-loading-state').classList.add('hidden');
+      document.getElementById('modal-product-content').classList.remove('hidden');
+
       document.getElementById('modal-title').textContent = currentProduct.title;
       document.getElementById('modal-price').textContent = `${parseInt(currentProduct.price).toLocaleString('ar-DZ')} دج`;
       document.getElementById('modal-old-price').textContent = currentProduct.oldPrice || '';
@@ -1151,8 +1275,9 @@
       if (typeof fbq === 'function') {
         fbq('track', 'ViewContent', {
           content_name: currentProduct.title,
-          content_ids: [currentProduct.id],
-          value: currentProduct.price,
+          content_ids: [String(currentProduct.id)],
+          content_type: 'product',
+          value: parseInt(currentProduct.price) || 0,
           currency: 'DZD'
         });
       }
@@ -1232,12 +1357,14 @@
       const botTrap = document.getElementById('bot-trap-field')?.value;
       if (botTrap) return false;
 
-      const lastOrderTime = localStorage.getItem('laperla_last_submit_time');
-      const now = Date.now();
-      if (lastOrderTime && (now - parseInt(lastOrderTime)) < 90000) {
-        alert("⚠️ لقد قمت بإرسال طلب مؤخراً، يرجى الانتظار دقيقة حتى يتواصل معك فريقنا.");
-        return;
-      }
+      try {
+        const lastOrderTime = localStorage.getItem('laperla_last_submit_time');
+        const now = Date.now();
+        if (lastOrderTime && (now - parseInt(lastOrderTime)) < 90000) {
+          alert("⚠️ لقد قمت بإرسال طلب مؤخراً، يرجى الانتظار دقيقة حتى يتواصل معك فريقنا.");
+          return;
+        }
+      } catch (err) {}
 
       const phone = document.getElementById('order-phone').value.trim();
       const cleanPhone = phone.replace(/[^0-9]/g, '');
@@ -1292,8 +1419,22 @@
         status: 'قيد الانتظار'
       };
 
-      localStorage.setItem('laperla_last_submit_time', Date.now());
-      saveOrder(orderData);
+      // إرسال حدث الشراء الرسمي لفيسبوك بيكسل فوراً لحساب الطلبية في حملة المبيعات
+      if (typeof fbq === 'function') {
+        fbq('track', 'Purchase', {
+          content_name: currentProduct.title,
+          content_ids: [String(currentProduct.id)],
+          content_type: 'product',
+          num_items: 1,
+          value: totalAmount,
+          currency: 'DZD'
+        }, { eventID: orderId });
+      }
+
+      try {
+        localStorage.setItem('laperla_last_submit_time', Date.now());
+        saveOrder(orderData);
+      } catch (err) {}
 
       try {
         await db.from('orders').insert([{
@@ -1352,7 +1493,7 @@
       let orders = JSON.parse(localStorage.getItem('laperla_orders') || '[]');
       orders.unshift(order);
       localStorage.setItem('laperla_orders', JSON.stringify(orders));
-      renderOrdersInDashboard();
+      if (isAdminLoggedIn) renderOrdersInDashboard();
     }
 
     async function loadOrders() {
