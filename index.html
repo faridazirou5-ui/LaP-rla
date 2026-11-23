@@ -137,6 +137,14 @@
       border-color: #996515 !important;
       font-weight: 900;
     }
+    .variant-out-of-stock {
+      opacity: 0.42;
+      background-color: #f5f5f4 !important;
+      border-color: #d6d3d1 !important;
+      color: #78716c !important;
+      text-decoration: line-through;
+      position: relative;
+    }
   </style>
 </head>
 <body class="selection:bg-laperla-gold selection:text-white">
@@ -259,52 +267,52 @@
         <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=85&w=1600" 
              alt="تشكيلة فساتين نسائية راقية من la Pérla"
              width="1600" height="480" fetchpriority="high" decoding="async"
-             class="w-full h-[320px] md:h-[480px] object-cover object-center shadow-inner">
+             class="w-full h-[260px] md:h-[440px] object-cover object-center shadow-inner">
       </div>
     </section>
 
-    <!-- تعريف المتجر (H1 + نص للمحتوى) -->
-    <section class="max-w-4xl mx-auto px-6 pt-10 text-center">
-      <h1 class="text-2xl md:text-3xl font-black text-laperla-brown leading-snug">
+    <!-- تعريف المتجر -->
+    <section class="max-w-4xl mx-auto px-6 pt-8 text-center">
+      <h1 class="text-xl md:text-3xl font-black text-laperla-brown leading-snug">
         فساتين نسائية راقية وملابس أطفال – توصيل لـ 58 ولاية
       </h1>
-      <p class="text-sm md:text-base text-neutral-700 font-bold leading-loose mt-3">
+      <p class="text-xs md:text-base text-neutral-700 font-bold leading-loose mt-2">
         دار <strong>la Pérla</strong> علامة جزائرية للأزياء النسائية الفاخرة: فساتين جينز وساتان وأطقم عصرية محتشمة وملابس أطفال بأقمشة مختارة.
-        اطلبي قطعتك من الموقع وسيتصل بكِ فريقنا لتأكيد الطلب، والتوصيل لجميع الولايات مع الدفع عند الاستلام والمعاينة قبل الدفع.
+        التوصيل لجميع الولايات مع الدفع عند الاستلام والمعاينة قبل الدفع.
       </p>
     </section>
 
     <!-- أقسام التصنيفات -->
-    <section id="categories" class="max-w-7xl mx-auto px-6 pt-12 pb-6">
-      <div class="text-center mb-6">
-        <h2 class="text-2xl md:text-3xl font-extrabold text-laperla-brown">أقسام التشكيلة الفاخرة • Catégories</h2>
+    <section id="categories" class="max-w-7xl mx-auto px-4 sm:px-6 pt-8 pb-4">
+      <div class="text-center mb-5">
+        <h2 class="text-xl md:text-3xl font-extrabold text-laperla-brown">أقسام التشكيلة الفاخرة • Catégories</h2>
         <p class="text-xs text-neutral-600 font-bold mt-1">اختاري القسم المناسب لتصفح الأزياء الراقية</p>
       </div>
 
-      <div class="flex flex-wrap items-center justify-center gap-3 text-sm font-extrabold">
-        <button onclick="filterCategory('all')" id="cat-all" class="cat-pill gold-btn px-6 py-2.5 rounded-2xl shadow transition">
-          الكل • Tous les produits
+      <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs sm:text-sm font-extrabold">
+        <button onclick="filterCategory('all')" id="cat-all" class="cat-pill gold-btn px-4 sm:px-6 py-2 sm:py-2.5 rounded-2xl shadow transition">
+          الكل • Tous
         </button>
-        <button onclick="filterCategory('women')" id="cat-women" class="cat-pill bg-white border-2 border-laperla-border text-neutral-800 hover:border-laperla-gold px-6 py-2.5 rounded-2xl transition">
-          ملابس نسائية • Mode Femme
+        <button onclick="filterCategory('women')" id="cat-women" class="cat-pill bg-white border-2 border-laperla-border text-neutral-800 hover:border-laperla-gold px-4 sm:px-6 py-2 sm:py-2.5 rounded-2xl transition">
+          ملابس نسائية • Femme
         </button>
-        <button onclick="filterCategory('kids')" id="cat-kids" class="cat-pill bg-white border-2 border-laperla-border text-neutral-800 hover:border-laperla-gold px-6 py-2.5 rounded-2xl transition">
-          ملابس أطفال • Mode Enfants
+        <button onclick="filterCategory('kids')" id="cat-kids" class="cat-pill bg-white border-2 border-laperla-border text-neutral-800 hover:border-laperla-gold px-4 sm:px-6 py-2 sm:py-2.5 rounded-2xl transition">
+          ملابس أطفال • Enfants
         </button>
-        <button onclick="filterCategory('sales')" id="cat-sales" class="cat-pill bg-white border-2 border-laperla-border text-rose-700 hover:border-rose-400 px-6 py-2.5 rounded-2xl transition">
-          تخفيضات كبرى • Promotions 🔥
+        <button onclick="filterCategory('sales')" id="cat-sales" class="cat-pill bg-white border-2 border-laperla-border text-rose-700 hover:border-rose-400 px-4 sm:px-6 py-2 sm:py-2.5 rounded-2xl transition">
+          تخفيضات • Promos 🔥
         </button>
-        <button onclick="filterCategory('bestsellers')" id="cat-bestsellers" class="cat-pill bg-white border-2 border-laperla-border text-amber-700 hover:border-amber-400 px-6 py-2.5 rounded-2xl transition">
-          الأكثر مبيعاً • Best-Sellers ⭐
+        <button onclick="filterCategory('bestsellers')" id="cat-bestsellers" class="cat-pill bg-white border-2 border-laperla-border text-amber-700 hover:border-amber-400 px-4 sm:px-6 py-2 sm:py-2.5 rounded-2xl transition">
+          الأكثر مبيعاً ⭐
         </button>
       </div>
     </section>
 
-    <!-- كتالوج المنتجات السحابي -->
-    <section id="collection" class="max-w-7xl mx-auto px-6 py-8">
+    <!-- كتالوج المنتجات السحابي (2 أعمدة على الهاتف لسهولة التصفح) -->
+    <section id="collection" class="max-w-7xl mx-auto px-3 sm:px-6 py-6">
       <h2 class="sr-only-seo">تشكيلة فساتين وملابس la Pérla</h2>
       <noscript><p class="text-center text-neutral-600 font-bold py-8">فعّلي JavaScript لعرض التشكيلة، أو اطلبي مباشرة عبر <a class="underline" href="https://wa.me/213542634573">واتساب</a>.</p></noscript>
-      <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+      <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6"></div>
     </section>
 
     <!-- قسم آراء الزبائن العام -->
@@ -366,7 +374,7 @@
         </details>
         <details class="bg-white border-2 border-laperla-border rounded-2xl p-4">
           <summary class="cursor-pointer font-black">كيف أطلب قطعة؟</summary>
-          <p class="mt-2 leading-relaxed text-neutral-700">اختاري القطعة من التشكيلة، واضغطي «طلب اقتناء القطعة»، ثم املئي الاستمارة وسيتصل بكِ فريقنا لتأكيد الطلب.</p>
+          <p class="mt-2 leading-relaxed text-neutral-700">اختاري القطعة من التشكيلة، واضغطي «طلب القطعة»، ثم املئي الاستمارة وسيتصل بكِ فريقنا لتأكيد الطلب.</p>
         </details>
         <details class="bg-white border-2 border-laperla-border rounded-2xl p-4">
           <summary class="cursor-pointer font-black">هل تتوفر طلبيات الجملة للتجار؟</summary>
@@ -386,10 +394,11 @@
       <div class="text-center pb-3 border-b border-neutral-200 pr-6">
         <span class="text-xs font-bold text-laperla-goldDark block mb-0.5">طلب حجز القطعة الحصرية</span>
         <h2 id="modal-title" class="text-2xl sm:text-3xl font-black text-laperla-darkText"></h2>
-        <div class="flex items-center justify-center gap-3 mt-1.5">
-          <span class="text-xs text-neutral-500 font-bold">السعر المخفض:</span>
+        <div class="flex items-center justify-center gap-3 mt-1.5 flex-wrap">
+          <span class="text-xs text-neutral-500 font-bold">السعر:</span>
           <span id="modal-price" class="text-2xl font-black text-laperla-brown"></span>
           <span id="modal-old-price" class="text-sm text-neutral-400 line-through font-bold"></span>
+          <span id="modal-discount-badge" class="hidden bg-rose-600 text-white text-xs font-black px-2.5 py-0.5 rounded-full"></span>
         </div>
       </div>
 
@@ -419,60 +428,68 @@
         <form id="order-form" onsubmit="handleCustomerOrder(event)" class="space-y-4 text-xs font-bold">
           <input type="text" id="bot-trap-field" name="website_url_check" style="display:none !important; position:absolute; left:-9999px;" tabindex="-1" autocomplete="off">
 
-          <div>
-            <label class="block text-neutral-800 mb-1.5 font-black">اللون المحدد (Couleur) *</label>
-            <div id="modal-colors-container" class="flex flex-wrap gap-2"></div>
-            <input type="hidden" id="order-color" required>
+          <!-- 1. قسم اختيار العرض / الباقة (يظهر تلقائياً إذا كانت الباقة مفعلة للمنتج) -->
+          <div id="modal-bundle-section" class="hidden space-y-2">
+            <label class="block text-laperla-brown text-sm font-black">1. اختاري العرض المناسب لكِ *</label>
+            <div id="modal-bundle-options" class="space-y-2.5"></div>
           </div>
 
-          <div>
-            <label class="block text-neutral-800 mb-1.5 font-black">المقاس المطلوب (Taille) *</label>
-            <div id="modal-sizes-container" class="flex flex-wrap gap-2"></div>
-            <input type="hidden" id="order-size" required>
+          <!-- 2. قسم اختيار اللون والمقاس (يدعم قطعة واحدة أو 2 أو 3 قطع حسب الباقة المختارة) -->
+          <div id="modal-variants-slots-container" class="space-y-3"></div>
+
+          <!-- إشعار التبديل التلقائي عند نفاد تركيبة معينة -->
+          <div id="variant-availability-notice" class="hidden bg-amber-50 border border-amber-300 text-amber-900 p-3 rounded-xl text-xs font-bold leading-relaxed flex items-start gap-2">
+            <i data-lucide="info" class="w-4 h-4 text-amber-600 shrink-0 mt-0.5"></i>
+            <span id="variant-notice-text"></span>
           </div>
 
-          <div>
-            <label class="block text-neutral-800 mb-1">الاسم واللقب الكامل *</label>
-            <input type="text" id="order-name" required placeholder="مثال: مريم بوجمعة" class="w-full bg-laperla-cream border-2 border-laperla-border rounded-xl px-3 py-2.5 text-neutral-900 focus:border-laperla-gold outline-none font-bold">
-          </div>
+          <div class="border-t border-neutral-200 pt-3">
+            <label class="block text-laperla-brown text-sm font-black mb-2">معلومات التوصيل</label>
+            <div class="space-y-3">
+              <div>
+                <label class="block text-neutral-800 mb-1">الاسم واللقب الكامل *</label>
+                <input type="text" id="order-name" required placeholder="مثال: مريم بوجمعة" class="w-full bg-laperla-cream border-2 border-laperla-border rounded-xl px-3 py-2.5 text-neutral-900 focus:border-laperla-gold outline-none font-bold">
+              </div>
 
-          <div>
-            <label class="block text-neutral-800 mb-1">رقم الهاتف (10 أرقام ويبدأ بـ 05 / 06 / 07) *</label>
-            <input type="tel" id="order-phone" maxlength="10" required placeholder="06XXXXXXXX" class="w-full bg-laperla-cream border-2 border-laperla-border rounded-xl px-3 py-2.5 text-neutral-900 focus:border-laperla-gold outline-none font-bold text-left tracking-wider" dir="ltr">
-          </div>
+              <div>
+                <label class="block text-neutral-800 mb-1">رقم الهاتف (10 أرقام ويبدأ بـ 05 / 06 / 07) *</label>
+                <input type="tel" id="order-phone" maxlength="10" required placeholder="06XXXXXXXX" class="w-full bg-laperla-cream border-2 border-laperla-border rounded-xl px-3 py-2.5 text-neutral-900 focus:border-laperla-gold outline-none font-bold text-left tracking-wider" dir="ltr">
+              </div>
 
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="block text-neutral-800 mb-1">الولاية (58 ولاية) *</label>
-              <select id="order-wilaya" required onchange="onWilayaChange()" class="w-full bg-laperla-cream border-2 border-laperla-border rounded-xl px-3 py-2.5 text-neutral-900 focus:border-laperla-gold outline-none font-bold">
-                <option value="">اختر الولاية...</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-neutral-800 mb-1">البلدية *</label>
-              <select id="order-commune" required class="w-full bg-laperla-cream border-2 border-laperla-border rounded-xl px-3 py-2.5 text-neutral-900 focus:border-laperla-gold outline-none font-bold">
-                <option value="">اختر الولاية أولاً</option>
-              </select>
-            </div>
-          </div>
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-neutral-800 mb-1">الولاية (58 ولاية) *</label>
+                  <select id="order-wilaya" required onchange="onWilayaChange()" class="w-full bg-laperla-cream border-2 border-laperla-border rounded-xl px-3 py-2.5 text-neutral-900 focus:border-laperla-gold outline-none font-bold">
+                    <option value="">اختر الولاية...</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-neutral-800 mb-1">البلدية *</label>
+                  <select id="order-commune" required class="w-full bg-laperla-cream border-2 border-laperla-border rounded-xl px-3 py-2.5 text-neutral-900 focus:border-laperla-gold outline-none font-bold">
+                    <option value="">اختر الولاية أولاً</option>
+                  </select>
+                </div>
+              </div>
 
-          <div>
-            <label class="block text-neutral-800 mb-1">نوع التوصيل (Mode de livraison) *</label>
-            <div class="grid grid-cols-2 gap-2 text-xs">
-              <label class="border-2 border-laperla-border p-2.5 rounded-xl flex items-center gap-2 cursor-pointer has-[:checked]:border-laperla-gold has-[:checked]:bg-laperla-silk/50 font-extrabold">
-                <input type="radio" name="order-shipping-type" value="home" checked onchange="calculateShippingCost()" class="accent-laperla-gold">
-                <span>🏠 توصيل للمنزل</span>
-              </label>
-              <label class="border-2 border-laperla-border p-2.5 rounded-xl flex items-center gap-2 cursor-pointer has-[:checked]:border-laperla-gold has-[:checked]:bg-laperla-silk/50 font-extrabold">
-                <input type="radio" name="order-shipping-type" value="desk" onchange="calculateShippingCost()" class="accent-laperla-gold">
-                <span>🏢 استلام من المكتب</span>
-              </label>
+              <div>
+                <label class="block text-neutral-800 mb-1">نوع التوصيل (Mode de livraison) *</label>
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                  <label class="border-2 border-laperla-border p-2.5 rounded-xl flex items-center gap-2 cursor-pointer has-[:checked]:border-laperla-gold has-[:checked]:bg-laperla-silk/50 font-extrabold">
+                    <input type="radio" name="order-shipping-type" value="home" checked onchange="calculateShippingCost()" class="accent-laperla-gold">
+                    <span>🏠 توصيل للمنزل</span>
+                  </label>
+                  <label class="border-2 border-laperla-border p-2.5 rounded-xl flex items-center gap-2 cursor-pointer has-[:checked]:border-laperla-gold has-[:checked]:bg-laperla-silk/50 font-extrabold">
+                    <input type="radio" name="order-shipping-type" value="desk" onchange="calculateShippingCost()" class="accent-laperla-gold">
+                    <span>🏢 استلام من المكتب</span>
+                  </label>
+                </div>
+              </div>
             </div>
           </div>
 
           <div class="bg-laperla-silk p-3.5 rounded-xl border border-laperla-border space-y-1.5 font-bold">
             <div class="flex justify-between text-neutral-600">
-              <span>سعر القطعة (Prix):</span>
+              <span id="price-item-label">سعر القطعة (Prix):</span>
               <span id="price-item-summary">0 دج</span>
             </div>
             <div class="flex justify-between text-neutral-600">
@@ -533,7 +550,7 @@
     </div>
   </div>
 
-  <!-- لوحة تحكم المدير المتكاملة مع نظام الإحصائيات الجديد -->
+  <!-- لوحة تحكم المدير المتكاملة -->
   <div id="admin-dashboard-view" class="hidden min-h-screen bg-[#F7F2EC] p-6 lg:p-12 font-bold">
     <div class="max-w-7xl mx-auto space-y-8">
       
@@ -567,8 +584,6 @@
 
       <!-- ================= 1. قسم الإحصائيات وزوار المتجر ================= -->
       <div id="admin-analytics-tab" class="space-y-6">
-        
-        <!-- البطاقات الأربع لفرز التواريخ -->
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           <div class="bg-white p-5 rounded-2xl border-2 border-emerald-400 shadow-sm relative overflow-hidden">
             <span class="text-xs text-neutral-500 font-bold block mb-1">🟢 زوار اليوم (Aujourd'hui)</span>
@@ -595,7 +610,6 @@
           </div>
         </div>
 
-        <!-- جدول تفصيلي لمصادر الزوار -->
         <div class="bg-white border border-neutral-200 rounded-2xl p-6 shadow-sm space-y-4">
           <div class="flex justify-between items-center border-b border-neutral-200 pb-3">
             <div>
@@ -611,7 +625,6 @@
             <p class="text-xs text-neutral-400 text-center py-6">جاري جلب إحصائيات الزوار من Supabase...</p>
           </div>
         </div>
-
       </div>
 
       <!-- ================= 2. قسم إدارة الطلبيات ================= -->
@@ -687,13 +700,18 @@
             </div>
 
             <div>
-              <label class="block text-neutral-700 mb-1">السعر المخفض (دج) *</label>
-              <input type="number" id="new-prod-price" required placeholder="مثال: 3900" class="w-full bg-laperla-cream border border-laperla-border p-2.5 rounded-xl outline-none font-bold">
+              <label class="block text-neutral-700 mb-1">السعر الحالي للقطعة الواحدة (دج) *</label>
+              <input type="number" id="new-prod-price" required oninput="updateBundlePreviewInAdmin()" placeholder="مثال: 4200" class="w-full bg-laperla-cream border border-laperla-border p-2.5 rounded-xl outline-none font-bold">
             </div>
 
             <div>
-              <label class="block text-neutral-700 mb-1">السعر القديم المشطوب</label>
+              <label class="block text-neutral-700 mb-1">السعر القديم المشطوب (اختياري)</label>
               <input type="text" id="new-prod-old-price" placeholder="مثال: 5,500 دج" class="w-full bg-laperla-cream border border-laperla-border p-2.5 rounded-xl outline-none font-bold">
+            </div>
+
+            <div>
+              <label class="block text-rose-700 font-black mb-1">نسبة الخصم % الظاهرة على المنتج (مثلاً: 20 أو 35)</label>
+              <input type="number" id="new-prod-discount-pct" min="0" max="95" placeholder="مثال: 20 (اتركها فارغة أو 0 بدون شارة خصم)" class="w-full bg-rose-50/50 border border-rose-200 p-2.5 rounded-xl outline-none font-black text-rose-800">
             </div>
 
             <div>
@@ -706,15 +724,43 @@
               </select>
             </div>
 
-            <div class="flex items-center gap-4 pt-4">
+            <div class="md:col-span-3 flex flex-wrap items-center gap-6 pt-1">
               <label class="flex items-center gap-1.5 cursor-pointer">
                 <input type="checkbox" id="new-prod-is-sale" class="accent-rose-600 w-4 h-4">
-                <span class="text-xs font-bold text-rose-700">🔥 إظهار في التخفيضات (Promo)</span>
+                <span class="text-xs font-bold text-rose-700">🔥 إظهار في قسم التخفيضات (Promo)</span>
               </label>
               <label class="flex items-center gap-1.5 cursor-pointer">
                 <input type="checkbox" id="new-prod-is-best" class="accent-amber-600 w-4 h-4">
                 <span class="text-xs font-bold text-amber-700">⭐ الأكثر مبيعاً (Best-Seller)</span>
               </label>
+            </div>
+
+            <!-- إعدادات الباقة والعروض الكمية (Bundle / Packs) -->
+            <div class="md:col-span-3 border-2 border-emerald-300 bg-emerald-50/40 p-4 rounded-2xl space-y-3">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" id="new-prod-bundle-enabled" onchange="toggleAdminBundleFields()" class="accent-emerald-600 w-4 h-4">
+                  <span class="text-xs font-black text-emerald-900">🎁 تفعيل خاصية الباقة والعروض الكمية لهذا المنتج (قطعة / قطعتين / 3 قطع)</span>
+                </label>
+                <span class="text-[11px] text-emerald-700 font-bold">تسمح للزبونة باختيار لون ومقاس مختلف لكل قطعة في الباقة</span>
+              </div>
+
+              <div id="admin-bundle-fields" class="hidden grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-emerald-200">
+                <div>
+                  <label class="block text-neutral-800 mb-1 font-black">اسم الوحدة في الباقة (مثال: فستان أو طقم)</label>
+                  <input type="text" id="bundle-unit-label" value="قطعة" placeholder="مثال: روب / فستان / طقم" class="w-full bg-white border border-emerald-300 p-2 rounded-xl outline-none font-bold">
+                </div>
+                <div>
+                  <label class="block text-neutral-800 mb-1 font-black">سعر الباقة لـ (2 قطع) بالدينار *</label>
+                  <input type="number" id="bundle-price-2" oninput="updateBundlePreviewInAdmin()" placeholder="مثال: 7400" class="w-full bg-white border border-emerald-300 p-2 rounded-xl outline-none font-bold">
+                  <span id="bundle-save-2-hint" class="text-[10px] text-emerald-700 font-bold block mt-0.5"></span>
+                </div>
+                <div>
+                  <label class="block text-neutral-800 mb-1 font-black">سعر الباقة لـ (3 قطع - اختياري)</label>
+                  <input type="number" id="bundle-price-3" oninput="updateBundlePreviewInAdmin()" placeholder="مثال: 10600 (اتركه فارغاً لإخفاء خيار 3 قطع)" class="w-full bg-white border border-emerald-300 p-2 rounded-xl outline-none font-bold">
+                  <span id="bundle-save-3-hint" class="text-[10px] text-emerald-700 font-bold block mt-0.5"></span>
+                </div>
+              </div>
             </div>
 
             <div class="md:col-span-3">
@@ -751,6 +797,21 @@
 
               <div id="admin-colors-tags-list" class="flex flex-wrap gap-1.5 min-h-[36px] p-2 bg-laperla-silk/50 rounded-xl border border-laperla-border"></div>
               <input type="hidden" id="new-prod-colors" value="أزرق جينز, أزرق ليل">
+            </div>
+
+            <!-- جدول التحكم في توفر المتغيرات (لون + مقاس) -->
+            <div class="md:col-span-3 border-2 border-laperla-gold/50 bg-laperla-cream/60 p-4 rounded-2xl space-y-3">
+              <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1">
+                <div>
+                  <h5 class="text-xs font-black text-laperla-brown flex items-center gap-1.5">
+                    <i data-lucide="sliders" class="w-4 h-4 text-laperla-goldDark"></i>
+                    <span>المتغيرات المتاحة (إخفاء المقاس النافد حسب اللون)</span>
+                  </h5>
+                  <p class="text-[11px] text-neutral-500">اضغط على أيقونة العين بجانب التركيبة لإيقافها مؤقتاً ومنع طلبها عند نفاد المخزون</p>
+                </div>
+                <span id="variants-summary-badge" class="bg-white border border-laperla-border px-2.5 py-1 rounded-lg text-[11px] font-black text-neutral-700"></span>
+              </div>
+              <div id="admin-variants-matrix" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-h-64 overflow-y-auto pr-1"></div>
             </div>
 
             <div class="md:col-span-3 border-2 border-dashed border-laperla-border p-4 rounded-2xl bg-laperla-silk/30 space-y-3">
@@ -872,6 +933,11 @@
     let editingProductId = null;
     let currentUploadedImages = [];
     let currentAdminColors = ['أزرق جينز', 'أزرق ليل'];
+    let currentDisabledVariants = [];
+
+    // حالة الباقة واختيارات القطع في نافذة الزبونة
+    let selectedBundleQty = 1; // 1 أو 2 أو 3
+    let bundleSelections = []; // مصفوفة [{ color, size }, ...]
 
     window.addEventListener('DOMContentLoaded', async () => {
       populateWilayas();
@@ -881,8 +947,82 @@
       checkAdminParam();
       checkDirectProductLink();
       renderAdminColorTags();
+      renderAdminVariantsMatrix();
       lucide.createIcons();
     });
+
+    /* ================= ترميز وفك ترميز البيانات الإضافية داخل حقل colors دون المساس بهيكل Supabase ================= */
+    function parseProductMetadataFromColors(rawColorsField) {
+      const str = String(rawColorsField || 'أزرق جينز, أزرق ليل');
+      let cleanColors = str;
+      let disabled = [];
+      let discountPct = 0;
+      let bundleConfig = { enabled: false, unitLabel: 'قطعة', price2: 0, price3: 0 };
+
+      const metaMarker = '||META:';
+      const disabledMarker = '||DISABLED:';
+
+      if (cleanColors.includes(metaMarker)) {
+        const parts = cleanColors.split(metaMarker);
+        cleanColors = parts[0];
+        try {
+          const metaObj = JSON.parse(parts[1]);
+          if (Array.isArray(metaObj.disabled)) disabled = metaObj.disabled;
+          if (metaObj.discountPct) discountPct = parseInt(metaObj.discountPct) || 0;
+          if (metaObj.bundle && metaObj.bundle.enabled) {
+            bundleConfig = {
+              enabled: true,
+              unitLabel: metaObj.bundle.unitLabel || 'قطعة',
+              price2: parseInt(metaObj.bundle.price2) || 0,
+              price3: parseInt(metaObj.bundle.price3) || 0
+            };
+          }
+        } catch (e) {}
+      } else if (cleanColors.includes(disabledMarker)) {
+        // توافق عكسي مع النسخة السابقة
+        const parts = cleanColors.split(disabledMarker);
+        cleanColors = parts[0];
+        try {
+          disabled = JSON.parse(parts[1]) || [];
+        } catch (e) {}
+      }
+
+      return {
+        cleanColors: cleanColors.trim(),
+        disabled: Array.isArray(disabled) ? disabled : [],
+        discountPct,
+        bundleConfig
+      };
+    }
+
+    function encodeProductMetadataToColors(colorsStr, disabledArr, discountPct, bundleConfig) {
+      const hasDisabled = Array.isArray(disabledArr) && disabledArr.length > 0;
+      const hasDiscount = parseInt(discountPct) > 0;
+      const hasBundle = bundleConfig && bundleConfig.enabled && (parseInt(bundleConfig.price2) > 0 || parseInt(bundleConfig.price3) > 0);
+
+      if (!hasDisabled && !hasDiscount && !hasBundle) {
+        return colorsStr;
+      }
+
+      const metaObj = {};
+      if (hasDisabled) metaObj.disabled = disabledArr;
+      if (hasDiscount) metaObj.discountPct = parseInt(discountPct);
+      if (hasBundle) {
+        metaObj.bundle = {
+          enabled: true,
+          unitLabel: bundleConfig.unitLabel || 'قطعة',
+          price2: parseInt(bundleConfig.price2) || 0,
+          price3: parseInt(bundleConfig.price3) || 0
+        };
+      }
+
+      return `${colorsStr}||META:${JSON.stringify(metaObj)}`;
+    }
+
+    function isVariantAvailable(product, color, size) {
+      if (!product || !product.disabledVariants || product.disabledVariants.length === 0) return true;
+      return !product.disabledVariants.includes(`${color}||${size}`);
+    }
 
     function checkDirectProductLink() {
       const urlParams = new URLSearchParams(window.location.search);
@@ -927,20 +1067,26 @@
       try {
         const { data, error } = await db.from('products').select('*').order('created_at', { ascending: false });
         if (!error && data && data.length > 0) {
-          liveProducts = data.map(p => ({
-            id: p.id,
-            title: p.name,
-            titleFr: p.title_fr || '',
-            price: p.price,
-            oldPrice: p.old_price || '',
-            category: p.category || 'women',
-            isSale: p.is_sale || false,
-            isBest: p.is_best || false,
-            sizes: p.sizes || '38, 40, 42',
-            colors: p.colors || 'أزرق جينز, أزرق ليل',
-            description: p.description || '',
-            images: Array.isArray(p.images) && p.images.length > 0 ? p.images : (p.image_url ? [p.image_url] : [])
-          }));
+          liveProducts = data.map(p => {
+            const parsed = parseProductMetadataFromColors(p.colors);
+            return {
+              id: p.id,
+              title: p.name,
+              titleFr: p.title_fr || '',
+              price: p.price,
+              oldPrice: p.old_price || '',
+              category: p.category || 'women',
+              isSale: p.is_sale || false,
+              isBest: p.is_best || false,
+              sizes: p.sizes || '38, 40, 42',
+              colors: parsed.cleanColors,
+              disabledVariants: parsed.disabled,
+              discountPct: parsed.discountPct,
+              bundleConfig: parsed.bundleConfig,
+              description: p.description || '',
+              images: Array.isArray(p.images) && p.images.length > 0 ? p.images : (p.image_url ? [p.image_url] : [])
+            };
+          });
           localStorage.setItem('laperla_custom_products', JSON.stringify(liveProducts));
         } else {
           liveProducts = JSON.parse(localStorage.getItem('laperla_custom_products') || '[]');
@@ -994,21 +1140,22 @@
 
     function filterCategory(cat) {
       document.querySelectorAll('.cat-pill').forEach(btn => {
-        btn.className = "cat-pill bg-white border-2 border-laperla-border text-neutral-800 px-6 py-2.5 rounded-2xl transition";
+        btn.className = "cat-pill bg-white border-2 border-laperla-border text-neutral-800 px-4 sm:px-6 py-2 sm:py-2.5 rounded-2xl transition";
       });
 
       const activeBtn = document.getElementById(`cat-${cat}`);
-      if (activeBtn) activeBtn.className = "cat-pill gold-btn px-6 py-2.5 rounded-2xl shadow transition";
+      if (activeBtn) activeBtn.className = "cat-pill gold-btn px-4 sm:px-6 py-2 sm:py-2.5 rounded-2xl shadow transition";
 
       if (cat === 'all') renderProducts(liveProducts);
       else if (cat === 'women') renderProducts(liveProducts.filter(p => p.category === 'women'));
       else if (cat === 'kids') renderProducts(liveProducts.filter(p => p.category === 'kids'));
-      else if (cat === 'sales') renderProducts(liveProducts.filter(p => p.isSale || p.category === 'sales'));
+      else if (cat === 'sales') renderProducts(liveProducts.filter(p => p.isSale || p.category === 'sales' || (p.discountPct && p.discountPct > 0)));
       else if (cat === 'bestsellers') renderProducts(liveProducts.filter(p => p.isBest || p.category === 'bestsellers'));
     }
 
     const escAttr = (v) => String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 
+    /* ================= رسم البطاقات بحجم مدمج (2 في الصف على الهاتف) مع نسبة الخصم والباقة ================= */
     function renderProducts(list) {
       const container = document.getElementById('products-grid');
       if (list.length === 0) {
@@ -1018,36 +1165,46 @@
       container.innerHTML = list.map((prod, idx) => {
         const coverImg = (prod.images && prod.images.length > 0) ? prod.images[0] : 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=800';
         const imgCount = (prod.images && prod.images.length > 0) ? prod.images.length : 1;
+        const discountPct = parseInt(prod.discountPct) || 0;
+        const hasBundle = prod.bundleConfig && prod.bundleConfig.enabled;
+        const colorsArr = getProductColorsArray(prod);
 
         return `
-        <div class="bg-white border-2 border-laperla-border rounded-2xl group hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden">
+        <div class="bg-white border border-laperla-border rounded-2xl group hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden">
           <div class="relative aspect-[3/4] overflow-hidden bg-neutral-100 cursor-pointer" onclick="openProductModal('${prod.id}')">
-            <img src="${coverImg}" alt="${escAttr(prod.title)}${prod.titleFr ? ' - ' + escAttr(prod.titleFr) : ''} | la Pérla" loading="${idx < 3 ? 'eager' : 'lazy'}" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-5">
-              <span class="text-xs text-white font-extrabold tracking-wider flex items-center gap-2">
-                <i data-lucide="eye" class="w-4 h-4 text-laperla-gold"></i> معاينة الـ (${imgCount}) صور وتثبيت الحجز
-              </span>
-            </div>
-            ${prod.isSale ? `<span class="absolute top-3 right-3 bg-rose-600 text-white text-[11px] font-black px-3 py-1 rounded-full shadow">تخفيض Promo</span>` : ''}
-            <span class="absolute top-3 left-3 bg-black/60 text-white text-[10px] font-bold px-2 py-0.5 rounded-md flex items-center gap-1">
-              <i data-lucide="images" class="w-3 h-3 text-laperla-gold"></i> ${imgCount} صور
+            <img src="${coverImg}" alt="${escAttr(prod.title)}${prod.titleFr ? ' - ' + escAttr(prod.titleFr) : ''} | la Pérla" loading="${idx < 4 ? 'eager' : 'lazy'}" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+            
+            ${discountPct > 0
+              ? `<span class="absolute top-2 left-2 bg-white/95 border border-rose-500 text-rose-700 text-[11px] sm:text-xs font-black px-2 py-0.5 rounded-md shadow-xs" dir="ltr">-${discountPct}%</span>`
+              : (prod.isSale ? `<span class="absolute top-2 left-2 bg-rose-600 text-white text-[10px] font-black px-2 py-0.5 rounded-md shadow">Promo</span>` : '')
+            }
+
+            ${hasBundle ? `<span class="absolute bottom-2 right-2 bg-emerald-700/95 text-white text-[9px] sm:text-[10px] font-black px-2 py-0.5 rounded-md shadow">🎁 عرض باقة</span>` : ''}
+
+            <span class="absolute top-2 right-2 bg-black/55 text-white text-[9px] font-bold px-1.5 py-0.5 rounded flex items-center gap-1">
+              <i data-lucide="images" class="w-2.5 h-2.5 text-laperla-gold"></i> ${imgCount}
             </span>
           </div>
-          <div class="p-5 flex flex-col flex-1 justify-between">
+
+          <div class="p-2.5 sm:p-4 flex flex-col flex-1 justify-between">
             <div>
-              <span class="text-[11px] text-neutral-500 font-bold block mb-1">${prod.titleFr || ''}</span>
-              <h3 class="text-base text-neutral-900 font-black leading-snug">${prod.title}</h3>
-              <p class="text-[11px] text-neutral-400 mt-1">المقاسات: ${prod.sizes || '38, 40, 42'}</p>
-            </div>
-            <div class="flex items-center justify-between mt-4 pt-3 border-t border-neutral-100">
-              <div>
-                <span class="text-[11px] text-neutral-400 block font-bold">السعر:</span>
-                <span class="text-laperla-brown font-black text-lg tracking-wider">${parseInt(prod.price).toLocaleString('ar-DZ')} دج</span>
+              <span class="text-[9px] sm:text-[11px] text-neutral-400 uppercase tracking-wide font-bold block truncate">${prod.titleFr || (prod.category === 'kids' ? 'ENFANTS' : 'FEMME')}</span>
+              <h3 onclick="openProductModal('${prod.id}')" class="cursor-pointer text-xs sm:text-base text-neutral-900 font-black leading-snug line-clamp-1 mt-0.5 hover:text-laperla-brown">${prod.title}</h3>
+              
+              <div class="flex items-center gap-1.5 mt-1.5 flex-wrap">
+                <span class="text-laperla-brown font-black text-sm sm:text-lg">${parseInt(prod.price).toLocaleString('ar-DZ')} دج</span>
+                ${prod.oldPrice ? `<span class="text-[10px] sm:text-xs text-neutral-400 line-through font-bold">${prod.oldPrice}</span>` : ''}
               </div>
-              <button onclick="openProductModal('${prod.id}')" class="gold-btn px-4 py-2 text-xs font-black uppercase rounded-xl transition">
-                طلب اقتناء القطعة
-              </button>
+
+              <div class="flex items-center justify-between mt-1.5 text-[10px] text-neutral-500">
+                <span class="truncate">المقاسات: ${prod.sizes || '38-44'}</span>
+                <span class="shrink-0 bg-laperla-silk px-1.5 py-0.5 rounded text-laperla-brown font-bold">${colorsArr.length} ألوان</span>
+              </div>
             </div>
+
+            <button onclick="openProductModal('${prod.id}')" class="gold-btn w-full mt-2.5 py-2 sm:py-2.5 text-[11px] sm:text-xs font-black rounded-xl transition flex items-center justify-center gap-1">
+              <span>اطلبي الآن</span>
+            </button>
           </div>
         </div>
       `}).join('');
@@ -1109,37 +1266,314 @@
       calculateShippingCost();
     }
 
+    function getProductColorsArray(prod) {
+      let rawColors = prod.colors || 'أزرق جينز, أزرق ليل';
+      rawColors = rawColors.replace(/[+\/\n|]/g, ',');
+      return rawColors.split(',').map(c => c.trim()).filter(c => c.length > 0);
+    }
+
+    function getProductSizesArray(prod) {
+      return (prod.sizes || '38, 40, 42, 44').split(',').map(s => s.trim()).filter(s => s.length > 0);
+    }
+
+    function getFirstValidPair(prod) {
+      const colors = getProductColorsArray(prod);
+      const sizes = getProductSizesArray(prod);
+      for (const c of colors) {
+        for (const s of sizes) {
+          if (isVariantAvailable(prod, c, s)) return { color: c, size: s };
+        }
+      }
+      return { color: colors[0] || 'افتراضي', size: sizes[0] || '38' };
+    }
+
+    function showVariantNotice(msg) {
+      const box = document.getElementById('variant-availability-notice');
+      const txt = document.getElementById('variant-notice-text');
+      if (!msg) {
+        box.classList.add('hidden');
+        txt.textContent = '';
+        return;
+      }
+      txt.textContent = msg;
+      box.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    /* ================= رسم خيارات الباقة (1 قطعة / 2 قطع / 3 قطع) في نافذة الزبونة ================= */
+    function renderModalBundleSelector() {
+      const section = document.getElementById('modal-bundle-section');
+      const container = document.getElementById('modal-bundle-options');
+      if (!currentProduct) return;
+
+      const cfg = currentProduct.bundleConfig;
+      const unitPrice = parseInt(currentProduct.price) || 0;
+
+      if (!cfg || !cfg.enabled || (!cfg.price2 && !cfg.price3)) {
+        section.classList.add('hidden');
+        selectedBundleQty = 1;
+        return;
+      }
+
+      section.classList.remove('hidden');
+      const unitLabel = cfg.unitLabel || 'قطعة';
+      const options = [
+        {
+          qty: 1,
+          title: `1 ${unitLabel}`,
+          subtitle: 'السعر العادي للقطعة',
+          price: unitPrice,
+          save: 0,
+          badge: ''
+        }
+      ];
+
+      if (cfg.price2 && cfg.price2 > 0) {
+        const save2 = (unitPrice * 2) - cfg.price2;
+        const perUnit2 = Math.round(cfg.price2 / 2);
+        options.push({
+          qty: 2,
+          title: `2 ${unitLabel}`,
+          subtitle: `${perUnit2.toLocaleString('ar-DZ')} دج لكل ${unitLabel}`,
+          price: cfg.price2,
+          save: save2 > 0 ? save2 : 0,
+          badge: !cfg.price3 ? 'الأكثر طلباً' : ''
+        });
+      }
+
+      if (cfg.price3 && cfg.price3 > 0) {
+        const save3 = (unitPrice * 3) - cfg.price3;
+        const perUnit3 = Math.round(cfg.price3 / 3);
+        options.push({
+          qty: 3,
+          title: `3 ${unitLabel}`,
+          subtitle: `${perUnit3.toLocaleString('ar-DZ')} دج لكل ${unitLabel}`,
+          price: cfg.price3,
+          save: save3 > 0 ? save3 : 0,
+          badge: 'أفضل قيمة'
+        });
+      }
+
+      container.innerHTML = options.map(opt => {
+        const isChecked = (selectedBundleQty === opt.qty);
+        return `
+          <div onclick="selectBundleQuantity(${opt.qty})"
+               class="relative cursor-pointer border-2 rounded-2xl p-3.5 transition flex items-center justify-between ${isChecked ? 'border-laperla-gold bg-laperla-silk/65 shadow-sm' : 'border-neutral-300 bg-white hover:border-laperla-gold'}">
+            ${opt.badge ? `<span class="absolute -top-2.5 left-4 bg-rose-600 text-white text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-xs">${opt.badge}</span>` : ''}
+            <div class="flex items-center gap-3">
+              <span class="w-5 h-5 rounded-full border-2 flex items-center justify-center ${isChecked ? 'border-laperla-brown bg-laperla-brown' : 'border-neutral-400'}">
+                ${isChecked ? '<span class="w-2 h-2 rounded-full bg-white"></span>' : ''}
+              </span>
+              <div>
+                <span class="text-sm font-black text-neutral-900 block">${opt.title}</span>
+                <span class="text-[11px] text-neutral-500 font-bold">${opt.subtitle}</span>
+              </div>
+            </div>
+            <div class="text-left">
+              <span class="text-base font-black text-laperla-brown block">${opt.price.toLocaleString('ar-DZ')} دج</span>
+              ${opt.save > 0 ? `<span class="inline-block bg-emerald-700 text-white text-[10px] font-black px-2 py-0.5 rounded-md mt-0.5">وفّر ${opt.save.toLocaleString('ar-DZ')} دج</span>` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function selectBundleQuantity(qty) {
+      if (!currentProduct) return;
+      selectedBundleQty = qty;
+      const defaultPair = getFirstValidPair(currentProduct);
+
+      while (bundleSelections.length < qty) {
+        bundleSelections.push({ color: defaultPair.color, size: defaultPair.size });
+      }
+      if (bundleSelections.length > qty) {
+        bundleSelections = bundleSelections.slice(0, qty);
+      }
+
+      showVariantNotice('');
+      renderModalBundleSelector();
+      renderModalVariantSlots();
+      calculateShippingCost();
+    }
+
+    /* ================= رسم صناديق اختيار اللون والمقاس لكل قطعة في الباقة ================= */
+    function renderModalVariantSlots() {
+      if (!currentProduct) return;
+      const container = document.getElementById('modal-variants-slots-container');
+      const prodColors = getProductColorsArray(currentProduct);
+      const prodSizes = getProductSizesArray(currentProduct);
+      const unitLabel = (currentProduct.bundleConfig && currentProduct.bundleConfig.unitLabel) ? currentProduct.bundleConfig.unitLabel : 'قطعة';
+      const isMulti = bundleSelections.length > 1;
+
+      container.innerHTML = bundleSelections.map((sel, slotIdx) => {
+        const slotHeader = isMulti
+          ? `<div class="flex items-center justify-between pb-2 mb-2 border-b border-laperla-border">
+               <span class="text-xs font-black text-laperla-brown">${unitLabel} ${slotIdx + 1} — <span class="text-laperla-goldDark">${sel.color} (${sel.size})</span></span>
+               <span class="text-[10px] bg-white border border-laperla-border px-2 py-0.5 rounded-full text-neutral-600">القطعة #${slotIdx + 1}</span>
+             </div>`
+          : '';
+
+        const colorsHtml = prodColors.map(c => {
+          const isSelected = (c === sel.color);
+          const availInCurrentSize = isVariantAvailable(currentProduct, c, sel.size);
+          const availAnywhere = prodSizes.some(s => isVariantAvailable(currentProduct, c, s));
+
+          let cls = "border-2 px-3 py-1.5 rounded-xl text-xs font-black transition flex items-center gap-1.5 ";
+          if (isSelected) {
+            cls += "border-laperla-gold bg-laperla-silk text-laperla-brown shadow-xs";
+          } else if (!availAnywhere || !availInCurrentSize) {
+            cls += "variant-out-of-stock";
+          } else {
+            cls += "border-neutral-300 bg-white text-neutral-700 hover:border-laperla-gold";
+          }
+
+          return `
+            <button type="button" onclick="onCustomerSelectSlotColor(${slotIdx}, '${escAttr(c)}')" class="${cls}">
+              <span class="w-2.5 h-2.5 rounded-full ${isSelected ? 'bg-laperla-gold' : 'bg-neutral-400'} border border-neutral-400"></span>
+              <span>${c}</span>
+            </button>
+          `;
+        }).join('');
+
+        const sizesHtml = prodSizes.map(s => {
+          const isSelected = (s === sel.size);
+          const isAvail = isVariantAvailable(currentProduct, sel.color, s);
+
+          let cls = "border-2 px-3.5 py-1.5 rounded-xl text-xs font-black transition ";
+          if (isSelected && isAvail) {
+            cls += "border-laperla-gold bg-laperla-gold text-black shadow-xs";
+          } else if (!isAvail) {
+            cls += "variant-out-of-stock cursor-pointer";
+          } else {
+            cls += "border-neutral-300 bg-white text-neutral-800 hover:border-laperla-gold";
+          }
+
+          return `
+            <button type="button" onclick="onCustomerSelectSlotSize(${slotIdx}, '${escAttr(s)}')" class="${cls}">
+              ${s}
+            </button>
+          `;
+        }).join('');
+
+        return `
+          <div class="${isMulti ? 'bg-laperla-cream/60 border border-laperla-border rounded-2xl p-3' : ''} space-y-2.5">
+            ${slotHeader}
+            <div>
+              <label class="block text-neutral-800 mb-1 font-black text-[11px]">اللون (Couleur) *</label>
+              <div class="flex flex-wrap gap-1.5">${colorsHtml}</div>
+            </div>
+            <div>
+              <label class="block text-neutral-800 mb-1 font-black text-[11px]">المقاس (Taille) *</label>
+              <div class="flex flex-wrap gap-1.5">${sizesHtml}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // التحقق أن جميع القطع المختارة في الباقة متوفرة
+      const allValid = bundleSelections.every(sel => isVariantAvailable(currentProduct, sel.color, sel.size));
+      const submitBtn = document.getElementById('submit-order-btn');
+      if (!allValid) {
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        submitBtn.innerHTML = `⚠️ أحد المقاسات المختارة غير متوفر`;
+      } else {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        submitBtn.innerHTML = `<i data-lucide="check-circle" class="w-5 h-5"></i> تأكيد حجز الطلبية الآن (الدفع عند الاستلام)`;
+      }
+      lucide.createIcons();
+    }
+
+    function onCustomerSelectSlotColor(slotIdx, color) {
+      if (!currentProduct || !bundleSelections[slotIdx]) return;
+      const prodSizes = getProductSizesArray(currentProduct);
+      const currentSize = bundleSelections[slotIdx].size;
+
+      if (isVariantAvailable(currentProduct, color, currentSize)) {
+        bundleSelections[slotIdx].color = color;
+        showVariantNotice('');
+        renderModalVariantSlots();
+        return;
+      }
+
+      const firstAvailSize = prodSizes.find(s => isVariantAvailable(currentProduct, color, s));
+      if (firstAvailSize) {
+        bundleSelections[slotIdx].color = color;
+        bundleSelections[slotIdx].size = firstAvailSize;
+        showVariantNotice(`مقاس (${currentSize}) غير متوفر في لون (${color})، تم تحديد المقاس المتوفر (${firstAvailSize}) تلقائياً.`);
+        renderModalVariantSlots();
+      } else {
+        showVariantNotice(`عذراً، جميع مقاسات لون (${color}) غير متوفرة حالياً.`);
+      }
+    }
+
+    function onCustomerSelectSlotSize(slotIdx, size) {
+      if (!currentProduct || !bundleSelections[slotIdx]) return;
+      const prodColors = getProductColorsArray(currentProduct);
+      const prodSizes = getProductSizesArray(currentProduct);
+      const currentColor = bundleSelections[slotIdx].color;
+
+      if (isVariantAvailable(currentProduct, currentColor, size)) {
+        bundleSelections[slotIdx].size = size;
+        showVariantNotice('');
+        renderModalVariantSlots();
+        return;
+      }
+
+      const altColor = prodColors.find(c => isVariantAvailable(currentProduct, c, size));
+      if (altColor) {
+        bundleSelections[slotIdx].color = altColor;
+        bundleSelections[slotIdx].size = size;
+        showVariantNotice(`مقاس (${size}) غير متوفر في لون (${currentColor})، وهو متوفر في لون (${altColor}) — تم التبديل تلقائياً.`);
+        renderModalVariantSlots();
+      } else {
+        const availableSizesInColor = prodSizes.filter(s => isVariantAvailable(currentProduct, currentColor, s));
+        if (availableSizesInColor.length > 0) {
+          showVariantNotice(`مقاس (${size}) نفد من المخزون بالكامل. المقاسات المتوفرة حالياً: ${availableSizesInColor.join(' ، ')}`);
+        } else {
+          showVariantNotice(`عذراً، هذا المقاس غير متوفر حالياً.`);
+        }
+      }
+    }
+
+    function getCurrentBundleItemsPrice() {
+      if (!currentProduct) return 0;
+      const unitPrice = parseInt(currentProduct.price) || 0;
+      const cfg = currentProduct.bundleConfig;
+      if (cfg && cfg.enabled) {
+        if (selectedBundleQty === 2 && cfg.price2 > 0) return parseInt(cfg.price2);
+        if (selectedBundleQty === 3 && cfg.price3 > 0) return parseInt(cfg.price3);
+      }
+      return unitPrice * selectedBundleQty;
+    }
+
     function openProductModal(productId) {
       currentProduct = liveProducts.find(p => p.id == productId);
       if (!currentProduct) return;
 
       selectedImageIndex = 0;
+      selectedBundleQty = 1;
+      const initialPair = getFirstValidPair(currentProduct);
+      bundleSelections = [{ color: initialPair.color, size: initialPair.size }];
+
       document.getElementById('modal-title').textContent = currentProduct.title;
       document.getElementById('modal-price').textContent = `${parseInt(currentProduct.price).toLocaleString('ar-DZ')} دج`;
       document.getElementById('modal-old-price').textContent = currentProduct.oldPrice || '';
       document.getElementById('modal-description').textContent = currentProduct.description || '';
 
-      const prodSizes = (currentProduct.sizes || '38, 40, 42, 44').split(',').map(s => s.trim()).filter(s => s.length > 0);
-      const sizesBox = document.getElementById('modal-sizes-container');
-      document.getElementById('order-size').value = prodSizes[0] || '38';
-      sizesBox.innerHTML = prodSizes.map((s, idx) => `
-        <button type="button" onclick="selectModalSize('${s}', this)" class="modal-size-btn border-2 px-4 py-2 rounded-xl text-xs font-black transition ${idx === 0 ? 'border-laperla-gold bg-laperla-gold text-black shadow-sm' : 'border-neutral-300 bg-white text-neutral-800'}">
-          ${s}
-        </button>
-      `).join('');
+      const discBadge = document.getElementById('modal-discount-badge');
+      const discountPct = parseInt(currentProduct.discountPct) || 0;
+      if (discountPct > 0) {
+        discBadge.textContent = `خصم -${discountPct}%`;
+        discBadge.classList.remove('hidden');
+      } else {
+        discBadge.classList.add('hidden');
+      }
 
-      let rawColors = currentProduct.colors || 'أزرق جينز, أزرق ليل';
-      rawColors = rawColors.replace(/[+\/\n|]/g, ',');
-      const prodColors = rawColors.split(',').map(c => c.trim()).filter(c => c.length > 0);
-      
-      const colorsBox = document.getElementById('modal-colors-container');
-      document.getElementById('order-color').value = prodColors[0] || 'أزرق جينز';
-      colorsBox.innerHTML = prodColors.map((c, idx) => `
-        <button type="button" onclick="selectModalColor('${c}', this)" class="modal-color-btn border-2 px-3.5 py-2 rounded-xl text-xs font-black transition flex items-center gap-1.5 ${idx === 0 ? 'border-laperla-gold bg-laperla-silk text-laperla-brown shadow-sm' : 'border-neutral-300 bg-white text-neutral-700'}">
-          <span class="w-2.5 h-2.5 rounded-full bg-laperla-gold border border-neutral-400"></span>
-          <span>${c}</span>
-        </button>
-      `).join('');
+      showVariantNotice('');
+      renderModalBundleSelector();
+      renderModalVariantSlots();
 
       const imagesList = (currentProduct.images && currentProduct.images.length > 0) ? currentProduct.images : [
         'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=800'
@@ -1172,22 +1606,6 @@
       modal.classList.remove('hidden');
       modal.scrollTop = 0;
       lucide.createIcons();
-    }
-
-    function selectModalSize(size, btn) {
-      document.getElementById('order-size').value = size;
-      document.querySelectorAll('.modal-size-btn').forEach(b => {
-        b.className = "modal-size-btn border-2 border-neutral-300 bg-white text-neutral-800 px-4 py-2 rounded-xl text-xs font-black transition";
-      });
-      btn.className = "modal-size-btn border-2 border-laperla-gold bg-laperla-gold text-black px-4 py-2 rounded-xl text-xs font-black transition shadow-sm";
-    }
-
-    function selectModalColor(color, btn) {
-      document.getElementById('order-color').value = color;
-      document.querySelectorAll('.modal-color-btn').forEach(b => {
-        b.className = "modal-color-btn border-2 border-neutral-300 bg-white text-neutral-700 px-3.5 py-2 rounded-xl text-xs font-black transition flex items-center gap-1.5";
-      });
-      btn.className = "modal-color-btn border-2 border-laperla-gold bg-laperla-silk text-laperla-brown px-3.5 py-2 rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow-sm";
     }
 
     function closeProductModal() {
@@ -1231,8 +1649,14 @@
         }
       }
 
-      const total = parseInt(currentProduct.price) + shipping;
-      document.getElementById('price-item-summary').textContent = `${parseInt(currentProduct.price).toLocaleString('ar-DZ')} دج`;
+      const itemsPrice = getCurrentBundleItemsPrice();
+      const total = itemsPrice + shipping;
+      const itemLabelEl = document.getElementById('price-item-label');
+      if (itemLabelEl) {
+        itemLabelEl.textContent = selectedBundleQty > 1 ? `سعر الباقة (${selectedBundleQty} قطع):` : 'سعر القطعة (Prix):';
+      }
+
+      document.getElementById('price-item-summary').textContent = `${itemsPrice.toLocaleString('ar-DZ')} دج`;
       document.getElementById('price-shipping-summary').textContent = wilayaCode ? `${shipping.toLocaleString('ar-DZ')} دج` : 'حددي الولاية أولاً';
       document.getElementById('price-total-summary').textContent = `${total.toLocaleString('ar-DZ')} دج`;
     }
@@ -1242,6 +1666,12 @@
 
       const botTrap = document.getElementById('bot-trap-field')?.value;
       if (botTrap) return false;
+
+      const allValid = bundleSelections.every(sel => isVariantAvailable(currentProduct, sel.color, sel.size));
+      if (!allValid) {
+        alert(`⚠️ عذراً، أحد المقاسات المختارة غير متوفر حالياً. يرجى اختيار مقاس أو لون متوفر.`);
+        return;
+      }
 
       const lastOrderTime = localStorage.getItem('laperla_last_submit_time');
       const now = Date.now();
@@ -1273,8 +1703,6 @@
       const wilayaSelect = document.getElementById('order-wilaya');
       const wilayaName = wilayaSelect.options[wilayaSelect.selectedIndex]?.text || '';
       const commune = document.getElementById('order-commune').value || 'المركز';
-      const size = document.getElementById('order-size').value;
-      const color = document.getElementById('order-color').value || 'افتراضي';
       const isHome = document.querySelector('input[name="order-shipping-type"]:checked')?.value === 'home';
       const shippingType = isHome ? 'توصيل للمنزل' : 'استلام من مكتب التوصيل';
       
@@ -1284,16 +1712,36 @@
         shippingCost = isHome ? shippingRatesByWilaya[wilayaCode].home : shippingRatesByWilaya[wilayaCode].desk;
       }
 
-      const totalAmount = parseInt(currentProduct.price) + shippingCost;
+      const itemsPrice = getCurrentBundleItemsPrice();
+      const totalAmount = itemsPrice + shippingCost;
       const orderId = 'LP-' + Math.floor(100000 + Math.random() * 900000);
       const orderDate = new Date().toLocaleString('ar-DZ');
+
+      // تنسيق وصف الألوان والمقاسات للقطعة أو الباقة
+      let colorSummary = '';
+      let sizeSummary = '';
+      let variantsDetailText = '';
+
+      if (bundleSelections.length === 1) {
+        colorSummary = bundleSelections[0].color;
+        sizeSummary = bundleSelections[0].size;
+        variantsDetailText = `مقاس: ${sizeSummary} | لون: ${colorSummary}`;
+      } else {
+        colorSummary = bundleSelections.map((s, i) => `#${i + 1}: ${s.color}`).join(' ، ');
+        sizeSummary = bundleSelections.map((s, i) => `#${i + 1}: ${s.size}`).join(' ، ');
+        variantsDetailText = `باقة (${bundleSelections.length} قطع): ` + bundleSelections.map((s, i) => `(${i + 1}: ${s.color} / ${s.size})`).join(' + ');
+      }
+
+      const productTitleWithBundle = selectedBundleQty > 1
+        ? `${currentProduct.title} [باقة ${selectedBundleQty} قطع]`
+        : currentProduct.title;
 
       const orderData = {
         id: orderId,
         date: orderDate,
-        product: currentProduct.title,
-        color: color,
-        size: size,
+        product: productTitleWithBundle,
+        color: colorSummary,
+        size: sizeSummary,
         customerName: name,
         phone: cleanPhone,
         wilaya: wilayaName,
@@ -1309,7 +1757,7 @@
       try {
         await db.from('orders').insert([{
           order_number: orderId,
-          customer_name: `${name} (مقاس: ${size} | لون: ${color})`,
+          customer_name: `${name} (${variantsDetailText})`,
           phone: cleanPhone,
           wilaya_code: parseInt(wilayaCode) || 0,
           wilaya_name: wilayaName,
@@ -1319,24 +1767,26 @@
         }]);
       } catch (err) {}
 
-      // تسجيل حدث الشراء في Meta Pixel مع منع التكرار
       if (typeof fbq === 'function') {
         fbq('track', 'Purchase', {
           value: Number(totalAmount),
           currency: 'DZD',
-          content_name: currentProduct.title,
+          content_name: productTitleWithBundle,
           content_ids: [String(currentProduct.id)],
           content_type: 'product',
-          num_items: 1
+          num_items: selectedBundleQty
         }, { eventID: orderId });
       }
+
+      const telegramVariantsLines = bundleSelections.length === 1
+        ? `🎨 *اللون:* ${bundleSelections[0].color}\n📏 *المقاس (رقم):* ${bundleSelections[0].size}`
+        : `🎁 *نوع العرض:* باقة (${bundleSelections.length} قطع)\n` + bundleSelections.map((s, i) => `   • قطعة ${i + 1}: اللون *${s.color}* | المقاس *${s.size}*`).join('\n');
 
       const telegramMessage = 
         `👑 *طلب جديد فاخر - دار la Pérla* 👑\n\n` +
         `🔖 *رقم الطلبية:* \`${orderId}\`\n` +
         `👗 *القطعة:* ${currentProduct.title}\n` +
-        `🎨 *اللون:* ${color}\n` +
-        `📏 *المقاس (رقم):* ${size}\n` +
+        `${telegramVariantsLines}\n` +
         `💰 *المبلغ الإجمالي:* *${totalAmount.toLocaleString('ar-DZ')} دج*\n` +
         `----------------------------------------\n` +
         `👤 *بيانات الزبونة:*\n` +
@@ -1539,7 +1989,6 @@
       lucide.createIcons();
     }
 
-    /* ================= جلب وفرز إحصائيات زوار المتجر بدقة من Supabase ================= */
     async function loadAnalyticsData() {
       const container = document.getElementById('analytics-sources-list');
       try {
@@ -1688,10 +2137,45 @@
       renderUploadedImagesGrid();
     }
 
+    function toggleAdminBundleFields() {
+      const enabled = document.getElementById('new-prod-bundle-enabled').checked;
+      const box = document.getElementById('admin-bundle-fields');
+      if (enabled) {
+        box.classList.remove('hidden');
+        updateBundlePreviewInAdmin();
+      } else {
+        box.classList.add('hidden');
+      }
+    }
+
+    function updateBundlePreviewInAdmin() {
+      const unitPrice = parseInt(document.getElementById('new-prod-price').value) || 0;
+      const p2 = parseInt(document.getElementById('bundle-price-2').value) || 0;
+      const p3 = parseInt(document.getElementById('bundle-price-3').value) || 0;
+
+      const hint2 = document.getElementById('bundle-save-2-hint');
+      const hint3 = document.getElementById('bundle-save-3-hint');
+
+      if (unitPrice > 0 && p2 > 0) {
+        const save2 = (unitPrice * 2) - p2;
+        hint2.textContent = save2 > 0 ? `سيظهر للزبونة: وفّر ${save2.toLocaleString('ar-DZ')} دج` : '';
+      } else {
+        hint2.textContent = '';
+      }
+
+      if (unitPrice > 0 && p3 > 0) {
+        const save3 = (unitPrice * 3) - p3;
+        hint3.textContent = save3 > 0 ? `سيظهر للزبونة: وفّر ${save3.toLocaleString('ar-DZ')} دج` : '';
+      } else {
+        hint3.textContent = '';
+      }
+    }
+
     function toggleSizeBadge(btn, size) {
       btn.classList.toggle('size-badge-active');
       const activeSizes = Array.from(document.querySelectorAll('#admin-size-options .size-badge-active')).map(b => b.innerText.trim());
       document.getElementById('new-prod-sizes').value = activeSizes.join(', ');
+      renderAdminVariantsMatrix();
     }
 
     function renderAdminColorTags() {
@@ -1701,6 +2185,7 @@
 
       if (currentAdminColors.length === 0) {
         container.innerHTML = `<span class="text-[11px] text-neutral-400">لم تتم إضافة أي لون بعد. اكتبي لوناً واضغطي إضافة.</span>`;
+        renderAdminVariantsMatrix();
         return;
       }
 
@@ -1711,6 +2196,8 @@
           <button type="button" onclick="removeAdminColor(${idx})" class="text-rose-500 hover:text-rose-700 text-[11px] font-black mr-1" title="حذف هذا اللون">✕</button>
         </span>
       `).join('');
+
+      renderAdminVariantsMatrix();
     }
 
     function addAdminColor(colorName) {
@@ -1723,7 +2210,9 @@
     }
 
     function removeAdminColor(idx) {
+      const removedColor = currentAdminColors[idx];
       currentAdminColors.splice(idx, 1);
+      currentDisabledVariants = currentDisabledVariants.filter(k => !k.startsWith(`${removedColor}||`));
       renderAdminColorTags();
     }
 
@@ -1736,6 +2225,65 @@
       }
     }
 
+    function renderAdminVariantsMatrix() {
+      const container = document.getElementById('admin-variants-matrix');
+      const badge = document.getElementById('variants-summary-badge');
+      if (!container) return;
+
+      const sizesStr = document.getElementById('new-prod-sizes').value || '';
+      const sizes = sizesStr.split(',').map(s => s.trim()).filter(s => s.length > 0);
+      const colors = currentAdminColors;
+
+      if (colors.length === 0 || sizes.length === 0) {
+        container.innerHTML = `<p class="col-span-full text-[11px] text-neutral-400 text-center py-2">حددي الألوان والمقاسات أعلاه لعرض جدول المتغيرات والتحكم في توفر كل مقاس حسب اللون.</p>`;
+        if (badge) badge.textContent = "0 متغيرات";
+        return;
+      }
+
+      const combos = [];
+      colors.forEach(c => {
+        sizes.forEach(s => {
+          combos.push({ color: c, size: s, key: `${c}||${s}` });
+        });
+      });
+
+      const validKeys = new Set(combos.map(x => x.key));
+      currentDisabledVariants = currentDisabledVariants.filter(k => validKeys.has(k));
+
+      const activeCount = combos.length - currentDisabledVariants.length;
+      if (badge) badge.textContent = `${activeCount} متوفر / ${combos.length} الكل`;
+
+      container.innerHTML = combos.map(item => {
+        const isDisabled = currentDisabledVariants.includes(item.key);
+        return `
+          <div onclick="toggleVariantAvailability('${escAttr(item.color)}', '${escAttr(item.size)}')"
+               class="cursor-pointer select-none flex items-center justify-between p-2.5 rounded-xl border transition ${isDisabled ? 'bg-neutral-100 border-neutral-300 opacity-65' : 'bg-white border-laperla-border hover:border-laperla-gold shadow-2xs'}">
+            <div class="flex items-center gap-2 text-xs">
+              <span class="px-2 py-0.5 rounded-md font-black ${isDisabled ? 'bg-neutral-200 text-neutral-500 line-through' : 'bg-laperla-silk text-laperla-brown'}">${item.size}</span>
+              <span class="font-bold ${isDisabled ? 'text-neutral-500 line-through' : 'text-neutral-800'}">${item.color}</span>
+            </div>
+            <span class="inline-flex items-center gap-1 text-[11px] font-black px-2 py-1 rounded-lg ${isDisabled ? 'bg-rose-100 text-rose-700' : 'bg-emerald-100 text-emerald-700'}">
+              <i data-lucide="${isDisabled ? 'eye-off' : 'eye'}" class="w-3.5 h-3.5"></i>
+              <span>${isDisabled ? 'مخفي' : 'متوفر'}</span>
+            </span>
+          </div>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    function toggleVariantAvailability(color, size) {
+      const key = `${color}||${size}`;
+      const idx = currentDisabledVariants.indexOf(key);
+      if (idx === -1) {
+        currentDisabledVariants.push(key);
+      } else {
+        currentDisabledVariants.splice(idx, 1);
+      }
+      renderAdminVariantsMatrix();
+    }
+
     async function handleSaveProduct(e) {
       e.preventDefault();
       const saveBtn = document.getElementById('save-product-submit-btn');
@@ -1746,12 +2294,22 @@
       const titleFr = document.getElementById('new-prod-title-fr').value.trim();
       const price = parseInt(document.getElementById('new-prod-price').value) || 0;
       const oldPrice = document.getElementById('new-prod-old-price').value.trim();
+      const discountPct = parseInt(document.getElementById('new-prod-discount-pct').value) || 0;
       const category = document.getElementById('new-prod-category').value;
-      const isSale = document.getElementById('new-prod-is-sale').checked || category === 'sales';
+      const isSale = document.getElementById('new-prod-is-sale').checked || category === 'sales' || discountPct > 0;
       const isBest = document.getElementById('new-prod-is-best').checked || category === 'bestsellers';
       const sizes = document.getElementById('new-prod-sizes').value || '38, 40, 42, 44';
+
+      const bundleEnabled = document.getElementById('new-prod-bundle-enabled').checked;
+      const bundleConfig = {
+        enabled: bundleEnabled,
+        unitLabel: document.getElementById('bundle-unit-label').value.trim() || 'قطعة',
+        price2: parseInt(document.getElementById('bundle-price-2').value) || 0,
+        price3: parseInt(document.getElementById('bundle-price-3').value) || 0
+      };
       
-      const colorsStr = currentAdminColors.length > 0 ? currentAdminColors.join(', ') : 'أزرق جينز, أزرق ليل';
+      const baseColorsStr = currentAdminColors.length > 0 ? currentAdminColors.join(', ') : 'أزرق جينز, أزرق ليل';
+      const encodedColorsStr = encodeProductMetadataToColors(baseColorsStr, currentDisabledVariants, discountPct, bundleConfig);
       const desc = document.getElementById('new-prod-desc').value.trim();
 
       const imagesToSave = currentUploadedImages.length > 0 ? currentUploadedImages : [
@@ -1767,7 +2325,7 @@
         is_sale: isSale,
         is_best: isBest,
         sizes: sizes,
-        colors: colorsStr,
+        colors: encodedColorsStr,
         description: desc,
         images: imagesToSave,
         image_url: imagesToSave[0] || ''
@@ -1804,10 +2362,19 @@
       document.getElementById('new-prod-title-fr').value = prod.titleFr || '';
       document.getElementById('new-prod-price').value = prod.price;
       document.getElementById('new-prod-old-price').value = prod.oldPrice || '';
+      document.getElementById('new-prod-discount-pct').value = prod.discountPct || '';
       document.getElementById('new-prod-category').value = prod.category || 'women';
       document.getElementById('new-prod-is-sale').checked = prod.isSale || false;
       document.getElementById('new-prod-is-best').checked = prod.isBest || false;
       document.getElementById('new-prod-desc').value = prod.description || '';
+
+      // استرجاع إعدادات الباقة
+      const cfg = prod.bundleConfig || { enabled: false, unitLabel: 'قطعة', price2: 0, price3: 0 };
+      document.getElementById('new-prod-bundle-enabled').checked = !!cfg.enabled;
+      document.getElementById('bundle-unit-label').value = cfg.unitLabel || 'قطعة';
+      document.getElementById('bundle-price-2').value = cfg.price2 || '';
+      document.getElementById('bundle-price-3').value = cfg.price3 || '';
+      toggleAdminBundleFields();
 
       document.getElementById('new-prod-sizes').value = prod.sizes || '';
       const prodSizesArr = (prod.sizes || '').split(',').map(s => s.trim());
@@ -1818,6 +2385,8 @@
           b.classList.remove('size-badge-active');
         }
       });
+
+      currentDisabledVariants = Array.isArray(prod.disabledVariants) ? [...prod.disabledVariants] : [];
 
       let rawColors = prod.colors || 'أزرق جينز, أزرق ليل';
       rawColors = rawColors.replace(/[+\/\n|]/g, ',');
@@ -1840,18 +2409,27 @@
       document.getElementById('new-prod-title-fr').value = '';
       document.getElementById('new-prod-price').value = '';
       document.getElementById('new-prod-old-price').value = '';
+      document.getElementById('new-prod-discount-pct').value = '';
       document.getElementById('new-prod-desc').value = '';
       document.getElementById('new-prod-files').value = '';
       document.getElementById('new-prod-is-sale').checked = false;
       document.getElementById('new-prod-is-best').checked = false;
+
+      document.getElementById('new-prod-bundle-enabled').checked = false;
+      document.getElementById('bundle-unit-label').value = 'قطعة';
+      document.getElementById('bundle-price-2').value = '';
+      document.getElementById('bundle-price-3').value = '';
+      toggleAdminBundleFields();
+
       currentUploadedImages = [];
       renderUploadedImagesGrid();
 
+      currentDisabledVariants = [];
       currentAdminColors = ['أزرق جينز', 'أزرق ليل'];
-      renderAdminColorTags();
 
       document.querySelectorAll('#admin-size-options .size-badge').forEach(b => b.classList.remove('size-badge-active'));
       document.getElementById('new-prod-sizes').value = '';
+      renderAdminColorTags();
     }
 
     function renderAdminProductsList() {
@@ -1859,6 +2437,9 @@
       container.innerHTML = liveProducts.map((p) => {
         const coverImg = (p.images && p.images.length > 0) ? p.images[0] : '';
         const imgCount = p.images ? p.images.length : 1;
+        const hiddenCount = Array.isArray(p.disabledVariants) ? p.disabledVariants.length : 0;
+        const hasBundle = p.bundleConfig && p.bundleConfig.enabled;
+        const discPct = parseInt(p.discountPct) || 0;
 
         return `
         <div class="border border-neutral-200 rounded-2xl p-3.5 bg-white shadow-xs flex flex-col justify-between">
@@ -1871,6 +2452,11 @@
               <h5 class="font-black text-neutral-900">${p.title}</h5>
               <span class="text-laperla-brown font-black block">${parseInt(p.price).toLocaleString('ar-DZ')} دج</span>
               <p class="text-[10px] text-neutral-400">المقاسات: ${p.sizes || '38, 40, 42'}</p>
+              <div class="flex flex-wrap gap-1">
+                ${discPct > 0 ? `<span class="inline-block bg-rose-100 text-rose-700 px-1.5 py-0.5 rounded text-[10px] font-black">-${discPct}%</span>` : ''}
+                ${hasBundle ? `<span class="inline-block bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded text-[10px] font-black">🎁 باقة مفعلة</span>` : ''}
+                ${hiddenCount > 0 ? `<span class="inline-block bg-neutral-100 text-neutral-700 border border-neutral-300 px-1.5 py-0.5 rounded text-[10px]">${hiddenCount} مخفي</span>` : ''}
+              </div>
             </div>
           </div>
 
