@@ -384,7 +384,7 @@
     </section>
   </main>
 
-  <!-- نافذة الحجز الفاخرة -->
+  <!-- نافذة الحجز الفاخرة (مرتبة: 1. الصور، 2. آراء الزبائن، 3. استمارة الطلب والباقة وملخص الطلبية، 4. وصف المنتج) -->
   <div id="product-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black/80 backdrop-blur-sm p-2 sm:p-5">
     <div class="relative bg-white border-2 border-laperla-gold rounded-3xl w-full max-w-2xl mx-auto my-4 p-4 sm:p-7 shadow-2xl">
       <button onclick="closeProductModal()" class="absolute top-4 left-4 z-20 text-neutral-500 hover:text-black bg-white/90 p-2 rounded-full shadow border border-neutral-200">
@@ -402,6 +402,7 @@
         </div>
       </div>
 
+      <!-- أولاً: معرض الصور -->
       <div class="mt-4">
         <div class="aspect-[3/4] sm:aspect-[16/11] max-h-[380px] w-full overflow-hidden rounded-2xl border-2 border-laperla-border relative bg-neutral-100 shadow-md mx-auto">
           <img id="modal-main-image" src="" alt="صورة الفستان" class="w-full h-full object-cover object-top transition-all duration-300">
@@ -414,12 +415,20 @@
         <div id="modal-thumbnails" class="grid grid-cols-4 sm:grid-cols-8 gap-2"></div>
       </div>
 
-      <div class="bg-laperla-silk/60 p-3.5 rounded-2xl border border-laperla-border my-4">
-        <h5 class="text-xs font-black text-laperla-goldDark mb-1">وصف وخامة القطعة:</h5>
-        <p id="modal-description" class="text-xs text-neutral-800 leading-relaxed font-bold"></p>
+      <!-- ثانياً: آراء الزبائن (لقطات الشاشة المرفوعة لهذه القطعة) -->
+      <div id="modal-reviews-section" class="hidden mt-5 bg-laperla-cream/80 border-2 border-laperla-gold/50 rounded-2xl p-3.5 sm:p-4">
+        <div class="flex items-center justify-between mb-2.5">
+          <div class="flex items-center gap-1.5">
+            <span class="text-amber-500 text-sm">★★★★★</span>
+            <h4 class="text-xs sm:text-sm font-black text-laperla-brown">آراء زبوناتنا اللواتي اقتنين هذه القطعة</h4>
+          </div>
+          <span class="text-[10px] text-neutral-500 font-bold">اضغطي للتكبير 🔍</span>
+        </div>
+        <div id="modal-review-screenshots-grid" class="grid grid-cols-3 gap-2 sm:gap-3"></div>
       </div>
 
-      <div class="bg-white border-2 border-laperla-gold/60 p-4 sm:p-5 rounded-3xl shadow-sm mb-5">
+      <!-- ثالثاً: استمارة الطلب مع الباقة وملخص الطلبية -->
+      <div class="bg-white border-2 border-laperla-gold/60 p-4 sm:p-5 rounded-3xl shadow-sm mt-5">
         <div class="border-b border-neutral-200 pb-2 mb-4 text-center">
           <h3 class="text-lg font-black text-laperla-brown">استمارة الحجز الفوري • Commande</h3>
           <p class="text-xs text-neutral-500 font-bold">املئي معلوماتكِ وسيتصل بكِ فريقنا لتأكيد التوصيل</p>
@@ -428,13 +437,13 @@
         <form id="order-form" onsubmit="handleCustomerOrder(event)" class="space-y-4 text-xs font-bold">
           <input type="text" id="bot-trap-field" name="website_url_check" style="display:none !important; position:absolute; left:-9999px;" tabindex="-1" autocomplete="off">
 
-          <!-- 1. قسم اختيار العرض / الباقة (يظهر تلقائياً إذا كانت الباقة مفعلة للمنتج) -->
+          <!-- 1. قسم اختيار العرض / الباقة -->
           <div id="modal-bundle-section" class="hidden space-y-2">
             <label class="block text-laperla-brown text-sm font-black">1. اختاري العرض المناسب لكِ *</label>
             <div id="modal-bundle-options" class="space-y-2.5"></div>
           </div>
 
-          <!-- 2. قسم اختيار اللون والمقاس (يدعم قطعة واحدة أو 2 أو 3 قطع حسب الباقة المختارة) -->
+          <!-- 2. قسم اختيار اللون والمقاس -->
           <div id="modal-variants-slots-container" class="space-y-3"></div>
 
           <!-- إشعار التبديل التلقائي عند نفاد تركيبة معينة -->
@@ -507,6 +516,25 @@
           </button>
         </form>
       </div>
+
+      <!-- رابعاً: وصف وخامة المنتج -->
+      <div class="bg-laperla-silk/60 p-4 rounded-2xl border border-laperla-border mt-5 mb-1">
+        <h5 class="text-xs font-black text-laperla-goldDark mb-1.5 flex items-center gap-1.5">
+          <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+          <span>وصف وخامة القطعة:</span>
+        </h5>
+        <p id="modal-description" class="text-xs text-neutral-800 leading-relaxed font-bold whitespace-pre-line"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- نافذة تكبير صورة رأي الزبون -->
+  <div id="review-lightbox-modal" onclick="closeReviewLightbox()" class="fixed inset-0 z-[60] hidden bg-black/90 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="relative max-w-md w-full" onclick="event.stopPropagation()">
+      <button onclick="closeReviewLightbox()" class="absolute -top-3 -left-3 bg-white text-black rounded-full p-2 shadow-lg hover:bg-neutral-200 z-10">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <img id="review-lightbox-img" src="" alt="رأي زبونة la Pérla" class="w-full max-h-[82vh] object-contain rounded-2xl border-2 border-laperla-gold shadow-2xl bg-black">
     </div>
   </div>
 
@@ -814,6 +842,7 @@
               <div id="admin-variants-matrix" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-h-64 overflow-y-auto pr-1"></div>
             </div>
 
+            <!-- تحميل صور المنتج (حتى 8 صور) -->
             <div class="md:col-span-3 border-2 border-dashed border-laperla-border p-4 rounded-2xl bg-laperla-silk/30 space-y-3">
               <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                 <div>
@@ -825,6 +854,20 @@
               
               <input type="file" id="new-prod-files" accept="image/*" multiple onchange="handleMultipleImagesUpload(event)" class="w-full bg-white border border-neutral-300 p-2 rounded-xl text-xs cursor-pointer font-bold">
               <div id="multi-images-preview-grid" class="grid grid-cols-4 sm:grid-cols-8 gap-2 pt-2"></div>
+            </div>
+
+            <!-- تحميل لقطات شاشة لآراء الزبائن (حتى 3 صور كحد أقصى) -->
+            <div class="md:col-span-3 border-2 border-dashed border-amber-400 p-4 rounded-2xl bg-amber-50/40 space-y-3">
+              <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                <div>
+                  <label class="block text-amber-950 font-black">💬 صور شاشة لآراء الزبائن حول هذا المنتج (3 صور كحد أقصى - اختياري)</label>
+                  <p class="text-[11px] text-amber-800">ارفعي لقطات شاشة لمحادثات واتساب أو إنستغرام لزبونات جربن هذا الموديل؛ ستظهر مباشرة تحت الصور في صفحة الشراء.</p>
+                </div>
+                <span id="review-photo-upload-count" class="bg-white border border-amber-400 text-amber-900 text-[11px] font-black px-3 py-1 rounded-full">0 / 3 صور آراء</span>
+              </div>
+
+              <input type="file" id="new-prod-review-files" accept="image/*" multiple onchange="handleMultipleReviewImagesUpload(event)" class="w-full bg-white border border-amber-300 p-2 rounded-xl text-xs cursor-pointer font-bold">
+              <div id="multi-review-images-preview-grid" class="grid grid-cols-3 sm:grid-cols-6 gap-2 pt-2"></div>
             </div>
 
             <div class="md:col-span-3">
@@ -923,6 +966,8 @@
       "58": ["المنيعة", "حاسي القارة", "حاسي الفحل"]
     };
 
+    const REVIEW_IMG_PREFIX = 'REVIEW::';
+
     let liveProducts = [];
     let currentProduct = null;
     let selectedImageIndex = 0;
@@ -932,6 +977,7 @@
     let logoTimer = null;
     let editingProductId = null;
     let currentUploadedImages = [];
+    let currentUploadedReviewImages = [];
     let currentAdminColors = ['أزرق جينز', 'أزرق ليل'];
     let currentDisabledVariants = [];
 
@@ -979,7 +1025,6 @@
           }
         } catch (e) {}
       } else if (cleanColors.includes(disabledMarker)) {
-        // توافق عكسي مع النسخة السابقة
         const parts = cleanColors.split(disabledMarker);
         cleanColors = parts[0];
         try {
@@ -1069,6 +1114,13 @@
         if (!error && data && data.length > 0) {
           liveProducts = data.map(p => {
             const parsed = parseProductMetadataFromColors(p.colors);
+            const rawImages = Array.isArray(p.images) && p.images.length > 0 ? p.images : (p.image_url ? [p.image_url] : []);
+            const productImages = rawImages.filter(img => typeof img === 'string' && !img.startsWith(REVIEW_IMG_PREFIX));
+            const reviewImages = rawImages
+              .filter(img => typeof img === 'string' && img.startsWith(REVIEW_IMG_PREFIX))
+              .map(img => img.slice(REVIEW_IMG_PREFIX.length))
+              .slice(0, 3);
+
             return {
               id: p.id,
               title: p.name,
@@ -1084,7 +1136,8 @@
               discountPct: parsed.discountPct,
               bundleConfig: parsed.bundleConfig,
               description: p.description || '',
-              images: Array.isArray(p.images) && p.images.length > 0 ? p.images : (p.image_url ? [p.image_url] : [])
+              images: productImages,
+              reviewImages: reviewImages
             };
           });
           localStorage.setItem('laperla_custom_products', JSON.stringify(liveProducts));
@@ -1300,6 +1353,41 @@
       lucide.createIcons();
     }
 
+    /* ================= رسم لقطات شاشة آراء الزبائن داخل نافذة الشراء ================= */
+    function renderModalProductReviews(reviewImgs) {
+      const section = document.getElementById('modal-reviews-section');
+      const grid = document.getElementById('modal-review-screenshots-grid');
+
+      if (!Array.isArray(reviewImgs) || reviewImgs.length === 0) {
+        section.classList.add('hidden');
+        grid.innerHTML = '';
+        return;
+      }
+
+      section.classList.remove('hidden');
+      grid.innerHTML = reviewImgs.slice(0, 3).map((src, idx) => `
+        <div onclick="openReviewLightbox('${src}')" class="relative aspect-[3/4] rounded-xl overflow-hidden border-2 border-laperla-border hover:border-laperla-gold cursor-pointer bg-white shadow-sm group transition">
+          <img src="${src}" alt="رأي زبونة رقم ${idx + 1}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent p-1.5 flex items-center justify-between text-white text-[10px] font-bold">
+            <span>رأي #${idx + 1}</span>
+            <i data-lucide="zoom-in" class="w-3.5 h-3.5 text-laperla-gold"></i>
+          </div>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    function openReviewLightbox(src) {
+      const lightbox = document.getElementById('review-lightbox-modal');
+      document.getElementById('review-lightbox-img').src = src;
+      lightbox.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeReviewLightbox() {
+      document.getElementById('review-lightbox-modal').classList.add('hidden');
+    }
+
     /* ================= رسم خيارات الباقة (1 قطعة / 2 قطع / 3 قطع) في نافذة الزبونة ================= */
     function renderModalBundleSelector() {
       const section = document.getElementById('modal-bundle-section');
@@ -1470,7 +1558,6 @@
         `;
       }).join('');
 
-      // التحقق أن جميع القطع المختارة في الباقة متوفرة
       const allValid = bundleSelections.every(sel => isVariantAvailable(currentProduct, sel.color, sel.size));
       const submitBtn = document.getElementById('submit-order-btn');
       if (!allValid) {
@@ -1572,6 +1659,7 @@
       }
 
       showVariantNotice('');
+      renderModalProductReviews(currentProduct.reviewImages || []);
       renderModalBundleSelector();
       renderModalVariantSlots();
 
@@ -1717,7 +1805,6 @@
       const orderId = 'LP-' + Math.floor(100000 + Math.random() * 900000);
       const orderDate = new Date().toLocaleString('ar-DZ');
 
-      // تنسيق وصف الألوان والمقاسات للقطعة أو الباقة
       let colorSummary = '';
       let sizeSummary = '';
       let variantsDetailText = '';
@@ -2137,6 +2224,53 @@
       renderUploadedImagesGrid();
     }
 
+    /* ================= إدارة صور شاشة آراء الزبائن (3 صور كحد أقصى) ================= */
+    async function handleMultipleReviewImagesUpload(e) {
+      const files = Array.from(e.target.files);
+      if (!files || files.length === 0) return;
+
+      const remainingSlots = 3 - currentUploadedReviewImages.length;
+      if (remainingSlots <= 0) {
+        alert("⚠️ الحد الأقصى لصور آراء الزبائن هو 3 صور شاشة لكل منتج. يمكنك حذف إحدى الصور لإضافة أخرى.");
+        e.target.value = '';
+        return;
+      }
+
+      if (files.length > remainingSlots) {
+        alert(`ℹ️ سيتم اختيار أول ${remainingSlots} صور فقط لأن الحد الأقصى هو 3 صور لآراء الزبائن.`);
+      }
+
+      const filesToProcess = files.slice(0, remainingSlots);
+      for (const file of filesToProcess) {
+        const compressedBase64 = await compressImageFile(file, 750, 0.78);
+        currentUploadedReviewImages.push(compressedBase64);
+      }
+
+      e.target.value = '';
+      renderUploadedReviewImagesGrid();
+    }
+
+    function renderUploadedReviewImagesGrid() {
+      const grid = document.getElementById('multi-review-images-preview-grid');
+      const counter = document.getElementById('review-photo-upload-count');
+      counter.textContent = `${currentUploadedReviewImages.length} / 3 صور آراء`;
+
+      grid.innerHTML = currentUploadedReviewImages.map((src, idx) => `
+        <div class="relative aspect-[3/4] rounded-xl overflow-hidden border border-amber-400 group shadow-xs bg-white">
+          <img src="${src}" alt="صورة رأي زبون" loading="lazy" class="w-full h-full object-cover">
+          <button type="button" onclick="removeUploadedReviewImage(${idx})" class="absolute top-1 right-1 bg-rose-600 text-white rounded-full p-1 text-[10px] shadow hover:bg-rose-700" title="حذف الصورة">
+            ✕
+          </button>
+          <span class="absolute bottom-1 left-1 bg-amber-900/80 text-white text-[9px] px-1.5 py-0.5 rounded">رأي #${idx + 1}</span>
+        </div>
+      `).join('');
+    }
+
+    function removeUploadedReviewImage(index) {
+      currentUploadedReviewImages.splice(index, 1);
+      renderUploadedReviewImagesGrid();
+    }
+
     function toggleAdminBundleFields() {
       const enabled = document.getElementById('new-prod-bundle-enabled').checked;
       const box = document.getElementById('admin-bundle-fields');
@@ -2312,9 +2446,11 @@
       const encodedColorsStr = encodeProductMetadataToColors(baseColorsStr, currentDisabledVariants, discountPct, bundleConfig);
       const desc = document.getElementById('new-prod-desc').value.trim();
 
-      const imagesToSave = currentUploadedImages.length > 0 ? currentUploadedImages : [
+      const productImgsToSave = currentUploadedImages.length > 0 ? currentUploadedImages : [
         'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=800'
       ];
+      const reviewImgsToSave = currentUploadedReviewImages.slice(0, 3).map(src => REVIEW_IMG_PREFIX + src);
+      const combinedImagesToSave = [...productImgsToSave, ...reviewImgsToSave];
 
       const productPayload = {
         name: title,
@@ -2327,8 +2463,8 @@
         sizes: sizes,
         colors: encodedColorsStr,
         description: desc,
-        images: imagesToSave,
-        image_url: imagesToSave[0] || ''
+        images: combinedImagesToSave,
+        image_url: productImgsToSave[0] || ''
       };
 
       try {
@@ -2368,7 +2504,6 @@
       document.getElementById('new-prod-is-best').checked = prod.isBest || false;
       document.getElementById('new-prod-desc').value = prod.description || '';
 
-      // استرجاع إعدادات الباقة
       const cfg = prod.bundleConfig || { enabled: false, unitLabel: 'قطعة', price2: 0, price3: 0 };
       document.getElementById('new-prod-bundle-enabled').checked = !!cfg.enabled;
       document.getElementById('bundle-unit-label').value = cfg.unitLabel || 'قطعة';
@@ -2396,6 +2531,9 @@
       currentUploadedImages = prod.images ? [...prod.images] : [];
       renderUploadedImagesGrid();
 
+      currentUploadedReviewImages = prod.reviewImages ? [...prod.reviewImages].slice(0, 3) : [];
+      renderUploadedReviewImagesGrid();
+
       document.getElementById('form-product-mode-title').scrollIntoView({ behavior: 'smooth' });
     }
 
@@ -2412,6 +2550,7 @@
       document.getElementById('new-prod-discount-pct').value = '';
       document.getElementById('new-prod-desc').value = '';
       document.getElementById('new-prod-files').value = '';
+      document.getElementById('new-prod-review-files').value = '';
       document.getElementById('new-prod-is-sale').checked = false;
       document.getElementById('new-prod-is-best').checked = false;
 
@@ -2423,6 +2562,9 @@
 
       currentUploadedImages = [];
       renderUploadedImagesGrid();
+
+      currentUploadedReviewImages = [];
+      renderUploadedReviewImagesGrid();
 
       currentDisabledVariants = [];
       currentAdminColors = ['أزرق جينز', 'أزرق ليل'];
@@ -2437,6 +2579,7 @@
       container.innerHTML = liveProducts.map((p) => {
         const coverImg = (p.images && p.images.length > 0) ? p.images[0] : '';
         const imgCount = p.images ? p.images.length : 1;
+        const reviewCount = Array.isArray(p.reviewImages) ? p.reviewImages.length : 0;
         const hiddenCount = Array.isArray(p.disabledVariants) ? p.disabledVariants.length : 0;
         const hasBundle = p.bundleConfig && p.bundleConfig.enabled;
         const discPct = parseInt(p.discountPct) || 0;
@@ -2455,6 +2598,7 @@
               <div class="flex flex-wrap gap-1">
                 ${discPct > 0 ? `<span class="inline-block bg-rose-100 text-rose-700 px-1.5 py-0.5 rounded text-[10px] font-black">-${discPct}%</span>` : ''}
                 ${hasBundle ? `<span class="inline-block bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded text-[10px] font-black">🎁 باقة مفعلة</span>` : ''}
+                ${reviewCount > 0 ? `<span class="inline-block bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded text-[10px] font-black">💬 ${reviewCount} آراء</span>` : ''}
                 ${hiddenCount > 0 ? `<span class="inline-block bg-neutral-100 text-neutral-700 border border-neutral-300 px-1.5 py-0.5 rounded text-[10px]">${hiddenCount} مخفي</span>` : ''}
               </div>
             </div>
